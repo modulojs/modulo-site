@@ -1,0 +1,45 @@
+!DOCTYPE_MODULO(`
+
+{# Split view (editor on left, divider with 3 buttons, demo on right) #}
+<div class="pane-holder {% if vbrowser.settings.fullscreen %}pane-holder--fullscreen{% endif %}" style="
+        --editor-size: {{ vbrowser.settings.divider|multiply:'-1'|add:100 }}%;
+        --divider-width: 45px;
+        --divider-height: 35px; {{ vbrowser.settings.extra-pane-style|default:'' }}">
+    <div class="pane pane--left pane--subpane-holder">
+        {% if vbrowser.menu|type is not "null" %}
+            <div class="subpane">
+                {% for btnTemplate in vbrowser.buttonTemplates %}
+                    {% if vbrowser.menu == btnTemplate.conf.Button %}
+                        {% include btnTemplate %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="subpane {# if vbrowser.buffer-class #} {#usage-border#} {# endif #}">
+                {% if vbrowser.text is null %}
+                    <strong style="display: block; text-align: right; opacity: 0.3">[ ... ]</strong>
+                {% else %}
+                    <textarea [state.bind] name="vbrowser.text" class="editor--default-textarea" style="font-size: {{ vbrowser.settings.font-size }}px" spellcheck="false"></textarea>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+    <div class="pane pane--divider">
+        <div class="toolbar toolbar--small {% if vbrowser.menu|type is 'null' %}toolbar--autohide{% endif %}">
+            {% for btnTemplate in vbrowser.buttonTemplates %}
+                <button
+                    @click:="{{ btnTemplate.conf.ButtonClick|default:'vbrowser.toggleMenu' }}"
+                    payload="{{ btnTemplate.conf.ButtonPayload|default:btnTemplate.conf.Button }}"
+                    class="tb-button tb-button--{{ btnTemplate.conf.Button }} {% if vbrowser.menu is btnTemplate.conf.Button %}toolbar--selected{% endif %}"
+                >{% if btnTemplate.conf.ButtonEmoji %}<span>{{ btnTemplate.conf.ButtonEmoji|safe }}</span>{% endif %}
+                    {{ btnTemplate.conf.ButtonLabel|default:btnTemplate.conf.Button }}
+                </button>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="pane pane--right">
+        <div [vbrowser.demo] class="demo-area">{{ vbrowser.demo|safe }}</div>
+    </div>
+</div>
+
+`)

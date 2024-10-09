@@ -1,0 +1,18 @@
+!DOCTYPE_MODULO(`
+{
+    "list": [
+        {
+            "title": "Home",
+            "file": "index.html"
+        },
+        {
+            "title": "Tests",
+            "file": "tests.html"
+        },
+        {
+            "title": "Editor",
+            "file": "studio.html"
+        }
+    ]
+}
+`)

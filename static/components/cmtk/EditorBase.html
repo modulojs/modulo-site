@@ -1,0 +1,502 @@
+!DOCTYPE_MODULO(`
+<Props
+    value
+    layout
+    files
+></Props>
+
+<State
+    text:=null
+    files:={}
+    menu:=null
+    editing:=null
+    viewing:=null
+    runcount:=0
+    settings:={}
+    settings.divider:=70
+    settings.font-size:=16
+    settings.fullscreen:=false
+    settings.soft-reload:=false
+></State>
+
+<Template>
+    {# Split view (editor on left, divider with 3 buttons, demo on right) #}
+    <div class="pane-holder {% if state.settings.fullscreen %}pane-holder--fullscreen{% endif %}" style="
+            --right-width: {{ state.settings.divider|multiply:'-1'|add:100 }}%;
+            --divider-width: 45px;
+            --divider-height: 35px;">
+        <div class="pane pane--left pane--subpane-holder">
+            {% if state.menu|type is not "null" %}
+                <div class="subpane">
+                    {% for btnTemplate in script.buttonTemplates %}
+                        {% if state.menu == btnTemplate.conf.Button %}
+                            {% include btnTemplate %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="subpane {# if state.buffer-class #} {#usage-border#} {# endif #}">
+                    {% if state.text is null %}
+                        <strong style="display: block; text-align: right; opacity: 0.3">[ Loading ]</strong>
+                    {% else %}
+                        <textarea [state.bind] name="text" class="editor--default-textarea" style="font-size: {{ state.settings.font-size }}px" spellcheck="false"></textarea>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="pane pane--divider">
+            <div class="toolbar toolbar--small {% if state.menu|type is 'null' %}toolbar--autohide{% endif %}">
+                {% for btnTemplate in script.buttonTemplates %}
+                    <button
+                        @click:="{{ btnTemplate.conf.ButtonClick|default:'script.toggleMenu' }}"
+                        payload="{{ btnTemplate.conf.ButtonPayload|default:btnTemplate.conf.Button }}"
+                        class="{% if state.menu is btnTemplate.conf.Button %}toolbar--selected{% endif %}"
+                    >{% if btnTemplate.conf.ButtonEmoji %}<span>{{ btnTemplate.conf.ButtonEmoji|safe }}</span>{% endif %}
+                        {{ btnTemplate.conf.ButtonLabel|default:btnTemplate.conf.Button }}
+                    </button>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="pane pane--right">
+            <div class="demo-area" [script.demo]="{{ state.runcount }}"><iframe></iframe></div>
+        </div>
+    </div>
+</Template>
+
+<VBrowser></VBrowser>
+
+<Script>
+    const isFile = window.location.protocol === 'file:';
+    
+    function prepareCallback(renderObj) {
+    	const templates = Object.values(element.cparts).filter(({ conf }) => conf.Type === 'Template');
+    	const buttonTemplates = templates.filter(({ conf }) => 'Button' in conf);
+        const value = props.value || element.originalHTML;
+    	for (const template of templates.filter(({ conf }) => 'File' in conf)) {
+    	    if (!(template.conf.File in state.files)) {
+    	        state.files[template.conf.File] = template.render(renderObj); // Render each
+	        }
+	        if (state.editing === null && 'DefaultEdit' in template.conf) {
+	            state.editing = template.conf.File;
+	            if (value) {
+	                state.files[state.editing] = value; // Override default
+	            }
+	        }
+	        if (state.viewing === null && 'DefaultView' in template.conf) {
+	            state.viewing = template.conf.File;
+	        }
+    	}
+    	if (state.editing === null) {
+    	    state.editing = Array.from(Object.keys(state.files)).shift();
+        }
+    	if (state.viewing === null) {
+    	    state.viewing = state.editing;
+        }
+    	if (state.text === null) {
+    	    state.text = state.files[state.editing]; // First update, get stashed
+        } else {
+    	    state.files[state.editing] = state.text; // Update stashed version
+            copyFile(state.editing);
+        }
+        return { buttonTemplates };
+    }
+    
+    function _getDemoContent(url) {
+    	if (url in state.files) {
+    	    return state.files[url];
+        } else {
+            return '<!DOCTYPE HTML><h1>Editor 404</h1><h2>Could not find:</h2>' + url;
+        }
+    }
+
+    function copyFile(name) {
+        //  Do URL resolution here to merge fake with real
+        const url = (new window.URL(name, window.location)).toString();
+        if (url in element.demoModulo.fetchQueue.queue) {
+            element.demoModulo.fetchQueue.receiveData(state.files[name], url);
+        } else {
+            element.demoModulo.fetchQueue.data[url] = state.files[name];
+        }
+    }
+
+    function injectModulo(demoModulo) {
+        element.demoModulo = demoModulo;
+        window.demoModulo = demoModulo;
+        for (const filename of Object.keys(state.files)) {
+            copyFile(filename);
+        }
+    }
+
+    function demoMount({ el }) {
+        el.innerHTML = '<iframe></iframe>'; // force add
+        const iframe = el.firstChild;
+        const doc = iframe.contentWindow.document;
+        doc.open();
+        let content = _getDemoContent(state.viewing);
+        const injection = '<script>modulo && window.parent.INJECT_MODULO(modulo)<' + '/script>';
+        window.INJECT_MODULO = injectModulo;
+        content = content.replace(new RegExp('</scrip.>', 'i'), '<' + '/script>' + injection);
+        doc.write(content);
+        doc.close();
+    }
+
+    function demoUnmount({ el }) {
+        el.innerHTML = '';
+    }
+
+    function edit(file) {
+        state.editing = file;
+        state.text = null; // Force to load text on next rerender
+    }
+
+    function run() {
+        //state.files = {}; // TODO: ONLY clear if modulo setting etc was changed
+        state.runcount++; // increment run count
+    }
+
+    function saveSnippet(payload) { // Should be ButtonPayload or Button of a Template
+        const templates = Object.values(element.cparts).filter(({ conf }) => conf.Type === 'Template');
+    	const buttonTemplates = templates.filter(({ conf }) => 'Button' in conf);
+        const tmplt = templates.find(({ conf }) => conf.ButtonPayload === payload) || 
+                      templates.find(({ conf }) => conf.Button === payload);
+        modulo.registry.utils.saveFileAs(payload, tmplt.render(element.renderObj));
+    }
+    
+    function toggleMenu(menuName) {
+        state.menu = state.menu === menuName ? null : menuName;
+    }
+</Script>
+
+<Style>
+iframe,
+.editor--default-textarea {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.pane-holder {
+    display: grid;
+    height: 100%;
+    grid-template-columns: 1fr var(--divider-width) var(--right-width);
+    grid-template-rows: 1fr;
+}
+
+.pane-holder--fullscreen {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+/* Full screen mode, move the divider to the front */
+.pane-holder--fullscreen {
+    grid-template-columns: 1fr var(--right-width);
+    grid-template-rows: var(--divider-height) 1fr;
+}
+.pane-holder--fullscreen  .pane--divider { grid-column: 1 / span 2; grid-row: 1; }
+.pane-holder--fullscreen  .pane--left {    grid-column: 1; grid-row: 2; }
+.pane-holder--fullscreen  .pane--right {   grid-column: 2; grid-row: 2; }
+/* FS mode: Ensure stacks at start */
+.pane-holder--fullscreen  .toolbar--small {
+    flex-direction: row;
+}
+.pane-holder--fullscreen  .toolbar {
+    justify-content: flex-start;
+}
+.pane-holder--fullscreen  .toolbar--small button {
+    opacity: 1 !important;
+    padding: 1px 30px 1px 30px;
+}
+
+.pane-holder--collapsed {
+    display: block;
+}
+
+.pane-holder--collapsed .demo-area {
+    justify-content: center;
+    align-items: center;
+}
+
+.pane {
+    display: block;
+    height: 100%;
+    background: var(--color-bg);
+}
+
+
+.pane--subpane-holder {
+    position: relative;
+}
+
+
+.subpane {
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+}
+
+.demo-area {
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background: var(--color-fg-light);
+    padding: 15px;
+}
+
+.toolbar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+    border: 1px dotted var(--color-fg-semi);
+    border-top: none;
+    border-bottom: none;
+    padding: 2px;
+    transition: background-color 0.8s;
+}
+
+.toolbar--settings {
+    /*height: auto;*/
+    background-color: var(--color-alt);
+    text-align: left;
+}
+.toolbar--settings button {
+    text-align: left;
+}
+
+.toolbar--autohide:hover {
+    background-color: var(--color-alt);
+}
+
+/* First and last buttons are hidden by default */
+.toolbar--autohide > button:first-child,
+.toolbar--autohide > button:last-child {
+    opacity: 0;
+}
+
+
+.toolbar--autohide:hover > button:first-child,
+.toolbar--autohide:hover > button:last-child {
+    opacity: 1.0;
+}
+
+/* Whenever you hover a button always max opacity */
+.toolbar--autohide:hover > button:hover {
+    opacity: 1.0;
+}
+
+.toolbar button,
+.toolbar label,
+.toolbar .control-section {
+    color: var(--color-fg);
+    font-weight: bolder;
+    display: inline-block;
+    border: 2px solid var(--color-fg);
+    border-bottom-width: 4px;
+    margin-bottom: -2px;
+    border-radius: 1px 3px 1px 3px;
+    background: var(--color-bg);
+    padding: 8px 1px 8px 1px;
+    text-transform: uppercase;
+    box-shadow: 1px 1px 0 var(--color-fg);
+    transition: box-shadow 0.3s,
+                opacity 0.15s 0.5s,
+                background 0.15s,
+                border-color 0.2s;
+}
+
+.toolbar .control-section {
+    padding: 0;
+    padding-bottom: 3px;
+    display: flex;
+    flex-direction: row;
+}
+.toolbar .control-section label {
+    flex-direction: row;
+    display: flex;
+}
+
+.toolbar button {
+    cursor: pointer;
+}
+
+.toolbar button span {
+    font-weight: lighter;
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+span.icon {
+    overflow: hidden;
+    height: 20px;
+    width: 80px;
+    margin-left: 10px;
+    display: block;
+    border-radius: 10px;
+    text-align: center;
+    background: var(--color-bg);
+    color: var(--color-fg);
+    border: 2px solid var(--color-fg);
+    font-weight: 200;
+    font-size: 2.5rem;
+    line-height: 0.5;
+}
+
+.toolbar--small button {
+    font-size: 0.7rem;
+    text-align: center;
+}
+
+.toolbar.toolbar--settings label {
+    border-radius: 1px;
+    border-bottom-width: 1px;
+}
+
+.toolbar.toolbar--settings label,
+.toolbar.toolbar--settings button {
+    padding: 6px;
+    border-color: var(--color-fg-light);
+}
+
+.toolbar.toolbar--settings .font-preview {
+    overflow: hidden;
+    height: 20px;
+    width: 80px;
+    margin-left: 10px;
+    display: block;
+    border-radius: 10px;
+    text-align: center;
+    color: var(--color-fg);
+    border: 2px solid var(--color-fg);
+}
+
+.toolbar.toolbar--settings .font-preview > span {
+    display: block;
+    padding-top: 4px;
+}
+
+.toolbar button:visited,
+.toolbar button:active,
+.toolbar button.selected {
+    text-decoration: none;
+    color: black;
+    display: block;
+    font-weight: bold;
+    background: var(--color);
+}
+
+.toolbar button.selected {
+    border-color: var(--color);
+    background: var(--color);
+    box-shadow: 0 0 0 8px var(--color);
+    color: var(--color-bg);
+}
+
+.toolbar button:hover {
+    border-color: var(--color);
+}
+
+.usage-banner {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: var(--color-alt);
+    padding: 5px 35px 5px 35px;
+    color: var(--color-bg);
+    font-weight: bolder;
+    border-radius: 2px;
+}
+
+.usage-border {
+    height: 100%;
+    border: 5px dashed var(--color-alt);
+    padding: 5px;
+    position: relative;
+}
+
+
+/* Active styles: */
+.toolbar.toolbar--settings label:active span.icon,
+.toolbar.toolbar--settings label:active .font-preview {
+    background: var(--color-alt);
+}
+
+.toolbar--selected {
+    background: var(--color-alt) !important;
+}
+
+@media (max-width: 992px) {
+    .pane-holder {
+        min-height: 350px;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr var(--divider-height) 1fr;
+    }
+
+    .toolbar {
+        flex-direction: row;
+        border: 1px dotted var(--color-fg-semi);
+        border-left: none;
+        border-right: none;
+        padding: 0;
+    }
+    .toolbar .control-section {
+        flex-direction: column;
+    }
+
+    .toolbar button {
+        opacity: 1 !important;
+        padding: 1px 30px 1px 30px; /* add padding, make it easier to press */
+        color: var(--color-fg-semidark);
+    }
+    .toolbar--small button {
+        font-size: 1rem;
+    }
+
+    .label--divider {
+        display: none;
+    }
+    
+    .pane--divider {
+        max-height: var(--divider-height);
+    }
+    
+    
+    .pane-holder--fullscreen {
+        grid-template-columns: 1fr;
+        grid-template-rows: var(--divider-height) 1fr 1fr;
+    }
+    .pane-holder--fullscreen  .pane--divider { grid-column: 1; grid-row: 1; }
+    .pane-holder--fullscreen  .pane--left {    grid-column: 1; grid-row: 2; }
+
+    /*
+    .toolbar.toolbar--settings .font-preview {
+        height: auto;
+        display: block;
+    }
+    */
+}
+
+
+@media (max-width: 576px) {
+    .page-nav-right {
+        display: none;
+    }
+
+    .toolbar button {
+        padding: 1px 5px 1px 5px; /* add padding, make it easier to press */
+    }
+    .toolbar--small button {
+        font-size: 0.9rem;
+    }
+}
+</Style>
+`)

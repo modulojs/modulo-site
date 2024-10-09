@@ -1,0 +1,316 @@
+!DOCTYPE_MODULO(`
+
+<!--
+This file contains the entire "Page" component, which is the template for the page along
+with Style (CSS) and Script (JS).
+-->
+<Props
+    pagetitle
+    showarticles
+    navselected
+    navbreadcrumb
+></Props>
+
+<Template>
+
+<title>{{ page.title|default:props.pagetitle }}</title>
+
+{# Uncomment the following to get started with SEO-friendly meta tags: #}
+{% comment %}
+    <!-- (Note: Be sure to add the necessary props to x-Page!) -->
+    <meta name="title" content="{{ page.title|default:props.pagetitle }}">
+    <meta name="description" content="{{ page.description|default:props.description }}">
+    <meta name="keywords" content="{{ page.keywords|default:props.keywords }}">
+    <meta name="language" content="{{ page.language|default:props.language }}">
+{% endcomment %}
+
+<nav class="page-nav container">
+    <ul>
+        {% for link in links_pages.list %}
+            <li class="{% if link.file is page.current-tab %}page-li--selected{% endif %}">
+                <a href="{{ link.file }}"
+                    title="{{ link.title }}"
+                    class="
+                        page-nav-link
+                        {% if link.file is page.current-tab %}page-nav-link--selected{% endif %}
+                    ">
+                    {{ link.title|upper }}
+                </a>
+            </li>
+        {% endfor %}
+
+        <div class="nav-logo">
+            <img src="./static/images/example_logo.svg" title="Site Logo" />
+        </div>
+    </ul>
+</nav>
+
+<div class="page-container container {% if props.showarticles %}articles-container{% endif %}">
+    <main class="page-content">
+        {% if page.breadcrumb %}
+                {% for link in links_pages.list %}
+                    {% if link.file == page.breadcrumb %}
+                        <a href="{{ link.file }}" title="Back to {{ link.title }}" class="breadcrumb">
+                            {{ link.title }}
+                        </a>
+                    {% endif %}
+                {% endfor %}
+                <span class="breadcrumb">/</span>
+                <a href="#" class="breadcrumb breadcrumb--selected">
+                    {{ page.title }}
+                    {% if page.subtitle %} - {{ page.subtitle }}{% endif %}
+                </a>
+        {% endif %}
+        {% if page.title %}
+            <h1 style="font-size: 3rem; border-bottom: 3px solid gray">{{ page.title }}</h1>
+        {% endif %}
+        {% if page.subtitle %}
+            <p style="font-size: 1.2rem; font-weight: bold; opacity: 0.8">{{ page.subtitle }}</p>
+        {% endif %}
+        {% if page.author %}
+            <p style="font-size: 1.1rem;">by {{ page.author }}</p>
+        {% endif %}
+        {% if page.body %}
+            {{ page.body|safe }}
+        {% else %}
+            <!-- Default to "slot" behavior -->
+            <slot></slot>
+        {% endif %}
+    </main>
+
+    {% if page.list|default:props.showarticles %}
+        <nav class="article-nav">
+            <ul>
+                <h1>Read one of our articles</h1>
+                {% for link in links_articles.list %}
+                    <li class="{% if link.file == props.navselected %}page-li--selected{% endif %}">
+                            <a
+                                href="{{ link.file }}"
+                                title="{{ link.title }}"
+                                class="page-nav-link {% if link.file == props.navselected %}page-nav-link--selected{% endif %}"
+                                style="background: var(--color); color: white; font-size: 1.6rem"
+                            >
+                                <span style="min-width: 250px; display: inline-block">{{ link.title }}</span>
+                                <span style="margin-left: 5px; font-weight: normal; font-size: 1.4rem;">
+                                    {{ link.byline }}
+                                </span>
+                                <span style="margin: 11px; float: right; margin-top: -18px; opacity: 0.9">
+                                    <span style="font-size: 1.1rem; font-weight: normal;">
+                                        {{ link.estimate }}
+                                    </span><br />
+                                    <span style="font-size: 1.1rem">READ MORE</span>
+                                    &raquo;
+                                </span>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </nav>
+    {% endif %}
+</div>
+
+<footer class="page-footer">
+    &bull; {% for link in links_pages.list %}
+        <a href="{{ link.file }}">{{ link.title }}</a> &bull;
+    {% endfor %} <br />
+    &copy; {{ page.currentYear }} All Rights Reserved by Page Author
+    <!-- Feel free to delete this: -->
+    &bull; <a href="https://modulojs.org/" title="Made with Modulo.js" target="_blank">%</a>
+    &bull; <a href="?argv=edit" title="Edit" target="_blank">Edit</a>
+</footer>
+
+</Template>
+
+
+<StaticData
+    -name="links_pages"
+    -src="../data/pages.json"
+></StaticData>
+
+<StaticData
+    -name="links_articles"
+    -src="../data/articles.json"
+></StaticData>
+
+<Script -name="page">
+    function prepareCallback() {
+        return modulo.registry.utils.loadContent(element);
+    }
+</Script>
+
+
+<Style>
+
+/* Store CSS variables in :host selector, accessible to styles in Page.html */
+:host {
+    --footer-height: 100px;
+    --navbar-height: 68px;
+    --logo-width: 50px;
+    --logo-height: 50px;
+    --btn-shadow-dist: 4px;
+    --btn-shadow-dist-neg: -4px;
+    --color: indigo;
+    --color-fg: black;
+    --color-content-bg: white;
+    --color-content-bg-semi: #EEEEEECC;
+    --color-outline: #111;
+    --color-outline-semi: #00000088;
+}
+
+/* Create simple layout with a 900px max-width for content on desktop */
+.container {
+    display: grid;
+    grid-template-columns: 1fr minmax(auto, 900px) 1fr;
+}
+
+.container > * {
+    grid-column: 2;
+}
+
+.page-container {
+    min-height: calc(100vh - var(--footer-height) - var(--navbar-height));
+}
+
+.page-content {
+    border: 1px solid var(--color-outline-semi);
+    box-shadow: 5px 5px var(--color-outline-semi);
+    background: var(--color-content-bg);
+    border-radius: 0 5px 5px 5px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.page-content h1 {
+    border-bottom: 1px dotted var(--color-outline);
+}
+
+.page-content code {
+    border-bottom: 1px dashed gray;
+}
+
+.page-nav {
+    grid-column: 2;
+    box-shadow: 0 5px #eee;
+    background-color: var(--color);
+    height: var(--navbar-height);
+}
+
+.page-nav .nav-logo {
+    width: var(--logo-width);
+    height: var(--logo-height);
+    margin: 10px;
+    margin-left: auto;
+}
+
+.page-nav img {
+    max-width: 100%;
+}
+
+.page-nav ul {
+    display: flex;
+    background: var(--color-content-bg-semi);
+    margin: 0;
+    padding: 0;
+}
+
+.page-nav li {
+    list-style: none;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px 5px 0 0;
+    border: 1px solid var(--color-outline-semi);
+}
+
+.page-nav li.page-li--selected {
+    background: var(--color-content-bg);
+    border-bottom-width: 0;
+    position: relative;
+    z-index: 2;
+}
+
+.page-nav-link {
+    color: var(--color-outline);
+    font-weight: bold;
+    font-size: 18px;
+    border: 3px solid var(--color-outline);
+    border-bottom-width: 4px;
+    border-top-width: 2px;
+    display: block;
+    padding: 10px;
+    border-radius: 1px 1px 3px 3px;
+    text-decoration: none;
+    transition: box-shadow 0.3s;
+    box-shadow: 
+        0 0 var(--color),
+        0 0 var(--color);
+}
+
+.page-nav-link--selected,
+.page-nav-link:hover {
+    box-shadow: 
+        var(--btn-shadow-dist) var(--btn-shadow-dist) var(--color),
+        var(--btn-shadow-dist-neg) var(--btn-shadow-dist-neg) var(--color);
+}
+
+.page-nav-link--selected {
+    background: var(--color);
+    color: white;
+}
+
+.page-nav-link--selected,
+.page-nav-link:active {
+    border-top-width: 4px;
+    border-bottom-width: 2px;
+    padding-top: 8px;
+}
+
+.page-footer {
+    height: var(--footer-height);
+    text-align: center;
+    padding-top: 30px;
+    background: var(--color-content-bg-semi);
+    color: var(--color-outline-semi);
+}
+
+.page-footer a { 
+    color: var(--color-outline-semi);
+}
+
+.article-nav li {
+    list-style: none;
+    padding: 10px;
+}
+
+.breadcrumb {
+    color: var(--color);
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 1.2rem;
+    margin: 10px;
+    margin-left: 0;
+    display: inline-block;
+}
+
+.breadcrumb--selected {
+    color: var(--color-outline-semi);
+}
+
+/* Mobile support */
+@media (max-width: 992px) {
+    .page-nav {
+        height: auto;
+    }
+    .page-nav ul {
+        flex-wrap: wrap;
+    }
+    .page-nav li {
+        border-radius: 100px;
+    }
+    .page-content {
+        margin: -1px;
+        padding: 2px;
+        width: 100%;
+    }
+}
+</Style>
+`)

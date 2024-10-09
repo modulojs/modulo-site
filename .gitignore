@@ -1,0 +1,18 @@
+# misc
+.DS_Store
+
+# more misc
+*.pyc
+*~
+.idea/
+*.orig
+*.rej
+*.pyc
+*.pyo
+*.swp
+*.swo
+*.swn
+*.po
+*.egg*
+*.log
+

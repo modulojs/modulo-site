@@ -1,0 +1,18 @@
+!DOCTYPE_MODULO(`
+{
+    "list": [
+        {
+            "title": "Example article",
+            "byline": "Author Authorino",
+            "estimate": "5 minute read",
+            "file": "2024-12-30-example-article-1.html"
+        },
+        {
+            "title": "Another article",
+            "byline": "The Site Editorial Staff",
+            "estimate": "10 minute read",
+            "file": "2024-12-31-example-article-2.html"
+        }
+    ]
+}
+`)

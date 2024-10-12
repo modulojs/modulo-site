@@ -95,10 +95,14 @@ modulo.registry.cparts.VBrowser = class VBrowser {
     copyFile(name) {
         //  Do URL resolution here to merge fake with real
         const url = (new window.URL(name, window.location)).toString();
-        if (url in this.childModulo.fetchQueue.queue) {
-            this.childModulo.fetchQueue.receiveData(this.files[name], url);
+        if (this.childModulo) {
+            if (url in this.childModulo.fetchQueue.queue) {
+                this.childModulo.fetchQueue.receiveData(this.files[name], url);
+            } else {
+                this.childModulo.fetchQueue.data[url] = this.files[name];
+            }
         } else {
-            this.childModulo.fetchQueue.data[url] = this.files[name];
+            console.log('Warning: No child modulo to copy to:', name);
         }
     }
 

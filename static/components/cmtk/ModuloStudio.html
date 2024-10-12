@@ -25,66 +25,15 @@
 -->
 <VBrowser>
     ./ComponentEditor.html
+    ./WebEditor.html
     ./parts/EditorBase.html
     ./parts/EditorBase.css
 </VBrowser>
 
 <Template -src="./parts/EditorBase.html"></Template>
 <Style -src="./parts/EditorBase.css"></Style>
+<Style -src="./parts/EditorBase-toggleBar.css"></Style>
 
-<Style>
-
-.toolbar--small button {
-    position: relative;
-    z-index: 10;
-    border-radius: 100px;
-    min-width: 110px;
-    margin-bottom: 10px;
-    min-height: 110px;
-    font-size: 150%;
-    right: 70px;
-    top: -10px;
-    transition: top 0.1s, left 0.1s, opacity 0.1s, color 0.1s;
-	color: #ffffffff;
-    text-shadow: 0 0 2px var(--color);
-}
-
-.toolbar--small.toolbar--autohide button.tb-button--menu {
-    top: -20px;
-    right: 70px;
-    opacity: 1.0;
-	color: #ffffffff;
-    text-shadow: none;
-}
-.toolbar--small button.tb-button--menu span {
-	font-size: 3rem;
-}
-
-.toolbar button span {
-    display: block;
-    font-size: 200%;
-    font-weight: bold;
-    transition: text-shadow 0.5s;
-    text-align: center;
-    text-shadow:
-        3px 3px 0 var(--color),
-        -3px -3px 0 #88888888;
-}
-.toolbar--small button.toolbar--selected span {
-    text-shadow:
-        0 0 5px var(--color),
-        0 0 0 #88888888;
-}
-.toolbar h3 {
-    font-family: monospace;
-    text-align: center;
-    font-size: 2vw;
-    margin-bottom: 0;
-    color: white;
-    --color: #B90183;
-    text-shadow: 0 0 2px var(--color);
-}
-</Style>
 
 <State
     -name="info_state"
@@ -94,8 +43,6 @@
 ></State>
 
 <Template -file="index.html" -name="index_template" -default-view>
-    <div></div>
-    <script src="./static/js/Modulo.js"></script>
     <style>
         h1 {
             font-family: monospace;
@@ -116,9 +63,21 @@
     <template Modulo>
         <Component -src="./static/components/cmtk/ComponentEditor.html" name="ComponentEditor"></Component>
     </template>
+    <link rel="stylesheet" href="./static/css/site.css" />
     <script src="./static/js/Modulo.js"></script>
     <script src="./static/js/VBrowser.js"></script>
-    <x-ComponentEditor></x-ComponentEditor>
+    <x-ComponentEditor class="fullscreen-mode"></x-ComponentEditor>
+</Template>
+
+
+<Template -file="editor_basic_website.html" -name="editor_basic_website" >
+    <div></div>
+    <template Modulo>
+        <Component -src="./static/components/cmtk/WebEditor.html" name="WebEditor"></Component>
+    </template>
+    <script src="./static/js/Modulo.js"></script>
+    <script src="./static/js/VBrowser.js"></script>
+    <x-WebEditor class="fullscreen-mode"></x-WebEditor>
 </Template>
 
 <Template -button="menu" -button-label=" " -button-emoji="%" -name="hide_template" -default-edit>
@@ -144,6 +103,10 @@
 
 <Template -button="new" -button-emoji="&#x1f4c4;" -name="new_menu_template">
     <div class="toolbar toolbar--settings">
+        <h3>Web Site</h3>
+        <div class="control-section">
+            <button @click:=vbrowser.view payload="editor_basic_website.html"><span>&#128193;</span> Multi-Page Site</button>
+        </div>
         <h3>React.js</h3>
         <div class="control-section">
             <button @click:=vbrowser.view payload="ce_editor_example.html"><span>&#128193;</span> Single Page App</button>
@@ -166,22 +129,7 @@
 
 <Template -button="opts" -button-emoji="&#x22EF;" -name="opts_menu_template">
     <div class="toolbar toolbar--settings">
-        <h3>React.js</h3>
-        <div class="control-section">
-            <button @click:=vbrowser.edit payload="ce_editor_example.html"><span>&#128193;</span> Single Page App</button>
-            <button @click:=vbrowser.edit payload="ce_editor_example.html"><span>&#128193;</span> Next.js</button>
-        </div>
-        <h3>Vue.js</h3>
-        <div class="control-section">
-            <button @click:=vbrowser.edit payload="ce_editor_example.html"><span>&#128193;</span> Single Page App</button>
-            <button @click:=vbrowser.edit payload="ce_editor_example.html"><span>&#128193;</span> Nuxt.js</button>
-        </div>
-        <h3>Modulo.js</h3>
-        <div class="control-section">
-            <button @click:=vbrowser.edit payload="ce_editor_example.html"><span>&#128193;</span> Multi-Page Site</button>
-            <button @click:=vbrowser.edit payload="ce_editor_example.html"><span>&#128193;</span> Single Page App</button>
-            <button @click:=vbrowser.edit payload="ce_editor_example.html"><span>&#128193;</span> Component</button>
-        </div>
+        <h3>Opts in Progress</h3>
     </div>
 
 </Template>

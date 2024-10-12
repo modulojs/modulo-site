@@ -1,0 +1,32 @@
+!DOCTYPE_MODULO(`
+<State
+    text:=null
+    menu:=null
+    editing:=null
+    viewing:=null
+    runcount:=0
+></State>
+
+<Template -src="./parts/EditorBase.html"></Template>
+<Style -src="./parts/EditorBase.css"></Style>
+
+<VBrowser></VBrowser>
+
+
+<Template -file="index.html" -name="index_template" -default-view -default-edit>
+    <h1>Welcome to my webpage</h1>
+</Template>
+
+
+
+<!-- Re-run Button -->
+<Template
+    -button="run"
+    -button-emoji="&#x27F3;"
+    -button-click="vbrowser.refresh"
+    -name="run_button_template"
+><!-- Unused --></Template>
+
+
+
+`)

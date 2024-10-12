@@ -21,6 +21,7 @@ transition: opacity 0.3s;
     grid-template-rows: 1fr;
 }
 
+:host.fullscreen-mode .pane-holder,
 .pane-holder--fullscreen {
     height: 100vh;
     width: 100vw;
@@ -32,20 +33,27 @@ transition: opacity 0.3s;
 }
 
 /* Full screen mode, move the divider to the front */
+:host.fullscreen-mode .pane-holder,
 .pane-holder--fullscreen {
     grid-template-columns: 1fr var(--editor-size);
     grid-template-rows: var(--divider-height) 1fr;
 }
+:host.fullscreen-mode .pane--divider,
 .pane-holder--fullscreen  .pane--divider { grid-column: 1 / span 2; grid-row: 1; }
+:host.fullscreen-mode .pane--left,
 .pane-holder--fullscreen  .pane--left {    grid-column: 1; grid-row: 2; }
+:host.fullscreen-mode .pane--right,
 .pane-holder--fullscreen  .pane--right {   grid-column: 2; grid-row: 2; }
 /* FS mode: Ensure stacks at start */
+:host.fullscreen-mode .toolbar--small,
 .pane-holder--fullscreen  .toolbar--small {
     flex-direction: row;
 }
+:host.fullscreen-mode .toolbar,
 .pane-holder--fullscreen  .toolbar {
     justify-content: flex-start;
 }
+:host.fullscreen-mode .toolbar--small button,
 .pane-holder--fullscreen  .toolbar--small button {
     opacity: 1 !important;
     padding: 1px 30px 1px 30px;

@@ -7,7 +7,6 @@
 modulo.config.vbrowser = {
     previewMode: 'iframe',
     previewElement: null,
-    injection: '<script>window.parent._INJECT(window)<' + '/script>',
     demoLoading: '<iframe style="opacity: 0.0"></iframe>',
     demoCode: '<iframe style="opacity: 1.0"></iframe>',
     settings: { divider: 70, fontSize: 16, fullscreen: false, dividerSplit: 50 },
@@ -30,6 +29,7 @@ modulo.registry.cparts.VBrowser = class VBrowser {
             text: null,
             url: null,
             editing: null,
+            runCount: 0,
             recent: [ ], // TODO: { url: ..., files: ..., prefix: ... }  (copies all files to prefix)
         };
         for (const methName of [ 'toggleMenu', 'refresh', 'saveSnippet', 'edit', 'view' ]) { // TODO: Should be "-methods"..
@@ -84,6 +84,12 @@ modulo.registry.cparts.VBrowser = class VBrowser {
             this.data.text = this.files[this.data.editing];
         }
     }
+    
+    updateCallback() {
+        if (this.data.runCount < 1) {
+            this.run(); // Ensure we run right away on first render
+        }
+    }
 
     _getDemoContent(url) {
         if (url in this.files) {
@@ -107,61 +113,43 @@ modulo.registry.cparts.VBrowser = class VBrowser {
         }
     }
 
-    inject(demoWindow) {
-        //this.element.demoModulo = demoModulo;
-        this.childModulo = 'modulo' in demoWindow ? demoWindow.modulo : null;
+    onReady() {
+        this.childModulo = 'modulo' in this.demoWindow ? this.demoWindow.modulo : null;
         if (this.childModulo) {
-            window.demoModulo = this.childModulo;
             for (const filename of Object.keys(this.files)) {
                 this.copyFile(filename);
             }
-            //childModulo.definitions = {}; // clear definitions (???)
-            this.childModulo.loadFromDOM(demoWindow.document.head, null, true); // Blocking load
-            demoWindow.document.addEventListener('DOMContentLoaded', () => {
-                this.childModulo.loadFromDOM(demoWindow.document.body, null, true); // Async load
-                this.childModulo.preprocessAndDefine(this.onReady.bind(this));
-                /// TODO: Attach new "fs" that saves to outer frame localStorage
-            });
-        } else {
-            // Non-modulo project
-            demoWindow.document.addEventListener('DOMContentLoaded', this.onReady.bind(this));
+            this.childModulo.loadFromDOM(this.demoWindow.document.head, null, true); // Blocking load
+            this.childModulo.loadFromDOM(this.demoWindow.document.body, null, true); // Async load
+            this.childModulo.preprocessAndDefine(() => {});
         }
-
-        // TODO: Listen to changes to demoWindow
-        //      - Attach click events to navigate internally or do a _target blank
-    }
-
-    onReady() {
         this.data.demo = this.conf.demoCode; // Ready, ensure iframe is rendered this way
-        this.element.rerender(); // Trigger rerender to show new demo code
+        setTimeout(() => {
+            this.element.rerender();
+        }, 0);
     }
 
     run() {
+        this.data.runCount++; // Count our run attempt
+        this.demoElement = this.element.querySelector('.demo-area'); // Find the demo
         this.demoElement.innerHTML = this.conf.demoLoading; // Destroy old iframe
         this.iframe = this.demoElement.firstChild; // Can I do "iframe reuse"?
         const doc = this.iframe.contentWindow.document;
-        doc.open();
         let content = this._getDemoContent(this.data.url);
-        window._INJECT = this.inject.bind(this); // Globally attach
-        const re = new RegExp('</scrip.>', 'i');
-        if (re.test(content)) { // No script tags present, append to end
-            content = content.replace(re, '</scrip' + 't>' + this.conf.injection);
-            content = '<script>window.moduloBuild = {}<' + '/script >' + content;
-        } else { // No script tags present, append to end
-            content += this.conf.injection;
-        }
+        window._PREINJECT = demoWindow => {
+            this.demoWindow = demoWindow;
+            demoWindow.moduloBuild = {}; // set to prod mode
+        };
+        window._INJECT = demoWindow => { // Globally attach
+            demoWindow.document.addEventListener('DOMContentLoaded', this.onReady.bind(this));
+        };
+        const injection = '<script>window.parent._INJECT(window)<' + '/script>';
+        const preinjection = '<script>window.parent._PREINJECT(window)<' + '/script>';
+        content += injection;
+        content = content.replace(/<script/i, preinjection + '<script');           
+        doc.open();
         doc.write(content);
         doc.close();
-    }
-
-    demoMount({ el }) {
-        this.demoElement = el;
-        this.run();
-    }
-
-    demoUnmount({ el }) {
-        el.innerHTML = '';
-        this.demoElement = null;
     }
 
     edit(file) {
@@ -170,7 +158,6 @@ modulo.registry.cparts.VBrowser = class VBrowser {
     }
 
     view(file) {
-        console.log('viewing!');
         this.data.url = file;
         this.refresh();
     }
@@ -201,6 +188,11 @@ modulo.registry.cparts.VBrowser = class VBrowser {
 };
 
 modulo.register('cpart', modulo.registry.cparts.VBrowser);
+
+
+
+
+
 /*
 
 

@@ -42,47 +42,32 @@
     modulo-url="./static/js/Modulo.js"
 ></State>
 
-<Template -file="index.html" -name="index_template" -default-view>
-    <style>
-        h1 {
-            font-family: monospace;
-            text-align: center;
-            margin-top: 30vh;
-            font-size: 5vw;
-            color: white;
-            --color: #B90183;
-            text-shadow: 0 0 2px var(--color);
-        }
-    </style>
-    <h3>&larr; Start a new project, or open an existing one.</h3>
-    <h1>Modulo Studio</h1>
-</Template>
+<Template
+    -file="index.html"
+    -name="index_template"
+    -src="./presets/modulo_studio_welcome.html"
+     -default-view
+></Template>
 
-<Template -file="ce_editor_example.html" -name="component_editor_example" >
-    <div></div>
-    <template Modulo>
-        <Component -src="./static/components/cmtk/ComponentEditor.html" name="ComponentEditor"></Component>
-    </template>
-    <link rel="stylesheet" href="./static/css/site.css" />
-    <script src="./static/js/Modulo.js"></script>
-    <script src="./static/js/VBrowser.js"></script>
-    <x-ComponentEditor class="fullscreen-mode"></x-ComponentEditor>
-</Template>
+<Template
+    -file="component_editor_example.html"
+    -name="component_editor_example"
+    -src="./presets/component_editor.html"
+></Template>
 
+<Template
+    -file="editor_basic_website.html"
+    -name="editor_basic_website"
+    -src="./presets/basic_website.html"
+></Template>
 
-<Template -file="editor_basic_website.html" -name="editor_basic_website" >
-    <div></div>
-    <template Modulo>
-        <Component -src="./static/components/cmtk/WebEditor.html" name="WebEditor"></Component>
-    </template>
-    <script src="./static/js/Modulo.js"></script>
-    <script src="./static/js/VBrowser.js"></script>
-    <x-WebEditor class="fullscreen-mode"></x-WebEditor>
-</Template>
-
-<Template -button="menu" -button-label=" " -button-emoji="%" -name="hide_template" -default-edit>
-    &nbsp;
-</Template>
+<Template
+    -button="menu"
+    -button-label=" "
+    -button-emoji="%"
+    -name="hide_template"
+    -default-edit
+>&nbsp;</Template>
 
 <Template -button="open" -button-emoji="&#128193;" -name="open_menu_template">
     <div class="toolbar toolbar--settings">
@@ -103,6 +88,12 @@
 
 <Template -button="new" -button-emoji="&#x1f4c4;" -name="new_menu_template">
     <div class="toolbar toolbar--settings">
+        <h3>Modulo.js</h3>
+        <div class="control-section">
+            <button @click:=vbrowser.view payload="editor_basic_website.html"><span>&#128193;</span> Multi-Page Site</button>
+            <button @click:=vbrowser.view payload="component_editor_example.html"><span>&#128193;</span> Component</button>
+        </div>
+        <!--
         <h3>Web Site</h3>
         <div class="control-section">
             <button @click:=vbrowser.view payload="editor_basic_website.html"><span>&#128193;</span> Multi-Page Site</button>
@@ -123,6 +114,7 @@
             <button @click:=vbrowser.view payload="ce_editor_example.html"><span>&#128193;</span> Single Page App</button>
             <button @click:=vbrowser.view payload="ce_editor_example.html"><span>&#128193;</span> Component</button>
         </div>
+        -->
     </div>
 
 </Template>

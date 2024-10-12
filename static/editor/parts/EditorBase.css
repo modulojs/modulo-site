@@ -92,7 +92,7 @@ transition: opacity 0.3s;
 .demo-area {
     height: 100%;
     width: 100%;
-    overflow: auto;
+    /*overflow: auto;*/
     background: var(--color-fg-light);
     padding: 15px;
 }

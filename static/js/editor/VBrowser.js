@@ -3,6 +3,7 @@
   for making sandboxed iframes in editors.
 */
 
+
 modulo.config.vbrowser = {
     previewMode: 'iframe',
     previewElement: null,

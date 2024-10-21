@@ -32,7 +32,7 @@ modulo.registry.cparts.VBrowser = class VBrowser {
             runCount: 0,
             recent: [ ], // TODO: { url: ..., files: ..., prefix: ... }  (copies all files to prefix)
         };
-        for (const methName of [ 'toggleMenu', 'refresh', 'saveSnippet', 'edit', 'view' ]) { // TODO: Should be "-methods"..
+        for (const methName of [ 'toggleMenu', 'refresh', 'saveSnippet', 'edit', 'view' ]) {
             this.data[methName] = this[methName].bind(this); // Attaching public methods
         }
         this.prepFiles();
@@ -99,37 +99,142 @@ modulo.registry.cparts.VBrowser = class VBrowser {
         }
     }
 
+    syncWithChild() {
+        const injectables = this.demoWindow.document.querySelectorAll('script[src],link[href]');
+        this._injectElements = {};
+        for (const elem of injectables) {
+            const path = elem.src || elem.href;
+            // TODO: normalize somehow
+            const url = (new window.URL(path, window.location)).toString();
+            let newElemTagName = elem.tagName === 'LINK' ? 'STYLE' : elem.tagName;
+            if (!(url in this._injectElements)) {
+                this._injectElements[url] = this.demoWindow.document.createElement(newElemTagName);
+                // TODO: Add remote URL support for a "remoteCache" -- this will later be used for bundling in flat HTML or ZIP formats
+                // Cache to /static/cache/http/whatever.com/name-of-file.js or something
+                elem.after(this._injectElements[url]);
+            }
+        }
+        for (const filename of Object.keys(this.files)) {
+            this.copyFile(filename);
+        }
+    }
+
     copyFile(name) {
         //  Do URL resolution here to merge fake with real
         const url = (new window.URL(name, window.location)).toString();
+        const text = this.files[name];
         if (this.childModulo) {
             if (url in this.childModulo.fetchQueue.queue) {
-                this.childModulo.fetchQueue.receiveData(this.files[name], url);
+                this.childModulo.fetchQueue.receiveData(text, url);
             } else {
-                this.childModulo.fetchQueue.data[url] = this.files[name];
+                this.childModulo.fetchQueue.data[url] = text;
             }
-        } else {
-            console.log('Warning: No child modulo to copy to:', name);
+        }
+        if (this._injectElements && url in this._injectElements) {
+            const elem = this._injectElements[url];
+            const hash = this.modulo.registry.utils.hash(text);
+            if (!elem.__lastInjection || elem.__lastInjection !== hash) {
+                elem.textContent = text;
+                elem.__lastInjection = hash;
+            }
         }
     }
 
     onReady() {
         this.childModulo = 'modulo' in this.demoWindow ? this.demoWindow.modulo : null;
         if (this.childModulo) {
-            for (const filename of Object.keys(this.files)) {
-                this.copyFile(filename);
-            }
             this.childModulo.loadFromDOM(this.demoWindow.document.head, null, true); // Blocking load
             this.childModulo.loadFromDOM(this.demoWindow.document.body, null, true); // Async load
             this.childModulo.preprocessAndDefine(() => {});
         }
         this.data.demo = this.conf.demoCode; // Ready, ensure iframe is rendered this way
+        
+        
+        
+        // A "route-list" of resolved URLs that it matches for resources
+        this.virtualServerRoutes = {};
+        for (const filename of Object.keys(this.files)) {
+            const url = (new window.URL(filename, window.location)).toString();
+            this.virtualServerRoutes[url] = filename;
+        }
+        
+        // Attempt any initial injections that are needed
+        for (const elem of this.demoWindow.document.querySelectorAll('script[src],link[href],a[href],img[src]')) {
+            this.injectChildElement(elem);
+        }
+        
+        // Create a mutation observer for future injections
+        this.childMutation = new this.demoWindow.MutationObserver(mutations => {
+            console.log('mutating!', mutations);
+            for (const mutationRecord of mutations) {
+                for (const node of mutationRecord.addedNodes) {
+                    if (node.nodeType === 1) { // Check for element-like
+                        this.injectChildElement(node);
+                    }
+                }
+            }
+        });
+        // have the observer observe for changes in children
+        this.childMutation.observe(this.demoWindow.document, { childList: true, subtree: true });
+        
+        // TODO: Make sure Child can do file:// mode. Then, have "thin copy file:// mode" option for vbrowser, where it
+        // generates "jsonp" files like "!DOCTYPE_MODULO(window.parent.modulo.store.files.data['myfilename'])" or something
+        // This way the base64 is rather small! Can laod binary data this way too.
+        // Maybe always use sessionStore for this?
+
+        /*
+        // TODO: Integrate new sync process here
+        this.syncWithChild();
         setTimeout(() => {
             this.element.rerender();
+            this.syncWithChild(); // Ensure synced after next tick as well
         }, 0);
+        */
     }
 
+    fixChildAttribute(node, attrName) {
+        console.log('this is node', attrName);
+        if (node.hasAttribute(attrName)) {
+            //const url = (new window.URL(node.getAttribute('src'), window.location)).toString();
+            const url = (new window.URL(node.getAttribute(attrName), window.location)).toString();
+            if (url in this.virtualServerRoutes) {
+                console.log('VIRTUAL SERVER: found match', url);
+                node.removeAttribute(attrName);
+                node.setAttribute('data-ready', attrName);
+                node.setAttribute('data-ready-' + attrName, url);
+            } else {
+                console.log('VIRTUAL SERVER: 404, falling through', url);
+            }
+        }
+    }
+    
+    injectChildAttribute(node, attrName) {
+        const url = node.getAttribute('data-ready-' + attrName);
+        const filename = this.virtualServerRoutes[url];
+        const text = window.btoa(this.files[filename]);
+        // TODO: If it's a a[href], make it "javascript: window.history.pushState('...'); window.document.innerHTML = ...;"
+        const dataType = name.endsWith('.js') ? 'javascript' : 'css'; // TODO: have default to extension
+        node.setAttribute(attrName, 'data:text/' + dataType + ';base64,' + text);
+        node.setAttribute('data-injected', text.length);
+    }
+
+    injectChildElement(node) {
+        if (node.hasAttribute('data-injected')) {
+            // Ignore, already injected
+            return false;
+        } else if (!node.hasAttribute('data-ready')) {
+            this.fixChildAttribute(node, 'src'); // Check for "src"
+            this.fixChildAttribute(node, 'href'); // Check for "href"
+        }
+        if (node.hasAttribute('data-ready')) { // Might have gotten fixed, do last steps
+            this.injectChildAttribute(node, node.getAttribute('data-ready'));
+        }
+    }    
+
     run() {
+        // TODO: Allow for X "processes" / slots of iframes. Eventually allow custom grid alignment etc.
+        // (So in Modulo Studio you can "pin" docs next to editor)
+        // Note: Will require refactoring to allow plural childModulo, mutation observers, etc
         this.data.runCount++; // Count our run attempt
         this.demoElement = this.element.querySelector('.demo-area'); // Find the demo
         this.demoElement.innerHTML = this.conf.demoLoading; // Destroy old iframe
@@ -145,6 +250,8 @@ modulo.registry.cparts.VBrowser = class VBrowser {
         };
         const injection = '<script>window.parent._INJECT(window)<' + '/script>';
         const preinjection = '<script>window.parent._PREINJECT(window)<' + '/script>';
+        
+        // TODO: Do inline find & replace injection here!
         content += injection;
         content = content.replace(/<script/i, preinjection + '<script');           
         doc.open();
@@ -188,51 +295,3 @@ modulo.registry.cparts.VBrowser = class VBrowser {
 };
 
 modulo.register('cpart', modulo.registry.cparts.VBrowser);
-
-
-
-
-
-/*
-
-
-        if (this.conf.previewElement) {
-            const { component } = this.childModulo.config;
-            //this.data.demoPrefix = 'vbrowser' + this.id + '-' + (++window._moduloID);
-            //const newLine = 'console.log("' + this.data.demoPrefix + '-" + def.TagName);\n'
-            // + 'window.parent.customElements.define("' + this.data.demoPrefix + '-" + def.TagName';
-            
-            const line = 'window.customElements.define(def.TagName';
-            const newLine = 'window.parent.customElements.define(def.TagName';
-            component.CodeTemplate = component.CodeTemplate.replace(line, newLine);
-            console.log(component.CodeTemplate);
-        }
-        if (this.conf.previewElement && childModulo) {
-            const cls = childModulo.registry.elements[this.conf.previewElement];
-            console.log('cls', cls)
-            if (!cls) {
-                console.error('Warning: Preview Element was not registered.', this.conf.previewElement);
-            }
-            const demoTag = this.conf.previewElement.replace('_', '-');// + '-' + this.conf.previewElement.replace('_', '-');
-            this.data.demo = this.conf.demoLoading + '<' + demoTag + '></' + demoTag + '>';
-            const demoCustomElement = new cls();
-            this.demoElement.append(demoCustomElement);
-        } else {
-        
-    prepareCallback(renderObj) {
-
-        const { state, props } = this.element.renderObj; // Get relevant from renderObj (TODO: Move to data)
-        if (state.editing === null) {
-            state.editing = Array.from(Object.keys(this.files)).shift();
-        }
-        if (state.url === null) {
-            state.url = state.editing;
-        }
-        if (state.text === null) {
-            state.text = this.files[state.editing]; // First update, get stashed
-        } else {
-            this.files[state.editing] = state.text; // Update stashed version
-            this.copyFile(state.editing);
-        } 
-    }
-        */

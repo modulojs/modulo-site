@@ -1,0 +1,3 @@
+console.log('main.js - ready!');
+
+// Write your JavaSript here...

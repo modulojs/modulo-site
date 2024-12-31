@@ -13,13 +13,27 @@
 
 <VBrowser></VBrowser>
 
-
 <Template
     -file="index.html"
     -name="file_index_template"
     -src="./samples/basic_index.html"
+    -title="Welcome to my home on the World Wide Web"
     -default-view
     -default-edit
+></Template>
+
+<Template
+    -file="projects.html"
+    -name="file_about_template"
+    -title="Learn about my projects"
+    -src="./samples/basic_index.html"
+></Template>
+
+<Template
+    -file="about.html"
+    -name="file_about_template"
+    -title="About my site"
+    -src="./samples/basic_index.html"
 ></Template>
 
 <Template
@@ -41,8 +55,8 @@
                 <tt>{{ file }}</tt>
                 {% if vbrowser.viewing is file %}[VIEWING]{% endif %}
                 {% if vbrowser.editing is file %}[EDITING]{% endif %}
-                <button @click:=vbrowser.edit payload="{{ file.path }}">Edit</button>
-                <button @click:=vbrowser.view payload="{{ file.path }}">View</button>
+                <button @click:=vbrowser.edit payload="{{ file }}">Edit</button>
+                <button @click:=vbrowser.view payload="{{ file }}">View</button>
                 {#<tt>{ { file.relpath|default:file.path } }</tt>#}
             </div>
         {% endfor %}

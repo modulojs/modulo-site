@@ -42,6 +42,17 @@
     modulo-url="./static/js/Modulo.js"
 ></State>
 
+
+<State
+    -name="fs_store"
+    -store="fs"
+    paths:=[]
+    sizes:={}
+    timestamps:={}
+    chroots:=[]
+></State>
+
+
 <Template
     -file="index.html"
     -name="index_template"
@@ -71,6 +82,11 @@
 
 <Template -button="open" -button-emoji="&#128193;" -name="open_menu_template">
     <div class="toolbar toolbar--settings">
+        <h3>Projects</h3>
+        <ms-DataGrid source="fs" dirname="presets/"></ms-DataGrid>
+    </div>
+    {% comment %}
+    <div class="toolbar toolbar--settings">
         <h2>Recent</h2>
         <div class="control-section">
             {% for file in vbrowser.recent %}
@@ -83,16 +99,17 @@
 
     <h2>Import</h2>
     <!-- ability to open zip? -->
-
+    {% endcomment %}
 </Template>
 
 <Template -button="new" -button-emoji="&#x1f4c4;" -name="new_menu_template">
     <div class="toolbar toolbar--settings">
-        <h3>Modulo.js</h3>
         <div class="control-section">
-            <button @click:=vbrowser.view payload="editor_basic_website.html"><span>&#128193;</span> Multi-Page Site</button>
-            <button @click:=vbrowser.view payload="component_editor_example.html"><span>&#128193;</span> Component</button>
+            <button @click:=vbrowser.create payload="editor_basic_website.html"><span>&#128193;</span> Multi-Page Site</button>
+            <button @click:=vbrowser.create payload="component_editor_example.html"><span>&#128193;</span> Component</button>
         </div>
+        <h3>Modulo.js</h3>
+        <ms-DataGrid source="fs"></ms-DataGrid>
         <!--
         <h3>Web Site</h3>
         <div class="control-section">
@@ -145,6 +162,18 @@
         //    vbrowser.settings.divider = dividerLast; // restore
         // Ensure full-screen size (if not FS layout)
         vbrowser.settings.extraPaneStyle = 'height: 100vh; width: 100vw; overflow: hidden; position: absolute; top: 0; left: 0;';
+        
+        // Copy vbrowser files to fs store (TODO: Make Vbrowser use fs_store)
+        fs_store.paths = [];
+        const timestamp = Date.now();
+        for (const file of Object.keys(vbrowser.files)) {
+            fs_store.paths.push(file);
+            fs_store.sizes[file] = vbrowser.files[file].length;
+            fs_store.timestamps[file] = timestamp;
+        }
+    }
+    function updateCallback() {
+        //console.log('this si vbrowser modulo', cparts.vbrowser.childModulo);
     }
 </Script>
 

@@ -5,7 +5,7 @@
         <ul>
             <li>
                 <a href="https://modulojs.org">
-                    <img src="./static/images/modulo_logo.svg" alt="Modulo Percent Sign Logo" style="height: 100px" /><Br />
+                    {% include modulo_logo %}
                     ModuloJS.org
                 </a>
             </li>
@@ -13,6 +13,17 @@
             <li> <a href="/modulo-studio/">Modulo Studio</a> </li>
             <li> <a href="/modulo-testsuite/">Modulo TestSuite</a> </li>
             <li> <a href="/htmlcli/"> HTMLCLI<br /> spec </a> </li>
+
+            <li>
+                <a href="https://codeberg.org/modulo/modulo/">
+                    <img
+                        alt="Codeberg's Iceberg Logo"
+                        height="48"
+                        width="48"
+                        src="static/images/codeberg-logo_icon_blue-64x64.png"
+                    />Source
+                </a>
+            </li>
         </ul>
     </nav>
 
@@ -24,6 +35,8 @@
         </div>
     </main>
 </Template>
+
+<Template -name="modulo_logo" -src="./Page-logo.svg"></Template>
 
 <Script>
     function initializedCallback(renderObj) { // Called when first mounted
@@ -77,6 +90,7 @@
         background: var(--bg-shading);
         box-shadow: none;
         text-align: center;
+        padding: 10px;
     }
     .page-nav ul li:first-child {
         margin-right: auto;
@@ -91,6 +105,7 @@
     .page-nav ul {
         display: flex;
         margin: 0;
+        padding-left: 0;
         align-items: baseline;
     }
     .page-nav li {
@@ -107,7 +122,7 @@
 
     .u--container {
         display: grid;
-        grid-template-columns: 1fr minmax(auto, 800px) 1fr;
+        grid-template-columns: 1fr minmax(auto, 1000px) 1fr;
         font-family: sans-serif;
     }
     .u--container > * {

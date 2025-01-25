@@ -12,14 +12,14 @@
             <li> <a href="/modulo-starter/">Modulo Starter</a> </li>
             <li> <a href="/modulo-studio/">Modulo Studio</a> </li>
             <li> <a href="/modulo-testsuite/">Modulo TestSuite</a> </li>
-            <li> <a href="/htmlcli/"> HTMLCLI<br /> spec </a> </li>
+            <li> <a href="/htmlcli/">HTMLCLI spec</a></li>
 
             <li>
                 <a href="https://codeberg.org/modulo/modulo/">
                     <img
                         alt="Codeberg's Iceberg Logo"
-                        height="48"
-                        width="48"
+                        height="42"
+                        width="42"
                         src="static/images/codeberg-logo_icon_blue-64x64.png"
                     />Source
                 </a>
@@ -91,6 +91,8 @@
         box-shadow: none;
         text-align: center;
         padding: 10px;
+        padding-left: 2rem;
+        padding-right: 2rem;
     }
     .page-nav ul li:first-child {
         margin-right: auto;
@@ -103,7 +105,8 @@
         border-color: var(--bg);
     }
     .page-nav ul {
-        display: flex;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
         margin: 0;
         padding-left: 0;
         align-items: baseline;

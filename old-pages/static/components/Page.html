@@ -1,0 +1,166 @@
+<Template>
+    <title>{{ script.markdown-meta.page_title }} - Modulo.js</title>
+    <nav class="page-nav u--container">
+        <h1>{{ script.markdown-meta.page_title|upper }}</h1>
+        <ul>
+            <li>
+                <a href="https://modulojs.org">
+                    {% include modulo_logo %}
+                    ModuloJS.org
+                </a>
+            </li>
+            <li> <a href="/modulo-starter/">Modulo Starter</a> </li>
+            <li> <a href="/modulo-studio/">Modulo Studio</a> </li>
+            <li> <a href="/modulo-testsuite/">Modulo TestSuite</a> </li>
+            <li> <a href="/htmlcli/">HTMLCLI spec</a></li>
+
+            <li>
+                <a href="https://codeberg.org/modulo/modulo/">
+                    <img
+                        alt="Codeberg's Iceberg Logo"
+                        height="42"
+                        width="42"
+                        src="static/images/codeberg-logo_icon_blue-64x64.png"
+                    />Source
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <main class="u--container">
+        <div class="page-container">
+            <div class="page-content">
+                <section>{{ script.markdown-body|markdown|safe }}</section>
+            </div>
+        </div>
+    </main>
+</Template>
+
+<Template -name="modulo_logo" -src="./Page-logo.svg"></Template>
+
+<Script>
+    function initializedCallback(renderObj) { // Called when first mounted
+        let markdownMeta = null;
+        let markdownBody = null;
+        const { originalHTML } = element; // Extract the mounting HTML
+        if (originalHTML && originalHTML.startsWith('<script type=')) {
+            markdownMeta = { Content: originalHTML };
+            modulo.registry.processors.contentMD(modulo, markdownMeta, '');
+            markdownBody = markdownMeta.body;
+        }
+        return { markdownMeta, markdownBody }
+    }
+</Script>
+
+<Style>
+    .page-container,
+    .page-content,
+    .page-nav,
+    .page-nav a {
+        display: block;
+        background-color: var(--color);
+        box-shadow:
+            0 0 0 4px var(--color),
+            -5px -5px 100px 3px inset var(--fg-shading),
+            0 0 0 10px inset var(--color);
+        border: 3px groove var(--color);
+        border-radius: 8px;
+        padding: 20px;
+        margin: 4px;
+        color: var(--fg);
+    }
+    .page-content {
+        background-color:  var(--bg);
+        box-shadow: none;
+    }
+    .page-container {
+        margin-top: 26px;
+            /*10px 10px 30px 0 var(--fg-shading),*/
+        box-shadow:
+            0 0 0 30px var(--color),
+            -5px -5px 100px 3px inset var(--fg-shading),
+            0 0 0 10px inset var(--color);
+    }
+    .page-nav {
+        box-shadow: 0 0 0 100px var(--color);
+    }
+    .page-nav a {
+        text-decoration: none;
+        font-weight: bold;
+        border-color: var(--bg-shading);
+        background: var(--bg-shading);
+        box-shadow: none;
+        text-align: center;
+        padding: 10px;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+    .page-nav ul li:first-child {
+        margin-right: auto;
+    }
+    .page-nav a:hover {
+        border-color: var(--fg-shading);
+    }
+    .page-nav a:active,
+    .page-nav a.nav--selected{
+        border-color: var(--bg);
+    }
+    .page-nav ul {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        margin: 0;
+        padding-left: 0;
+        align-items: baseline;
+    }
+    .page-nav li {
+        list-style: none;
+    }
+    .page-nav h1 {
+        color: var(--bg);
+        margin: 0;
+        padding: 0;
+        font-size: 50px;
+        margin-bottom: -60px;
+        text-align: right;
+    }
+
+    .u--container {
+        display: grid;
+        grid-template-columns: 1fr minmax(auto, 1000px) 1fr;
+        font-family: sans-serif;
+    }
+    .u--container > * {
+        grid-column: 2;
+    }
+
+
+    @media (max-width: 992px) {
+        /* Make it fit better on mobile */
+        .page-nav ul {
+            display:flex;
+            flex-wrap: wrap;
+        }
+        .page-container,
+        .page-nav {
+            padding: 4px;
+            margin: 2px;
+            box-shadow: none;
+        }
+        .page-nav {
+            padding-top: 70px;
+        }
+        .page-nav h1 {
+            margin-top: -70px;
+            font-size: 40px;
+            text-align: center;
+        }
+    }
+    @media (max-width: 576px) {
+        .page-nav ul {
+            display: block;
+        }
+        .page-nav h1 {
+            font-size: 30px;
+        }
+    }
+</Style>

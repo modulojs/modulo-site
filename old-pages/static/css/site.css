@@ -1,0 +1,20 @@
+:root {
+    /* Set site-wide CSS variables here */
+    --color: Indigo;
+    --fg: Black;
+    --fg-shading: #00000033;
+    --bg: White;
+    --bg-shading: WhiteSmoke;
+    --color-alt: #B90183;
+    --color: #a2e4b8;
+}
+
+/* Configure misc site-wide base settings */
+body {
+    background: White;
+    margin: 0;
+    line-height: 1.5;
+    font-size: 16px;
+}
+
+

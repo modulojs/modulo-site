@@ -1,0 +1,81 @@
+<script src=../Modulo.html></script><template type=f>
+
+<!-- 
+    Modulo can be used with APIs to create interactive apps. This is a very
+    basic one that shows the principal parts.
+-->
+<Template>
+    <!-- Two examples of bound inputs, both to the "search" State variable: -->
+    <select name="search_dropdown" state.bind=search>
+        {% for option in staticdata %}
+            <option value="{{ option }}">{{ option }}</option>
+        {% endfor %}
+    </select>
+    <input name="search" state.bind />
+
+    <!-- Example of click event: -->
+    <button on.click=script.doSearch><span alt="book">🕮 </span> Search</button>
+
+    <!-- Examples of using both if and for template tags -->
+    {% if state.loading %}
+        <em><span alt="refresh icon">⟳ </span> Loading...</em>
+    {% endif %}
+    <ol>
+        {% for item in state.results %}
+            <li><strong>{{ item.title }}</strong>{% if item.author_name %} (by
+                    {{ item.author_name|join:' and ' }}){% endif %}</li>
+        {% endfor %}
+    </ol>
+</Template>
+
+<!-- HINT: State is a "reactive data container" used for private state
+(default), or used as a globally shared "store" (-store="name_of_store") -->
+<State
+    search="Jane Austen"
+    loading:=false
+    results:=[]
+></State>
+
+<Script>
+    // Script tags can contain arbitrary JavaScript, including fetching data
+    // from backend APIs, and can operate on Component Parts such as State.
+    const OPTS = 'limit=10&fields=title,author_name';
+    const API = 'http://openlibrary.org/search.json?q=';
+    const LS_KEY = 'book_data';
+
+    async function doSearch() {
+        state.loading = true; // (Hint: Modify state directly by setting)
+        const response = await fetch(`${ API }?q=${ state.search }&${ OPTS }`);
+        state.results = (await response.json()).docs; // Hint: await; re-render
+        state.loading = false;
+        element.rerender(); // Hint: Manually re-render (since already awaited)
+        window.localStorage.setItem(LS_KEY, JSON.stringify(state)); // Save now
+    }
+
+    function mountCallback() { // Load saved state when first mounted
+        if (window.localStorage.getItem(LS_KEY)) {
+            Object.assign(state, JSON.parse(window.localStorage.getItem(LS_KEY)));
+        }
+    }
+</Script>
+
+<StaticData>
+    [ "Jane Austen", "King Lear", "Hunger Games" ]
+</StaticData>
+
+<!--
+    HINT: Unlike using fetch in Script tags, StaticData only fetches once, then
+    "bakes" the data into the bundle. Here it's embedded, but typically you put
+    it into a separate file: JSON (default), JS, or CSV are ok. Example:
+    <StaticData -src="../data/some-data-file.csv"></StaticData>
+-->
+
+<Style>
+   input, button, select {
+        border: 3px groove var(--fg-shading);
+        font-size: 22px;
+        line-height: 2;
+        background: var(--color);
+        color: var(--fg);
+   }
+</Style>

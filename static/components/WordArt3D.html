@@ -1,0 +1,55 @@
+<script src=../Modulo.html></script><template type=f>
+
+<Props text></Props>
+<Template>
+  <h2 style="
+    text-shadow: 0 0 3px #fff
+    {% for index, shadow in state.shadows %}
+      ,{{ index|multiply:state.angle1 }}px {{ index|multiply:state.angle1 }}px 0 {{ shadow }}
+      ,{{ index|multiply:state.angle2 }}px {{ index|multiply:state.angle2 }}px 10px #00000033
+    {% endfor %};
+  ">{{ props.text|syntax:"md"|safe }}</h2>
+</Template>
+<State
+  angle1:=-1.5
+  angle2:=1
+  shadows2:='[  "#b90183", "#b90183", "white", "white", "white", "white", "white", "white" ]'
+  shadows:='[ "black", "black", "#b90183", "#b90183", "black", "#b90183", "#b90183",
+"#b90183", "black" ]'
+  shadows3:='[ "#b90183", "#b90183", "#ffe45a", "#ffe45a","#ffe45a", "#b90183", "#890153" ]'
+></State>
+<Style>
+    h2 {
+        font-size: 64px;
+        transform: skew(-10deg, -3deg);
+        color: white;
+        font-family: serif;
+        margin: 20px;
+        margin-bottom: -20px;
+    }
+    code {
+        font-size: 200px;
+        font-family: sans-serif;
+        font-weight: 200;
+    }
+    strong {
+        font-family: sans-serif;
+        font-weight: 800;
+    }
+    em {
+        font-size: 100px;
+        font-family: cursive;
+        font-weight: 200;
+    }
+</Style>
+
+<!--
+  <label>Text: <input state.bind name="text" /></label>
+  {% for index, color in state.colors %}
+    <div style="background: {{ color }}">
+      <button on.click=state.shadows.push payload="{{ color }}">+</button>
+      <label>Palette #{{ index }} <input state.bind name="colors.{{ index }}" type="color" /></label>
+    </div>
+  {% endfor %}
+-->
+

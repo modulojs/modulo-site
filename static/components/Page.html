@@ -1,0 +1,86 @@
+<script src=../Modulo.html></script><template type=f>
+
+<Props slotclass></Props>
+
+<Template>
+    {% if global.page %}
+        <meta charset=utf8>
+        <title>{{ global.page.page_title }}</title>
+    {% endif %}
+    <nav class="page-nav">
+        <ul>
+            {% for row in global.definitions.contentlist.data %}
+                {% if row|get:2 %}
+                <li><a class="nav-link--{{ row|get:1|trim|lower }}"
+                href="{{ row|get:0 }}" title="{{ row|get:1 }}">{{ row|get:2 }}</a></li>
+                {% else %}
+                <li><a href="{{ row|get:0 }}">{{ row|get:1 }}</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </nav>
+
+    {% if not global.page %}
+        {# Default to "slot" #}
+        <slot class="{{ props.slotclass }}"></slot>
+    {% else %}
+    <div class="page-container">
+        {# Show page meta info #}
+        <h1>{{ global.page.page_title|default:'' }}</h1>
+        <h4>{{ global.page.page_author|default:'' }}</h4>
+
+        {# Show body #}
+        {% if global.page.body|trim %}
+        <div class="markdown-page">
+            {{ global.page.body|syntax:"md"|safe }}
+        </div>
+        {% endif %}
+
+        {# Show all articles #}
+        {% if global.page.bottomlist is "articles" %}
+        {% for article in global.definitions.articlelist.files %}
+        <article class="page-article">
+            <a class="page-article-title u--blocklink"
+                 href="{{ article.Source }}">
+                {{ article.page_title }}</a>
+            <p>{{ article.desc }}</p>
+        </article>
+        {% endfor %}
+        {% endif %}
+    </div>
+    {% endif %}
+</Template>
+
+<Style -src=Page-style.css.htm></Style>
+
+<Style prefix=".markdown-page">
+    p {
+        line-height: 1.6;
+        font-size: 18px
+    }
+    h2[h] {
+        margin: 60px 0 0 0;
+        font-family: sans-serif;
+        font-weight: 500;
+    }
+    h2[h='#'] {
+        font-size: 64px;
+    }
+    h2[h='##'] {
+        font-size: 46px;
+    }
+    h2[h='###'] {
+        font-size: 30px
+    }
+    h2[h='#'],
+    h2[h='##'] {
+        text-align: center;
+    }
+    code, tt {
+        background: #88888855;
+    }
+    hr {
+        border: 0.5vw solid #88888855;
+        margin: 5vw 30% 5vw 30%
+    }
+</Style>

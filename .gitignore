@@ -1,6 +1,4 @@
-# See https://help.github.com/ignore-files/ for more about ignoring files.
-
-# Default Modulo generated directories for BUILD and CACHE
+# Default oludom/htm/HTMLCLI generated directories for BUILD and CACHE
 /_build
 /_cache
 
@@ -12,27 +10,31 @@
 .env.development.local
 .env.test.local
 .env.production.local
+.local_notes
 
-# misc
-.DS_Store
-
-# Misc logs
+# Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# more misc (py, editor swaps, others)
-*.pyc
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
 *~
-.idea/
 *.orig
 *.rej
-*.pyc
-*.pyo
 *.swp
 *.swo
 *.swn
+*.sw?
 *.po
-*.egg*
 *.log
 *.xdp-*

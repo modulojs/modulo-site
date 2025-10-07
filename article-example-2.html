@@ -1,0 +1,49 @@
+<script src=static/Modulo.html></script><script type=md>---
+page_title: Article II: The Second Article
+page_author: Authorino, PhD in Authoring
+desc:
+     A more advanced example page. This time, we employ use of live snippets.
+---
+
+# Code Example
+
+### Syntax Highlighting
+
+```html
+<h1>HTML snippet</h1>
+```
+
+```js
+const jsSnippet = async function demo () { }
+```
+
+### Live Editors
+
+#### HTML
+
+```html=embed
+<h1>HTML demo</h1>
+```
+
+#### Modulo Web Component
+
+```html=embed
+<script Modulo src=static/Modulo.html>
+<Component name=Demo>
+  <Props say></Props>
+  <Template>
+    <h1>{{ props.say }}</h1>
+  </Template>
+</Component>
+<-script>
+<x-Demo say="Component demo"></x-Demo>
+```
+
+#### Markdown Page
+
+```html=embed
+<script src=static/Modulo.html><-script><script type=f>---
+page_title: Example Title
+---
+Markdown Page Demo
+```

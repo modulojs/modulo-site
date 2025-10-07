@@ -1,0 +1,163 @@
+<!DOCTYPE HTML>
+<title>Modulo</title>
+<meta charset="utf8">
+<style>
+x-TwoPanes {
+    max-width: 1000px;
+    margin: auto;
+    display: block;
+}
+x-TwoPanes h1 {
+	font-size: 4.5rem;
+	color: var(--color-fg-semidark);
+	text-align: center;
+	margin-top: 60px;
+	padding: 5px;
+	margin-right: 10px;
+    font-family: serif;
+    font-weight: 400;
+	background: linear-gradient(to right, #00000000 0%, #00000000 25%, var(--color-content-bg) 25.00001%, var(--color-content-bg) 75%, #00000000 75.00001%, #00000000 100%), linear-gradient(to bottom, var(--color-content-bg) 0%, var(--color-content-bg) 49%, var(--color-fg) 49.00001%, var(--color-fg) 51%, var(--color-content-bg) 51.00001%, var(--color-content-bg) 100%);
+}
+x-TwoPanes strong {
+    color: var(--color)
+}
+x-TwoPanes h3 span {
+    font-size: 100px;
+    color: var(--color);
+    font-weight: 100;
+}
+x-TwoPanes .pane {
+	display: block;
+	border: 1px solid var(--fg);
+	margin: 10px;
+	min-width: 200px;
+	padding: 10px;
+}
+x-TwoPanes section {
+	display: flex;
+	padding: 10px;
+	width: 100%;
+	justify-content: space-between;
+}
+</style>
+<script src="static/Modulo.html"></script>
+
+<x-Page>
+
+<x-TwoPanes>
+<h1>Modulo.html</h1>
+<h2 style="color: var(--color-fg-semidark)">The Declarative HTML Web Component Framework</h2>
+<ul>
+    <li>Beginner-friendly features inspired by Next.js, Svelte, React, and Vue.js</li>
+    <li>Only 2000 lines of dependency-free, self-building JavaScript</li>
+    <li>A &ldquo;no fuss&rdquo; drop-in for existing web apps or Jamstack static sites</li>
+</ul>
+</x-TwoPanes>
+
+
+
+
+<x-TwoPanes>
+    <x-AbstractArt3D></x-AbstractArt3D>
+    <x-WordArt3D text="Why use Modulo.html?"></x-WordArt3D>
+    <section>
+    <aside class="pane">
+        <h3><span alt="Null set">&#8709;</span></h3>
+        <h3>Fewer<br />assumptions</h3>
+        <!--<p><a href="/tutorial/ramping-up/part1.html">Get started now
+&#187;</a></p>-->
+    </aside>
+    <article class="pane">
+        <p><strong>Zero set-up</strong> - Like the "golden age" of jQuery,
+        just drop it into any HTML file.  Unlike jQuery, that 1 file packs
+        in many of the creature-comforts of a modern component framework,
+        without any dependencies or new syntax to learn. You can even compile
+        to a single JS file, directly from your browser!</p>
+
+        <p><strong>A gentler learning curve</strong> - Modulo's declarative,
+        synchronous HTML-first approach was designed to be easier for coding
+        newbies to pick-up&mdash;in fact, useful components can be developed
+        without writing any JavaScript code!</p>
+
+        <p><strong><strike style="color: gray">Progressive Web Apps</strike>
+        Progressive Enhancement</strong> - Modulo makes few assumptions, and
+        renders components mixed with plain HTML for easier integration into
+        backend apps. SPA's and PWA's are fine and all, and Modulo could be
+        used for these as well, but what about all our existing server-side
+        apps in Ruby on Rails, Python, Go, or that one home-grown PHP monster
+        that will never go away? Sprinkle in some Modulo components to make
+        your "traditional" web apps
+        <em>shine</em>.</p>
+    </article>
+    </section>
+</x-TwoPanes>
+
+<x-TwoPanes>
+    <section>
+        <article class="pane">
+            <p><strong>Component Parts</strong> - Modular "Lego blocks" for
+            your components! Combine Script, Style, State, Props, and Templates to
+            make components that with these features.</p>
+
+            <p><strong>Everything is transparent and swappable</strong> -
+            Component Parts (CParts) are a flexible form of component middleware:
+            You can create custom CParts to support your backend APIs, "mix and
+            match" your favorite JS templating languages (e.g., JSX), or fine-tune
+            DOM-resolution behavior, either globally, or on a per-component basis.
+            Lifecycle callbacks are especially powerful, allowing you to hook your
+            own code into the DOM or any steps of the rendering process.</p>
+
+            <p><strong>A novel approach to component development</strong> -
+            Modulo's separation of component middleware development allows
+            JavaScript developers to write pure JS to wrap APIs, and
+            component developers to tie it all together with "low-code".</p>
+        </article>
+        <aside class="pane">
+            <h3><span alt="Sigma">&#x03A3;</span></h3>
+            <h3>More<br />modular</h3>
+            <!--<p><a href="/docs/">Read the docs &#187;</a></p>-->
+        </aside>
+    </section>
+</x-TwoPanes>
+
+
+<x-TwoPanes>
+    <section>
+    <aside class="pane">
+        <h3><span alt="Modulo operator">%</span></h3>
+        <h3>Similar<br />(but&nbsp;simpler)</h3>
+        <!--<p><a href="/examples/">Play around with some examples
+&#187;</a></p>-->
+    </aside>
+    <article class="pane">
+        <p><strong>"It's like React or Vue"</strong> - Modulo is
+        "batteries-included" and uses familiar terminology. You get
+        encapsulated components with state management, two-way data
+        binding, props, computed values, smart DOM resolution, event
+        directives, and more. You even get a simple importing and
+        namespacing system, which can "self-pack" your components into a
+        single JS file!</p>
+
+        <p><strong>Clean & concise</strong> - The code-base of Modulo
+        itself is intentionally kept short &amp; sweet: It ways in at
+        roughly 1500 <abbr title="Source Lines of Code - This counts
+        'physical lines' and thus does not include comments, documentation,
+        blanks, etc">SLOC</abbr>, (mostly) 80 char line limit, 4 spaces of
+        indent, and a <abbr title="Try to keep cyclomatic complexity of
+        functions to 3 or lower">low-complexity</abbr> imperative style.
+        When something goes
+        wrong (which it probably will since it's new), it's easier to
+        "<tt>git blame</tt>"
+        Modulo.</p>
+
+        <p><strong>A basis for whatever comes next</strong> - Writing your own
+        framework? Modulo's core is even smaller. Read the source code, fork
+        away, and swap the "batteries-included" for your own!</p>
+
+    </article>
+    </section>
+</x-TwoPanes>
+
+
+
+

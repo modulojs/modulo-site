@@ -8,6 +8,7 @@
     file
     ui="code"
     demo="embed"
+    show
     readonly
     value
 ></Props>
@@ -19,10 +20,10 @@
 
 <!-- Fork of modulo-TextArea / modulo-Editor -->
 <Template>
-{% if not props.ui %}
-<select style="float:right" state.bind name=ui>
+{% if props.show is "ui" %}
+<select style="" state.bind name=ui>
     {% for tool in state.tools %}
-        <option value="{{tool}}">&#x1F5CE; {{ tool }}</option>
+        <option value="{{tool}}">&#x1F5CE; {{ tool|upper }}</option>
     {% endfor %}
 </select>
 {% endif %}
@@ -68,42 +69,33 @@
 {% endwith %}
 </Template>
 
-<Template -name="demo_embed">{{ value|safe }}</Template>
+<Template -name="demo_embed">{{ value|trim|safe }}</Template>
 
 <script Template -name="demo_markdown">
 <js src=Modulo.html></js><js type=md>---
 title:Example Markdown
 ---
-{{ value|safe }}
+{{ value|trim|safe }}
 </script>
-
-<script Template -name="demo_greet">
-<js src=Modulo.html></js>
-<template Modulo>
-  {{ value|safe }}
-</template>
-<x-App></x-App>
-</script>
-
-<!--
-<x-Greet>Modulo <strong>World</strong></x-Greet>
-<x-Greet><tt>HTML</tt> and <tt>markdown</tt> developers</x-Greet>
--->
 
 <script Template -name="demo_component">
 <js src=Modulo.html></js>
 <template Modulo>
     <Component name=App>
-        {{ value|safe }}
+        {{ value|trim|safe }}
     </Component>
 </template>
 <x-App></x-App>
+<js>window.onerror = function(msg, url, ln) {
+document.body.innerHTML += `<p style=color:red>${ msg }</p>`
+window.onerror = null // only do once
+}</js>
 </script>
 <script Template -name="demo_greetex">
 <js src=Modulo.html></js>
 <template Modulo>
     <Component name=HtmlIs mode=vanish>
-        {{ value|safe }}
+        {{ value|trim|safe }}
     </Component>
 </template>
 <x-HtmlIs><strong>powerful</strong></x-HtmlIs>
@@ -150,5 +142,12 @@ title:Example Markdown
         position: relative;
         z-index: 0;
     }
+    select {
+        float: right;
+        margin-bottom: -1rem;
+        position: relative;
+        z-index: 3;
+    }
+
     textarea{resize:none;color:#00000000;caret-color:#000;width:100%;}
 </Style>

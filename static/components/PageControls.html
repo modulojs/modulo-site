@@ -1,0 +1,92 @@
+<script src=../Modulo.html></script><template type=f>
+
+<Template>
+    <div style="text-align: right; margin: 5px">
+        <input type=range min=1 max=3 step=1 value=1 name="themenum" state.bind.input />
+    </div>
+    <div class="page-toolbar" style="display: {% if state.themenum is not 3 %}block{% else %}none{% endif %}">
+        <tt style="font-size:20px">&#x25D0;&nbsp;&#x25D1;&nbsp;&#10033;</tt>
+    </div>
+    <div class="page-toolbar" style="display: {% if state.themenum is 3 %}flex{% else %}none{% endif %}">
+        {% for widg in state.widgets %}
+            <input type=color name="{{ widg }}" state.bind>
+        {% endfor %}
+        <input type=range min=0 max=4 step=1 value=1 name="themeshadows" state.bind.input>
+    </div>
+</Template>
+
+<State
+    -store=pagectls
+    loaded:=false
+    themenum:=1
+    themeshadows:=1
+    themecolor="#b90183"
+    themefg="#000000"
+    themebg="#ffffff"
+    themebgsemi="#ffffff99"
+    themefgsemi="#05051020"
+    widgets:='["themecolor","themefg","themebg","themefgsemi","themebgsemi"]'
+></State>
+
+<Script>
+    const KEY = 'modulo-website-theme-preferences';
+
+    function prepareCallback() {
+         // restore from localStorage
+        //Object.assign(state, JSON.parse(localStorage.getItem(key)));
+        /*if (localStorage.getItem(key) && !state.loaded) {
+        }*/
+        state.loaded = true
+        if (state.themenum < 3) { // reset
+            state.themecolor = "#b90183"
+            state.themeshadows = 1
+        }
+    }
+
+    function updateCallback() {
+        //if (state.themenum < 2) { return }
+        let s = ''
+        if (state.themenum === 2) { // swap
+            s = `
+                --fg: var(--fg-inv);
+                --fg-shading: var(--fg-inv-shading);
+                --bg: var(--bg-inv);
+                --bg-semi: var(--bg-inv-semi);
+            `;
+        } else if (state.themenum === 3) { // use color
+            s = `
+                --color: ${ state.themecolor };
+                --fg: ${ state.themefg };
+                --bg: ${ state.themebg };
+                --bg-semi: ${ state.themebgsemi };
+                --fg-shading: ${ state.themefgsemi };
+            `;
+        }
+        // save to localStorage
+        //localStorage.setItem(key, JSON.stringify(state))
+        document.body.setAttribute('style', s)
+    }
+</Script>
+
+<Style>
+    :host {
+        opacity: 0.5;
+        border: 1px solid var(--fg-shading);
+        padding: 2px;
+        margin: 0;
+        display: block;
+    }
+    :host:hover {
+        opacity: 1.0;
+        border: 1px solid var(--fg);
+    }
+    input {
+        width: 50px;
+    }
+    div.page-toolbar {
+        color:var(--fg); 
+        height: 25px;
+        right: 0; 
+        text-align: right; 
+    }
+</Style>

@@ -7,13 +7,9 @@ title: Playground
 In this document you will find a dozens of component examples, covering many
 topics.
 
-
-
-
 ### Accordion
 
 ```html=component
-edit: demo=modulo
 <!-- This time, we have 3 sections which each get toggled based
      on one value -->
 <Template>
@@ -22,27 +18,22 @@ edit: demo=modulo
         <option value="middle">View Middle</option>
         <option value="bottom">View Bottom</option>
     </select>
-
     <article class="{% if state.val is 'top' %}active{% endif %}">
         <h1>Top</h1>
         <p>The contents of the hidden panel...</p>
     </article>
-
     <article class="{% if state.val is 'middle' %}active{% endif %}">
         <h1>Middle</h1>
         <p>The contents of the hidden panel...</p>
     </article>
-
     <article class="{% if state.val is 'bottom' %}active{% endif %}">
         <h1>Bottom</h1>
         <p>The contents of the hidden panel...</p>
     </article>
 </Template>
-
 <State
     val="top"
 ></State>
-
 <Style>
     :host {
         display: block;
@@ -61,7 +52,6 @@ edit: demo=modulo
         height: 120px;
     }
 </Style>
-
 ```
 
 
@@ -69,7 +59,7 @@ edit: demo=modulo
 ### BindingSliders
 
 ```html=component
-edit: demo=modulo
+
 <Template>
     <!-- Using state.bind.input
          we can get continuously activated
@@ -144,7 +134,7 @@ edit: demo=modulo
 ### ColorSelector
 
 ```html=component
-edit: demo=modulo
+
 <Template>
     <div style="float: right">
         <p><label>Hue:<br />
@@ -231,7 +221,7 @@ explore large data sets -->
 ### ConwayGameOfLife
 
 ```html=component
-edit: demo=modulo
+
 <!-- A simple implementation of Conway's classic game -->
 <Template>
   <div class="grid">
@@ -465,7 +455,7 @@ we can load a CSV file and show it as a table -->
 ### DateNumberPicker
 
 ```html=component
-edit: demo=modulo
+
 <Template>
     <p>ISO: <tt>{{ state.year }}-{{ state.month }}-{{ state.day }}</tt></p>
     {% for part in state.ordering %}
@@ -611,7 +601,7 @@ edit: demo=modulo
 ### DemoModal
 
 ```html=component
-edit: demo=modulo
+
 <!--
 This is the source code to the <x-DemoModal> Component
 -->
@@ -755,7 +745,7 @@ This is the source code to the <x-DemoModal> Component
 ### FlexibleForm
 
 ```html=component
-edit: demo=modulo
+
 <!-- Here, we have a form that's easy to update. If this gets used more
 than a couple times, it could be turned into a reusable component where
 the "ordering" and initial values get set via Props. -->
@@ -877,7 +867,7 @@ APIs. Here we use a Typicode's placeholder API to make posts -->
 ### GitHubAPI
 
 ```html=component
-edit: demo=modulo
+
 <Template>
 <p>{{ state.name }} | {{ state.location }}</p>
 <p>{{ state.bio }}</p>
@@ -916,7 +906,7 @@ edit: demo=modulo
 ### GradientPicker
 
 ```html=component
-edit: demo=modulo
+
 <!-- A succinct "Gradient Picker" that previews
     gradients as the user uses the system picker -->
 <Template>
@@ -947,7 +937,7 @@ edit: demo=modulo
 ### HelloCount
 
 ```html=component
-edit: demo=modulo
+
 <Template>
     <button on.click=script.countUp>Hello {{ state.num }}</button>
 </Template>
@@ -966,7 +956,7 @@ edit: demo=modulo
 ### HelloModulo
 
 ```html=component
-edit: demo=modulo
+
 <!-- The simplest component: HTML Template only -->
 <Template>
     <div style="border: 2px dotted Indigo; padding: 10px;">
@@ -1481,7 +1471,7 @@ This book search shows how a Script tag can use an API -->
 ### SimpleButton
 
 ```html=component
-edit: demo=modulo
+
 <!-- Components can even just be a Style -->
 <Style>
     :host {
@@ -1509,7 +1499,7 @@ edit: demo=modulo
 ### SimpleStyle
 
 ```html=component
-edit: demo=modulo
+
 <Template>
     Components can use any number of <strong>CParts</strong>.
     Here we use only <em>Style</em> and <em>Template</em>.
@@ -1526,7 +1516,7 @@ edit: demo=modulo
 ### SimpleTable
 
 ```html=component
-edit: demo=modulo
+
 <!-- The data below is embedded in a JS StaticData.
 This allows us to embed data using JavaScript syntax. -->
 <Template>
@@ -1588,7 +1578,7 @@ This allows us to embed data using JavaScript syntax. -->
 ### SimpleTabs
 
 ```html=component
-edit: demo=modulo
+
 <!-- This Component uses named slots for tabs.  See "Edit Usage" from
 MENU for how you specify "slot=" in order to use it. -->
 <Template>
@@ -1714,7 +1704,7 @@ MENU for how you specify "slot=" in order to use it. -->
 ### TablePushPop
 
 ```html=component
-edit: demo=modulo
+
 <Template>
     <h5>Author</h5>
     <h5>Title</h5>
@@ -1766,7 +1756,7 @@ edit: demo=modulo
 ### TextStyler
 
 ```html=component
-edit: demo=modulo
+
 <Template>
     <label for="text">Text</label>
     <input state.bind name="text" />
@@ -1827,7 +1817,7 @@ edit: demo=modulo
 ### ToDo
 
 ```html=component
-edit: demo=modulo
+
 <!-- The classic "To-Do" app in Modulo -->
 <Template>
   <ol>
@@ -1857,7 +1847,6 @@ edit: demo=modulo
 ### ToggleVisible
 
 ```html=component
-edit: demo=modulo
 <!-- Demos toggling height of an element based on state -->
 <Template>
     <label>

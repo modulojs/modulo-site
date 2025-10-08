@@ -2,7 +2,7 @@
   "private": true,
   "publish": "_build",
   "scripts": {
-    "clean": "rm -f _build/*.*",
+    "clean": "rm -rf _build/*.*",
     "modulo": "bash static/scripts/run.sh",
     "oludom": "node static/scripts/node-oludom.min.mjs",
     "oludom-buildall": "npm run clean && bash static/scripts/run.sh buildall",

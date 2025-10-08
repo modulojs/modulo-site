@@ -6,25 +6,41 @@
     {% if global.page %}
         <meta charset=utf8>
         <title>{{ global.page.page_title }}</title>
+        {% if global.page.extra_style %}
+            <style>{{ global.page.extra_style }}</style>
+        {% endif %}
     {% endif %}
     <nav class="page-nav">
         <ul>
             {% for row in global.definitions.contentlist.data %}
                 {% if row|get:2 %}
                 <li><a class="nav-link--{{ row|get:1|trim|lower }}"
-                href="{{ row|get:0 }}" title="{{ row|get:1 }}">{{ row|get:2 }}</a></li>
+                    href="{{ row|get:0 }}" title="{{ row|get:1 }}">{{ row|get:2 }}</a></li>
                 {% else %}
                 <li><a href="{{ row|get:0 }}">{{ row|get:1 }}</a></li>
                 {% endif %}
             {% endfor %}
+            {% for row in global.definitions.navlinks.data %}
+                <li><a href="{{ row|get:0 }}">{{ row|get:1 }}</a></li>
+            {% endfor %}
+            <li style="opacity:0.5"><br /><em>Version 0.1.0<br/> BETA</em></li>
+            <li style="margin-left: auto">
+                <x-PageControls></x-PageControls>
+            </li>
         </ul>
     </nav>
+
+    <a class="a-hamburger" href="#">&#x2630;</a>
+
+    {% if global.page %} {% if global.page.show_splash %}
+        <div class="page-splash">{{ page_splash|trimfile|safe }}</div>
+    {% endif %} {% endif %}
 
     {% if not global.page %}
         {# Default to "slot" #}
         <slot class="{{ props.slotclass }}"></slot>
     {% else %}
-    <div class="page-container">
+    <div class="page-container page--{% if global.page %}{{ global.page.theme|default:'normal' }}{% endif %}">
         {# Show page meta info #}
         <h1>{{ global.page.page_title|default:'' }}</h1>
         <h4>{{ global.page.page_author|default:'' }}</h4>
@@ -52,6 +68,21 @@
 </Template>
 
 <Style -src=Page-style.css.htm></Style>
+
+<StaticData -data-type=txt -name="page_splash" -src="./Page-splash.html"></StaticData>
+
+<!-- Themes -->
+<Style>
+.page--grid .markdown-page {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.page--grid .markdown-page > p,
+.page--grid .markdown-page > h2 {
+    display: none;
+    position: absolute;
+}
+</Style>
 
 <Style prefix=".markdown-page">
     p {

@@ -39,6 +39,10 @@ fi
 mkdir -p $WRITE
 BINARY="$(which $RUNTIME)"
 
+######
+# (Step 2.5: Copy static to _build)
+cp -r static _build/
+cp Modulo.html _build/
 
 ######
 # (Step 3: Run OluDOM)

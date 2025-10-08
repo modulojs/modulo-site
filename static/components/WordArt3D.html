@@ -3,21 +3,46 @@
 <Props text></Props>
 <Template>
   <h2 style="
-    text-shadow: 0 0 3px #fff
-    {% for index, shadow in state.shadows %}
+    text-shadow:
+        2px 2px 2px black
+    {% for index, shadow in script.shadows %}
       ,{{ index|multiply:state.angle1 }}px {{ index|multiply:state.angle1 }}px 0 {{ shadow }}
-      ,{{ index|multiply:state.angle2 }}px {{ index|multiply:state.angle2 }}px 10px #00000033
+      ,{{ index|multiply:state.angle2 }}px {{ index|multiply:state.angle2 }}px 5px #00000022
     {% endfor %};
+        {% comment %}
+        {% endcomment %}
   ">{{ props.text|syntax:"md"|safe }}</h2>
 </Template>
+
+
 <State
   angle1:=-1.5
   angle2:=1
+  shadows:='[ "black", "black", "#b90183", "#b90183", "black", "#b90183", "#b90183", "#b90183", "black" ]'
   shadows2:='[  "#b90183", "#b90183", "white", "white", "white", "white", "white", "white" ]'
-  shadows:='[ "black", "black", "#b90183", "#b90183", "black", "#b90183", "#b90183",
-"#b90183", "black" ]'
   shadows3:='[ "#b90183", "#b90183", "#ffe45a", "#ffe45a","#ffe45a", "#b90183", "#890153" ]'
 ></State>
+
+
+<State
+    -name=pagectls
+    -store=pagectls
+></State>
+
+
+<Script>
+    function prepareCallback() {
+        const color = pagectls.themecolor || "#b90183"
+        const black = "black"
+        const shadowSet = [ black, black, color, color, black, color, color, color, black ]
+        let shadows = [ ]
+        let count = pagectls.themeshadows || 0
+        while (count-- > 0) {
+            shadows = shadows.concat(shadowSet)
+        }
+        return { shadows }
+    }
+</Script>
 <Style>
     h2 {
         font-size: 64px;

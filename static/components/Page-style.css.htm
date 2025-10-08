@@ -13,9 +13,9 @@
 }
 
 .page-nav  {
+    position: sticky;
     display: block;
     border-bottom: 1px solid var(--fg);
-    position: sticky;
     background-color: var(--bg);
     top: 0;
     z-index: 10;
@@ -117,6 +117,34 @@ a.modulo-logo:hover {
     border-color: var(--color);
 }
 
+.a-hamburger  {
+    top: 0;
+    left: 0;
+    background: var(--bg);
+    color: var(--fg-shading);
+    text-decoration: none;
+    text-align: center;
+    border: 3px groove var(--fg-shading);
+    font-size: 60px;
+    border-radius: 20px;
+    width: 80px;
+    height: 80px;
+    display: none;
+    word-wrap: break-word;
+    padding: 0;
+    z-index: 9;
+}
+
+.page-splash {
+    font-size: 18px;
+}
+.page-splash h4 {
+    font-size: 24px;
+    color: var(--color);
+    margin:0;
+    padding:0;
+}
+
 @media (max-width: 992px) {
     /* Make it fit better on mobile */
     .page-container,
@@ -126,5 +154,14 @@ a.modulo-logo:hover {
     }
 }
 @media (max-width: 576px) {
-    .page-nav ul { display: block }
+    .page-nav ul {
+        display: block;
+    }
+    .page-nav  {
+        position: relative;
+    }
+    .a-hamburger  {
+        position: fixed;
+        display: block;
+    }
 }

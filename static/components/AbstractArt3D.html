@@ -1,15 +1,20 @@
 <script src=../Modulo.html></script><template type=f>
 
 <Props width="190.3mm" height="74.26mm" version="1.1" viewbox="0 0 190.3 74.26"
-    fill1="#b90183" fill2="#fff" stroke="#000" style=""></Props>
+    fill1="red" fill2="#fff" stroke="#000"></Props>
+    <!--fill1="#b90183" fill2="#fff" stroke="#000"></Props>-->
+
+<State
+  -store=pagectls
+></State>
 
 <Template>
-
+{% with state.themecolor|default:props.fill1 as fill1 %}
 <svg style="{{ props.style }}" width="{{ props.width }}" height="{{ props.height }}" viewBox="{{ props.viewbox }}"  version="1.1" xmlns="http://www.w3.org/2000/svg">
 <svg  xmlns="http://www.w3.org/2000/svg">
  <g transform="translate(.2601 -55.68)" stroke="{{props.stroke}}" stroke-dashoffset="39.68">
   <g stroke-linecap="square">
-   <path d="m44.65 98.63a8.035 8.035 0 0 1-10.98 2.941 8.035 8.035 0 0 1-2.941-10.98 8.035 8.035 0 0 1 10.98-2.941 8.035 8.035 0 0 1 2.941 10.98z" fill="{{props.fill1}}" stroke-linejoin="bevel" stroke-width=".8035" style="paint-order:stroke fill markers"/>
+   <path d="m44.65 98.63a8.035 8.035 0 0 1-10.98 2.941 8.035 8.035 0 0 1-2.941-10.98 8.035 8.035 0 0 1 10.98-2.941 8.035 8.035 0 0 1 2.941 10.98z" fill="{{fill1}}" stroke-linejoin="bevel" stroke-width=".8035" style="paint-order:stroke fill markers"/>
    <g transform="matrix(.4922 .2842 -.2842 .4922 29.72 24.73)" fill="{{props.fill2}}" fill-rule="evenodd" stroke-linejoin="round" style="paint-order:stroke fill markers">
     <path d="m87.07 88.66 10.35-7.293v13.22l-10.35 5.891z" style="paint-order:stroke fill markers"/>
     <path d="m76.09 83.16v12.88l10.98 4.438v-11.82z" style="paint-order:stroke fill markers"/>
@@ -18,7 +23,7 @@
     <path d="m86.05 74.42v14.56l11.37 5.614v-13.22z" style="paint-order:stroke fill markers"/>
     <path d="m76.09 83.16 9.958-8.748v14.56l-9.958 7.066z" style="paint-order:stroke fill markers"/>
    </g>
-   <path d="m62.66 96.22a8.405 8.405 45 0 1-11.48 3.077 8.405 8.405 45 0 1-3.077-11.48 8.405 8.405 45 0 1 11.48-3.077 8.405 8.405 45 0 1 3.077 11.48z" fill="{{props.fill1}}" stroke-linejoin="bevel" stroke-width=".7389" style="paint-order:stroke fill markers"/>
+   <path d="m62.66 96.22a8.405 8.405 45 0 1-11.48 3.077 8.405 8.405 45 0 1-3.077-11.48 8.405 8.405 45 0 1 11.48-3.077 8.405 8.405 45 0 1 3.077 11.48z" fill="{{fill1}}" stroke-linejoin="bevel" stroke-width=".7389" style="paint-order:stroke fill markers"/>
   </g>
   <g transform="matrix(.4922 .2842 -.2842 .4922 29.72 24.73)" fill="{{props.fill2}}" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="bevel" stroke-width="1.5" style="paint-order:stroke fill markers">
    <path d="m112.5 71.22 15.7-10.69v19.38l-15.7 8.633z" style="paint-order:stroke fill markers"/>
@@ -29,7 +34,7 @@
    <path d="m95.83 63.17 15.11-12.82v21.34l-15.11 10.36z" style="paint-order:stroke fill markers"/>
   </g>
   <g stroke-linecap="square">
-   <path d="m84.18 96.05a10.66 10.65 30 0 1-14.56 3.897 10.66 10.65 30 0 1-3.905-14.56 10.66 10.65 30 0 1 14.56-3.897 10.66 10.65 30 0 1 3.905 14.56z" fill="{{props.fill1}}" stroke-linejoin="bevel" stroke-width="1.066" style="paint-order:stroke fill markers"/>
+   <path d="m84.18 96.05a10.66 10.65 30 0 1-14.56 3.897 10.66 10.65 30 0 1-3.905-14.56 10.66 10.65 30 0 1 14.56-3.897 10.66 10.65 30 0 1 3.905 14.56z" fill="{{fill1}}" stroke-linejoin="bevel" stroke-width="1.066" style="paint-order:stroke fill markers"/>
    <g transform="matrix(.9415 .5436 -.5433 .941 52.9 -41.09)" fill="{{props.fill2}}" fill-rule="evenodd" stroke-linejoin="round" style="paint-order:stroke fill markers">
     <path d="m87.07 88.66 10.35-7.293v13.22l-10.35 5.891z" style="paint-order:stroke fill markers"/>
     <path d="m76.09 83.16v12.88l10.98 4.438v-11.82z" style="paint-order:stroke fill markers"/>
@@ -38,7 +43,7 @@
     <path d="m86.05 74.42v14.56l11.37 5.614v-13.22z" style="paint-order:stroke fill markers"/>
     <path d="m76.09 83.16 9.958-8.748v14.56l-9.958 7.066z" style="paint-order:stroke fill markers"/>
    </g>
-   <path d="m115.9 95.61a16.08 16.07 30 0 1-21.96 5.877 16.08 16.07 30 0 1-5.89-21.96 16.08 16.07 30 0 1 21.96-5.877 16.08 16.07 30 0 1 5.89 21.96z" fill="{{props.fill1}}" stroke-linejoin="bevel" stroke-width="1.413" style="paint-order:stroke fill markers"/>
+   <path d="m115.9 95.61a16.08 16.07 30 0 1-21.96 5.877 16.08 16.07 30 0 1-5.89-21.96 16.08 16.07 30 0 1 21.96-5.877 16.08 16.07 30 0 1 5.89 21.96z" fill="{{fill1}}" stroke-linejoin="bevel" stroke-width="1.413" style="paint-order:stroke fill markers"/>
   </g>
   <g stroke-linejoin="bevel">
    <g transform="matrix(.9415 .5436 -.5433 .941 52.9 -41.09)" fill="{{props.fill2}}" fill-rule="evenodd" stroke-linecap="round" stroke-width="1.5" style="paint-order:stroke fill markers">
@@ -49,7 +54,7 @@
     <path d="m110.9 50.34v21.34l17.25 8.227v-19.38z" style="paint-order:stroke fill markers"/>
     <path d="m95.83 63.17 15.11-12.82v21.34l-15.11 10.36z" style="paint-order:stroke fill markers"/>
    </g>
-   <path d="m155.2 96.5a22.01 21.99 30 0 1-30.05 8.044 22.01 21.99 30 0 1-8.061-30.05 22.01 21.99 30 0 1 30.05-8.044 22.01 21.99 30 0 1 8.061 30.05z" fill="{{props.fill1}}" stroke-linecap="square" stroke-width="1.934" style="paint-order:stroke fill markers"/>
+   <path d="m155.2 96.5a22.01 21.99 30 0 1-30.05 8.044 22.01 21.99 30 0 1-8.061-30.05 22.01 21.99 30 0 1 30.05-8.044 22.01 21.99 30 0 1 8.061 30.05z" fill="{{fill1}}" stroke-linecap="square" stroke-width="1.934" style="paint-order:stroke fill markers"/>
    <g transform="matrix(1.289 .744 -.7436 1.288 68.92 -90.6)" fill="{{props.fill2}}" fill-rule="evenodd" stroke-linecap="round" stroke-width="1.5" style="paint-order:stroke fill markers">
     <path d="m112.5 71.22 15.7-10.69v19.38l-15.7 8.633z" style="paint-order:stroke fill markers"/>
     <path d="m95.83 63.17v18.87l16.66 6.505v-17.32z" style="paint-order:stroke fill markers"/>
@@ -68,7 +73,7 @@
     <path d="m86.05 74.42v14.56l11.37 5.614v-13.22z" style="paint-order:stroke fill markers"/>
     <path d="m76.09 83.16 9.958-8.748v14.56l-9.958 7.066z" style="paint-order:stroke fill markers"/>
    </g>
-   <path d="m112.1 201a13.81 13.81 0 0 1-13.81 13.81 13.81 13.81 0 0 1-13.81-13.81 13.81 13.81 0 0 1 13.81-13.81 13.81 13.81 0 0 1 13.81 13.81z" fill="{{props.fill1}}" stroke-linecap="square" stroke-linejoin="bevel" stroke-width="1.214" style="paint-order:stroke fill markers"/>
+   <path d="m112.1 201a13.81 13.81 0 0 1-13.81 13.81 13.81 13.81 0 0 1-13.81-13.81 13.81 13.81 0 0 1 13.81-13.81 13.81 13.81 0 0 1 13.81 13.81z" fill="{{fill1}}" stroke-linecap="square" stroke-linejoin="bevel" stroke-width="1.214" style="paint-order:stroke fill markers"/>
    <g transform="matrix(.9341 0 0 .9341 6.477 126.3)" fill="{{props.fill2}}" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="bevel" stroke-width="1.5" style="paint-order:stroke fill markers">
     <path d="m112.5 71.22 15.7-10.69v19.38l-15.7 8.633z" style="paint-order:stroke fill markers"/>
     <path d="m95.83 63.17v18.87l16.66 6.505v-17.32z" style="paint-order:stroke fill markers"/>
@@ -85,7 +90,7 @@
     <path d="m86.05 74.42v14.56l11.37 5.614v-13.22z" style="paint-order:stroke fill markers"/>
     <path d="m76.09 83.16 9.958-8.748v14.56l-9.958 7.066z" style="paint-order:stroke fill markers"/>
    </g>
-   <path d="m33.76 246.3a13.81 13.81 0 0 1 13.81-13.81 13.81 13.81 0 0 1 13.81 13.81 13.81 13.81 0 0 1-13.81 13.81 13.81 13.81 0 0 1-13.81-13.81z" fill="{{props.fill1}}" stroke-linecap="square" stroke-linejoin="bevel" stroke-width="1.214" style="paint-order:stroke fill markers"/>
+   <path d="m33.76 246.3a13.81 13.81 0 0 1 13.81-13.81 13.81 13.81 0 0 1 13.81 13.81 13.81 13.81 0 0 1-13.81 13.81 13.81 13.81 0 0 1-13.81-13.81z" fill="{{fill1}}" stroke-linecap="square" stroke-linejoin="bevel" stroke-width="1.214" style="paint-order:stroke fill markers"/>
    <g transform="matrix(-.9341 0 0 -.9341 139.4 321)" fill="{{props.fill2}}" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="bevel" stroke-width="1.5" style="paint-order:stroke fill markers">
     <path d="m112.5 71.22 15.7-10.69v19.38l-15.7 8.633z" style="paint-order:stroke fill markers"/>
     <path d="m95.83 63.17v18.87l16.66 6.505v-17.32z" style="paint-order:stroke fill markers"/>
@@ -102,7 +107,7 @@
     <path d="m86.05 74.42v14.56l11.37 5.614v-13.22z" style="paint-order:stroke fill markers"/>
     <path d="m76.09 83.16 9.958-8.748v14.56l-9.958 7.066z" style="paint-order:stroke fill markers"/>
    </g>
-   <path d="m32.89 205.4a13.81 13.81 0 0 0 13.81 13.81 13.81 13.81 0 0 0 13.81-13.81 13.81 13.81 0 0 0-13.81-13.81 13.81 13.81 0 0 0-13.81 13.81z" fill="{{props.fill1}}" stroke-linecap="square" stroke-linejoin="bevel" stroke-width="1.214" style="paint-order:stroke fill markers"/>
+   <path d="m32.89 205.4a13.81 13.81 0 0 0 13.81 13.81 13.81 13.81 0 0 0 13.81-13.81 13.81 13.81 0 0 0-13.81-13.81 13.81 13.81 0 0 0-13.81 13.81z" fill="{{fill1}}" stroke-linecap="square" stroke-linejoin="bevel" stroke-width="1.214" style="paint-order:stroke fill markers"/>
    <g transform="matrix(-.9341 0 0 .9341 138.5 130.7)" fill="{{props.fill2}}" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="bevel" stroke-width="1.5" style="paint-order:stroke fill markers">
     <path d="m112.5 71.22 15.7-10.69v19.38l-15.7 8.633z" style="paint-order:stroke fill markers"/>
     <path d="m95.83 63.17v18.87l16.66 6.505v-17.32z" style="paint-order:stroke fill markers"/>
@@ -114,4 +119,5 @@
   </g>
  </g>
 </svg>
+{% endwith %}
 </Template>

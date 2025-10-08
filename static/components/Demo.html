@@ -1,0 +1,154 @@
+<script src=../Modulo.html></script><template type=f>
+
+<Props
+    fs
+    store=build
+    mode=html
+    font=17
+    file
+    ui="code"
+    demo="embed"
+    readonly
+    value
+></Props>
+<State
+    num-width:=24 
+    tools:='["demo","code","edit"]'
+    -init=props
+></State>
+
+<!-- Fork of modulo-TextArea / modulo-Editor -->
+<Template>
+{% if not props.ui %}
+<select style="float:right" state.bind name=ui>
+    {% for tool in state.tools %}
+        <option value="{{tool}}">&#x1F5CE; {{ tool }}</option>
+    {% endfor %}
+</select>
+{% endif %}
+{% with state.value|default:'' as v %}
+{% with v|lines|length|multiply:props.font|multiply:'1.5' as hg %}
+{# First backing PRE, then TEXTAREA #}
+{% if state.ui in "code,edit" %}
+<x-demo-grid>
+<x-demo-editwrap>
+<pre style="
+    background:var(--bg);
+    height:{{hg}}px;
+    font-size:{{props.font}}px;
+    padding: 0 0 0 {{ state.num-width|add:3 }}px"
+><modulo-line></modulo-line></span
+    >{{v|syntax:props.mode|safe}}</pre><textarea
+    state.bind
+    name=value
+    style="
+    top:-2px;
+    left:{{ state.num-width }}px;
+    position:absolute;
+    height:{{hg}}px;
+    font-size:{{props.font}}px"
+    {{state.ui|allow:"code"|yesno:"readonly,"}}
+    spellcheck=false></textarea>
+</x-demo-editwrap>
+{% endif %}
+{% if state.ui in "demo,edit" %}
+    {% with "demo_"|add:props.demo as dname %}
+    {% with local|get:dname as tmplt %}
+        {% if tmplt %}
+        <iframe style="height:{{hg}}px;"
+            srcdoc="{{ state|renderas:tmplt|add:'' }}" loading=lazy></iframe>
+        {% else %}
+        <strong style=color:red>Error: {{ dname }} not found</strong>
+        {% endif %}
+    {% endwith %}
+    {% endwith %}
+{% endif %}
+</x-demo-grid>
+{% endwith %}
+{% endwith %}
+</Template>
+
+<Template -name="demo_embed">{{ value|safe }}</Template>
+
+<script Template -name="demo_markdown">
+<js src=Modulo.html></js><js type=md>---
+title:Example Markdown
+---
+{{ value|safe }}
+</script>
+
+<script Template -name="demo_greet">
+<js src=Modulo.html></js>
+<template Modulo>
+  {{ value|safe }}
+</template>
+<x-App></x-App>
+</script>
+
+<!--
+<x-Greet>Modulo <strong>World</strong></x-Greet>
+<x-Greet><tt>HTML</tt> and <tt>markdown</tt> developers</x-Greet>
+-->
+
+<script Template -name="demo_component">
+<js src=Modulo.html></js>
+<template Modulo>
+    <Component name=App>
+        {{ value|safe }}
+    </Component>
+</template>
+<x-App></x-App>
+</script>
+<script Template -name="demo_greetex">
+<js src=Modulo.html></js>
+<template Modulo>
+    <Component name=HtmlIs mode=vanish>
+        {{ value|safe }}
+    </Component>
+</template>
+<x-HtmlIs><strong>powerful</strong></x-HtmlIs>
+<x-HtmlIs><em>easy-to-learn</em></x-HtmlIs>
+</script>
+
+<Style>
+    x-demo-grid, x-demo-editwrap{ display:block; position:relative; width:100% }
+    x-demo-grid { display: grid; grid-template-columns: auto 100px }
+
+    modulo-line:before{
+        counter-increment:line;
+        content: counter(line);
+        position:absolute;
+        left:0;
+        color:#888;
+        padding:0 0 0 3px;
+    }
+
+    pre, textarea{
+        counter-reset:line;
+        display:block;
+        color:var(--fg);
+        background:transparent;
+        white-space:pre;
+        text-align:start;
+        line-height:1.5;
+        overflow-wrap:break-word;
+        margin:0;
+        box-sizing:content-box;
+        border:1px dotted var(--fg);
+        font-family: monospace;
+    }
+    iframe {
+        width: 100%;
+        border: none;
+        box-shadow:
+            -1px -1px 0 1px var(--fg),
+            -2px -2px 0 1px var(--color),
+            -4px -4px 0 1px var(--color),
+            -6px -6px 0 1px var(--fg);
+        border-radius: 5px;
+        background:#eee;
+        position: relative;
+        z-index: 0;
+    }
+    textarea{resize:none;color:#00000000;caret-color:#000;width:100%;}
+</Style>

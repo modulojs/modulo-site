@@ -16,6 +16,95 @@
     ),
     linear-gradient(white, var(--color-alt)); margin:20px">
 
+<!--<x-WordArt3D text="Create with"></x-WordArt3D>-->
+<div style="margin-top:-60px"></div>
+<x-WordArt3D text="`ᵐ°dᵘ⁄o`"></x-WordArt3D>
+<div style="margin-top:-60px"></div>
+    <x-AbstractArt3D style="margin: -60px -110px 0 -80px"></x-AbstractArt3D>
+<div style="margin: 30px; margin-top:-100px; padding:30px;
+padding-top:70px;background:var(--bg)">
+    <div style="display:flex;">
+    <!--<x-AbstractArt3D style="margin: -60px -100px 0 -80px"></x-AbstractArt3D>-->
+
+        <div style=margin-right:100px>
+            <div style="margin-top:-50px"></div>
+            <x-WordArt3D text="**Markdown**"></x-WordArt3D>
+            <div style="margin-top:-10px"></div>
+            <x-Demo mode=html demo=markdown ui=edit value='
+#### Show
+
+[Tickets](#/buy)
+
+The *band* is on an
+exciting tour...'></x-Demo>
+
+        </div>
+
+        <div style=margin-right:100px>
+<div style="margin-top:-95px"></div>
+            <x-WordArt3D text="HTML/CSS"></x-WordArt3D>
+            <x-Demo mode=html demo=greetex ui=edit value='<Template>
+  <p>
+    HTML is
+    <slot></slot>
+  </p>
+</Template>
+
+<Style>
+  p { color: #b08 }
+</Style>'></x-Demo>
+        </div>
+        <div style=margin-right:100px>
+<div style="margin-top:-150px"></div>
+            <x-WordArt3D text="**JavaScript**"></x-WordArt3D>
+<!--
+<x-Demo mode=js demo=component ui=edit value='<Script>
+  function add() {
+    state.list.push(state.text)
+    state.text = ""
+  }
+</Script>
+
+<Template>
+  <ol>{% for item in state.list %}
+    <li>{{ item }}{% endfor %}
+    <li><input state.bind name=text>
+      <button on.click=script.add>
+        Add</button>
+  </ol>
+</Template>
+
+<State
+  text="Coffee"
+  list:=&apos;["Bread", "Butter"]&apos;
+></State>'></x-Demo>
+-->
+
+
+
+<x-Demo mode=js demo=component ui=edit value='<Script>
+  function add() {
+    state.count++
+  }
+</Script>
+
+<State
+  count:=0
+></State>
+
+<Template>
+  <button on.click=script.add>
+    Hello {{ state.count }}
+  </button>
+</Template>'></x-Demo>
+
+
+        </div>
+
+    </div>
+
+</div>
+
 <div style="float:right; max-width:65%; position:relative;z-index:2;">
     <div style="display:flex;">
 
@@ -36,58 +125,12 @@
     </a></p>
     </div>
     <p style="text-align:center"><em><strong>Hint:</strong>
-         Download an above file to get started.</em><!-- (easiest),
+         Download a file above to get started.</em><!-- (easiest),
         or install with NPM:</strong>
         <tt>npm init modulo</tt></p>-->
 </div>
 
 
-
-<x-WordArt3D text="Create with"></x-WordArt3D>
-<div style="margin-top:-60px"></div>
-<x-WordArt3D text="`ᵐ°dᵘ⁄o`"></x-WordArt3D>
-<div style="margin: 30px; margin-top:-100px; padding:30px;
-padding-top:70px;background:var(--bg)">
-    <div style="display:flex">
-    <x-AbstractArt3D style="margin: -10px -300px 0 -80px"></x-AbstractArt3D>
-
-
-        <div>
-                <x-WordArt3D text="MD"></x-WordArt3D>
-            <modulo-Editor mode=html value='<script src=Modulo.html></script><script type=md>---
-title: Tour announcement
-tags: tour,band,calendar
----
-# Upcoming tour
-
-[Buy Tickets](https://...)
-The new *exciting* tour...'></modulo-Editor>
-        </div>
-        <div>
-            <x-WordArt3D text="HTML"></x-WordArt3D>
-            <modulo-Editor mode=html value='<Component name="Greet">
-  <Template>
-    <h1>Hey there
-      <slot></slot>!</h1>
-  </Template>
-  <Style>
-    h1 { color: Salmon }
-  </Style>
-</Component>'></modulo-Editor>
-        </div>
-        <div>
-            <x-WordArt3D text="JS"></x-WordArt3D>
-            <modulo-Editor mode=js value='<Template>Count: {{ state.likes }}
-  <a on.click=script.count>Like</a>
-</Template>
-<State likes:=0></State>
-<Script>
-  function count() {
-    state.likes++
-  }
-</Script>'></modulo-Editor>
-        </div>
-    </div>
 
      <p style="font-family:serif;font-size:25px;">Modulo (or ᵐ°dᵘ⁄o) is a single-file frontend framework,
         squeezing in numerous tools for modern HTML, CSS, and JavaScript develpment.
@@ -95,8 +138,6 @@ The new *exciting* tour...'></modulo-Editor>
         including Web Components, CSS Scoping, Shadow DOM, Jamstack / SSG / SSR,
         Markdown-powered CMS, Bundling, Store and State Management, and Templating.
     </p>
-
-</div>
 
 <!--
 <x-WordArt3D text="{% include **everybody** %}"></x-WordArt3D>

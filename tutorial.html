@@ -2,14 +2,53 @@
 title: Tutorials
 ---
 
-# Tutorials
+# Tutorial
+
+**Modulo is one of the easiest frameworks to embed in existing applications.**
+
+You can use as little or as much of Modulo's framework as you'd like.  Even
+when embedded and without server-side rendering, Modulo can be used to develop
+performant components.
 
 
+## Starting in 3 Steps
 
-Coming soon! For now, check out tutorials written for Modulo.js, a predecessor
-version with a great deal in common with `Modulo.html`
+Writing your first component takes only **3 steps**. You can follow these steps
+in your text editor by either 1) creating a new, blank HTML file or 2) opening
+an HTML file from one of your existing web apps or projects:
+
+##### Step 1: Include Modulo
+
+```html
+<script Modulo src=https://modu.lol">
+<-script>
+```
 
 
-## [Learn Modulo JavaScript](https://dev.to/michaelpb)
+##### Step 2: Define Components
 
+```html
+<script Modulo src=https://modu.lol>
+    <Component name="Greet">
+        <Template>
+            <h2>Hey there, <slot></slot>!</h2>
+        </Template>
+    </Component>
+<-script>
+```
+
+##### Step 3: Use Elsewhere
+
+```html
+<div>
+    <x-Greet>Modulo</x-Greet>
+    <x-Greet>my new <tt>HTML</tt>web component</x-Greet>
+</div>
+```
+
+---
+
+_Continue learning with Modulo's Documentation, which has many more interactive "playground" examples..._
+
+## [Continue to DOCS](./docs.html)
 

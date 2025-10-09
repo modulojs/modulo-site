@@ -97,37 +97,9 @@ https://codeberg.org/modulo/modulo/,Source (Git at Codeberg)
              '<x-Demo show=ui ui=demo mode="$1" demo="$2" value="$3"></x-Demo>' ],
         [ /```([a-z]*)\n?(.+?)\n?```/igs,
              '<x-Demo ui=code mode="$1" value="$2"></x-Demo>' ],
-        ...md.slice(2, md.length),
+        ...md.slice(1, md.length),
     ]
 
-    // setup some unicode helper filters
-    const regexps = {
-        unicode: /[\u0256-\u9999]/g,
-        all: /./g,
-        html: /["'<>\&]/g,
-    }
-
-    const SURROGATE_OFFSET = 0x10000 - (0xd800 << 10) - 0xdc00;
-    function utf16ToUnicode(lead, trail) {
-        return (lead << 10) + trail + SURROGATE_OFFSET;
-    }
-    modulo.templateFilter.unicode = s => JSON.parse(
-        JSON.stringify(s).replace(regexps.unicode, i => '\\u' +
-            ('0000' + i.charCodeAt(0).toString(16)).slice(-4)));
-    modulo.templateFilter.charcode = (s, arg = 'all') =>
-        s.replace(regexps[arg], i => `&#x${ i.codePointAt(0).toString(16) };`);
-
-    //modulo.templateFilter.charcode = s => s
-    modulo.templateFilter.unicode = s => s
-    modulo.templateFilter.unicodetest = function (s) {
-        const ta = document.createElement('div')
-        ta.textContent = '📦'
-        return ta.innerHTML
-        console.log('s.length', Array.from(s).length);
-        const s2 = modulo.templateFilter.unicode2(s)
-        console.log('s2.length', Array.from(s2).length);
-        return s
-    }
     // Configuration script to register showdown and configure markdown 
     if (modulo.DEV) {
         const content = modulo.stores.CACHE.getItem(window.location + '')

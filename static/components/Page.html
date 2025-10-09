@@ -65,6 +65,25 @@
         {% endif %}
     </div>
     {% endif %}
+    
+    <footer class="page-container" style="display: flex;">
+        <div>
+            <h2>ᵐ°dᵘ⁄o</h2>
+        </div>
+        <ul style="display:grid; grid-template-columns: 1fr 1fr; font-size: 1.1rem">
+            {% for row in global.definitions.contentlist.data|combine:global.definitions.navlinks.data %}
+                <li><a href="{{ row|get:0 }}">{{ row|get:1 }}</a></li>
+            {% endfor %}
+        </ul>
+        <div style="margin: auto 10px 10px auto; text-align: right; opacity:0.5">
+            <p>{{ global.config.date }}</p>
+            <p>ᵐ°dᵘ⁄o <em>The Modulo Framework</em> &copy; <tt title="Michael Bethencourt">michaelb</tt></p>
+<pre title="It is acceptable to link ('bundle') and distribute the Modulo Framework with other code as long as the LICENSE and NOTICE remains intact."
+>NO WARRANTEE OR IMPLIED UTILITY;
+ANY MODIFICATIONS OR DERIVATIVES OF
+THE MODULO FRAMEWORK MUST BE LGPLv3+</pre>
+</div>
+    </footer>
 </Template>
 
 <Style -src=Page-style.css.htm></Style>
@@ -73,6 +92,9 @@
 
 <!-- Themes -->
 <Style>
+.page--normal {
+    min-height: calc(100vh - 380px); /* push down footer */
+}
 .page--grid .markdown-page {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;

@@ -1,17 +1,16 @@
 <script src=../Modulo.html></script><template type=f>
 
-<Props text></Props>
+<Props text pagectl hstyle=""></Props>
+
 <Template>
-  <h2 style="
+  <h2 style="{{ props.hstyle }}
     text-shadow:
         2px 2px 2px black
     {% for index, shadow in script.shadows %}
       ,{{ index|multiply:state.angle1 }}px {{ index|multiply:state.angle1 }}px 0 {{ shadow }}
       ,{{ index|multiply:state.angle2 }}px {{ index|multiply:state.angle2 }}px 5px #00000022
     {% endfor %};
-        {% comment %}
-        {% endcomment %}
-  ">{{ props.text|syntax:"md"|safe }}</h2>
+  ">{% if props.pagectl %}{{ pagectls|get:props.pagectl }}{% else %}{{ props.text|syntax:"md"|safe }}{% endif %}</h2>
 </Template>
 
 
@@ -55,9 +54,6 @@
         z-index: 1;
     }
     code {
-        font-size: 220px;
-        font-family: sans-serif;
-        font-weight: 200;
     }
     strong {
         font-family: sans-serif;

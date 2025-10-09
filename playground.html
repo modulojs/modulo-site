@@ -1,1953 +1,235 @@
 <!DOCTYPE html><meta charset=utf8><script src=static/Modulo.html></script><script type=md>---
 title: Playground
+unused: [For more code snippets, check out: `playground-all.html`](./playground-all.html)
 ---
 
 # Playground
 
-In this document you will find a dozens of component examples, covering many
-topics.
 
-### Accordion
+**To see and edit the source code, select "CODE" or "EDIT" from the drop down
+in the upper right of each example.**
+
+---
+
+## Component Examples
+
+In this section you will find a several component examples. The content of
+these code samples can be put into any `<Component>` definition.
+
+
+##### Example 1 - ToDo MVC
 
 ```html=component
-<!-- This time, we have 3 sections which each get toggled based
-     on one value -->
+<Template>
+  <ol>{% for item in state.list %}
+    <li>{{ item }}{% endfor %}
+    <li><input state.bind name=text>
+      <button on.click=script.add>
+        Add</button>
+  </ol>
+</Template>
+<State
+  text="Coffee"
+  list:='["Bread","Butter"]'
+></State>
+<Script>
+  function add() {
+    state.list.push(state.text)
+    state.text = ''
+  }
+<-Script>
+```
+
+
+##### Example 2 - Accordion Widget
+
+```html=component
 <Template>
     <select state.bind name="val">
         <option value="top">View Top</option>
-        <option value="middle">View Middle</option>
         <option value="bottom">View Bottom</option>
     </select>
     <article class="{% if state.val is 'top' %}active{% endif %}">
-        <h1>Top</h1>
-        <p>The contents of the hidden panel...</p>
-    </article>
-    <article class="{% if state.val is 'middle' %}active{% endif %}">
-        <h1>Middle</h1>
-        <p>The contents of the hidden panel...</p>
+        <h1>Top</h1>  {% include top %}
     </article>
     <article class="{% if state.val is 'bottom' %}active{% endif %}">
-        <h1>Bottom</h1>
-        <p>The contents of the hidden panel...</p>
+        <h1>Bottom</h1>  {% include bottom %}
     </article>
 </Template>
+<Template -name="bottom"><p>Bottom content</p></Template>
+<Template -name="top"><p>Top content</p></Template>
 <State
     val="top"
 ></State>
 <Style>
-    :host {
-        display: block;
-    }
-    label {
-        font-weight: bold;
-    }
     article {
         overflow: hidden;
         transition: height 0.5s;
-        background: linear-gradient(#aab, #aac);
         padding: 5px;
         height: 0;
+        border: groove 4px #88888888;
     }
-    article.active {
-        height: 120px;
-    }
+    article.active { height: 120px; }
 </Style>
 ```
 
 
-
-### BindingSliders
+#### Example 3: Search API
 
 ```html=component
-
 <Template>
-    <!-- Using state.bind.input
-         we can get continuously activated
-         binding for range and others -->
-    <input state.bind.input name="width"
-            type="range" min="1" max="130" />
-    <input state.bind.input name="height"
-            type="range" min="1" max="130" />
-    <div style="
-        width: {{ state.width }}px;
-        height: {{ state.height }}px;
-    "></div>
-    <p>{{ state.width }}x{{ state.height }}</p>
-</Template>
-
-<State
-    width:=50
-    height:=50
-></State>
-
-<Style>
-    :host {
-        position: relative;
-        display: block;
-        margin: 20px;
-    }
-    div {
-        background: #5D655E;
-        text-align: center;
-    }
-    p {
-      text-align: right;
-    }
-    input {
-        width: 135px;
-        position: absolute;
-    }
-    input[name=width] {
-        top: -10px;
-        left: -5px;
-    }
-    input[name=height] {
-        left: -40%;
-        top: 60px;
-        transform: rotate(90deg);
-    }
-</Style>
-```
-
-
-
-### CKEditor
-
-```html=component
-<!-- Using -src= can quickly embed classic JS libraries, such as CKEditor -->
-<Script -src="https://cdn.ckeditor.com/ckeditor5/39.0.2/classic/ckeditor.js">
-    function updateCallback() {
-        if (!element.editor) { // Prevent double activating
-            ClassicEditor
-                .create(element)
-                .then(editor => {
-                    element.editor = editor; // Set editor on host element
-                })
-                .catch(error => console.error(error));
-        }
-    }
-<-Script>
-```
-
-
-
-### ColorSelector
-
-```html=component
-
-<Template>
-    <div style="float: right">
-        <p><label>Hue:<br />
-            <input state.bind name="hue" type="range" min="0" max="359" step="1" />
-        </label></p>
-        <p><label>Saturation: <br />
-            <input state.bind name="sat" type="range" min="0" max="100" step="1" />
-            </label></p>
-        <p><label>Luminosity:<br />
-            <input state.bind name="lum" type="range" min="0" max="100" step="1" />
-            </label></p>
-    </div>
-    <div style="
-        width: 80px; height: 80px;
-        background: hsl({{ state.hue }}, {{ state.sat }}%, {{ state.lum }}%)">
-    </div>
+    <form on.submit=script.doSearch>
+        <input state.bind name=search>
+        <button on.click=script.doSearch>Submit</button>
+    </form>
+    {% if state.results is null %}<strong>Loading</strong>{% endif %}
+    <ol>{% for item in state.results %}<li>{{ item.title }}</li>{% endfor %}</ol>
 </Template>
 <State
-    hue:=120
-    sat:=10
-    lum:=70
+    search=MacBeth
+    results:=[]
 ></State>
-```
-
-
-
-### Components
-
-```html=component
-<Template>
-<!-- Once defined, Modulo web components can be mixed with HTML.
-DemoModal and DemoChart are already defined. Try using below! -->
-
-<x-DemoModal button="Show data" title="Further information">
-    <h2>Example chart:</h2>
-    <x-DemoChart data:='[50, 13, 100]' ></x-DemoChart>
-</x-DemoModal>
-
-<x-DemoChart
-    data:='[1, 2, 3, 5, 8]'
-></x-DemoChart>
-
-<x-DemoModal button="Bio: Nicholas Cage" title="Biography">
-    <p>Prolific and varied Hollywood actor</p>
-    <img src="//i.imgur.com/hJwIMx7.png" style="width: 200px">
-</x-DemoModal>
-
-</Template>
-```
-
-
-
-### ComponentsLoop
-
-```html=component
-<Template>
-<!-- Modulo web components can be mixed with Templating for quick ways to
-explore large data sets -->
-{% for dataItem in staticdata %}
-    <x-DemoModal button="{{ dataItem.username }}" title="{{ dataItem.name }}">
-        {% for key, value in dataItem %}
-            <dl> {# Format data based on type #}
-                <dt>{{ key|capfirst }}</dt>
-                <dd>
-                    {% if value|type == "object" %}
-                        {{ value|json }}
-                    {% else %}
-                        {{ value }}
-                    {% endif %}
-                </dd>
-            </dl>
-        {% endfor %}
-    </x-DemoModal>
-{% endfor %}
-</Template>
-
-<StaticData
-    -src="https://jsonplaceholder.typicode.com/users"
-></StaticData>
-```
-
-
-
-### ConwayGameOfLife
-
-```html=component
-
-<!-- A simple implementation of Conway's classic game -->
-<Template>
-  <div class="grid">
-    {% for i in script.range %}
-        {% for j in script.range %}
-          <div
-            on.click=script.toggle
-            payload:='[ {{ i }}, {{ j }} ]'
-            style="
-            {% if state.cells|get:i %}
-                {% if state.cells|get:i|get:j %}
-                    background: #B90183;
-                {% endif %}
-            {% endif %}"
-           ></div>
-        {% endfor %}
-    {% endfor %}
-  </div>
-  <div class="controls">
-    {% if not state.playing %}
-        <button on.click=script.play alt="Play">&#x25B6;</button>
-    {% else %}
-        <button on.click=script.pause alt="Pause">&#x2016;</button>
-    {% endif %}
-
-    <button on.click=script.randomize alt="Randomize">RND</button>
-    <button on.click=script.clear alt="Clear">CLR</button>
-    <label>Spd: <input state.bind
-        name="speed"
-        type="number" min="1" max="10" step="1" /></label>
-  </div>
-</Template>
-
-<State
-    playing:=false
-    speed:=3
-    cells:='{
-        "12": { "10": true, "11": true, "12": true },
-        "11": { "12": true },
-        "10": { "11": true }
-    }'
-></State>
-
 <Script>
-    const range = Array.from({length: 24}, (x, i) => i);
-    function prepareCallback() {
-        return { range }
-    }
-
-    function toggle([ i, j ]) {
-        if (!state.cells[i]) {
-            state.cells[i] = {};
-        }
-        state.cells[i][j] = !state.cells[i][j];
-    }
-
-    function play() {
-        state.playing = true;
-        setTimeout(() => {
-            if (state.playing) {
-                updateNextFrame();
-                element.rerender(); // manually rerender
-                play(); // cue next frame
-            }
-        }, 2000 / state.speed);
-    }
-
-    function pause() {
-        state.playing = false;
-    }
-
-    function clear() {
-        state.cells = {};
-    }
-
-    function randomize() {
-        for (const i of range) {
-            for (const j of range) {
-                if (!state.cells[i]) {
-                    state.cells[i] = {};
-                }
-                state.cells[i][j] = (Math.random() > 0.5);
-            }
-        }
-    }
-
-    // Helper function for getting a cell from data
-    const get = (i, j) => !!(state.cells[i] && state.cells[i][j]);
-    function updateNextFrame() {
-        const nextData = {};
-        for (const i of range) {
-            for (const j of range) {
-                if (!nextData[i]) {
-                    nextData[i] = {};
-                }
-                const count = countNeighbors(i, j);
-                nextData[i][j] = get(i, j) ?
-                    (count === 2 || count === 3) : // stays alive
-                    (count === 3); // comes alive
-            }
-        }
-        state.cells = nextData;
-    }
-
-    function countNeighbors(i, j) {
-        const neighbors = [get(i - 1, j), get(i - 1, j - 1), get(i, j - 1),
-                get(i + 1, j), get(i + 1, j + 1), get(i, j + 1),
-                get(i + 1, j - 1), get(i - 1, j + 1)];
-        return neighbors.filter(v => v).length;
+    const API = 'http://openlibrary.org/search.json?q='
+    const OPTS = '&limit=20&fields=title'
+    async function doSearch() {
+        state.results = null
+        state.results = (await (await fetch(API + state.search + OPTS)).json()).docs
+        element.rerender()
     }
 <-Script>
-
-<Style>
-    :host {
-        display: flex;
-    }
-    .grid {
-        display: grid;
-        grid-template-columns: repeat(24, 5px);
-        margin: -2px;
-        grid-gap: 1px;
-    }
-    .grid > div {
-        background: white;
-        width: 5px;
-        height: 5px;
-    }
-    input, button {
-        width: 40px;
-    }
-</Style>
+<Style>* { font-size: 110%; padding: 30px; box-shadow: 0 0 10px #88888888; }</Style>
 ```
 
 
-
-### CSVData
-
-```html=component
-<!-- Modulo supports importing CSV data directly for use -->
-<Template>
-    {% for row in staticdata %}
-        <div>{{ row }}</div>
-    {% endfor %}
-</Template>
-
-<StaticData
-    -src="/static/data/eg/c02.csv"
-></StaticData>
-
-
-```
-
-
-
-### CSVTable
+### Example 4: Sortable CSV Table
 
 ```html=component
-<!-- By using StaticData and Template Filters,
-we can load a CSV file and show it as a table -->
 <Template>
-  <!-- Set column widths for CSS Grid to match data,
-      with "Supply Chain" columns at 2x as wide -->
-  <section style="
-    grid-template-columns:
-          {% for header in staticdata|first %}
-              {% if header is 'Supply Chain' %}
-                  2fr
-              {% else %}
-                  1fr
-              {% endif %}
-          {% endfor %}
-      ">
-
-    <!-- Display column headers (|first row) -->
-    {% for header in staticdata|first %}
-        <div><strong>{{ header }}</strong></div>
+  <section style="grid-template-columns:{% for header in staticdata|first %}
+          {% if header is 'Supply Chain' %}5fr{% else %}1fr{% endif %}
+      {% endfor %}">
+    {% for i, header in staticdata|first %}
+        <button on.click=script.sort payload={{i}}>
+            {% if state.sort is i %}&darr;{% endif %}{{ header|trimfile }}
+        </button>
     {% endfor %}
-
-    <!-- Show table body (remaining rows) -->
-    {% for row in staticdata|skipfirst %}
-        {% for col in row %}
-            <div>{{ col }}</div>
-        {% endfor %}
+    {% for row in staticdata|skipfirst|sorted:state.sort %}
+        {% for col in row %}<div>{{ col }}</div> {% endfor %}
     {% endfor %}
   </section>
 </Template>
-
+<State
+    sort="0"
+></State>
 <StaticData
-    -src="https://modulojs.org/static/data/eg/co2.csv"
+    -data-type=csv
+    -src="static/demos/co2.csv.htm"
 ></StaticData>
-
-<Style>
-    section {
-        display: grid;
-        width: 500px;
-    }
-    div {
-        font-size: 10px;
-        border-bottom: 1px dotted gray;
-        padding: 2px;
-    }
-</Style>
-```
-
-
-
-### DataTable
-
-```html=component
-<!-- Another example of StaticData being used, this time with
-     multiple templates to import data for table use -->
-<Template>
-    {% for holiday in staticdata %}
-        {{ holiday|renderas:table_row }}
-    {% endfor %}
-</Template>
-
-<Template -name="table_row">
-    <td>{{ date }}</td>
-    <td>{{ name }}</td>
-    <td>{% if localName != name %}{{ localName }}{% endif %}</td>
-</Template>
-
-<StaticData
-    -src="https://date.nager.at/api/v2/publicholidays/2023/BR"
-></StaticData>
-```
-
-
-
-### DateNumberPicker
-
-```html=component
-
-<Template>
-    <p>ISO: <tt>{{ state.year }}-{{ state.month }}-{{ state.day }}</tt></p>
-    {% for part in state.ordering %}
-        <label>
-            {{ state|get:part }}
-            <div>
-                <button on.click=script.next payload="{{ part }}">&uarr;</button>
-                <button on.click=script.previous payload="{{ part }}">&darr;</button>
-            </div>
-        </label>
-    {% endfor %}
-</Template>
-
-<State
-    day:=1
-    month:=1
-    year:=2022
-    ordering:='["year", "month", "day"]'
-></State>
-
 <Script>
-    function isValid({ year, month, day }) {
-        month--; // Months are zero indexed
-        // Use the JavaScript date object to check validity:
-        const d = new Date(year, month, day);
-        return d.getMonth() === month && d.getDate() === day && d.getFullYear() === year;
-    }
-    function next(part) {
-        state[part]++;
-        if (!isValid(state)) { // undo if not valid
-            state[part]--;
-        }
-    }
-    function previous(part) {
-        state[part]--;
-        if (!isValid(state)) { // undo if not valid
-            state[part]++;
-        }
+    function sort(index) {
+        state.sort = index
     }
 <-Script>
-
 <Style>
-    :host {
-        border: 1px solid black;
-        padding: 10px;
-        margin: 10px;
-        margin-left: 0;
-        display: flex;
-        flex-wrap: wrap;
-        font-weight: bold;
-    }
-    div {
-        float: right;
-    }
-    label {
-        display: block;
-        width: 100%;
-    }
+    div { border-bottom: 1px dotted black; padding: 2px; }
+    section { display: grid; width: 100%; }
 </Style>
 ```
 
 
+---
 
-### DemoChart
+## Page Examples
 
-```html=component
-<Props
-    data
-    animated
-></Props>
+In this section you will find a several full page examples.
 
-<Template>
-    <div class="chart-container {% if props.animated %}animated{% endif %}">
-        {% for percent in script.percent %}
-            <div style="
-                height: {{ percent }}px;
-                width: {{ script.width }}px;
-            "></div>
-        {% endfor %}
-    </div>
-    {% if not props.animated %}
-        {% for value in script.data %}
-            <label style="width: {{ script.width }}px">{{ value }}</label>
-        {% endfor %}
-    {% endif %}
-</Template>
+**The content of these code samples represent the entirity of an HTML file, and
+can be put directly into an HTML file.** Note that for HTML Pages, they _can
+be_ either embedded in a larger HTML file, or be the entirity of the file. For
+Markdown Pages, however, they _must be_ the entirity of the file (that is, Modulo
+will not refrain from automatically render the Markdown page if there is other
+HTML content or Modulo definitions -- you will have to manually do this).
 
-<Script>
-    function prepareCallback() {
-        let data = props.data || [];
-        if (typeof data === 'string') {
-            // Permit normal attributes (e.g. vs dataprops) containing JSON
-            data = JSON.parse(data);
-        }
-        const max = Math.max(...data);
-        // Scale to 0, uncomment the following to make it scale to the lowest
-        const min = 0;// Math.min(...props.data),
-        return {
-            percent: data.map(item => ((item - min) / max) * 100),
-            width: Math.floor(100 / data.length),
-            data: data,
-        }
-    }
-<-Script>
 
-<Style>
-    .chart-container {
-        border: 1px solid black;
-        height: 100px;
-        width: 100px;
-        display: flex;
-        align-items: flex-end;
-    }
-    .chart-container > div {
-        box-sizing: border-box;
-        background-color: #b90183;
-        background-color: white;
-        border: 1px solid grey;
-        width: 30px;
-        border-radius: 1px 3px 1px 3px;
-        box-shadow: inset -3px -3px 1px 1px hsla(0,0%,39.2%,.3);
-        margin-top: -3px;
-    }
+##### Page Example 1 - HTML Page
 
-    .chart-container.animated > div {
-        transition: height calc(var(--speed, 10) * 0.1s) var(--easing, linear);
-    }
-    .chart-container > div:first-of-type {
-        margin-left: -4px;
-    }
-    .chart-container > div:hover {
-        background-color: #b90183;
-    }
-    label {
-        display: inline-block;
-    }
-</Style>
 
+```html=embed
+<script Modulo src=Modulo.html>
+    <Component name=Page>
+        <Style>:host { display: block; background: Pink; }</Style>
+    </Component>
+<-script>
+<x-Page>
+    <h1>Lorem ipsum dolor set modulo lorem ipsum moduloum dolor set modulo</h1>
+</x-Page>
 ```
 
 
+##### Page Example 2 - HTML Page (Static Auto-Import)
 
-### DemoModal
 
-```html=component
-
-<!--
-This is the source code to the <x-DemoModal> Component
--->
-<Props
-    button
-    title
-></Props>
-
-<Template>
-    <button on.click=script.show>
-        {{ props.button|default:"Show Modal" }}
-    </button>
-    <div
-        class="modal-backdrop"
-        on.click=script.hide
-        style="display: {% if state.visible %}block{% else %}none{% endif %}"
-    ></div>
-    <div
-        role="dialog"
-        aria-label="{{ props.title }}"
-        aria-modal="true"
-        class="modal-body" 
-        style="
-            {% if state.visible %}top: 100px;{% else %}top: -900px;{% endif %}
-        ">
-        <h2>
-            {{ props.title|default:"Modal Dialog" }}
-            <button on.click=script.hide>&times;</button>
-        </h2>
-        <slot></slot>
-    </div>
-</Template>
-
-<State
-    visible:=false
-></State>
-
-<Script>
-    function show() {
-        state.visible = true;
-    }
-    function hide() {
-        state.visible = false;
-    }
-<-Script>
-
-<Style>
-    :host {
-        position: relative;
-        display: hidden;
-    }
-    .modal-backdrop {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100vh;
-        width: 100vw;
-    }
-    .modal-backdrop {
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 11;
-    }
-    .modal-body {
-        --w: 400px;
-        width: var(--w);
-        position: fixed;
-        z-index: 12;
-        left: calc(50vw - (var(--w) / 2));
-        display: block;
-        background: white;
-        border: 7px solid black;
-        border-radius: 7px;
-        padding: 50px;
-        transition: top 0.3s;
-        max-height: calc(100vh - 250px);
-        overflow-y: auto;
-    }
-    .modal-body > h2 {
-        border-bottom: 3px solid black;
-        color: black;
-        background-color: #b90183;
-        font-weight: bold;
-        padding: 10px;
-        border-top: 0;
-        margin: -50px;
-        margin-bottom: 50px;
-        color: white;
-        /* A perspective-style drop shadow, plus 1px outline */
-        text-shadow:
-            3px 3px 0 #000,
-            2px 2px 0 #000,
-            -1px -1px 0 #000,
-            1px -1px 0 #000,
-            -1px 1px 0 #000,
-            1px 1px 0 #000;
-    }
-    .modal-body > h2 button {
-        font-size: 25px;
-        float: right;
-        width: 50px;
-        line-height: 1.0;
-        margin-top: -5px; /* Prevent move animation */
-    }
-
-    img {
-        max-width: 100%;
-    }
-
-    button {
-        font-size: 13px;
-        font-weight: bold;
-        padding: 5px;
-        border-radius: 1px 5px 1px 7px;
-        color: black;
-        border: 1px solid grey;
-        box-shadow: inset -2px -3px 1px 1px hsla(0,0%,39.2%,.3);
-        cursor: default;
-        margin-top: 0;
-        padding-bottom: 3px;
-        background-color: white;
-        margin-bottom: 4px;
-        transition: margin 0.2s,
-                    padding 0.2s,
-                    background 0.3s,
-                    box-shadow 0.2s;
-    }
-    button:active {
-        box-shadow: inset 2px 3px 1px 1px hsla(0,0%,39.2%,.3);
-        margin-top: 3px;
-        padding-bottom: 0;
-    }
-    button:hover {
-        background-color: rgba(162, 228, 184);
-    }
-
-</Style>
+```html=embed
+<script src=static/Modulo.html><-script>
+<x-Page>
+    <h1>Lorem ipsum dolor set modulo lorem ipsum moduloum dolor set modulo</h1>
+</x-Page>
 ```
 
 
+##### Page Example 3 - Markdown-HTML Page
 
-### FlexibleForm
-
-```html=component
-
-<!-- Here, we have a form that's easy to update. If this gets used more
-than a couple times, it could be turned into a reusable component where
-the "ordering" and initial values get set via Props. -->
-<Template>
-    <form>
-        {% for field in state.fields %}
-            <div class="field-pair">
-                <label for="{{ field }}_{{ component.id }}">
-                    <strong>{{ field|capfirst }}:</strong>
-                </label>
-                <input
-                    state.bind
-                    type="{% if state|get:field|type == 'string' %}text{% else %}checkbox{% endif %}"
-                    name="{{ field }}"
-                    id="{{ field }}_{{ component.id }}"
-                />
-            </div>
-        {% endfor %}
-    </form>
-</Template>
-<State
-    name="Spartacus"
-    topic="On the treatment of Thracian gladiators"
-    subscribe:=true
-    private:=false
-    comment="So, like, Romans claim to be all about virtue, but do you know what I think? I think they stink."
-    fields:='["name", "topic", "comment", "private", "subscribe"]'
-></State>
-
+```html=embed
+<script src=Modulo.html><-script><script type=md>---
+NOTE: Modulo will render this with a plain default theme.
+example: meta-data
+example-multiline:
+    123
+    abc
+    do re mi
+example2: More meta data
+---
+Lorem ipsum dolor set modulo lorem ipsum moduloum dolor set modulo
 ```
 
 
+##### Page Example 4 - Markdown-HTML Page (Static Auto-Import)
 
-### FlexibleFormWithAPI
-
-```html=component
-<!-- Combining the code from the previous exercise, we can interact with
-APIs. Here we use a Typicode's placeholder API to make posts -->
-<Template>
-    <form>
-        {% for field in state.fields %}
-            <div class="field-pair">
-                <label for="{{ field }}_{{ component.id }}">
-                    <strong>{{ field|capfirst }}:</strong>
-                </label>
-                <input
-                    state.bind
-                    type='{% if state|get:field|type == "number" %}number{% else %}text{% endif %}'
-                    name="{{ field }}"
-                    id="{{ field }}_{{ component.id }}"
-                />
-            </div>
-        {% endfor %}
-        <button on.click=script.submit>Post comment</button>
-        <hr />
-
-        {% for post in state.posts|reversed %}
-            <p>
-                {{ post.userId }}:
-                <strong>{{ post.title|truncate:15 }}</strong>
-                {{ post.body|truncate:18 }}
-            </p>
-        {% endfor %}
-    </form>
-</Template>
-
-<State
-    user:=1337
-    topic="On the treatment of Thracian gladiators"
-    comment="So, like, Romans claim to be all about virtue, but do you know what I think? I think they stink."
-    fields:='["user", "topic", "comment"]'
-    posts:='[]'
-></State>
-
-<Script>
-    const URL = 'https://jsonplaceholder.typicode.com/posts';
-    const fakedPosts = [];
-    const headers = [];
-
-    function initializedCallback() {
-        refresh(); // Refresh on first load
-    }
-
-    function refresh() {
-        fetch(URL).then(r => r.json()).then(data => {
-            // Since Typicode API doesn't save it's POST
-            // data, we'll have manually fake it here
-            state.posts = data.concat(fakedPosts);
-            element.rerender();
-        });
-    }
-
-    function submit() {
-        // Rename the state variables to be what the API suggests
-        const postData = {
-              userId: state.user,
-              title: state.topic,
-              body: state.comment,
-        };
-        state.topic = ''; // clear the comment & topic text
-        state.comment = '';
-        fakedPosts.push(postData); // Required for refresh()
-
-        // Send the POST request with fetch, then refresh after
-        const opts = {
-            method: 'POST',
-            body: JSON.stringify(postData),
-            headers: { 'Content-type': 'application/json; charset=UTF-8' },
-        };
-        fetch(URL, opts).then(r => r.json()).then(refresh);
-    }
-<-Script>
-
-
+```html=embed
+<script src=static/Modulo.html><-script><script type=md>---
+NOTE: The difference is the "static/Modulo.html" above!
+example: meta-data
+example-multiline:
+    123
+    abc
+    do re mi
+example2: More meta data
+---
+Lorem ipsum dolor set modulo lorem ipsum moduloum dolor set modulo
 ```
 
 
+##### Page Example 5 - Markdown-HTML Page (Remote Static Auto-Import)
 
-### GitHubAPI
+If CORS permits, you can even do an implicit auto-import directly from an
+absolute URL:
 
-```html=component
-
-<Template>
-<p>{{ state.name }} | {{ state.location }}</p>
-<p>{{ state.bio }}</p>
-<a href="https://github.com/{{ state.search }}/" target="_blank">
-    {% if state.search %}github.com/{{ state.search }}/{% endif %}
-</a>
-<input state.bind name="search"
-    placeholder="Type GitHub username" />
-<button on.click=script.fetchGitHub>Get Info</button>
-</Template>
-
-<State
-    search=""
-    name=""
-    location=""
-    bio=""
-></State>
-
-<Script>
-    function fetchGitHub() {
-        fetch(`https://api.github.com/users/${state.search}`)
-            .then(response => response.json())
-            .then(githubCallback);
-    }
-    function githubCallback(apiData) {
-        state.name = apiData.name;
-        state.location = apiData.location;
-        state.bio = apiData.bio;
-        element.rerender();
-    }
-<-Script>
+```html=embed
+<script src=https://modulo.codeberg.page/modulo-starter/static/Modulo.html><-script><script type=md>---
+example: ABC
+---
+Lorem ipsum dolor set modulo lorem ipsum moduloum dolor set modulo
 ```
 
 
+---
 
-### GradientPicker
 
-```html=component
+_Continue learning with Modulo's Documentation, which has many more interactive "playground" examples..._
 
-<!-- A succinct "Gradient Picker" that previews
-    gradients as the user uses the system picker -->
-<Template>
-    <label><input state.bind name="from" type="color" /></label>
-    <label>&rarr; <input state.bind name="to" type="color" /></label>
-    <input state.bind name="percent" type="range"
-        min="0" max="100" step="1" />
-    <div style="
-          height: 100px;
-          width: 200px;
-          background: linear-gradient(
-              to right,
-              {{ state.from }} {{ state.percent }}%,
-              {{ state.to }}
-          );
-        ">
-    </h5>
-</Template>
-<State
-    from="#AABAAA"
-    to="#5D655E"
-    percent:=50
-></State>
-```
+## [Continue to DOCS](./docs.html)
 
 
 
-### HelloCount
-
-```html=component
-
-<Template>
-    <button on.click=script.countUp>Hello {{ state.num }}</button>
-</Template>
-<State
-    num:=42
-></State>
-<Script>
-    function countUp() {
-        state.num++;
-    }
-<-Script>
-```
-
-
-
-### HelloModulo
-
-```html=component
-
-<!-- The simplest component: HTML Template only -->
-<Template>
-    <div style="border: 2px dotted Indigo; padding: 10px;">
-        <p>Building <tt style="color: Indigo">Modulo</tt>
-           HTML web components is <em>fun</em>!</p>
-    </div>
-</Template>
-<!-- HINT: First time with Modulo?
-     1. Make a change and click RUN to see result
-     2. Hover over RUN button for more options -->
-```
-
-
-
-### JSONArray
-
-```html=component
-<!-- Use StaticData CPart to include JSON from an API or file.
-You can use it for arrays as well. Note that it is "bundled"
-as static data in with JS, so it does not refresh. -->
-<Template>
-  {% for post in staticdata %}
-    <p>{% if post.completed %}&starf;{% else %}&star;{% endif %}
-        {{ post.title|truncate:15 }}</p>
-  {% endfor %}
-</Template>
-<StaticData
-    -src="https://jsonplaceholder.typicode.com/todos"
-></StaticData>
-
-```
-
-
-
-### JSONFile
-
-```html=component
-<!-- Use StaticData CPart to bundle-in JSON from an API or file -->
-<Template>
-    <p>
-        <strong>Name:</strong>
-        {{ staticdata.name }} (v{{ staticdata.version }})
-    </p>
-    <p>
-        <strong>Description:</strong>
-        <em>{{ staticdata.description }}</em>
-    </p>
-</Template>
-<StaticData
-    -src="https://raw.githubusercontent.com/modulojs/modulo/main/package.json"
-></StaticData>
-```
-
-
-
-### JSON
-
-```html=component
-<!-- Use StaticData CPart to include JSON from an API or file -->
-<Template>
-    <strong>Name:</strong> {{ staticdata.name }} <br />
-    <strong>Site:</strong> {{ staticdata.homepage }} <br />
-    <strong>Tags:</strong> {{ staticdata.topics|join }}
-</Template>
-<StaticData
-    -src="https://api.github.com/repos/modulojs/modulo"
-></StaticData>
-```
-
-
-
-### MarkdownPreview
-
-```html=component
-<!-- This component generates a "type-as-you-go" Markdown
-preview. It uses -src= as a quick way to bring in the
-needed NPM dependency from the unpkg CDN. -->
-<Template>
-    <textarea state.bind name="text"></textarea>
-    <div>{{ script.html|safe }}</div>
-</Template>
-
-<State
-text="### Markdown
-Using `-src` to *quickly* add a **markdown parser**"
-></State>
-
-<Script -src="https://unpkg.com/snarkdown">
-    const { snarkdown } = this; // (this === window)
-    function prepareCallback() {
-        return { // Every rerender, convert markdown to HTML
-            html: snarkdown(state.text),
-        };
-    }
-<-Script>
-
-<Style>
-  textarea, div {
-      border: none;
-      width: 95%;
-      padding: 2%;
-      min-height: 80px;
-  }
-</Style>
-```
-
-
-
-### MemoryGame
-
-```html=component
-<!-- A much more complicated example application. Note it's
- use of multiple Templates, and more complicated script tag. -->
-<Template>
-    {# If the cards array has been populated, show game #}
-    {% if state.cards.length %}
-        {% include game_template %}
-    {% else %}
-        {% include menu_template %}
-    {% endif %}
-</Template>
-<Template -name="menu_template">
-    <h3>Memory Game</h3>
-    <p>Choose your difficulty:</p>
-    <button on.click=script.setup payload:=8>2x4</button>
-    <button on.click=script.setup payload:=16>4x4</button>
-    <button on.click=script.setup payload:=36>6x6</button>
-</Template>
-<Template -name="game_template">
-  <div class="board
-        {% if state.cards.length gt 16 %}hard{% endif %}
-    ">{# Loop through each card in the "deck" (state.cards) #}
-    {% for card in state.cards %}
-        <div
-            on.click=script.flip
-            payload:="{{ card.id }}"
-            class="card
-                {% if card.id in state.revealed %}flipped{% endif %}"
-            style="{% if state.win %}
-                {# The cascading effect uses ids as offsets #}
-                animation: flipping 0.5s infinite alternate;
-                animation-delay: {{ card.id }}.{{ card.id }}s;
-            {% endif %}">
-            {% if card.id in state.revealed %}
-                {{ card.symbol }}
-            {% endif %}
-        </div>
-    {% endfor %}
-  </div>
-  <p style="{{ state.failed|yesno:'color: red' }}">
-    {{ state.message }}
-  </p>
-</Template>
-<State
-    message="Good luck!"
-    win:=false
-    cards:=[]
-    revealed:={}
-    last:=null
-    failed:=null
-></State>
-<Script>
-const symbolsStr = "%!@#=?&+~÷≠∑µ‰∂Δƒσ"; // 16 options
-function setup(count) {
-    // This function takes the number of "cards" the user
-    // selected (see payload=), and populates state.cards
-    let symbols = symbolsStr.substr(0, count / 2).split("");
-    symbols = symbols.concat(symbols); // duplicate cards
-    let id = 0;
-    while (id < count) {
-        const index = Math.floor(Math.random() * symbols.length);
-        const symbol = symbols.splice(index, 1)[0];
-        state.cards.push({symbol, id});
-        id++;
-    }
-}
-function failedFlipCallback() {
-    // Remove both from revealed obj & set to null
-    delete state.revealed[state.failed];
-    delete state.revealed[state.last];
-    state.failed = null;
-    state.last = null;
-    state.message = "";
-    element.rerender();
-}
-function flip(id) {
-    if (state.failed !== null) {
-        return;
-    }
-    if (id in state.revealed) {
-        return; // Double click, ignore
-    } else if (state.last === null) { // First click
-        state.revealed[id] = true;
-        state.last = id; // Record this ID number
-    } else {
-        state.revealed[id] = true; // Otherwise 2nd click
-        const last = state.cards[state.last];
-        const current = state.cards[id];
-        if (current.symbol === last.symbol) { // Did it match?
-            checkForWinCondition();
-        } else {
-            showMessageAndFlipBack(id);
-        }
-    }
-}
-function checkForWinCondition() {
-    // Successful match! Check for win.
-    const { revealed, cards } = state;
-    if (Object.keys(revealed).length === cards.length) {
-        state.message = "You win!";
-        state.win = true; // Show win animation
-    } else {
-        state.message = "Nice match!";
-    }
-    state.last = null; // Forget our last match
-}
-function showMessageAndFlipBack(id) {
-    state.message = "No match.";
-    state.failed = id; // Save id so we can flip it later
-    setTimeout(failedFlipCallback, 1000);
-}
-<-Script>
-<Style>
-h3 {
-    background: #00000088;
-    border-radius: 8px;
-    text-align: center;
-    color: white;
-    font-weight: bold;
-}
-.board {
-    display: grid;
-    grid-template-rows: repeat(4, 1fr);
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 2px;
-    width: 100%;
-    height: 150px;
-    width: 150px;
-}
-.board.hard {
-    grid-gap: 1px;
-    grid-template-rows: repeat(6, 1fr);
-    grid-template-columns: repeat(6, 1fr);
-}
-.board > .card {
-    background: #B90183;
-    border: 2px solid black;
-    border-radius: 1px;
-    cursor: pointer;
-    text-align: center;
-    min-height: 15px;
-    transition: background 0.3s, transform 0.3s;
-    transform: scaleX(-1);
-    padding-top: 2px;
-    color: #B90183;
-}
-.board.hard > .card {
-    border: none !important;
-    padding: 0;
-}
-.board > .card.flipped {
-    background: #FFFFFF;
-    border: 2px solid #B90183;
-    transform: scaleX(1);
-}
-@keyframes flipping {
-    from { transform: scaleX(-1.1); background: #B90183; }
-    to {   transform: scaleX(1.0);  background: #FFFFFF; }
-}
-</Style>
-```
-
-
-
-
-
-
-### Scatter
-
-```html=component
-<!-- StaticData can be used for data visualization as
-well, as an quick way to bring in data sets. Here we loop
-through data, creating labels that appear when hovering. -->
-<Template>
-    {% for user in staticdata %}
-        <div style="--x: {{ user.address.geo.lng }}px;
-                    --y: {{ user.address.geo.lat }}px;"
-        ></div>
-        <label>{{ user.name }} ({{ user.email }})</label>
-    {% endfor %}
-</Template>
-
-<StaticData
-    -src="https://jsonplaceholder.typicode.com/users"
-></StaticData>
-
-<Style>
-  :host {
-      position: relative;
-      display: block;
-      --size: 101px;
-      width: var(--size);
-      height: var(--size);
-      background-size: 10px 10px;
-      background-image: linear-gradient(to right,
-          rgba(100, 100, 100,.3) 1px, transparent 1px),
-        linear-gradient(to bottom,
-          rgba(100, 100, 100,.3) 1px, transparent 1px);
-  }
-  div {
-      position: absolute;
-      top: calc(var(--y) / 1.5 + var(--size) / 2 + 5px);
-      left: calc(var(--x) / 4.0 + var(--size) / 2 + 5px);
-      height: 10px;
-      width: 10px;
-      border-radius: 10px;
-      border: 1px solid #B90183;
-      background: rgba(255, 255, 255, 0.0);
-  }
-  div:hover {
-      background: #B90183;
-  }
-  label {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      opacity: 0;
-      height: 0;
-      font-size: 11px;
-  }
-  div:hover + label {
-      opacity: 1;
-  }
-</Style>
-```
-
-
-
-### SearchBox
-
-```html=component
-<!-- A "type as you go" search box implementation,
-an example of more complicated HTML and JS behavior -->
-<Template>
-<p>Type a book name for "search as you type"
-(e.g. try &ldquo;the lord of the rings&rdquo;)</p>
-
-<input state.bind name="search"
-  on.keyup=script.typingCallback />
-
-<div class="results {% if state.search.length gt 0 %}
-                      visible {% endif %}">
-  <div class="results-container">
-    {% if state.loading %}
-      <img src="{{ staticdata.gif }}" alt="loading" />
-    {% else %}
-      {% for result in state.results %}
-        <div class="result">
-          <img
-            src="{{ staticdata.cover|add:result.cover_i }}-S.jpg"
-          /> <label>{{ result.title }}</label>
-        </div>
-      {% empty %}
-        <p>No books found.</p>
-      {% endfor %}
-    {% endif %}
-  </div>
-</div>
-</Template>
-
-<State
-    search=""
-    results:=[]
-    loading:=false
-></State>
-
-<!-- Puting long URLs down here to declutter -->
-<StaticData -data-type="js">
-{
-  apiBase: 'https://openlibrary.org/search.json',
-  cover: 'https://covers.openlibrary.org/b/id/',
-  gif: 'https://cdnjs.cloudflare.com/ajax/libs/' +
-    'semantic-ui/0.16.1/images/loader-large.gif'
-}
-</StaticData>
-
-<Script>
-    function typingCallback() {
-        state.loading = true;
-        const search = `q=${state.search}`;
-        const opts = 'limit=6&fields=title,author_name,cover_i';
-        const url = `${staticdata.apiBase}?${search}&${opts}`;
-        _globalDebounce(() => {
-            fetch(url)
-                .then(response => response.json())
-                .then(dataBackCallback);
-        });
-    }
-
-    function dataBackCallback(data) {
-        state.results = data.docs;
-        state.loading = false;
-        element.rerender();
-    }
-
-    let _globalDebounceTimeout = null;
-    function _globalDebounce(func) {
-        if (_globalDebounceTimeout) {
-            clearTimeout(_globalDebounceTimeout);
-        }
-        _globalDebounceTimeout = setTimeout(func, 500);
-    }
-<-Script>
-
-<Style>
-    input {
-        width: 100%;
-    }
-    .results-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-    .results-container > img { margin-top 30px; }
-    .results {
-        position: absolute;
-        height: 0;
-        width: 0;
-        overflow: hidden;
-        display: block;
-        border: 2px solid #B90183;
-        border-radius: 0 0 20px 20px;
-        transition: height 0.2s;
-        z-index: 20;
-        background: white;
-    }
-    .results.visible {
-        height: 200px;
-        width: 200px;
-    }
-    .result {
-        padding: 10px;
-        width: 80px;
-        position: relative;
-    }
-    .result label {
-        position: absolute;
-        width: 80px;
-        background: rgba(255, 255, 255, 0.5);
-        font-size: 0.7rem;
-        top: 0;
-        left: 0;
-    }
-</Style>
-
-
-```
-
-
-
-### Search
-
-```html=component
-<!-- Modulo can be used with APIs to create interactive apps.
-This book search shows how a Script tag can use an API -->
-<Template>
-  <input state.bind name="search" />
-  <button on.click=script.doSearch>Go</button>
-  {% if state.loading %}<em>Loading...</em>{% endif %}
-  <ol>
-    {% for item in state.results %}
-      <li>
-        <img src="{{ item.cover }}" />
-        <strong>{{ item.title }}</strong>
-      </li>
-    {% endfor %}
-  </ol>
-</Template>
-
-<State
-    search="the lord of the rings"
-    loading:=false
-    results:=[]
-></State>
-
-<Script>
-    const OPTS = '&limit=6&fields=title,author_name,cover_i';
-    const COVER ='https://covers.openlibrary.org/b/id/';
-    const API = 'https://openlibrary.org/search.json?q=';
-    function doSearch() {
-        const url = API + '?q=' + state.search + OPTS;
-        state.loading = true;
-        fetch(url)
-            .then(response => response.json())
-            .then(dataBackCallback);
-    }
-
-    function dataBackCallback(data) {
-        for (const item of data.docs) {
-            // For convenience, we prepare the cover URL
-            item.cover = COVER + item.cover_i + '-S.jpg';
-        }
-        state.results = data.docs;
-        state.loading = false;
-        element.rerender();
-    }
-<-Script>
-```
-
-
-
-### SimpleButton
-
-```html=component
-
-<!-- Components can even just be a Style -->
-<Style>
-    :host {
-        --primary: tomato;
-        font-weight: bold;
-        border-radius: 1px 6px 1px 6px;
-        color: black;
-        border: 3px solid var(--primary);
-        box-shadow: -5px -5px 1px 1px hsla(0, 100%, 39.2%, 0.05);
-        cursor: default;
-        padding: 5px;
-        background-color: white;
-        margin-bottom: 4px;
-        transition: box-shadow 0.1s;
-        user-select: none;
-    }
-    :host:active {
-        box-shadow: -5px -5px 1px 1px hsla(0, 100%, 39.2%, 0.15);
-    }
-</Style>
-```
-
-
-
-### SimpleStyle
-
-```html=component
-
-<Template>
-    Components can use any number of <strong>CParts</strong>.
-    Here we use only <em>Style</em> and <em>Template</em>.
-</Template>
-
-<Style>
-    em { color: darkgreen; }
-    * { text-decoration: underline; }
-</Style>
-```
-
-
-
-### SimpleTable
-
-```html=component
-
-<!-- The data below is embedded in a JS StaticData.
-This allows us to embed data using JavaScript syntax. -->
-<Template>
-    <h3>City</h3><h3>Name</h3><h3>Use</h3>
-    {% for station in staticdata %}
-        <div>[{{ station.city }}]</div>
-        <div class="right">{{ station.name }}</div>
-        <div class="
-            {% if station.trafficRating gt 800 %}
-                highlight
-            {% endif %}
-        ">{{ station.trafficRating }}</div>
-    {% endfor %}
-</Template>
-<StaticData -data-type="js">
-[
-    {
-        name: "Embarcadero",
-        city: "SF",
-        trafficRating: 1253
-    },
-    {
-        name: "West Oakland",
-        city: "OAK",
-        trafficRating: 695
-    },
-    {
-        name: "12th St",
-        city: "OAK",
-        trafficRating: 853
-    },
-    {
-        name: "19th St",
-        city: "OAK",
-        trafficRating: 732
-    }
-]
-</StaticData>
-<Style>
-    :host {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-gap: 3px;
-    }
-    div {
-        background: #ddd;
-    }
-    .right {
-        text-align: right;
-    }
-    .highlight {
-        background: #aaaaff;
-    }
-</Style>
-```
-
-
-
-### SimpleTabs
-
-```html=component
-
-<!-- This Component uses named slots for tabs.  See "Edit Usage" from
-MENU for how you specify "slot=" in order to use it. -->
-<Template>
-    {# Create a button for each tab #}
-    {% for tab in state.tabs %}
-        <button
-            on.click=script.selectTab
-            payload="{{ tab }}"
-            role="tab"
-            aria-controls="Tab{{ tab }}"
-            area-selected="{% if tab == state.selected %}true{% else %}false{% endif %}"
-            class="{% if tab == state.selected %}active{% endif %}"
-        >{{ tab|capfirst }}</button>
-    {% endfor %}
-
-    {# Create named slots for all the children with slots defined #}
-    {% for tab in state.tabs %}
-        <div role="tablist">
-            <slot
-                name="{{ tab }}"
-                id="Tab{{ tab }}"
-                role="tabpanel"
-                class="tab-body {% if tab == state.selected %}visible{% endif %}"
-            ></slot>
-        </div>
-    {% endfor %}
-</Template>
-
-<!-- (Hint: The ="" syntax is for strings, while :='' is for other types) -->
-<State
-    tabs:=[]
-    selected=""
-></State>
-
-<Script>
-    // (Hint: prepareCallback is invoked before every rerender)
-    function prepareCallback(renderObj) {
-        state.tabs = []; // Will be a list of slot names
-
-        // Loop through the original children passed to this element, and
-        // use their "slot=" information to create the tabs.
-        for (const child of element.originalChildren) {
-            if (!child.hasAttribute || !child.hasAttribute('slot')) {
-                continue; // not a DOM node, or correctly slotted
-            }
-            state.tabs.push(child.getAttribute('slot'));
-            if (!state.selected) { // Select the first one on first render
-                state.selected = child.getAttribute('slot');
-            }
-        }
-    }
-
-    function selectTab(tabToSelect) {
-        state.selected = tabToSelect;
-    }
-<-Script>
-
-<Style>
-    :host {
-        --primary: plum;
-        --foreground: black;
-        --background-color: cornsilk;
-        --light-shading-color: #ffffff55;
-        --dark-shading-color: #00000015;
-        display: relative;
-        overflow: relative;
-    }
-
-    .tab-body {
-        border: 10px var(--primary) ridge;
-        background: var(--background-color);
-        display: none;
-        padding: 10px;
-        box-sizing: border-box;
-        min-height: 50px;
-        margin-top: -3px;
-        box-shadow:
-              8px 8px 10px inset var(--light-shading-color),
-              -8px -8px 10px inset var(--dark-shading-color);
-    }
-    .visible {
-        display: block;
-    }
-
-    button {
-        font-weight: bold;
-        border-radius: 1px 6px 1px 1px;
-        cursor: default;
-        padding: 4px;
-        padding-top: 10px;
-        background: var(--primary);
-        color: var(--foreground);
-        margin-top: 5px;
-        margin-bottom: -8px;
-        transition: box-shadow 0.5s;
-        user-select: none;
-        text-transform: uppercase;
-        border: 5px var(--primary) solid;
-        opacity: 0.9;
-        text-align: center;
-        border-bottom-width: 0;
-        border-left-width: 10px;
-        box-shadow:
-              8px 8px 10px inset var(--light-shading-color),
-              -8px -8px 10px inset var(--dark-shading-color);
-    }
-
-    button.active {
-        border-style: ridge;
-        opacity: 1;
-        box-shadow:
-              8px 8px 10px inset var(--light-shading-color),
-              -1px -1px 1px inset var(--light-shading-color);
-    }
-
-</Style>
-
-
-```
-
-
-
-### TablePushPop
-
-```html=component
-
-<Template>
-    <h5>Author</h5>
-    <h5>Title</h5>
-    <div>
-        {% if state.list.length %}
-            <button on.click=state.list.splice payload:=0>✖</button>
-        {% endif %}
-    </div>
-    {% for item in state.list %}
-        <div>{{ item.author }}</div>
-        <div>{{ item.title }}</div>
-        <div></div>
-    {% endfor %}
-    <input state.bind name="item.author" />
-    <input state.bind name="item.title" />
-    <button
-        on.click=state.list.push
-        payload:='{{ state.item|json }}'
-    >+</button>
-    {% if state.list.length %}
-        <button on.click=state.list.reverse>↕</button>
-        <hr />
-        <button on.click=state.list.pop>↶</button>
-    {% endif %}
-</Template>
-
-<State
-    list:=[]
-    item:={}
-    item.author="Example"
-    item.title="New item"
-></State>
-
-<Style>
-    :host {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        width: 180px;
-        align-items: center;
-    }
-    input {
-        width: 60px;
-    }
-</Style>
-```
-
-
-
-### TextStyler
-
-```html=component
-
-<Template>
-    <label for="text">Text</label>
-    <input state.bind name="text" />
-    <label for="font">Font</label>
-    <select state.bind name="font">
-        <option value="serif">Serif</option>
-        <option value="sans-serif">Sans-Serif</option>
-        <option value="monospace">Monospace</option>
-    </select>
-    <label for="color">FG</label>
-    <input state.bind name="color" type="color" />
-    <label for="bgcolor">BG</label>
-    <input state.bind name="bgcolor" type="color" />
-    <label for="size">Size</label>
-    <input state.bind name="size" type="range" min="12" max="28" step="2" />
-    <label for="shadow">Shadow</label>
-    <input state.bind name="shadow" type="range" min="0" max="8" step="1" />
-    <p style="
-            grid-column: 1 / span 2;
-            font-size: {{ state.size }}px;
-            color: {{ state.color }};
-            font-family: {{ state.font }};
-            background-color: {{ state.bgcolor }};
-            text-shadow: {{ state.shadow }}px {{ state.shadow }}px {{ state.shadow }}px #00000066;
-        ">
-        {{ state.text }}
-    </p>
-</Template>
-<State
-    size:=24
-    shadow:=2
-    color="#333030"
-    bgcolor="#fff0f0"
-    font="serif"
-    text="Style Me"
-></State>
-<Style>
-    :host {
-        display: grid;
-        width: 100%;
-        grid-template-columns: 1fr 3fr;
-    }
-    input,
-    select,
-    option {
-        max-width: 60%;
-    }
-    p {
-        margin: 0;
-        padding: 0;
-        max-width: 90%;
-    }
-</Style>
-```
-
-
-
-### ToDo
-
-```html=component
-
-<!-- The classic "To-Do" app in Modulo -->
-<Template>
-  <ol>
-    {% for item in state.list %}
-        <li>{{ item }}</li>
-    {% endfor %}
-    <li>
-        <input state.bind name="text" />
-        <button on.click=script.addItem>Add</button>
-    </li>
-  </ol>
-</Template>
-<State
-    list:='["Milk", "Bread", "Candy"]'
-    text="Coffee"
-></State>
-<Script>
-    function addItem() {
-        state.list.push(state.text); // add to list
-        state.text = ""; // clear input
-    }
-<-Script>
-```
-
-
-
-### ToggleVisible
-
-```html=component
-<!-- Demos toggling height of an element based on state -->
-<Template>
-    <label>
-        <input state.bind name="visible" type="checkbox" />
-        Show more {% if state.visible %}&uarr;{% else %}&darr;{% endif %}
-    </label>
-    <article class="{{ state.visible|yesno:'visible,invisible' }}">
-        <p>The contents of the hidden panel...</p>
-        <p>And more contents of the hidden panel...</p>
-    </article>
-</Template>
-<State
-    visible:=false
-></State>
-<Style>
-    :host {
-        display: block;
-        background: linear-gradient(#aab, #aac);
-        padding: 5px;
-    }
-    label {
-        font-weight: bold;
-    }
-    article {
-        overflow: hidden;
-        transition: height 0.5s;
-    }
-    article.invisible {
-        height: 0;
-    }
-    article.visible {
-        height: 120px;
-    }
-</Style>
-```
-
-
-
-### WorldMap
-
-```html=component
-<!-- Another example of StaticData being used to visualize data, this example
-     places API data onto a world map, and provides a radio interface for
-     each user that shows more information about that user -->
-<Template>
-    {% for user in staticdata %}
-        <input 
-            name="location"
-            type="radio"
-            value="{{ user.id }}"
-            style="top: {{ user.address.geo.lng|number|add:180|multiply:100|dividedinto:360 }}%;
-                   left: {{ user.address.geo.lat|number|add:90|multiply:100|dividedinto:180 }}%;"
-        />
-        <aside>
-            {{ user.company.name }}
-            <hr />
-            {{ user.company.bs }}
-        </aside>
-    {% endfor %}
-</Template>
-<StaticData
-    -src="https://jsonplaceholder.typicode.com/users"
-></StaticData>
-<Style>
-  :host {
-      background-image: url('https://i.imgur.com/jsOnZz0.png');
-  }
-  :host, aside {
-      background-size: 160px 85px;
-      position: relative;
-      width: 160px;
-      display: block;
-      height: 80px;
-      border: 1px solid gray;
-      box-shadow:
-        0     5px 5px                #00000033,
-        0     5px  5px         inset #00000011;
-  }
-  input {
-      position: absolute;
-  }
-  aside {
-      background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Japanese_Paper_Art_Series_%283047082048%29.jpg/128px-Japanese_Paper_Art_Series_%283047082048%29.jpg');
-      box-sizing: border-box;
-      width: 0;
-      position: absolute;
-      top: 80px;
-      padding: 10px;
-      overflow: hidden;
-      opacity: 0;
-      font-size: 0.9rem;
-      font-variant: uppercase;
-      font-weight: 800;
-      transition: 
-        opacity 0.1s,
-        width 0.3s;
-  }
-  input:checked + aside {
-      opacity: 1;
-      width: 160px;
-  }
-</Style>
-```
 

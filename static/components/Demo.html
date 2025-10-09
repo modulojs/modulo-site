@@ -69,8 +69,10 @@
 {% endwith %}
 </Template>
 
+<!-- Plain HTML embed -->
 <Template -name="demo_embed">{{ value|trim|safe }}</Template>
 
+<!-- Markdown writing area -->
 <script Template -name="demo_markdown">
 <js src=Modulo.html></js><js type=md>---
 title:Example Markdown
@@ -78,6 +80,7 @@ title:Example Markdown
 {{ value|trim|safe }}
 </script>
 
+<!-- Normal component, with error catching -->
 <script Template -name="demo_component">
 <js src=Modulo.html></js>
 <template Modulo>
@@ -91,6 +94,8 @@ document.body.innerHTML += `<p style=color:red>${ msg }</p>`
 window.onerror = null // only do once
 }</js>
 </script>
+
+<!-- "HTML IS ..." "greeting" example (used on homepage) -->
 <script Template -name="demo_greetex">
 <js src=Modulo.html></js>
 <template Modulo>

@@ -76,7 +76,9 @@
         margin: 0;
         display: block;
     }
-    :host:hover {
+    :host:hover,
+    :host:focus,
+    :host:focus-within {
         opacity: 1.0;
         border: 1px solid var(--fg);
     }

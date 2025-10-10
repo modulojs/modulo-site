@@ -1,0 +1,113 @@
+<meta charset=utf8><script src=Modulo.html></script><template type=f>
+
+<!-- Note: List all pages here for build and navbar to pick up on them -->
+<ContentList command="buildall">
+index.html, Modulo, ᵐ°dᵘ⁄o
+docs.html, Docs
+tutorial.html, Tutorial
+playground.html, Playground
+article-index.html, News
+about.html, About
+</ContentList>
+
+<!-- Note: List Markdown articles here for pre-loading -->
+<ContentList -name=articlelist -load=md command="buildall">
+article-example-1.html
+article-example-2.html
+</ContentList>
+
+<!-- Note: List Markdown articles here for pre-loading -->
+<ContentList -name=navlinks>
+https://codeberg.org/modulo/modulo/,Source (Git at Codeberg)
+</ContentList>
+
+<!-- Note: This is the entry-point to Modulo definitions, included in every page -->
+<Include>
+    <meta name="charset" charset="utf8" />
+    <meta name="content-type" http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="index, follow" />
+    <meta name="revisit-after" content="30 days" />
+    <script src="./static/js/main.js.htm"></script>
+</Include>
+
+<Include>
+<style>
+    :root {
+        /* Set site-wide CSS variables here */
+        --color: #B90183;
+        --color-alt: #82d4a444;
+        --fg: #000;
+        --fg-shading: #05051020;
+        --bg: #fff;
+        --bg-semi: #ffffff99;
+        --fg-inv: #fff;
+        --fg-inv-shading: #ffffff20;
+        --bg-inv: #000;
+        --bg-inv-semi: #00000099;
+
+        --page-width: 1000px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --color: #B90183;
+            --color-alt: #82d4a444;
+            --fg: #eee;
+            --fg-shading: #ffffff33;
+            --bg: #000;
+            --bg-semi: #00000099;
+            --fg-inv: #000;
+            --fg-inv-shading: #00000020;
+            --bg-inv: #fff;
+            --bg-inv-semi: #ffffff99;
+        }
+    }
+
+    /* Configure misc site-wide base settings */
+    body {
+        background: var(--bg);
+        color: var(--fg);
+        margin: 0;
+        line-height: 1.5;
+    }
+
+    /* To get syntax editors looking better on both themes */
+    modulo-Editor {
+        background: WhiteSmoke;
+        display: block;
+    }
+</style>
+</Include>
+
+<!-- Note: Components get registered in components/index.html -->
+<Library
+    namespace="x"
+    -src="components/"
+></Library>
+
+<!-- Finally, load the <x-Page> component, but only if it's a "type=f" page -->
+<script Configuration>
+    // Modify Markdown syntax
+    const { md } = modulo.config.syntax;
+    modulo.config.syntax.md = [
+        md[0],
+        // Add in two new example modes, with equals and without
+        [ /```([a-z]+)=([a-z]+)\n?(.+?)\n?```/igs,
+             '<x-Demo show=ui ui=demo mode="$1" demo="$2" value="$3"></x-Demo>' ],
+        [ /```([a-z]*)\n?(.+?)\n?```/igs,
+             '<x-Demo ui=code mode="$1" value="$2"></x-Demo>' ],
+        ...md.slice(1, md.length),
+    ]
+
+    // Configuration script to register showdown and configure markdown 
+    if (modulo.DEV) {
+        const content = modulo.stores.CACHE.getItem(window.location + '')
+        if (content) { // Viewing a content file, mount Page, save as "global.page"
+            modulo.page = modulo.contentType.MD(content)
+            modulo.fetchQueue.enqueue(() => { // loads default viewer
+                document.body.innerHTML = '<x-Page>'
+            })
+        }
+    }
+</script>

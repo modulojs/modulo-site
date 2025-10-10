@@ -1,0 +1,124 @@
+<script src=../Modulo.html></script><template type=f>
+
+<Props showonly></Props>
+
+<Template>
+    <div style="text-align: right; margin-top: 15px">
+        <input id="theme_id_slider" style="width: 80px" type=range min=1 max=3 step=1 value=1 name="themenum" state.bind.input />
+    </div>
+    <div class="page-toolbar" style="display: flex">
+        {% if state.themenum is 3 %}
+        {% for widg in state.widgets %}
+            <input type=color name="{{ widg }}" title="{{ widg|trim:'theme,'|upper }}" state.bind>
+        {% endfor %}
+        <input type=range min=0 max=4 step=1 value=1 name="themeshadows"
+                    title="Word art effect" state.bind.input>
+        <button on.click="script.reset"><span alt="Reset Arrow" title="Reset"> ↶ </span></button>
+        {% endif %}
+        <label for="theme_id_slider"><span
+            style="font-size:20px;font-family:monospace"><span title="Default"
+            on.click=script.set1>&#x25D0;&nbsp;</span><span title="Invert"
+            on.click=script.set2>&nbsp;&#x25D1;&nbsp;</span><span title="Custom"
+            on.click=script.set3>&nbsp;&#10033;</span></label>
+    </div>
+</Template>
+
+<!-- This uses a public store "pagectls" which is subbed to by the SVG art -->
+<State
+    -store=pagectls
+    loaded:=false
+    themenum:=1
+    themeshadows:=1
+    themecolor="#b90183"
+    themefg="#000000"
+    themebg="#ffffff"
+    themebgsemi="#ffffff99"
+    themefgsemi="#05051020"
+    widgets:='["themecolor","themefg","themebg","themefgsemi","themebgsemi"]'
+></State>
+
+<Script>
+    const KEY = 'modulo-website-theme-preferences';
+    let defaults = null;
+    function set1() {
+        state.themenum = 1
+    }
+    function set2() {
+        state.themenum = 2
+    }
+    function set3() {
+        state.themenum = 3
+    }
+    
+    function reset() { // save defaults back into
+        Object.assign(state, JSON.parse(defaults))
+        localStorage.setItem(KEY, defaults)
+    }
+
+
+    function prepareCallback() {
+        if (!state.loaded) {
+            // stash defaults, and restore from localStorage if applicable
+            defaults = JSON.stringify(state)
+            Object.assign(state, JSON.parse(localStorage.getItem(KEY) || '{}'))
+        }
+        state.loaded = true
+        if (state.themenum < 3) { // reset
+            state.themecolor = "#b90183"
+            state.themeshadows = 1
+        }
+    }
+
+    function updateCallback() {
+        // Copy settings to body
+        let s = ''
+        if (state.themenum === 2) { // swap
+            s = `
+                --fg: var(--fg-inv);
+                --fg-shading: var(--fg-inv-shading);
+                --bg: var(--bg-inv);
+                --bg-semi: var(--bg-inv-semi);
+            `;
+        } else if (state.themenum === 3) { // use color
+            s = `
+                --color: ${ state.themecolor };
+                --fg: ${ state.themefg };
+                --bg: ${ state.themebg };
+                --bg-semi: ${ state.themebgsemi };
+                --fg-shading: ${ state.themefgsemi };
+            `;
+        }
+        // save to localStorage
+        localStorage.setItem(KEY, JSON.stringify(state))
+        document.body.setAttribute('style', s)
+    }
+</Script>
+
+<Style>
+    :host {
+        opacity: 0.5;
+        border: 1px solid var(--fg-shading);
+        padding: 2px;
+        margin: 0;
+        display: block;
+    }
+    :host:hover,
+    :host:focus,
+    :host:focus-within {
+        opacity: 1.0;
+        border: 1px solid var(--fg);
+    }
+    input,
+    button {
+        width: 60px;
+        height: 30px;
+        margin: 5px;
+        margin-top: -10px;
+    }
+    div.page-toolbar {
+        color:var(--fg); 
+        height: 25px;
+        right: 0; 
+        text-align: right; 
+    }
+</Style>

@@ -1,0 +1,189 @@
+<!DOCTYPE html><html><head><meta name="charset" charset="utf8" id="include_xxm0qoac"><meta name="content-type" http-equiv="Content-Type" content="text/html; charset=utf-8" id="include_xxnd8o0e"><meta name="viewport" content="width=device-width, initial-scale=1" id="include_x13l7u56"><meta name="robots" content="index, follow" id="include_xxriq75n"><meta name="revisit-after" content="30 days" id="include_x1m4jm9p">
+<link rel="stylesheet" href="build-x1sg6nfq.css">
+
+<script async="" src="build-x1fqlhh3.js"></script>
+</head><body>
+        <meta charset="utf8">
+        <title>undefined</title>
+        
+    
+    <nav class="page-nav x_Page">
+        <ul class="x_Page">
+            
+                
+                <li class="x_Page"><a class="nav-link--modulo x_Page" href="index.html" title=" Modulo"> ᵐ°dᵘ⁄o</a></li>
+                
+            
+                
+                <li class="x_Page"><a href="docs.html" class="x_Page"> Docs</a></li>
+                
+            
+                
+                <li class="x_Page"><a href="tutorial.html" class="x_Page"> Tutorial</a></li>
+                
+            
+                
+                <li class="x_Page"><a href="playground.html" class="x_Page"> Playground</a></li>
+                
+            
+                
+                <li class="x_Page"><a href="article-index.html" class="x_Page"> News</a></li>
+                
+            
+                
+                <li class="x_Page"><a href="about.html" class="x_Page"> About</a></li>
+                
+            
+            
+                <li class="x_Page"><a href="https://codeberg.org/modulo/modulo/" class="x_Page">Source (Git at Codeberg)</a></li>
+            
+            <!--<li style="opacity:0.5"><br /><em>Version 0.1.0<br/> BETA</em></li>-->
+            <li style="margin-left: auto" class="x_Page">
+                <x-pagecontrols modulo-mount-html=""><div style="text-align: right; margin-top: 15px">
+        <input id="theme_id_slider" style="width: 80px" type="range" min="1" max="3" step="1" value="1" name="themenum">
+    </div>
+    <div class="page-toolbar" style="display: flex">
+        
+        <label for="theme_id_slider"><span style="font-size:20px;font-family:monospace"><span title="Default">◐&nbsp;</span><span title="Invert">&nbsp;◑&nbsp;</span><span title="Custom">&nbsp;✱</span></span></label>
+    </div></x-pagecontrols>
+            </li>
+        </ul>
+    </nav>
+
+    <a class="a-hamburger x_Page" href="#">☰</a>
+
+      
+
+    
+    <div class="page-container page--normal x_Page">
+        
+        <h1></h1>
+        <h4></h4>
+
+        
+        
+        <div class="markdown-page">
+            
+<h2 h="#" class="x_Page">Tutorial</h2><p class="x_Page"><strong>Modulo is one of the easiest frameworks to embed in existing applications.</strong></p><p class="x_Page">You can use as little or as much of Modulo's framework as you'd like.  Even
+when embedded and without server-side rendering, Modulo can be used to develop
+performant components.
+</p><p class="x_Page"></p><h2 h="##" class="x_Page">Starting in 3 Steps</h2><p class="x_Page">Writing your first component takes only <strong>3 steps</strong>. You can follow these steps
+in your text editor by either 1) creating a new, blank HTML file or 2) opening
+an HTML file from one of your existing web apps or projects:
+</p><p class="x_Page"></p><h2 h="#####" class="x_Page">Step 1: Include Modulo</h2><p class="x_Page"><x-demo ui="code" mode="html" value="&lt;script Modulo src=https://modu.lol&quot;&gt;
+&lt;/script&gt;" modulo-mount-html="">
+
+
+
+
+<x-demo-grid>
+<x-demo-editwrap>
+<pre style="
+    background:var(--bg);
+    height:51px;
+    font-size:17px;
+    padding: 0 0 0 27px"><modulo-line></modulo-line><tt style="color:#999"><tt style="color:#777">&lt;script</tt> </tt><tt style="color:#B90183">Modulo</tt> src=https://modu.lol"<tt style="color:#777">&gt;</tt><br><modulo-line></modulo-line><tt style="color:#777">&lt;/script</tt><tt style="color:#777">&gt;</tt></pre><textarea name="value" style="
+        top:-2px;
+        position:absolute;
+        left:24px;
+        height:51px;
+        font-size:17px;
+    " readonly="" spellcheck="false"></textarea>
+</x-demo-editwrap>
+
+
+</x-demo-grid>
+
+</x-demo></p><p class="x_Page"></p><h2 h="#####" class="x_Page">Step 2: Define Components</h2><p class="x_Page"><x-demo ui="code" mode="html" value="&lt;script Modulo src=https://modu.lol&gt;
+    &lt;Component name=&quot;Greet&quot;&gt;
+        &lt;Template&gt;
+            &lt;h2&gt;Hey there, &lt;slot&gt;&lt;/slot&gt;!&lt;/h2&gt;
+        &lt;/Template&gt;
+    &lt;/Component&gt;
+&lt;/script&gt;" modulo-mount-html="">
+
+
+
+
+<x-demo-grid>
+<x-demo-editwrap>
+<pre style="
+    background:var(--bg);
+    height:178.5px;
+    font-size:17px;
+    padding: 0 0 0 27px"><modulo-line></modulo-line><tt style="color:#999"><tt style="color:#777">&lt;script</tt> </tt><tt style="color:#B90183">Modulo</tt> src=https://modu.lol<tt style="color:#777">&gt;</tt><br><modulo-line></modulo-line>&nbsp;&nbsp;&nbsp;&nbsp;<tt style="color:#999">&lt;</tt><tt style="color:#B90183">Component</tt> name="Greet"<tt style="color:#777">&gt;</tt><br><modulo-line></modulo-line>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<tt style="color:#999">&lt;</tt><tt style="color:#B90183">Template</tt><tt style="color:#777">&gt;</tt><br><modulo-line></modulo-line>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<tt style="color:#777">&lt;h2</tt><tt style="color:#777">&gt;</tt>Hey there, <tt style="color:#777">&lt;slot</tt><tt style="color:#777">&gt;</tt><tt style="color:#777">&lt;/slot</tt><tt style="color:#777">&gt;</tt>!<tt style="color:#777">&lt;/h2</tt><tt style="color:#777">&gt;</tt><br><modulo-line></modulo-line>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<tt style="color:#999">&lt;/</tt><tt style="color:#B90183">Template</tt><tt style="color:#777">&gt;</tt><br><modulo-line></modulo-line>&nbsp;&nbsp;&nbsp;&nbsp;<tt style="color:#999">&lt;/</tt><tt style="color:#B90183">Component</tt><tt style="color:#777">&gt;</tt><br><modulo-line></modulo-line><tt style="color:#777">&lt;/script</tt><tt style="color:#777">&gt;</tt></pre><textarea name="value" style="
+        top:-2px;
+        position:absolute;
+        left:24px;
+        height:178.5px;
+        font-size:17px;
+    " readonly="" spellcheck="false"></textarea>
+</x-demo-editwrap>
+
+
+</x-demo-grid>
+
+</x-demo></p><p class="x_Page"></p><h2 h="#####" class="x_Page">Step 3: Use Elsewhere</h2><p class="x_Page"><x-demo ui="code" mode="html" value="&lt;div&gt;
+    &lt;x-Greet&gt;Modulo&lt;/x-Greet&gt;
+    &lt;x-Greet&gt;my new &lt;tt&gt;HTML&lt;/tt&gt;web component&lt;/x-Greet&gt;
+&lt;/div&gt;" modulo-mount-html="">
+
+
+
+
+<x-demo-grid>
+<x-demo-editwrap>
+<pre style="
+    background:var(--bg);
+    height:102px;
+    font-size:17px;
+    padding: 0 0 0 27px"><modulo-line></modulo-line><tt style="color:#777">&lt;div</tt><tt style="color:#777">&gt;</tt><br><modulo-line></modulo-line>&nbsp;&nbsp;&nbsp;&nbsp;<tt style="color:#999">&lt;</tt><tt style="color:indigo">x-Greet</tt><tt style="color:#777">&gt;</tt>Modulo<tt style="color:#999">&lt;/</tt><tt style="color:indigo">x-Greet</tt><tt style="color:#777">&gt;</tt><br><modulo-line></modulo-line>&nbsp;&nbsp;&nbsp;&nbsp;<tt style="color:#999">&lt;</tt><tt style="color:indigo">x-Greet</tt><tt style="color:#777">&gt;</tt>my new <tt style="color:#777">&lt;tt</tt><tt style="color:#777">&gt;</tt>HTML<tt style="color:#777">&lt;/tt</tt><tt style="color:#777">&gt;</tt>web component<tt style="color:#999">&lt;/</tt><tt style="color:indigo">x-Greet</tt><tt style="color:#777">&gt;</tt><br><modulo-line></modulo-line><tt style="color:#777">&lt;/div</tt><tt style="color:#777">&gt;</tt></pre><textarea name="value" style="
+        top:-2px;
+        position:absolute;
+        left:24px;
+        height:102px;
+        font-size:17px;
+    " readonly="" spellcheck="false"></textarea>
+</x-demo-editwrap>
+
+
+</x-demo-grid>
+
+</x-demo></p><hr class="x_Page"><p class="x_Page"><em>Continue learning with Modulo's Documentation, which has many more interactive "playground" examples...</em></p><p class="x_Page"></p><h2 h="##" class="x_Page"><a href="./docs.html">Continue to DOCS</a></h2><p class="x_Page">
+        </p></div>
+        
+
+        
+        
+    </div>
+    
+    
+    <footer class="page-container x_Page" style="display: flex;">
+        <div>
+            <h2>ᵐ°dᵘ⁄o</h2>
+        </div>
+        <ul style="display:grid; grid-template-columns: 1fr 1fr; font-size: 1.1rem">
+            
+                <li><a href="index.html"> Modulo</a></li>
+            
+                <li><a href="docs.html"> Docs</a></li>
+            
+                <li><a href="tutorial.html"> Tutorial</a></li>
+            
+                <li><a href="playground.html"> Playground</a></li>
+            
+                <li><a href="article-index.html"> News</a></li>
+            
+                <li><a href="about.html"> About</a></li>
+            
+                <li><a href="https://codeberg.org/modulo/modulo/">Source (Git at Codeberg)</a></li>
+            
+        </ul>
+        <div style="margin: auto 10px 10px auto; text-align: right; opacity:0.5">
+            <p class="x_Page">Thu Oct 09 2025 18:24:16 GMT-0700 (Pacific Daylight Time)</p>
+            <p class="x_Page">ᵐ°dᵘ⁄o <em>The Modulo Framework</em> © <tt title="Michael Bethencourt" class="x_Page">michaelb</tt></p>
+<pre title="It is acceptable to link ('bundle') and distribute the Modulo Framework with other code as long as the LICENSE and NOTICE remains intact.">NO WARRANTEE OR IMPLIED UTILITY;
+ANY MODIFICATIONS OR DERIVATIVES OF
+THE MODULO FRAMEWORK MUST BE LGPLv3+</pre>
+</div>
+    </footer></body></html>

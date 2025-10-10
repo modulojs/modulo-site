@@ -5,21 +5,20 @@ copyright: 2025 Michael Bethencourt - LGPLv3 - NO WARRANTEE OR IMPLIED UTILITY;
     LGPL Notice: It is acceptable to link ("bundle") and distribute the Modulo
     Framework with other code as long as the LICENSE and NOTICE remains intact.
 ---
-// */ //md:`v0.1.0 [ᵐ°dᵘ⁄o @ codeberg](https://modulo.codeberg.page/docs/)` */
+// */ //md:`[ % ] v0.1.0 [MODULO WEBSITE](https://modulo.codeberg.page/)` */
 // md: # **ᵐ°dᵘ⁄o**
+//md:###`[ % ]` [Create **App** »](?argv=newapp)
+//md:###`[ % ]` [Create **Library** »](?argv=newlib)
+//md:###`[ % ]` [Create **Markdown** »](?argv=newmd)
+// md: _**Hint:** Click starter template for preview. Click file(s) to save._
 
-//md: ---
-//md:###`%` [Create **App** »](?argv=newapp)
-//md:###`%` [Create **Library** »](?argv=newlib)
-//md:###`%` [Create **Markdown** »](?argv=newmd)
 var Modulo = function Modulo () {
-    // md: _**Hint:** Click starter template for preview. Click file(s) to save._
     const M = window.Modulo || Modulo;
     M.instanceID = M.instanceID || 0;
     this.id = ++M.instanceID; // md: **About:** Modulo (or ᵐ°dᵘ⁄o)
     Object.assign(this, { //md: is a [single file](?argv=edit) frontend
         _connectedQueue: [], //md: framework, squeezing in numerous tools for
-        _drainQueue: () => { //md: modern HTML, CSS, and JavaScript develpment.
+        _drainQueue: () => { //md: modern HTML, CSS, and JavaScript.
             while (this._connectedQueue.length > 0) { // md: Featuring: Web
                 this._connectedQueue.shift().moduloMount(); //md:Components,CSS
             } // md: Scoping, Shadow DOM, Jamstack/SSG/SSR,
@@ -1212,13 +1211,15 @@ function defTarget (modulo, def, value) { // saves def
 function command (modulo, def, value) {
     def.commands = (value || ' ').split(/,/.test(value) ? ',' : '\n');
     for (const cmd of def.commands) { // Register dev commands
-        modulo.command[cmd.trim() || 'build'] = function build (modulo) {
+        const commandName = cmd.trim() || 'build';
+        modulo.command[commandName] = function build (modulo) {
             for (const [ key, obj ] of Object.entries(modulo.definitions)) {
-                if (obj.commands && !obj.commands.includes(cmd)) {
+                if (obj.commands && !obj.commands.includes(commandName)) {
                     delete obj.CommandBuilders; // stop cmd
                     delete obj.CommandFinalizers;
                 }
             }
+            modulo.COMMAND = commandName; // record globally
             modulo._drainQueue(); // wait for mounts
             const { BUILD } = modulo.stores; // pass BUILD
             const fs = [ BUILD.data.fdata, modulo.fetchQueue.data ];

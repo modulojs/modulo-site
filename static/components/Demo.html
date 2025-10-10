@@ -1,7 +1,6 @@
 <script src=../Modulo.html></script><template type=f>
 
 <Props
-    fs
     store=build
     mode=html
     font=17
@@ -43,11 +42,12 @@
     state.bind
     name=value
     style="
-    top:-2px;
-    left:{{ state.num-width }}px;
-    position:absolute;
-    height:{{hg}}px;
-    font-size:{{props.font}}px"
+        top:-2px;
+        position:absolute;
+        left:{{ state.num-width }}px;
+        height:{{hg}}px;
+        font-size:{{props.font}}px;
+    "
     {{state.ui|allow:"code"|yesno:"readonly,"}}
     spellcheck=false></textarea>
 </x-demo-editwrap>
@@ -55,10 +55,10 @@
 {% if state.ui in "demo,edit" %}
     {% with "demo_"|add:props.demo as dname %}
     {% with local|get:dname as tmplt %}
-        {% if tmplt %}
+        {% if tmplt %}{% if global.COMMAND %}<iframe srcdoc=" "></iframe>{% else %}
         <iframe style="height:{{hg}}px;"
             srcdoc="{{ state|renderas:tmplt|add:'' }}" loading=lazy></iframe>
-        {% else %}
+        {% endif %}{% else %}
         <strong style=color:red>Error: {{ dname }} not found</strong>
         {% endif %}
     {% endwith %}

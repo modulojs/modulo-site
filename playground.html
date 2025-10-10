@@ -76,7 +76,7 @@ these code samples can be put into any `<Component>` definition.
 
 #### Example 3: Search API
 
-```html=component
+```js=component
 <Template>
     <form on.submit=script.doSearch>
         <input state.bind name=search>
@@ -86,7 +86,7 @@ these code samples can be put into any `<Component>` definition.
     <ol>{% for item in state.results %}<li>{{ item.title }}</li>{% endfor %}</ol>
 </Template>
 <State
-    search=MacBeth
+    search="MacBeth"
     results:=[]
 ></State>
 <Script>
@@ -104,7 +104,7 @@ these code samples can be put into any `<Component>` definition.
 
 ### Example 4: Sortable CSV Table
 
-```html=component
+```js=component
 <Template>
   <section style="grid-template-columns:{% for header in staticdata|first %}
           {% if header is 'Supply Chain' %}5fr{% else %}1fr{% endif %}

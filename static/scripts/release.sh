@@ -21,7 +21,7 @@ cp Modulo.html _build/
 ######
 # (Step 2: Copy results to modulo-pages)
 rm modulo-pages/*.*
-rm -r modulo-pages/*
+rm -r modulo-pages/static
 cp -r _build/* modulo-pages/
 
 cd modulo-pages/

@@ -16,7 +16,7 @@ echo "-------------------------"
 # (Step 1: Copy static / dev stuff to _build)
 cp -r static _build/
 cp Modulo.html _build/
-
+cp favicon.ico _build/
 
 ######
 # (Step 2: Copy results to modulo-pages)

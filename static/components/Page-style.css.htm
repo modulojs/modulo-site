@@ -64,7 +64,14 @@
 .u--container > * {
     grid-column: 2;
 }
+.u--flex1 {
+    display: flex;
+    flex-wrap: wrap;
+}
 
+.u--absolute1 {
+    position:absolute;z-index:2; left: 800px; width: 700px; top: 60px
+}
 
 /* Nav bar */
 .page-nav a:hover {
@@ -152,6 +159,12 @@ a.modulo-logo:hover {
     .page-nav {
         padding: 4px;
         margin: 2px;
+    }
+    .u--flex1 {
+        display: block;
+    }
+    .u--absolute1 { 
+        position: static;
     }
 }
 @media (max-width: 576px) {

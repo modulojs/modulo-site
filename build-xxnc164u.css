@@ -125,6 +125,7 @@ x-PageControls div.page-toolbar {
 }
 
 .x_Page:is(.page-nav a) {
+    user-select: none;
     text-decoration: none;
     background: var(--bg);
     font-family: sans-serif;
@@ -166,7 +167,14 @@ x-PageControls div.page-toolbar {
 .x_Page:is(.u--container > *) {
     grid-column: 2;
 }
+.x_Page:is(.u--flex1) {
+    display: flex;
+    flex-wrap: wrap;
+}
 
+.x_Page:is(.u--absolute1) {
+    position:absolute;z-index:2; left: 800px; width: 700px; top: 60px
+}
 
 
 .x_Page:is(.page-nav a:hover) {
@@ -254,6 +262,12 @@ x-PageControls div.page-toolbar {
 .x_Page:is(.page-nav) {
         padding: 4px;
         margin: 2px;
+    }
+.x_Page:is(.u--flex1) {
+        display: block;
+    }
+.x_Page:is(.u--absolute1) { 
+        position: static;
     }
 }
 @media (max-width: 576px) {

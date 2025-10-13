@@ -21,7 +21,7 @@
                 {% endif %}
             {% endfor %}
             {% for row in global.definitions.navlinks.data %}
-                <li><a href="{{ row|get:0 }}">{{ row|get:1 }}</a></li>
+                <li><a style="border:none" href="{{ row|get:0 }}">{{ row|get:1 }}</a></li>
             {% endfor %}
             
             <li style="margin-left: auto">

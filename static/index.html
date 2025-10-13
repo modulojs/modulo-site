@@ -1,27 +1,28 @@
 <meta charset=utf8><script src=Modulo.html></script><template type=f>
 
-<!-- Note: List all pages here for build and navbar to pick up on them -->
+
 <ContentList command="buildall">
 index.html, Modulo, ᵐ°dᵘ⁄o
 docs.html, Docs
-tutorial.html, Tutorial
 playground.html, Playground
-article-index.html, News
 about.html, About
 </ContentList>
-
-<!-- Note: List Markdown articles here for pre-loading -->
-<ContentList -name=articlelist -load=md command="buildall">
+<!--
+article-index.html, News
+tutorial.html, Tutorial
 article-example-1.html
 article-example-2.html
+-->
+
+<ContentList -name=articlelist -load=md command="buildall">
 </ContentList>
 
-<!-- Note: List Markdown articles here for pre-loading -->
 <ContentList -name=navlinks>
-https://codeberg.org/modulo/modulo/,Source (Git at Codeberg)
+https://codeberg.org/modulo/modulo/,Source (Git)
+https://www.npmjs.com/package/create-modulo,create-modulo (npmjs)
 </ContentList>
 
-<!-- Note: This is the entry-point to Modulo definitions, included in every page -->
+
 <Include>
     <meta name="charset" charset="utf8" />
     <meta name="content-type" http-equiv="Content-Type" content="text/html; charset=utf-8" />

@@ -23,8 +23,13 @@
             {% for row in global.definitions.navlinks.data %}
                 <li><a href="{{ row|get:0 }}">{{ row|get:1 }}</a></li>
             {% endfor %}
-            <!--<li style="opacity:0.5"><br /><em>Version 0.1.0<br/> BETA</em></li>-->
+            
             <li style="margin-left: auto">
+                <a style="padding:3px;"href="https://modu.lol/Modulo.html" download="Modulo.html">&darr; Modulo.html</a>
+                <textarea title="Run this command in a terminal to start a new Modulo project" style="background:var(--bg);color:var(--fg);border:none;width:200px;resize:none;font-size:18px;height: 25px" readonly>npm init modulo</textarea>
+            </li>
+
+            <li>
                 <x-PageControls></x-PageControls>
             </li>
         </ul>

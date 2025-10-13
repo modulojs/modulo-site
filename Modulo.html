@@ -5,85 +5,42 @@ copyright: 2025 Michael Bethencourt - LGPLv3 - NO WARRANTEE OR IMPLIED UTILITY;
     LGPL Notice: It is acceptable to link ("bundle") and distribute the Modulo
     Framework with other code as long as the LICENSE and NOTICE remains intact.
 ---
-// */ //md:`[ % ] v0.1.0 [MODULO WEBSITE](https://modulo.codeberg.page/)` */
-// md: # **ᵐ°dᵘ⁄o**
-//md:###`[ % ]` [Create **App** »](?argv=newapp)
-//md:###`[ % ]` [Create **Library** »](?argv=newlib)
-//md:###`[ % ]` [Create **Markdown** »](?argv=newmd)
-// md: _**Hint:** Click starter template for preview. Click file(s) to save._
-
-var Modulo = function Modulo () {
-    const M = window.Modulo || Modulo;
-    M.instanceID = M.instanceID || 0;
-    this.id = ++M.instanceID; // md: **About:** Modulo (or ᵐ°dᵘ⁄o)
-    Object.assign(this, { //md: is a [single file](?argv=edit) frontend
-        _connectedQueue: [], //md: framework, squeezing in numerous tools for
-        _drainQueue: () => { //md: modern HTML, CSS, and JavaScript.
-            while (this._connectedQueue.length > 0) { // md: Featuring: Web
-                this._connectedQueue.shift().moduloMount(); //md:Components,CSS
-            } // md: Scoping, Shadow DOM, Jamstack/SSG/SSR,
-        },//md: Bundling, Store and State Management, Templating, and more.
-        cmdCallback: (cmdStatus = 0, edit = null, html = null) => {
-            this.cmdStatus = cmdStatus;
-            if (edit || edit === null) { // null = most recent, false = no replace
-                const { log } = this.stores.BUILD.data; // Edit last logged
-                edit = edit || log.length ? log[log.length - 1][0] : '';
-                const att = ` full=full view="${ edit }" edit="${ edit }"`;
-                window.document.body.innerHTML = html || `<modulo-Editor${ att }>`;
-            }
-        },
-        preprocessAndDefine(cb, prefix = 'Def') {
-            cb = cb || (() => {});
-            modulo.fetchQueue.enqueue(() => {
-                modulo.util.repeatProcessors(null, prefix + 'Builders', () => {
-                    modulo.util.repeatProcessors(null, prefix + 'Finalizers', cb)
-                });
-            }, true); // The "true" causes it to wait for all
-        },
-        assert: (value, ...info) => {
-            if (!value) {  // md:---
-                console.error('%cᵐ°dᵘ⁄o', 'background:red', this.id, ...info);
-                throw new Error(`Assert : "${ Array.from(info).join(' ') }"`);
-            }
-        },
-        build: { },
-        bundles: { script: [], style: [], link: [], meta: [],
-                    modscript: [], modstyle: [] },
-        registry: { bundle: { }, elements: { }, modules: { } },
-        engine: { }, core: { }, command: { },
-        consts: { WAIT: 900, WAITALL: 901 },
-        config: M.CONFIG || { },
-        definitions: { }, // For specific definitions (e.g. one Component)
-        stores: { }, // Global data store (by default, only used by State)
-    });
-    this.util = M.UtilityFunctions(this);
-    this.engine = M.Engines(this);
-    this.fetchQueue = new this.engine.FetchQueue();
-    this.processor = this.util.insObject(M.DefProcessors(this));
-    this.part = this.util.insObject(M.ComponentParts(this));
-    this.core = this.util.insObject(M.CoreDefinitions(this));
-    this.templateMode = M.TemplateModes ? M.TemplateModes(this) : {}
-    this.templateTag =  M.TemplateTags ? M.TemplateTags(this) : {}
-    this.templateFilter = M.TemplateFilters(this)
-    this.contentType = M.ContentTypes(this)
-    this.argv = new window.URLSearchParams(window.location.search).getAll('argv');
-    Object.assign(this.registry, { utils: this.util, cparts: this.part,
-        coreDefs: this.core, processors: this.processor }) // TODO Legacy alias
-};
-
-Modulo.ComponentParts = modulo => {// md: ## Component Parts
-
-//md: ### Include
-//md:```html=component<Include><style>
-//md::root { --c1: #B90183; }
-//md:body { background: var(--c1); }
-//md:</style></Include>```
-class Include { // md: _Include_ is for global styles, links, and scripts.
+// */ // md: `[ % ] v0.1.0 [MODULO WEBSITE](https://modulo.codeberg.page/)`
+var Modulo = function Modulo (OPTS = { }) {
+    const Lib = OPTS.globalLibrary || window.Modulo || Modulo; //md:# **ᵐ°dᵘ⁄o**
+    Lib.instanceID = Lib.instanceID || 0;
+    this.id = ++Lib.instanceID;
+    const globals = OPTS.globalProperties || [ 'config', 'util', 'engine',
+        'processor', 'part', 'core', 'templateMode', 'templateTag',
+        'templateFilter', 'contentType', 'command', 'build', 'definitions',
+        'stores', 'fetchQueue' ];
+    for (const name of globals) {
+        const stdLib = Lib[name.charAt(0).toUpperCase() + name.slice(1) + 's'];
+        this[name] = stdLib ? stdLib(this) : { }; // Exe StdLib Module
+    }
+}
+/* md: ###`[ % ]` [Create **App** »](?argv=newapp)
+md:###`[ % ]` [Create **Library** »](?argv=newlib)
+md:###`[ % ]` [Create **Markdown** »](?argv=newmd)
+md:_**Hint:** Click starter template for preview. Click file(s) to save._
+md:**About:** Modulo (or ᵐ°dᵘ⁄o) is a [single file](?argv=edit) frontend
+md:framework, squeezing in numerous tools for modern HTML, CSS, and
+md:JavaScript. Featuring: Web Components, CSS Scoping, Shadow DOM,
+md:SSG / SSR, Bundling, Store and State Management, Templating, and more.
+*/
+Modulo.Parts = function ComponentParts (modulo) {// md: ## Component Parts
+/* md: ### Include
+md:```html=component<Include>
+md:<script>document.body.innerHTML += '<h1>ᵐ°dᵘ⁄o</h1>'<-script>
+md:<style>:root { --c1: #B90183; }  body { background: var(--c1); }</style>
+md:</Include>``` _Include_ is for global styles, links, and scripts.
+*/
+class Include {
     static LoadMode(modulo, def, value) {
         const { bundleHead, newNode } = modulo.util;
         for (const elem of newNode(def.Content).children) { // md: Include loops
             bundleHead(modulo, elem); // md: across it's children adding to head,
-        } // md: and pausing during load. When built, it combines into _bundles_.
+        } // md: and pausing during load. When built, it combines into bundles.
     } // TODO: use "value" for async vs lazy
     static Server({ part, util }, def, value) {
         def.Content = (def.Content || '') + new part.Template(def.TagTemplate)
@@ -440,7 +397,8 @@ class Template { // md: ### Template
         return this.renderFunc(Object.assign({ local, global: this.modulo }, local), this);
     }
 } // md: ---
-return { State, Props, Script, Style, Template, StaticData, Include };
+const cparts = { State, Props, Script, Style, Template, StaticData, Include };
+return modulo.util.insObject(cparts);
 } // /* End of Component Parts */ /*#UNLESS#*/
 
 Modulo.TemplateModes = modulo => ({ // md: ## Template Language
@@ -510,8 +468,8 @@ Modulo.TemplateTags = modulo => ({//md:```html=component<Template>{% if state.a 
 Modulo.TemplateFilters = modulo => {//md:Using `|` we can apply _filters_:
 //md:```html=component<Template><h2>Modulo Filters:</h2><dl>
 //md:{% for fil in global.template-filter|keys|sorted %}<dt>{{fil}}</dt>
-//md:<dd>"ab1-cd2"|{{fil}}&rarr; "{% ignoremissing %}{{"ab1-cd2"|apply:fil}}
-//md:{% endignoremissing %}"</dd>{% endfor %}</dl></Template>```
+//md:<dd>"ab1-cd2"|{{fil}}&rarr; {% ignoremissing %}"{{"ab1-cd2"|apply:fil}}"
+//md:{% endignoremissing %}</dd>{% endfor %}</dl></Template>```
 const { get } = modulo.util;
 const safe = s => Object.assign(new String(s),{ safe: true });
 const escapere = s => s.replace(/[.*+?^${}()|[\]\\-]/g, '\\$&');
@@ -574,13 +532,14 @@ const { values, keys, entries } = Object;
 return Object.assign(Filters, Modulo.ContentTypes(modulo),
     { values, keys, entries, tagswap, get, safe, escapere, syntax });
 } // md:---
-
-/*#UNLESS#*/
-// md: ## Configuration
-// md: All definitions "extend" a base configuration. See below:
-Modulo.CONFIG = { //md:```html=component<Template>{% for t, c in global.config %}
-    artifact: { //md:<h4>{{ t }}</h4><pre>{{ c|json:2 }}</pre>{% endfor %}
-        //md:</Template>```
+/*
+md: ## Configuration
+md: All definitions "extend" a base configuration. See below:
+md:```html=component<Template>{% for t, c in global.config %}
+md:<h4>{{ t }}</h4><pre>{{ c|json:2 }}</pre>{% endfor %}</Template>```*/
+Modulo.Configs = function DefaultConfiguration() {
+const CONFIG = { /*#UNLESS#*/
+    artifact: {
         tagAliases: { 'js': 'script', 'ht': 'html', 'he': 'head', 'bo': 'body' },
         pathTemplate: '{{ tag|default:cmd }}-{{ hash }}.{{ def.name }}',
         DefLoaders: [ 'DefTarget', 'DefinedAs', 'DataType', 'Src', 'build|Command' ],
@@ -818,11 +777,10 @@ component: `
 h2[h]{margin:60px 0 0 0;font-family:sans-serif;font-weight:500;}
 h2[h='#']{font-size:64px} h2[h='##']{font-size:46px;}h2[h='###']{font-size:30px}
 h2[h='#'],h2[h='##']{text-align:center}code{background:#88888855}
-hr{border:0.5vw solid #88888855;margin:5vw 30% 5vw 30%}</Style></Component>`}
-};
-/*#ENDUNLESS#*/
-Modulo.CONFIG = Modulo.CONFIG || {}
-Modulo.CONFIG.syntax = { // Simple RegExp mini langs for |syntax: filter
+hr{border:0.5vw solid #88888855;margin:5vw 30% 5vw 30%}</Style></Component>`
+} /*#ENDUNLESS#*/ }
+
+CONFIG.syntax = { // Simple RegExp mini langs for |syntax: filter
     jsReserved: { // Used by Script tags and JS syntax
         'break': 1, 'case': 1, 'catch': 1, 'class': 1, 'const': 1, 'continue': 1,
         'debugger': 1, 'default': 1, 'delete': 1, 'do': 1, 'else': 1,
@@ -877,10 +835,12 @@ Modulo.CONFIG.syntax = { // Simple RegExp mini langs for |syntax: filter
         [ /  /g, '&nbsp;&nbsp;' ],
     ],
 };
-Modulo.CONFIG.syntax.js = Array.from(Modulo.CONFIG.syntax.html)
-Modulo.CONFIG.syntax.js.push([ new RegExp(`(\\b${ Object.keys(
-    Modulo.CONFIG.syntax.jsReserved).join('\\b|\\b') }\\b)`, 'g'),
+CONFIG.syntax.js = Array.from(CONFIG.syntax.html)
+CONFIG.syntax.js.push([ new RegExp(`(\\b${ Object.keys(
+    CONFIG.syntax.jsReserved).join('\\b|\\b') }\\b)`, 'g'),
     `<strong style=color:firebrick>$1</strong>` ]);
+return CONFIG
+};
 
 Modulo.ContentTypes = modulo => ({ // md: **ContentTypes**: CSV (limited),
     CSV: s => (s || '').trim().split('\n').map(r => r.trim().split(',')),
@@ -909,7 +869,7 @@ Modulo.ContentTypes = modulo => ({ // md: **ContentTypes**: CSV (limited),
 }); /* End of ContentTypes */
 
 /* Utility Functions that setup Modulo */
-Modulo.UtilityFunctions = modulo => {
+Modulo.Utils = function UtilityFunctions (modulo) {
 
 const Utilities = {
     escapeRegExp: s => // Escape string for regexp
@@ -1007,8 +967,7 @@ function keyFilter (obj, func = null) {
     const keys = func.call ? Object.keys(obj).filter(func) : func;
     return Object.fromEntries(keys.map(key => [ key, obj[key] ]));
 }
-Object.assign(Utilities, { initComponentClass, instance, instanceParts, newNode,
-     makeStore, keyFilter })
+Object.assign(Utilities, { initComponentClass, instance, instanceParts, newNode, makeStore, keyFilter })
 
 /*#UNLESS#*/
 function loadString (text, pName) { // Loads string, possibly removing preamble
@@ -1170,7 +1129,7 @@ Object.assign(Utilities, { applyNextProcessor, configureStatic, hash,
 return Utilities;
 }; /* End of UtilityFunctions */
 
-Modulo.DefProcessors = modulo => { /*#UNLESS#*/
+Modulo.Processors = function DefProcessors (modulo) { /*#UNLESS#*/
 // md: ### Content Processors
 function src (modulo, def, value) { // md: `-src="path..."` - Loads content
     const { getParentDefPath } = modulo.util;
@@ -1278,11 +1237,12 @@ function contentType (modulo, def, value) {
     def.data = modulo.contentType[value[0]](def.Content, value[1]);
     delete def.Content;
 }
-return { src, srcSync, defTarget, command, content, mainRequire, definedAs,
-dataType, filterContent, code, contentType, defer } /*#ENDUNLESS#*/
+return modulo.util.insObject({ src, srcSync, defTarget, command, content,
+    mainRequire, definedAs, dataType, filterContent, code, contentType, defer })
+/*#ENDUNLESS#*/
 } /* End of Modulo.DefProcessors */
 
-Modulo.Engines = modulo => {
+Modulo.Engines = function Engines (modulo) {
 
 class DOMLoader {/*#UNLESS#*/
     getAllowedChildTags(parentName) {
@@ -1647,7 +1607,49 @@ class DOMReconciler {
 return { FetchQueue, DOMLoader, ValueResolver, DOMReconciler, DOMCursor }
 } /* End of Modulo.Engines */
 
-Modulo.CoreDefinitions = modulo => { //md: ### Core Definitions
+Modulo.FetchQueues = function FetchQueues (modulo) {
+    Object.assign(modulo, {
+        _connectedQueue: [],
+        _drainQueue: () => {
+            while (modulo._connectedQueue.length > 0) {
+                modulo._connectedQueue.shift().moduloMount();
+            }
+        },
+        cmdCallback: (cmdStatus = 0, edit = null, html = null) => {
+            modulo.cmdStatus = cmdStatus;
+            if (edit || edit === null) { // null = most recent, false = no replace
+                const { log } = modulo.stores.BUILD.data; // Edit last logged
+                edit = edit || log.length ? log[log.length - 1][0] : '';
+                const att = ` full=full view="${ edit }" edit="${ edit }"`;
+                window.document.body.innerHTML = html || `<modulo-Editor${ att }>`;
+            }
+        },
+        preprocessAndDefine(cb, prefix = 'Def') {
+            cb = cb || (() => {});
+            modulo.fetchQueue.enqueue(() => {
+                modulo.util.repeatProcessors(null, prefix + 'Builders', () => {
+                    modulo.util.repeatProcessors(null, prefix + 'Finalizers', cb)
+                });
+            }, true); // The "true" causes it to wait for all
+        },
+        assert: (value, ...info) => {
+            if (!value) {  // md:---
+                console.error('%cᵐ°dᵘ⁄o', 'background:red', modulo.id, ...info);
+                throw new Error(`Assert : "${ Array.from(info).join(' ') }"`);
+            }
+        },
+        bundles: { script: [], style: [], link: [], meta: [],
+                    modscript: [], modstyle: [] },
+        registry: { bundle: { }, elements: { }, modules: { } },
+        consts: { WAIT: 900, WAITALL: 901 },
+    });
+    modulo.argv = new window.URLSearchParams(window.location.search).getAll('argv');
+    Object.assign(modulo.registry, { utils: modulo.util, cparts: modulo.part,
+        coreDefs: modulo.core, processors: modulo.processor }) // TODO Legacy alias
+    return new modulo.engine.FetchQueue();
+}
+
+Modulo.Cores = function CoreDefinitions (modulo) { //md: ### Core Definitions
 const core = { };
 
 core.Component = class Component { //md: **Component** - Register a component _(Most used)_
@@ -1931,7 +1933,7 @@ class Modulo { } //md:**Modulo** - The outermost definition to "launch" Modulo
 
 Object.assign(core, { Artifact, Configuration, ContentList, File, Include, Library, Modulo });
 
-/*#ENDUNLESS#*/return core;
+/*#ENDUNLESS#*/ return modulo.util.insObject(core);
 } /* End of CoreDefinitions */
 
 var modulo = new Modulo(); // Global Instance

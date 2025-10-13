@@ -39,7 +39,7 @@ x-Demo modulo-line:before{
         padding:0 0 0 3px;
     }
 
-x-Demo pre,x-Demo textarea{
+x-Demo pre,x-Demo textarea {
         counter-reset:line;
         display:block;
         color:var(--fg);

@@ -100,8 +100,7 @@ changes!</p>
     <div style="display:flex;">
 
 
-    <p style="margin-top:30px;font-size:20px;text-align:center;width:300px"><a href="https://codeberg.org/modulo/modulo-starter/archive/main.zip"
-            download="modulo-starter.zip">
+    <p style="margin-top:30px;font-size:20px;text-align:center;width:300px"><a href="https://unpkg.com/create-modulo@1.0.0/build/modulo-starter.zip" download="modulo-starter.zip">
         <span style="font-size: 400%; background: #aaa" alt="archive emoji">&#x1f4e6;</span><br />
         <span style="font-size: 15px; color: var(--fg)"><tt>modulo-starter.zip (55kb)</tt></span></a></p>
 
@@ -109,14 +108,16 @@ changes!</p>
             download="modulo-docs.zip">
         <span style="font-size: 400%; background: #aaa" alt="archive emoji">&#x1f4e6;</span><br />
         <span style="font-size: 15px; color: var(--fg)"><tt>modulo-docs.zip (250kb)</tt></span></a></p>
-    <p style="margin-top:30px;font-size:20px;text-align:center;width:300px"><a href="https://modulo.codeberg.page/modulo-starter/static/Modulo.html" download="Modulo.html">
+    <p style="margin-top:30px;font-size:20px;text-align:center;width:300px"><a href="https://app.unpkg.com/create-modulo@1.0.0/files/build/starter/static/Modulo.html" download="Modulo.html">
         <span style="font-size: 400%; background: #aaa" alt="file emoji">&#x1F4C4;
     </span><br />
         <span style="font-size: 15px; color: var(--fg)"><tt>Modulo.html (99kb)</tt></span><br />
     </a></p>
     </div>
+
     <p style="text-align:center"><em><strong>Hint:</strong>
-         Any one of the files above is enough to start a Modulo website. Download one (or all!) to get started.</em>
+         Download an above file to start a new Modulo project. If you prefer
+NPX:</em>  <tt style="background:var(--bg);color:var(--fg)">npx create-modulo</tt></p>
         <!-- (easiest), or install with NPM:</strong>
         <tt>npm init modulo</tt></p>-->
 </div>
@@ -272,11 +273,17 @@ corner of this box, and examine **Line #1**
         data</li>
 
         <li><h4>Single File Framework</h4> <a
-        href="https://modulo.codeberg.page/modulo-starter/static/Modulo.html"
-        download="Modulo.html">Modulo.html</a> is a single file under 2000
+        href="https://app.unpkg.com/create-modulo@1.0.0/files/build/starter/static/Modulo.html" download="Modulo.html">Modulo.html</a> is a single file under 2000
         lines that acts like both an HTML file and JS file rolled into one,
         tightly-optimized for maximum code re-use and to trim away build-time
         overhead.</li>
+
+        <li><h4>Literate Code</h4> Modulo.html <em>literally</em> documents
+itself! When viewed in the browser, it provides it's own help menu and
+3 project scaffolding presets. For a demonstration, try opening up <a
+href="https://modu.lol/Modulo.html">Modulo.html</a> (should work either locally or online).
+Try adding <a href="https://modu.lol/Modulo.html?argv=edit">?argv=edit</a> to
+see the code displayed side-by-side with the documentation.</p>
     </ul>
 </div>
 

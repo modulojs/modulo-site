@@ -1,7 +1,7 @@
 <!DOCTYPE html><html><head><meta charset="utf8"><meta name="charset" charset="utf8" id="include_xxm0qoac"><meta name="content-type" http-equiv="Content-Type" content="text/html; charset=utf-8" id="include_xxnd8o0e"><meta name="viewport" content="width=device-width, initial-scale=1" id="include_x13l7u56"><meta name="robots" content="index, follow" id="include_xxriq75n"><meta name="revisit-after" content="30 days" id="include_x1m4jm9p">
-<link rel="stylesheet" href="build-x1sg6nfq.css">
+<link rel="stylesheet" href="build-xxavjgn4.css">
 
-<script async="" src="build-x1fqlhh3.js"></script>
+<script async="" src="build-xxnhbtlk.js"></script>
 </head><body>
         <meta charset="utf8">
         <title>undefined</title>
@@ -37,8 +37,13 @@
             
                 <li class="x_Page"><a href="https://codeberg.org/modulo/modulo/" class="x_Page">Source (Git at Codeberg)</a></li>
             
-            <!--<li style="opacity:0.5"><br /><em>Version 0.1.0<br/> BETA</em></li>-->
+            
             <li style="margin-left: auto" class="x_Page">
+                <a style="padding:3px;" href="https://modu.lol/Modulo.html" download="Modulo.html" class="x_Page">↓ Modulo.html</a>
+                <textarea title="Run this command in a terminal to start a new Modulo project" style="background:var(--bg);color:var(--fg);border:none;width:200px;resize:none;font-size:18px;height: 25px" readonly="">npm init modulo</textarea>
+            </li>
+
+            <li class="x_Page">
                 <x-pagecontrols modulo-mount-html=""><div style="text-align: right; margin-top: 15px">
         <input id="theme_id_slider" style="width: 80px" type="range" min="1" max="3" step="1" value="1" name="themenum">
     </div>
@@ -67,17 +72,19 @@
 <h2 h="#" class="x_Page">Playground</h2><p class="x_Page"><strong>To see and edit the source code, select "CODE" or "EDIT" from the drop down
 in the upper right of each example.</strong></p><hr class="x_Page"><p class="x_Page"></p><h2 h="##" class="x_Page">Component Examples</h2><p class="x_Page">In this section you will find a several component examples. The content of
 these code samples can be put into any <code class="x_Page">&lt;Component&gt;</code> definition.
-</p><p class="x_Page"></p><h2 h="#####" class="x_Page">Example 1 - ToDo MVC</h2><p class="x_Page"><x-demo show="ui" ui="demo" mode="html" demo="component" value="&lt;Template&gt;
-  &lt;ol&gt;{% for item in state.list %}
-    &lt;li&gt;{{ item }}{% endfor %}
-    &lt;li&gt;&lt;input state.bind name=text&gt;
-      &lt;button on.click=script.add&gt;
-        Add&lt;/button&gt;
+</p><p class="x_Page"></p><h2 h="#####" class="x_Page">Example 1 - ToDo MVC</h2><p class="x_Page"><x-demo show="ui" ui="demo" mode="js" demo="component" value="&lt;Template&gt;
+  &lt;ol&gt;
+    {% for item in state.list %}
+        &lt;li&gt;{{ item }}
+    {% endfor %}
+    &lt;li&gt;&lt;input state.bind name=text&gt;&lt;button on.click=script.add&gt;Add&lt;/button&gt;
   &lt;/ol&gt;
 &lt;/Template&gt;
 &lt;State
   text=&quot;Coffee&quot;
-  list:='[&quot;Bread&quot;,&quot;Butter&quot;]'
+  list:=[]
+  list.0=&quot;Butter&quot;
+  list.1=&quot;Bread&quot;
 &gt;&lt;/State&gt;
 &lt;Script&gt;
   function add() {
@@ -171,7 +178,7 @@ these code samples can be put into any <code class="x_Page">&lt;Component&gt;</c
     results:=[]
 &gt;&lt;/State&gt;
 &lt;Script&gt;
-    const API = 'http://openlibrary.org/search.json?q='
+    const API = 'https://openlibrary.org/search.json?q='
     const OPTS = '&amp;limit=20&amp;fields=title'
     async function doSearch() {
         state.results = null
@@ -260,9 +267,9 @@ these code samples can be put into any <code class="x_Page">&lt;Component&gt;</c
 </p><p class="x_Page"><strong>The content of these code samples represent the entirity of an HTML file, and
 can be put directly into an HTML file.</strong> Note that for HTML Pages, they <em>can
 be</em> either embedded in a larger HTML file, or be the entirity of the file. For
-Markdown Pages, however, they <em>must be</em> the entirity of the file (that is, Modulo
-will not refrain from automatically render the Markdown page if there is other
-HTML content or Modulo definitions -- you will have to manually do this).
+Markdown Pages, however, they <em>must be</em> the entirity of the file (that is,
+Modulo will not automatically render the Markdown page if there is other HTML
+content or Modulo definitions -- you will have to manually do this).
 </p><p class="x_Page"></p><h2 h="#####" class="x_Page">Page Example 1 - HTML Page</h2><p class="x_Page"><x-demo show="ui" ui="demo" mode="html" demo="embed" value="&lt;script Modulo src=Modulo.html&gt;
     &lt;Component name=Page&gt;
         &lt;Style&gt;:host { display: block; background: Pink; }&lt;/Style&gt;
@@ -447,7 +454,7 @@ Lorem ipsum dolor set modulo lorem ipsum moduloum dolor set modulo" modulo-mount
             
         </ul>
         <div style="margin: auto 10px 10px auto; text-align: right; opacity:0.5">
-            <p class="x_Page">Thu Oct 09 2025 18:24:16 GMT-0700 (Pacific Daylight Time)</p>
+            <p class="x_Page">Mon Oct 13 2025 05:40:03 GMT-0700 (Pacific Daylight Time)</p>
             <p class="x_Page">ᵐ°dᵘ⁄o <em>The Modulo Framework</em> © <tt title="Michael Bethencourt" class="x_Page">michaelb</tt></p>
 <pre title="It is acceptable to link ('bundle') and distribute the Modulo Framework with other code as long as the LICENSE and NOTICE remains intact.">NO WARRANTEE OR IMPLIED UTILITY;
 ANY MODIFICATIONS OR DERIVATIVES OF

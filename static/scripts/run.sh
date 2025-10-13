@@ -39,19 +39,8 @@ fi
 mkdir -p $WRITE
 BINARY="$(which $RUNTIME)"
 
-######
-# (Step 2.5: Copy static to _build)
-cp -r static _build/
-cp Modulo.html _build/
 
 ######
 # (Step 3: Run OluDOM)
 $BINARY $SCRIPT_PATH "$FILE?argv=$argvGetArgs" "--$DRIVER" --proto=$PROTO --host=$HOST --port=$PORT --path=$PROJECT_PATH $WRITE $READ
-
-
-######
-# (Step 3.5: Copy results to modulo-pages)
-rm modulo-pages/*.*
-rm -r modulo-pages/*
-cp -r _build/* modulo-pages/
 

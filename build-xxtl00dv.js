@@ -1,80 +1,28 @@
  
-
-
-
-
-
-var Modulo = function Modulo () {
-const M = window.Modulo || Modulo;
-M.instanceID = M.instanceID || 0;
-this.id = ++M.instanceID; 
-Object.assign(this, { 
-_connectedQueue: [], 
-_drainQueue: () => { 
-while (this._connectedQueue.length > 0) { 
-this._connectedQueue.shift().moduloMount(); 
-} 
-},
-cmdCallback: (cmdStatus = 0, edit = null, html = null) => {
-this.cmdStatus = cmdStatus;
-if (edit || edit === null) { 
-const { log } = this.stores.BUILD.data; 
-edit = edit || log.length ? log[log.length - 1][0] : '';
-const att = ` full=full view="${ edit }" edit="${ edit }"`;
-window.document.body.innerHTML = html || `<modulo-Editor${ att }>`;
+var Modulo = function Modulo (OPTS = { }) {
+const Lib = OPTS.globalLibrary || window.Modulo || Modulo; 
+Lib.instanceID = Lib.instanceID || 0;
+this.id = ++Lib.instanceID;
+const globals = OPTS.globalProperties || [ 'config', 'util', 'engine',
+'processor', 'part', 'core', 'templateMode', 'templateTag',
+'templateFilter', 'contentType', 'command', 'build', 'definitions',
+'stores', 'fetchQueue' ];
+for (const name of globals) {
+const stdLib = Lib[name.charAt(0).toUpperCase() + name.slice(1) + 's'];
+this[name] = stdLib ? stdLib(this) : { }; 
 }
-},
-preprocessAndDefine(cb, prefix = 'Def') {
-cb = cb || (() => {});
-modulo.fetchQueue.enqueue(() => {
-modulo.util.repeatProcessors(null, prefix + 'Builders', () => {
-modulo.util.repeatProcessors(null, prefix + 'Finalizers', cb)
-});
-}, true); 
-},
-assert: (value, ...info) => {
-if (!value) {  
-console.error('%cᵐ°dᵘ⁄o', 'background:red', this.id, ...info);
-throw new Error(`Assert : "${ Array.from(info).join(' ') }"`);
 }
-},
-build: { },
-bundles: { script: [], style: [], link: [], meta: [],
-modscript: [], modstyle: [] },
-registry: { bundle: { }, elements: { }, modules: { } },
-engine: { }, core: { }, command: { },
-consts: { WAIT: 900, WAITALL: 901 },
-config: M.CONFIG || { },
-definitions: { }, 
-stores: { }, 
-});
-this.util = M.UtilityFunctions(this);
-this.engine = M.Engines(this);
-this.fetchQueue = new this.engine.FetchQueue();
-this.processor = this.util.insObject(M.DefProcessors(this));
-this.part = this.util.insObject(M.ComponentParts(this));
-this.core = this.util.insObject(M.CoreDefinitions(this));
-this.templateMode = M.TemplateModes ? M.TemplateModes(this) : {}
-this.templateTag =  M.TemplateTags ? M.TemplateTags(this) : {}
-this.templateFilter = M.TemplateFilters(this)
-this.contentType = M.ContentTypes(this)
-this.argv = new window.URLSearchParams(window.location.search).getAll('argv');
-Object.assign(this.registry, { utils: this.util, cparts: this.part,
-coreDefs: this.core, processors: this.processor }) 
-};
-Modulo.ComponentParts = modulo => {
 
+Modulo.Parts = function ComponentParts (modulo) {
 
-
-
-
-class Include { 
+class Include {
 static LoadMode(modulo, def, value) {
-const { bundleHead, newNode } = modulo.util;
-for (const elem of newNode(def.Content).children) { 
+const { bundleHead, newNode, urlReplace, getParentDefPath } = modulo.util;
+const text = urlReplace(def.Content,  getParentDefPath(modulo, def));
+for (const elem of newNode(text).children) { 
 bundleHead(modulo, elem); 
 } 
-} 
+}
 static Server({ part, util }, def, value) {
 def.Content = (def.Content || '') + new part.Template(def.TagTemplate)
 .render({ entries: util.keyFilter(def), value });
@@ -166,31 +114,20 @@ selector = `${ def.prefix } ${ selector }`;
 return selector;
 }
 static ProcessCSS (modulo, def, value) {
-if (def.isolateClass || def.prefix) {
-if (!def.keepComments) {
+const { bundleHead, newNode, urlReplace, getParentDefPath } = modulo.util;
 value = value.replace(/\/\*.+?(\*\/)/g, ''); 
-}
+value = urlReplace(value, getParentDefPath(modulo, def), def.urlMode);
+if (def.isolateClass || def.prefix) {
 def.isolateSelector = []; 
 value = value.replace(/([^\r\n,{}]+)(,(?=[^}]*{)|\s*{)/gi, selector => {
 selector = selector.trim();
-if (selector.startsWith('@') || selector.startsWith('from')
-|| selector.startsWith('to')) {
-return selector; 
-}
-return this.processSelector(modulo, def, selector);
+return /^(from|to|@)/.test(selector) ? selector :
+this.processSelector(modulo, def, selector);
 });
-} 
-if (def.urlReplace || (def.urlReplace === null && def.Source)) {
-const key = def.urlReplace === 'absolute' ? 'href' : 'pathname';
-value = value.replace(/url\(['"]?([^)]+?)['"]?\)/gi, (all, url) =>
-!url.startsWith('.') ? all : 
-`url("${ (new window.URL(url, def.Source))[key] }")`);
 }
-const { mode } = modulo.definitions[def.Parent] || {};
-if (mode === 'shadow') {
+if ((modulo.definitions[def.Parent] || {}).mode === 'shadow') {
 def.shadowContent = (def.shadowContent || '') + value;
 } else { 
-const { newNode, bundleHead } = modulo.util;
 bundleHead(modulo, newNode(value, 'STYLE'), modulo.bundles.modstyle);
 }
 }
@@ -253,9 +190,10 @@ refUnmount({ el, nameSuffix }) {
 delete this.ref[nameSuffix || el.tagName.toLowerCase()]; 
 }
 }
+
+
+
 class State { 
-
-
 static factoryCallback(renderObj, def, modulo) {
 if (def.Store) { 
 const store = modulo.util.makeStore(modulo, def);
@@ -424,7 +362,8 @@ this.renderFunc = mod.call(window, this.modulo);
 return this.renderFunc(Object.assign({ local, global: this.modulo }, local), this);
 }
 } 
-return { State, Props, Script, Style, Template, StaticData, Include };
+const cparts = { State, Props, Script, Style, Template, StaticData, Include };
+return modulo.util.insObject(cparts);
 } 
 Modulo.TemplateFilters = modulo => {
 
@@ -494,8 +433,9 @@ return Object.assign(Filters, Modulo.ContentTypes(modulo),
 { values, keys, entries, tagswap, get, safe, escapere, syntax });
 } 
 
-Modulo.CONFIG = Modulo.CONFIG || {}
-Modulo.CONFIG.syntax = { 
+Modulo.Configs = function DefaultConfiguration() {
+const CONFIG = {  }
+CONFIG.syntax = { 
 jsReserved: { 
 'break': 1, 'case': 1, 'catch': 1, 'class': 1, 'const': 1, 'continue': 1,
 'debugger': 1, 'default': 1, 'delete': 1, 'do': 1, 'else': 1,
@@ -550,10 +490,12 @@ txt: [
 [ /  /g, '&nbsp;&nbsp;' ],
 ],
 };
-Modulo.CONFIG.syntax.js = Array.from(Modulo.CONFIG.syntax.html)
-Modulo.CONFIG.syntax.js.push([ new RegExp(`(\\b${ Object.keys(
-Modulo.CONFIG.syntax.jsReserved).join('\\b|\\b') }\\b)`, 'g'),
+CONFIG.syntax.js = Array.from(CONFIG.syntax.html)
+CONFIG.syntax.js.push([ new RegExp(`(\\b${ Object.keys(
+CONFIG.syntax.jsReserved).join('\\b|\\b') }\\b)`, 'g'),
 `<strong style=color:firebrick>$1</strong>` ]);
+return CONFIG
+};
 Modulo.ContentTypes = modulo => ({ 
 CSV: s => (s || '').trim().split('\n').map(r => r.trim().split(',')),
 JS: s => Function('return (' + s + ');')(), 
@@ -578,9 +520,9 @@ return obj;
 TXT: s => s, 
 BIN: (s, arg = 'application/octet-stream') => 
 `data:${ arg };charset=utf-8,${ window.encodeURIComponent(s) }`,
-}); 
+});
 
-Modulo.UtilityFunctions = modulo => {
+Modulo.Utils = function UtilityFunctions (modulo) {
 const Utilities = {
 escapeRegExp: s => 
 s.replace(/[.*+?^${}()|[\]\\]/g, "\\" + "\x24" + "&"),
@@ -676,14 +618,19 @@ func = func || (key => /^[a-z]/.test(key));
 const keys = func.call ? Object.keys(obj).filter(func) : func;
 return Object.fromEntries(keys.map(key => [ key, obj[key] ]));
 }
-Object.assign(Utilities, { initComponentClass, instance, instanceParts, newNode,
-makeStore, keyFilter })
+function urlReplace(str, origin, field = 'href') { 
+const ifURL = (all, pre, url, suf) => /^[a-z]+:\/\/./i.test(url) ? all :
+`${ pre }"${ (new window.URL(origin + '/../' + url))[field] }"${ suf }`;
+return str.replace(/(href=|src=|url\()['"]?(.+?)['"]?([\>\s\)])/gi, ifURL);
+}
+Object.assign(Utilities, { initComponentClass, instance, instanceParts,
+newNode, makeStore, keyFilter, urlReplace })
 
 return Utilities;
 }; 
-Modulo.DefProcessors = modulo => { 
+Modulo.Processors = function DefProcessors (modulo) { 
 } 
-Modulo.Engines = modulo => {
+Modulo.Engines = function Engines (modulo) {
 class DOMLoader {
 }
 class ValueResolver {
@@ -975,7 +922,48 @@ this.patchDirective(node, rawName, actionSuffix);
 }
 return { FetchQueue, DOMLoader, ValueResolver, DOMReconciler, DOMCursor }
 } 
-Modulo.CoreDefinitions = modulo => { 
+Modulo.FetchQueues = function FetchQueues (modulo) {
+Object.assign(modulo, {
+_connectedQueue: [],
+_drainQueue: () => {
+while (modulo._connectedQueue.length > 0) {
+modulo._connectedQueue.shift().moduloMount();
+}
+},
+cmdCallback: (cmdStatus = 0, edit = null, html = null) => {
+modulo.cmdStatus = cmdStatus;
+if (edit || edit === null) { 
+const { log } = modulo.stores.BUILD.data; 
+edit = edit || log.length ? log[log.length - 1][0] : '';
+const att = ` full=full view="${ edit }" edit="${ edit }"`;
+window.document.body.innerHTML = html || `<modulo-Editor${ att }>`;
+}
+},
+preprocessAndDefine(cb, prefix = 'Def') {
+cb = cb || (() => {});
+modulo.fetchQueue.enqueue(() => {
+modulo.util.repeatProcessors(null, prefix + 'Builders', () => {
+modulo.util.repeatProcessors(null, prefix + 'Finalizers', cb)
+});
+}, true); 
+},
+assert: (value, ...info) => {
+if (!value) {  
+console.error('%cᵐ°dᵘ⁄o', 'background:red', modulo.id, ...info);
+throw new Error(`Assert : "${ Array.from(info).join(' ') }"`);
+}
+},
+bundles: { script: [], style: [], link: [], meta: [],
+modscript: [], modstyle: [] },
+registry: { bundle: { }, elements: { }, modules: { } },
+consts: { WAIT: 900, WAITALL: 901 },
+});
+modulo.argv = new window.URLSearchParams(window.location.search).getAll('argv');
+Object.assign(modulo.registry, { utils: modulo.util, cparts: modulo.part,
+coreDefs: modulo.core, processors: modulo.processor }) 
+return new modulo.engine.FetchQueue();
+}
+Modulo.Cores = function CoreDefinitions (modulo) { 
 const core = { };
 core.Component = class Component { 
 static CustomElement (modulo, def, value) {
@@ -1164,7 +1152,7 @@ val = val.bind(this.resolve(parentKey));
 return val
 }
 }
-return core;
+ return modulo.util.insObject(core);
 } 
 var modulo = new Modulo(); 
 
@@ -1676,15 +1664,15 @@ modulo.definitions = {
 
 
 
-modulo: {"Type":"modulo","Parent":null,"DefName":null,"build":{"mainModules":["configuration","_component_Frame","_component_TextEdit","_component_Editor","_component_Page","x_WordArt3D","x_AbstractArt3D","x_Demo","x_PageControls","x_Page"]},"defaultContent":"<meta charset=utf8><modulo-Page>","fileSelector":"script[type='mdocs'],template[type='mdocs'],style[type='mdocs'],script[type='md'],template[type='md'],script[type='f'],template[type='f'],style[type='f']","scriptSelector":"script[src$='mdu.js'],script[src$='Modulo.js'],script[src='?'],script[src$='Modulo.html']","version":"0.1.0","timeout":5000,"ChildPrefix":"","Contains":"core","DefLoaders":["DefTarget","DefinedAs","Src","Content"],"defaultDef":{"DefTarget":null,"DefinedAs":null,"DefName":null},"defaultDefLoaders":["DefTarget","DefinedAs","DataType","Src"],"defaultDefBuilders":["FilterContent","ContentType"],"Name":"modulo","DefinitionName":"modulo","Source":"file:///home/michaelb/projects/modulo-site/static/","ChildrenNames":["contentlist","articlelist","navlinks","include","include1","x","configuration"]},
+modulo: {"Type":"modulo","Parent":null,"DefName":null,"build":{"mainModules":["configuration","_component_Frame","_component_TextEdit","_component_Editor","_component_Page","x_WordArt3D","x_AbstractArt3D","x_Demo","x_PageControls","x_Page"]},"defaultContent":"<meta charset=utf8><modulo-Page>","fileSelector":"script[type='mdocs'],template[type='mdocs'],style[type='mdocs'],script[type='md'],template[type='md'],script[type='f'],template[type='f'],style[type='f']","scriptSelector":"script[src$='mdu.js'],script[src$='Modulo.js'],script[src='?'],script[src$='Modulo.html']","version":"0.1.0","timeout":5000,"ChildPrefix":"","Contains":"core","DefLoaders":["DefTarget","DefinedAs","Src","Content"],"defaultDef":{"DefTarget":null,"DefinedAs":null,"DefName":null},"defaultDefLoaders":["DefTarget","DefinedAs","DataType","Src"],"defaultDefBuilders":["FilterContent","ContentType","Load"],"Name":"modulo","DefinitionName":"modulo","Source":"file:///home/michaelb/projects/modulo-site/static/","ChildrenNames":["contentlist","articlelist","navlinks","include","include1","x","configuration"]},
 
-contentlist: {"Type":"contentlist","Parent":"modulo","DefName":null,"DefFinalizers":["Load","command|Command"],"build":"build","Name":"contentlist","DefinitionName":"contentlist","data":[["index.html"," Modulo"," ᵐ°dᵘ⁄o"],["docs.html"," Docs"],["playground.html"," Playground"],["about.html"," About"]],"commands":["buildall"]},
+contentlist: {"Type":"contentlist","Parent":"modulo","DefName":null,"DefFinalizers":["command|Command"],"build":"build","Name":"contentlist","DefinitionName":"contentlist","data":[["index.html"," Modulo"," ᵐ°dᵘ⁄o"],["docs.html"," Docs"],["playground.html"," Playground"],["about.html"," About"]],"commands":["buildall"]},
 
-articlelist: {"Type":"contentlist","Parent":"modulo","DefName":null,"DefFinalizers":["Load","command|Command"],"build":"build","Name":"articlelist","DefinitionName":"articlelist","data":[[""]],"files":[{"body":"\n\n---\n\n#### Dev Log\n\n`%` October 2025 - The first preview release of Modulo.html 0.1.0\n\n`%` _Note:_ Modulo.html 1.0 release expected 2026\n\n","page_title":"ᵐ°dᵘ⁄o • Modulo Framework","show_splash":"full","Source":""}],"commands":["buildall"]},
+articlelist: {"Type":"contentlist","Parent":"modulo","DefName":null,"DefFinalizers":["command|Command"],"build":"build","Name":"articlelist","DefinitionName":"articlelist","data":[[""]],"files":[{"body":"\n\n---\n\n#### Dev Log\n\n`%` October 2025 - The first preview release of Modulo.html 0.1.0\n\n`%` _Note:_ Modulo.html 1.0 release expected 2026\n\n","page_title":"ᵐ°dᵘ⁄o • Modulo Framework","show_splash":"full","Source":""}],"commands":["buildall"]},
 
-navlinks: {"Type":"contentlist","Parent":"modulo","DefName":null,"DefFinalizers":["Load","command|Command"],"build":"build","Name":"navlinks","DefinitionName":"navlinks","data":[["https://codeberg.org/modulo/modulo/","Source (Git)"],["https://www.npmjs.com/package/create-modulo","create-modulo (npmjs)"]],"commands":[" "]},
+navlinks: {"Type":"contentlist","Parent":"modulo","DefName":null,"DefFinalizers":["command|Command"],"build":"build","Name":"navlinks","DefinitionName":"navlinks","data":[["https://codeberg.org/modulo/modulo/","Source (Git)"],["https://www.npmjs.com/package/create-modulo","create-modulo (npmjs)"]],"commands":[" "]},
 
-include: {"Type":"include","Parent":"modulo","Content":"\n    <meta name=\"charset\" charset=\"utf8\">\n    <meta name=\"content-type\" http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <meta name=\"robots\" content=\"index, follow\">\n    <meta name=\"revisit-after\" content=\"30 days\">\n    <script src=\"./static/js/main.js.htm\"></script>\n","DefName":null,"ServerTemplate":"{% for p, v in entries %}<script src=\"https://{{ server }}/{{ v }}\"></script>{% endfor %}","DefLoaders":["DefTarget","DefinedAs","Src","Server","LoadMode"],"Name":"include","DefinitionName":"include"},
+include: {"Type":"include","Parent":"modulo","Content":"\n    <meta name=\"charset\" charset=\"utf8\">\n    <meta name=\"content-type\" http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <meta name=\"robots\" content=\"index, follow\">\n    <meta name=\"revisit-after\" content=\"30 days\">\n    <script src=\"js/main.js.htm\"></script>\n","DefName":null,"ServerTemplate":"{% for p, v in entries %}<script src=\"https://{{ server }}/{{ v }}\"></script>{% endfor %}","DefLoaders":["DefTarget","DefinedAs","Src","Server","LoadMode"],"Name":"include","DefinitionName":"include"},
 
 include1: {"Type":"include","Parent":"modulo","Content":"\n<style>\n    :root {\n        /* Set site-wide CSS variables here */\n        --color: #B90183;\n        --color-alt: #82d4a444;\n        --fg: #000;\n        --fg-shading: #05051020;\n        --bg: #fff;\n        --bg-semi: #ffffff99;\n        --fg-inv: #fff;\n        --fg-inv-shading: #ffffff20;\n        --bg-inv: #000;\n        --bg-inv-semi: #00000099;\n\n        --page-width: 1000px;\n    }\n\n    @media (prefers-color-scheme: dark) {\n        :root {\n            --color: #B90183;\n            --color-alt: #82d4a444;\n            --fg: #eee;\n            --fg-shading: #ffffff33;\n            --bg: #000;\n            --bg-semi: #00000099;\n            --fg-inv: #000;\n            --fg-inv-shading: #00000020;\n            --bg-inv: #fff;\n            --bg-inv-semi: #ffffff99;\n        }\n    }\n\n    /* Configure misc site-wide base settings */\n    body {\n        background: var(--bg);\n        color: var(--fg);\n        margin: 0;\n        line-height: 1.5;\n    }\n\n    /* To get syntax editors looking better on both themes */\n    modulo-Editor {\n        background: WhiteSmoke;\n        display: block;\n    }\n</style>\n","DefName":null,"ServerTemplate":"{% for p, v in entries %}<script src=\"https://{{ server }}/{{ v }}\"></script>{% endfor %}","DefLoaders":["DefTarget","DefinedAs","Src","Server","LoadMode"],"Name":"include1","DefinitionName":"include1"},
 
@@ -1712,7 +1700,7 @@ x_WordArt3D_pagectls: {"Type":"state","Parent":"x_WordArt3D","Content":"","DefNa
 
 x_WordArt3D_script: {"Type":"script","Parent":"x_WordArt3D","DefName":null,"Directives":["refMount","refUnmount"],"DefFinalizers":["AutoExport","Content|Code"],"Name":"script","DefinitionName":"x_WordArt3D_script"},
 
-x_WordArt3D_style: {"Type":"style","Parent":"x_WordArt3D","DefName":null,"urlReplace":null,"isolateSelector":[],"isolateClass":null,"prefix":"x-WordArt3D","corePseudo":["before","after","first-line","last-line"],"DefBuilders":["FilterContent","AutoIsolate","Content|ProcessCSS"],"Name":"style","DefinitionName":"x_WordArt3D_style"},
+x_WordArt3D_style: {"Type":"style","Parent":"x_WordArt3D","DefName":null,"isolateSelector":[],"isolateClass":null,"prefix":"x-WordArt3D","corePseudo":["before","after","first-line","last-line"],"DefBuilders":["FilterContent","AutoIsolate","Content|ProcessCSS"],"Name":"style","DefinitionName":"x_WordArt3D_style"},
 
 x_AbstractArt3D_props: {"Type":"props","Parent":"x_AbstractArt3D","Content":"","DefName":null,"width":"190.3mm","height":"74.26mm","version":"1.1","viewbox":"0 0 190.3 74.26","fill1":"red","fill2":"#fff","stroke":"#000","Name":"props","DefinitionName":"x_AbstractArt3D_props"},
 
@@ -1734,7 +1722,7 @@ x_Demo_demo_component: {"Type":"template","Parent":"x_Demo","DefName":null,"DefF
 
 x_Demo_demo_greetex: {"Type":"template","Parent":"x_Demo","DefName":null,"DefFinalizers":["Content|CompileTemplate","Code"],"unsafe":"filters.escape","modeTokens":["{% %}","{{ }}","{# #}","{-{ }-}","{-% %-}"],"opTokens":"==,>,<,>=,<=,!=,not in,is not,is,in,not,gt,lt","opAliases":{"==":"X === Y","is":"X === Y","is not":"X !== Y","!=":"X !== Y","not":"!(Y)","gt":"X > Y","gte":"X >= Y","lt":"X < Y","lte":"X <= Y","in":"(Y).includes ? (Y).includes(X) : (X in Y)","not in":"!((Y).includes ? (Y).includes(X) : (X in Y))"},"Name":"demo_greetex","DefinitionName":"x_Demo_demo_greetex"},
 
-x_Demo_style: {"Type":"style","Parent":"x_Demo","DefName":null,"urlReplace":null,"isolateSelector":[],"isolateClass":null,"prefix":"x-Demo","corePseudo":["before","after","first-line","last-line"],"DefBuilders":["FilterContent","AutoIsolate","Content|ProcessCSS"],"Name":"style","DefinitionName":"x_Demo_style"},
+x_Demo_style: {"Type":"style","Parent":"x_Demo","DefName":null,"isolateSelector":[],"isolateClass":null,"prefix":"x-Demo","corePseudo":["before","after","first-line","last-line"],"DefBuilders":["FilterContent","AutoIsolate","Content|ProcessCSS"],"Name":"style","DefinitionName":"x_Demo_style"},
 
 x_PageControls_props: {"Type":"props","Parent":"x_PageControls","Content":"","DefName":null,"showonly":"","Name":"props","DefinitionName":"x_PageControls_props"},
 
@@ -1744,19 +1732,19 @@ x_PageControls_state: {"Type":"state","Parent":"x_PageControls","Content":"","De
 
 x_PageControls_script: {"Type":"script","Parent":"x_PageControls","DefName":null,"Directives":["refMount","refUnmount"],"DefFinalizers":["AutoExport","Content|Code"],"Name":"script","DefinitionName":"x_PageControls_script"},
 
-x_PageControls_style: {"Type":"style","Parent":"x_PageControls","DefName":null,"urlReplace":null,"isolateSelector":[],"isolateClass":null,"prefix":"x-PageControls","corePseudo":["before","after","first-line","last-line"],"DefBuilders":["FilterContent","AutoIsolate","Content|ProcessCSS"],"Name":"style","DefinitionName":"x_PageControls_style"},
+x_PageControls_style: {"Type":"style","Parent":"x_PageControls","DefName":null,"isolateSelector":[],"isolateClass":null,"prefix":"x-PageControls","corePseudo":["before","after","first-line","last-line"],"DefBuilders":["FilterContent","AutoIsolate","Content|ProcessCSS"],"Name":"style","DefinitionName":"x_PageControls_style"},
 
 x_Page_props: {"Type":"props","Parent":"x_Page","Content":"","DefName":null,"slotclass":"","Name":"props","DefinitionName":"x_Page_props"},
 
 x_Page_template: {"Type":"template","Parent":"x_Page","DefName":null,"DefFinalizers":["Content|CompileTemplate","Code"],"unsafe":"filters.escape","modeTokens":["{% %}","{{ }}","{# #}","{-{ }-}","{-% %-}"],"opTokens":"==,>,<,>=,<=,!=,not in,is not,is,in,not,gt,lt","opAliases":{"==":"X === Y","is":"X === Y","is not":"X !== Y","!=":"X !== Y","not":"!(Y)","gt":"X > Y","gte":"X >= Y","lt":"X < Y","lte":"X <= Y","in":"(Y).includes ? (Y).includes(X) : (X in Y)","not in":"!((Y).includes ? (Y).includes(X) : (X in Y))"},"Name":"template","DefinitionName":"x_Page_template"},
 
-x_Page_style: {"Type":"style","Parent":"x_Page","DefName":null,"urlReplace":null,"isolateSelector":[".page-container",".page-content",".page-article",".page-nav a",".page-nav",".page-nav a",".page-article",".page-article-title",".page-article:hover",".u--blocklink",".u--blocklink",".u--container",".u--container > *",".u--flex1",".u--absolute1",".page-nav a:hover",".page-nav a.nav-link--modulo",".page-nav a:active",".page-nav a.nav--selected",".page-nav ul",".page-nav li","a.modulo-logo--alt","a.modulo-logo","a.modulo-logo:hover",".a-hamburger",".page-splash",".page-splash h4",".page-container",".page-nav",".u--flex1",".u--absolute1",".page-nav ul",".page-nav",".a-hamburger"],"isolateClass":"x_Page","prefix":null,"corePseudo":["before","after","first-line","last-line"],"DefBuilders":["FilterContent","AutoIsolate","Content|ProcessCSS"],"Name":"style","DefinitionName":"x_Page_style","Source":"file:///home/michaelb/projects/modulo-site/static/components/Page-style.css.htm"},
+x_Page_style: {"Type":"style","Parent":"x_Page","DefName":null,"isolateSelector":[".page-container",".page-content",".page-article",".page-nav a",".page-nav",".page-nav a",".page-article",".page-article-title",".page-article:hover",".u--blocklink",".u--blocklink",".u--container",".u--container > *",".u--flex1",".u--absolute1",".page-nav a:hover",".page-nav a.nav-link--modulo",".page-nav a:active",".page-nav a.nav--selected",".page-nav ul",".page-nav li","a.modulo-logo--alt","a.modulo-logo","a.modulo-logo:hover",".a-hamburger",".page-splash",".page-splash h4",".page-container",".page-nav",".u--flex1",".u--absolute1",".page-nav ul",".page-nav",".a-hamburger"],"isolateClass":"x_Page","prefix":null,"corePseudo":["before","after","first-line","last-line"],"DefBuilders":["FilterContent","AutoIsolate","Content|ProcessCSS"],"Name":"style","DefinitionName":"x_Page_style","Source":"file:///home/michaelb/projects/modulo-site/static/components/Page-style.css.htm"},
 
-x_Page_page_splash: {"Type":"staticdata","Parent":"x_Page","DefName":null,"Name":"page_splash","DefinitionName":"x_Page_page_splash","Source":"file:///home/michaelb/projects/modulo-site/static/components/Page-splash.html","data":"<meta charset=utf8><script src=../Modulo.html></script><template type=f>\n\n<div style=\"font-family: sans-serif;\n    box-shadow: 10px 50px 30px 0 inset var(--bg-semi);\n    background: \n        repeating-linear-gradient(\n        to bottom,\n        var(--bg-semi) 0px,\n        var(--bg-semi) 1.5px,\n        #ffffff00 1.5px,\n        #ffffff00 9.3px\n    ),\n    linear-gradient(var(--bg), var(--color-alt)); margin:20px\">\n\n\n<!--<x-WordArt3D text=\"Create with\"></x-WordArt3D>-->\n<div style=\"margin-top:-60px\"></div>\n\n<!-- Main Logo -->\n<x-wordart3d hstyle=\"font-size: 220px; font-family: sans-serif; font-weight: 200;\" text=\"ᵐ°dᵘ⁄o\"></x-wordart3d>\n\n<!-- top part -->\n<div style=\"margin-top:-130px\"></div>\n    <x-abstractart3d style=\"margin: -60px -110px 0 -80px\"></x-abstractart3d>\n\n<div class=\"u--absolute1\">\n    <p style=\"font-family: serif; font-weight: 500; font-size: 25px;\npadding:50px\"><strong><em>An inviting web framework...</em></strong><br>\n<a href=\"https://modulo.codeberg.page/modulo-starter/static/Modulo.html\" download=\"Modulo.html\">Modulo.html</a> is a light and fast web framework. Zero\nset-up or installs means <em>everybody</em> can ramp-up like a pro.</p>\n</div>\n\n    <div style=\"margin: 30px; margin-top:-100px; padding:30px;\n    padding-top:70px;background:var(--bg)\">\n    <div class=\"u--flex1\">\n    <!--<x-AbstractArt3D style=\"margin: -60px -100px 0 -80px\"></x-AbstractArt3D>-->\n\n        <div style=\"margin-right:100px\">\n            <div style=\"margin-top:-50px\"></div>\n            <x-wordart3d text=\"**Markdown**\"></x-wordart3d>\n            <div style=\"margin-top:-10px\"></div>\n            <x-demo mode=\"html\" demo=\"markdown\" ui=\"edit\" value=\"\n#### Show\n\n[Tickets](#buy)\n\nThe *band* is on an\nexciting tour...\"></x-demo>\n\n        </div>\n\n        <div style=\"margin-right:100px\">\n        <div style=\"margin-top:-95px\"></div>\n            <x-wordart3d text=\"HTML/CSS\"></x-wordart3d>\n            <x-demo mode=\"html\" demo=\"greetex\" ui=\"edit\" value=\"&lt;Template&gt;\n  &lt;p&gt;\n    HTML is\n    &lt;slot&gt;&lt;/slot&gt;\n  &lt;/p&gt;\n&lt;/Template&gt;\n\n&lt;Style&gt;\n  p { color: #b08 }\n&lt;/Style&gt;\"></x-demo>\n        </div>\n        <div style=\"margin-right:100px\">\n<div style=\"margin-top:-150px\"></div>\n            <x-wordart3d text=\"**JavaScript**\"></x-wordart3d>\n\n<x-demo mode=\"js\" demo=\"component\" ui=\"edit\" value=\"&lt;Script&gt;\n  function add() {\n    state.count++\n  }\n&lt;/Script&gt;\n\n&lt;State\n  count:=0\n&gt;&lt;/State&gt;\n\n&lt;Template&gt;\n  &lt;button on.click=script.add&gt;\n    Hello {{ state.count }}\n  &lt;/button&gt;\n&lt;/Template&gt;\"></x-demo>\n\n\n        </div>\n\n        <div>\n            <p style=\"font-family:cursive;font-size:30px;opacity:0.5;padding:0;margin:0;\nmargin-right: -200px;width:250px; margin-top:90px; text-align: center\">←<br>Live editors: Try making\nchanges!</p>\n        </div>\n    </div>\n\n</div>\n\n<div style=\"float:right; max-width:65%; position:relative;z-index:2;\">\n    <div style=\"display:flex;\">\n\n\n    <p style=\"margin-top:30px;font-size:20px;text-align:center;width:300px\"><a href=\"https://unpkg.com/create-modulo@1.0.6/build/modulo-starter.zip\" download=\"modulo-starter.zip\">\n        <span style=\"font-size: 400%; background: #aaa\" alt=\"archive emoji\">📦</span><br>\n        <span style=\"font-size: 15px; color: var(--fg)\"><tt>modulo-starter.zip (55kb)</tt></span></a></p>\n\n    <p style=\"margin-top:30px;font-size:20px;text-align:center;width:300px\"><a href=\"https://codeberg.org/modulo/docs/archive/main.zip\" download=\"modulo-docs.zip\">\n        <span style=\"font-size: 400%; background: #aaa\" alt=\"archive emoji\">📦</span><br>\n        <span style=\"font-size: 15px; color: var(--fg)\"><tt>modulo-docs.zip (250kb)</tt></span></a></p>\n    <p style=\"margin-top:30px;font-size:20px;text-align:center;width:300px\"><a href=\"https://app.unpkg.com/create-modulo@1.0.6/files/build/starter/static/Modulo.html\" download=\"Modulo.html\">\n        <span style=\"font-size: 400%; background: #aaa\" alt=\"file emoji\">📄\n    </span><br>\n        <span style=\"font-size: 15px; color: var(--fg)\"><tt>Modulo.html (99kb)</tt></span><br>\n    </a></p>\n    </div>\n\n    <p style=\"text-align:center\"><em><strong>Hint:</strong>\n         Download an above file to start a new Modulo project. If you prefer\nNPX:</em>  <tt style=\"background:var(--bg);color:var(--fg)\">npx create-modulo</tt></p>\n        <!-- (easiest), or install with NPM:</strong>\n        <tt>npm init modulo</tt></p>-->\n</div>\n\n\n\n     <p style=\"font-family:serif;font-size:25px;\">Modulo (or ᵐ°dᵘ⁄o) is a single-file frontend framework,\n        squeezing in numerous tools for modern HTML, CSS, and JavaScript develpment.\n        Modulo includes many familiar and handy tools for modern web development,\n        including Web Components, CSS Scoping, Shadow DOM, Jamstack / SSG / SSR,\n        Markdown-powered CMS, Bundling, Store and State Management, and Templating.\n    </p>\n\n\n\n            <x-wordart3d text=\"React 🔥_fast_\"></x-wordart3d>\n\n       </div> <!-- close of green -->\n\n\n<x-demo style=\"float:right\" mode=\"html\" demo=\"component\" ui=\"demo\" show=\"ui\" value=\"&lt;Template&gt;\n  &lt;section&gt;\n    &lt;p&gt;&lt;input state.bind name=&quot;text&quot; title=&quot;Text&quot; /&gt;&lt;/p&gt;\n    {% for index, point in state.points %}\n      &lt;label style=&quot;display: inline-block; width: 5%&quot; title=&quot;Point #{{ index }}&quot;&gt;\n        &lt;input state.bind.input name=&quot;points.{{ index }}.1&quot;\n            style=&quot;position: relative; transform: rotate(90deg); left: -60px; top: 60px&quot;\n            type=&quot;range&quot; max=&quot;100&quot; min=&quot;0&quot; /&gt;\n      &lt;/label&gt;\n    {% endfor %}\n  &lt;/section&gt;\n  &lt;div style=&quot;height: 150px; width:150px; border: 2px solid black; margin-top: 200px&quot;&gt;\n      &lt;svg viewBox=&quot;0 0 100 100&quot; style=&quot;width: 350px; margin-left: -55px; height: 250px;&quot;&gt;\n          &lt;path id=&quot;curve&quot; fill=&quot;transparent&quot; d=&quot;M 10,50 C {{ state.points|join:' ' }}&quot; /&gt;\n          &lt;text&gt;&lt;textPath href=&quot;#curve&quot;&gt;{{ state.text }}&lt;/textPath&gt;&lt;/text&gt;\n      &lt;/svg&gt;\n  &lt;/div&gt;\n&lt;/Template&gt;\n&lt;State\n    text=&quot;Outside the box!&quot;\n    points:=&quot;[ [ 20,40 ], [40,10], [60,40], [80,70], [100,65], [120,90] ]&quot;\n&gt;&lt;/State&gt;\"></x-demo>\n\n\n<div style=\"margin: 30px; padding:30px;background:var(--bg)\">\n    <ul>\n        <li><h4>Reactive Forms with State and Store</h4> Modulo's state\n        subscription and publishing system allows any part of your site to\n        instantly react to changing data.</li>\n\n        <li><h4>Fast Web Components</h4> Modulo's web components use a DOM reconciler to\n        compute minimum number of DOM changes for fast operations.</li>\n\n        <li><h4>Compiled Templates</h4> Modulo's Template Language pre-compiles\n        into JavaScript functions for maximum speed, discarding the source so\n        it requires no further parsing or \"eval\" in production.</li>\n\n        <li><h4>Deep UI Optimization</h4> Modulo is\n        no a keeper of secrets.  Instead, every DOM patch gets exposed before\n        being applied, enabling levels of per-component DOM control\n        unparalleled in other frameworks.</li>\n    </ul>\n     <p><strong>Hint: Try using the \"dark mode\" and \"theme customizer\" switch at the\n      top right of the page for a demonstration of page-wide reactions!</strong></p>\n</div>\n\n\n<x-wordart3d text=\"{% include **everybody** %}\"></x-wordart3d>\n\n<div style=\"margin: 30px; padding:30px;background:var(--bg)\">\n\n\n    <p><strong>No dependencies to include means <em>everybody</em> gets\n        included!</strong></p>\n\n    <ul>\n        <li><h4>Clients will love you</h4>\n        During crucial moments when gathering feedback on in-progress work and\ncreative projects from others --- clients, team-members, bosses, friends,\nfamily, whomever --- it's as easy as zipping up your in-progress folder and\nsending it over. All they need is a web browser and the ability to unzip and\nopen files, and they'll be seeing the same in-progress work as you, no\nmatter their OS, browser, or set-up.</li>\n\n        <li><h4>0-Day onboarding</h4> 0 dependencies means 0 installs means\n        0 setup... which means you and your team will be developing as soon as\n          the fingers hit the keyboard! With  Modulo's <em>actually serverless</em>\n            approach, there's no need for Babel, NPM, Node.js, node_modules,\n        local dev servers, command-line installs, or other \"set-up\"\n        steps to get to work. <strong>Download, unzip, and away we\n        click!</strong></li>\n\n\n        <li><h4>Go off-line; keep your creature comforts</h4> Modulo is one of the only UI and static-site\n        generating framework for developing file-protocol friendly (meaning:\n        \"fully offline\"), dependency-free websites that build into fast,\n        performant sites, with all the modern capabilities we expect in app\n        development.</li>\n\n    </ul>\n\n</div>\n\n<x-wordart3d text=\"One file to  **build** 🏗️  them all\"></x-wordart3d>\n<!--\n<x-Demo style=\"float:right; min-width: 580px;\" mode=html demo=embed ui=demo show=ui\nvalue='<script src=static/Modulo.html></script><script type=md>---\ntitle: Lorem Ipsum\nauthor: Example Author\nextra_style:\n    strong {\n        background: pink;\n    }\ndate: January 1st 2026\n---\n\n\n\n#### A brand new page of content is just one line away\n\n\nAll you need to do is include `Modulo.html` with one line on the top of a file,\nand your project&apos;s components will automatically with styles included.\n\n\n**Hint:** Select **CODE** from the drop-down at the upper-right\ncorner of this box, and examine **Line #1**\n\n\n\n\n\n\n'></x-Demo>\n-->\n\n<div style=\"margin: 30px; padding:30px;background:var(--bg)\">\n    <ul>\n        <li><h4>Building and Bundling</h4> Modulo comes with a built-in\n        build-tool that bundles, trims, and optimizes your JavaScript, CSS, and HTML\n        for near-instant load times without sacrificing capability or\n        interactivity.</li>\n\n        <li><h4>Static Sites with Vanishing Components</h4> Modulo's \"vanish\" component mode\n        enables entirely JavaScript-free static sites. By combining that with\n        inline JavaScript, you can create paradoxically interactive static-sites where your\n        script tags <em>vanish</em> during build!</li>\n\n        <li><h4>Jamstack with Server-Side Rendering</h4> Modulo\n        can be run server-side as well, and it's build command will automatically\n        pre-render or \"dehydrate\" web components, preparing them to be\n        \"re-hydrated\" on page load with JavaScript functionality and fresh API\n        data</li>\n\n        <li><h4>Single File Framework</h4> <a href=\"https://app.unpkg.com/create-modulo@1.0.6/files/build/starter/static/Modulo.html\" download=\"Modulo.html\">Modulo.html</a> is a single file under 2000\n        lines that acts like both an HTML file and JS file rolled into one,\n        tightly-optimized for maximum code re-use and to trim away build-time\n        overhead.</li>\n\n        <li><h4>Literate Code</h4> Modulo.html <em>literally</em> documents\nitself! When viewed in the browser, it provides it's own help menu and\n3 project scaffolding presets. For a demonstration, try opening up <a href=\"https://modu.lol/Modulo.html\">Modulo.html</a> (should work either locally or online).\nTry adding <a href=\"https://modu.lol/Modulo.html?argv=edit\">?argv=edit</a> to\nsee the code displayed side-by-side with the documentation.<p></p>\n    </li></ul>\n</div>\n\n\n\n\n\n"},
+x_Page_page_splash: {"Type":"staticdata","Parent":"x_Page","DefName":null,"Name":"page_splash","DefinitionName":"x_Page_page_splash","Source":"file:///home/michaelb/projects/modulo-site/static/components/Page-splash.html","data":"<meta charset=utf8><script src=../Modulo.html></script><template type=f>\n\n<div style=\"font-family: sans-serif;\n    box-shadow: 10px 50px 30px 0 inset var(--bg-semi);\n    background: \n        repeating-linear-gradient(\n        to bottom,\n        var(--bg-semi) 0px,\n        var(--bg-semi) 1.5px,\n        #ffffff00 1.5px,\n        #ffffff00 9.3px\n    ),\n    linear-gradient(var(--bg), var(--color-alt)); margin:20px\">\n\n\n<!--<x-WordArt3D text=\"Create with\"></x-WordArt3D>-->\n<div style=\"margin-top:-60px\"></div>\n\n<!-- Main Logo -->\n<x-wordart3d hstyle=\"font-size: 220px; font-family: sans-serif; font-weight: 200;\" text=\"ᵐ°dᵘ⁄o\"></x-wordart3d>\n\n<!-- top part -->\n<div style=\"margin-top:-130px\"></div>\n    <x-abstractart3d style=\"margin: -60px -110px 0 -80px\"></x-abstractart3d>\n\n<div class=\"u--absolute1\">\n    <p style=\"font-family: serif; font-weight: 500; font-size: 25px;\npadding:50px\"><strong><em>An inviting web framework...</em></strong><br>\n<a href=\"https://modulo.codeberg.page/modulo-starter/static/Modulo.html\" download=\"Modulo.html\">Modulo.html</a> is a light and fast web framework. Zero\nset-up or installs means <em>everybody</em> can ramp-up like a pro.</p>\n</div>\n\n    <div style=\"margin: 30px; margin-top:-100px; padding:30px;\n    padding-top:70px;background:var(--bg)\">\n    <div class=\"u--flex1\">\n    <!--<x-AbstractArt3D style=\"margin: -60px -100px 0 -80px\"></x-AbstractArt3D>-->\n\n        <div style=\"margin-right:100px\">\n            <div style=\"margin-top:-50px\"></div>\n            <x-wordart3d text=\"**Markdown**\"></x-wordart3d>\n            <div style=\"margin-top:-10px\"></div>\n            <x-demo mode=\"html\" demo=\"markdown\" ui=\"edit\" value=\"\n#### Show\n\n[Tickets](#buy)\n\nThe *band* is on an\nexciting tour...\"></x-demo>\n\n        </div>\n\n        <div style=\"margin-right:100px\">\n        <div style=\"margin-top:-95px\"></div>\n            <x-wordart3d text=\"HTML/CSS\"></x-wordart3d>\n            <x-demo mode=\"html\" demo=\"greetex\" ui=\"edit\" value=\"&lt;Template&gt;\n  &lt;p&gt;\n    HTML is\n    &lt;slot&gt;&lt;/slot&gt;\n  &lt;/p&gt;\n&lt;/Template&gt;\n\n&lt;Style&gt;\n  p { color: #b08 }\n&lt;/Style&gt;\"></x-demo>\n        </div>\n        <div style=\"margin-right:100px\">\n<div style=\"margin-top:-150px\"></div>\n            <x-wordart3d text=\"**JavaScript**\"></x-wordart3d>\n\n<x-demo mode=\"js\" demo=\"component\" ui=\"edit\" value=\"&lt;Script&gt;\n  function add() {\n    state.count++\n  }\n&lt;/Script&gt;\n\n&lt;State\n  count:=0\n&gt;&lt;/State&gt;\n\n&lt;Template&gt;\n  &lt;button on.click=script.add&gt;\n    Hello {{ state.count }}\n  &lt;/button&gt;\n&lt;/Template&gt;\"></x-demo>\n\n\n        </div>\n\n        <div>\n            <p style=\"font-family:cursive;font-size:30px;opacity:0.5;padding:0;margin:0;\nmargin-right: -200px;width:250px; margin-top:90px; text-align: center\">←<br>Live editors: Try making\nchanges!</p>\n        </div>\n    </div>\n\n</div>\n\n<div style=\"float:right; max-width:65%; position:relative;z-index:2;\">\n    <div style=\"display:flex;\">\n\n\n    <p style=\"margin-top:30px;font-size:20px;text-align:center;width:300px\"><a href=\"https://unpkg.com/create-modulo@1.0.7/build/modulo-starter.zip\" download=\"modulo-starter.zip\">\n        <span style=\"font-size: 400%; background: #aaa\" alt=\"archive emoji\">📦</span><br>\n        <span style=\"font-size: 15px; color: var(--fg)\"><tt>modulo-starter.zip (55kb)</tt></span></a></p>\n\n    <p style=\"margin-top:30px;font-size:20px;text-align:center;width:300px\"><a href=\"https://codeberg.org/modulo/docs/archive/main.zip\" download=\"modulo-docs.zip\">\n        <span style=\"font-size: 400%; background: #aaa\" alt=\"archive emoji\">📦</span><br>\n        <span style=\"font-size: 15px; color: var(--fg)\"><tt>modulo-docs.zip (250kb)</tt></span></a></p>\n    <p style=\"margin-top:30px;font-size:20px;text-align:center;width:300px\"><a href=\"https://app.unpkg.com/create-modulo@1.0.7/files/build/starter/static/Modulo.html\" download=\"Modulo.html\">\n        <span style=\"font-size: 400%; background: #aaa\" alt=\"file emoji\">📄\n    </span><br>\n        <span style=\"font-size: 15px; color: var(--fg)\"><tt>Modulo.html (99kb)</tt></span><br>\n    </a></p>\n    </div>\n\n    <p style=\"text-align:center\"><em><strong>Hint:</strong>\n         Download an above file to start a new Modulo project. If you prefer\nNPX:</em>  <tt style=\"background:var(--bg);color:var(--fg)\">npx create-modulo</tt></p>\n        <!-- (easiest), or install with NPM:</strong>\n        <tt>npm init modulo</tt></p>-->\n</div>\n\n\n\n     <p style=\"font-family:serif;font-size:25px;\">Modulo (or ᵐ°dᵘ⁄o) is a single-file frontend framework,\n        squeezing in numerous tools for modern HTML, CSS, and JavaScript develpment.\n        Modulo includes many familiar and handy tools for modern web development,\n        including Web Components, CSS Scoping, Shadow DOM, Jamstack / SSG / SSR,\n        Markdown-powered CMS, Bundling, Store and State Management, and Templating.\n    </p>\n\n\n\n            <x-wordart3d text=\"React 🔥_fast_\"></x-wordart3d>\n\n       </div> <!-- close of green -->\n\n\n<x-demo style=\"float:right\" mode=\"html\" demo=\"component\" ui=\"demo\" show=\"ui\" value=\"&lt;Template&gt;\n  &lt;section&gt;\n    &lt;p&gt;&lt;input state.bind name=&quot;text&quot; title=&quot;Text&quot; /&gt;&lt;/p&gt;\n    {% for index, point in state.points %}\n      &lt;label style=&quot;display: inline-block; width: 5%&quot; title=&quot;Point #{{ index }}&quot;&gt;\n        &lt;input state.bind.input name=&quot;points.{{ index }}.1&quot;\n            style=&quot;position: relative; transform: rotate(90deg); left: -60px; top: 60px&quot;\n            type=&quot;range&quot; max=&quot;100&quot; min=&quot;0&quot; /&gt;\n      &lt;/label&gt;\n    {% endfor %}\n  &lt;/section&gt;\n  &lt;div style=&quot;height: 150px; width:150px; border: 2px solid black; margin-top: 200px&quot;&gt;\n      &lt;svg viewBox=&quot;0 0 100 100&quot; style=&quot;width: 350px; margin-left: -55px; height: 250px;&quot;&gt;\n          &lt;path id=&quot;curve&quot; fill=&quot;transparent&quot; d=&quot;M 10,50 C {{ state.points|join:' ' }}&quot; /&gt;\n          &lt;text&gt;&lt;textPath href=&quot;#curve&quot;&gt;{{ state.text }}&lt;/textPath&gt;&lt;/text&gt;\n      &lt;/svg&gt;\n  &lt;/div&gt;\n&lt;/Template&gt;\n&lt;State\n    text=&quot;Outside the box!&quot;\n    points:=&quot;[ [ 20,40 ], [40,10], [60,40], [80,70], [100,65], [120,90] ]&quot;\n&gt;&lt;/State&gt;\"></x-demo>\n\n\n<div style=\"margin: 30px; padding:30px;background:var(--bg)\">\n    <ul>\n        <li><h4>Reactive Forms with State and Store</h4> Modulo's state\n        subscription and publishing system allows any part of your site to\n        instantly react to changing data.</li>\n\n        <li><h4>Fast Web Components</h4> Modulo's web components use a DOM reconciler to\n        compute minimum number of DOM changes for fast operations.</li>\n\n        <li><h4>Compiled Templates</h4> Modulo's Template Language pre-compiles\n        into JavaScript functions for maximum speed, discarding the source so\n        it requires no further parsing or \"eval\" in production.</li>\n\n        <li><h4>Deep UI Optimization</h4> Modulo is\n        no a keeper of secrets.  Instead, every DOM patch gets exposed before\n        being applied, enabling levels of per-component DOM control\n        unparalleled in other frameworks.</li>\n    </ul>\n     <p><strong>Hint: Try using the \"dark mode\" and \"theme customizer\" switch at the\n      top right of the page for a demonstration of page-wide reactions!</strong></p>\n</div>\n\n\n<x-wordart3d text=\"{% include **everybody** %}\"></x-wordart3d>\n\n<div style=\"margin: 30px; padding:30px;background:var(--bg)\">\n\n\n    <p><strong>No dependencies to include means <em>everybody</em> gets\n        included!</strong></p>\n\n    <ul>\n        <li><h4>Clients will love you</h4>\n        During crucial moments when gathering feedback on in-progress work and\ncreative projects from others --- clients, team-members, bosses, friends,\nfamily, whomever --- it's as easy as zipping up your in-progress folder and\nsending it over. All they need is a web browser and the ability to unzip and\nopen files, and they'll be seeing the same in-progress work as you, no\nmatter their OS, browser, or set-up.</li>\n\n        <li><h4>0-Day onboarding</h4> 0 dependencies means 0 installs means\n        0 setup... which means you and your team will be developing as soon as\n          the fingers hit the keyboard! With  Modulo's <em>actually serverless</em>\n            approach, there's no need for Babel, NPM, Node.js, node_modules,\n        local dev servers, command-line installs, or other \"set-up\"\n        steps to get to work. <strong>Download, unzip, and away we\n        click!</strong></li>\n\n\n        <li><h4>Go off-line; keep your creature comforts</h4> Modulo is one of the only UI and static-site\n        generating framework for developing file-protocol friendly (meaning:\n        \"fully offline\"), dependency-free websites that build into fast,\n        performant sites, with all the modern capabilities we expect in app\n        development.</li>\n\n    </ul>\n\n</div>\n\n<x-wordart3d text=\"One file to  **build** 🏗️  them all\"></x-wordart3d>\n<!--\n<x-Demo style=\"float:right; min-width: 580px;\" mode=html demo=embed ui=demo show=ui\nvalue='<script src=static/Modulo.html></script><script type=md>---\ntitle: Lorem Ipsum\nauthor: Example Author\nextra_style:\n    strong {\n        background: pink;\n    }\ndate: January 1st 2026\n---\n\n\n\n#### A brand new page of content is just one line away\n\n\nAll you need to do is include `Modulo.html` with one line on the top of a file,\nand your project&apos;s components will automatically with styles included.\n\n\n**Hint:** Select **CODE** from the drop-down at the upper-right\ncorner of this box, and examine **Line #1**\n\n\n\n\n\n\n'></x-Demo>\n-->\n\n<div style=\"margin: 30px; padding:30px;background:var(--bg)\">\n    <ul>\n        <li><h4>Building and Bundling</h4> Modulo comes with a built-in\n        build-tool that bundles, trims, and optimizes your JavaScript, CSS, and HTML\n        for near-instant load times without sacrificing capability or\n        interactivity.</li>\n\n        <li><h4>Static Sites with Vanishing Components</h4> Modulo's \"vanish\" component mode\n        enables entirely JavaScript-free static sites. By combining that with\n        inline JavaScript, you can create paradoxically interactive static-sites where your\n        script tags <em>vanish</em> during build!</li>\n\n        <li><h4>Jamstack with Server-Side Rendering</h4> Modulo\n        can be run server-side as well, and it's build command will automatically\n        pre-render or \"dehydrate\" web components, preparing them to be\n        \"re-hydrated\" on page load with JavaScript functionality and fresh API\n        data</li>\n\n        <li><h4>Single File Framework</h4> <a href=\"https://app.unpkg.com/create-modulo@1.0.7/files/build/starter/static/Modulo.html\" download=\"Modulo.html\">Modulo.html</a> is a single file under 2000\n        lines that acts like both an HTML file and JS file rolled into one,\n        tightly-optimized for maximum code re-use and to trim away build-time\n        overhead.</li>\n\n        <li><h4>Literate Code</h4> Modulo.html <em>literally</em> documents\nitself! When viewed in the browser, it provides it's own help menu and\n3 project scaffolding presets. For a demonstration, try opening up <a href=\"https://modu.lol/Modulo.html\">Modulo.html</a> (should work either locally or online).\nTry adding <a href=\"https://modu.lol/Modulo.html?argv=edit\">?argv=edit</a> to\nsee the code displayed side-by-side with the documentation.<p></p>\n    </li></ul>\n</div>\n\n\n\n\n\n"},
 
-x_Page_style1: {"Type":"style","Parent":"x_Page","DefName":null,"urlReplace":null,"isolateSelector":[".page--normal",".page--grid .markdown-page",".page--grid .markdown-page > p",".page--grid .markdown-page > h2"],"isolateClass":"x_Page","prefix":null,"corePseudo":["before","after","first-line","last-line"],"DefBuilders":["FilterContent","AutoIsolate","Content|ProcessCSS"],"Name":"style1","DefinitionName":"x_Page_style1"},
+x_Page_style1: {"Type":"style","Parent":"x_Page","DefName":null,"isolateSelector":[".page--normal",".page--grid .markdown-page",".page--grid .markdown-page > p",".page--grid .markdown-page > h2"],"isolateClass":"x_Page","prefix":null,"corePseudo":["before","after","first-line","last-line"],"DefBuilders":["FilterContent","AutoIsolate","Content|ProcessCSS"],"Name":"style1","DefinitionName":"x_Page_style1"},
 
-x_Page_style2: {"Type":"style","Parent":"x_Page","DefName":null,"urlReplace":null,"isolateSelector":["p","h2[h]","h2[h='#']","h2[h='##']","h2[h='###']","h2[h='#']","h2[h='##']","code","tt","hr"],"isolateClass":"x_Page","prefix":".markdown-page","corePseudo":["before","after","first-line","last-line"],"DefBuilders":["FilterContent","AutoIsolate","Content|ProcessCSS"],"Name":"style2","DefinitionName":"x_Page_style2"},
+x_Page_style2: {"Type":"style","Parent":"x_Page","DefName":null,"isolateSelector":["p","h2[h]","h2[h='#']","h2[h='##']","h2[h='###']","h2[h='#']","h2[h='##']","code","tt","hr"],"isolateClass":"x_Page","prefix":".markdown-page","corePseudo":["before","after","first-line","last-line"],"DefBuilders":["FilterContent","AutoIsolate","Content|ProcessCSS"],"Name":"style2","DefinitionName":"x_Page_style2"},
  };
 
 modulo.registry.modules.configuration.call(window, modulo);

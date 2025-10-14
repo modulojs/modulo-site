@@ -5,7 +5,7 @@ copyright: 2025 Michael Bethencourt - LGPLv3 - NO WARRANTEE OR IMPLIED UTILITY;
     LGPL Notice: It is acceptable to link ("bundle") and distribute the Modulo
     Framework with other code as long as the LICENSE and NOTICE remains intact.
 ---
-// */ // md: `[ % ] v0.1.0 [MODULO WEBSITE](https://modulo.codeberg.page/)`
+// */ // md: `[ % ] v0.1.0 [ModuloHTML.org](https://modulohtml.org/)`
 var Modulo = function Modulo (OPTS = { }) {
     const Lib = OPTS.globalLibrary || window.Modulo || Modulo; //md:# **ᵐ°dᵘ⁄o**
     Lib.instanceID = Lib.instanceID || 0;
@@ -37,11 +37,12 @@ md:</Include>``` _Include_ is for global styles, links, and scripts.
 */
 class Include {
     static LoadMode(modulo, def, value) {
-        const { bundleHead, newNode } = modulo.util;
-        for (const elem of newNode(def.Content).children) { // md: Include loops
+        const { bundleHead, newNode, urlReplace, getParentDefPath } = modulo.util;
+        const text = urlReplace(def.Content,  getParentDefPath(modulo, def));
+        for (const elem of newNode(text).children) { // md: Include loops
             bundleHead(modulo, elem); // md: across it's children adding to head,
         } // md: and pausing during load. When built, it combines into bundles.
-    } // TODO: use "value" for async vs lazy
+    }
     static Server({ part, util }, def, value) {
         def.Content = (def.Content || '') + new part.Template(def.TagTemplate)
             .render({ entries: util.keyFilter(def), value });
@@ -135,31 +136,20 @@ class Style {
         return selector;
     }
     static ProcessCSS (modulo, def, value) {
+        const { bundleHead, newNode, urlReplace, getParentDefPath } = modulo.util;
+        value = value.replace(/\/\*.+?(\*\/)/g, ''); // rm comment, rewrite urls
+        value = urlReplace(value, getParentDefPath(modulo, def), def.urlMode);
         if (def.isolateClass || def.prefix) {
-            if (!def.keepComments) {
-                value = value.replace(/\/\*.+?(\*\/)/g, ''); // strip comments
-            }
             def.isolateSelector = []; // Used to accumulate elements to select
             value = value.replace(/([^\r\n,{}]+)(,(?=[^}]*{)|\s*{)/gi, selector => {
                 selector = selector.trim();
-                if (selector.startsWith('@') || selector.startsWith('from')
-                                              || selector.startsWith('to')) {
-                    return selector; // Skip (e.g. is @media or @keyframes)
-                }
-                return this.processSelector(modulo, def, selector);
+                return /^(from|to|@)/.test(selector) ? selector :
+                        this.processSelector(modulo, def, selector);
             });
-        } // md: When used with `-src=`, it will rewrite relative URLs.
-        if (def.urlReplace || (def.urlReplace === null && def.Source)) {
-            const key = def.urlReplace === 'absolute' ? 'href' : 'pathname';
-            value = value.replace(/url\(['"]?([^)]+?)['"]?\)/gi, (all, url) =>
-                !url.startsWith('.') ? all : // . = relative (TODO: too simple)
-                    `url("${ (new window.URL(url, def.Source))[key] }")`);
         }
-        const { mode } = modulo.definitions[def.Parent] || {};
-        if (mode === 'shadow') {
+        if ((modulo.definitions[def.Parent] || {}).mode === 'shadow') {
             def.shadowContent = (def.shadowContent || '') + value;
         } else { // md: During `build`, all non-shadow _Style_ parts get bundled.
-            const { newNode, bundleHead } = modulo.util;
             bundleHead(modulo, newNode(value, 'STYLE'), modulo.bundles.modstyle);
         }
     }
@@ -225,9 +215,10 @@ class Script { // md:### Script
     }
 }
 
-class State { // md:### State
-    // md:```html=component<State msg="Lorem" a:=123></State>
-    // md:<Template>{{ state.msg }}: <input state.bind name=msg></Template>```
+// md:### State
+// md:```html=component<State msg="Lorem" a:=123></State>
+// md:<Template>{{ state.msg }}: <input state.bind name=msg></Template>```
+class State { // _State_ declares _state variables_ to bind to forms.
     static factoryCallback(renderObj, def, modulo) {
         if (def.Store) { // md: If a -store= is specified, it's global.
             const store = modulo.util.makeStore(modulo, def);
@@ -421,7 +412,7 @@ Modulo.TemplateModes = modulo => ({ // md: ## Template Language
     '{#': (text, tmplt) => false, // md: Short comments are `{# like this #}`.
     '{{': (text, tmplt) => `OUT.push(G.${ tmplt.unsafe }(${ tmplt.parseExpr(text) }));`,
     text: (text, tmplt) => text && `OUT.push(${JSON.stringify(text)});`,
-}) // md: Try changing `true` to `false` in this simple example of `{% if %}`:
+}) // md: Simple example of `{% if %}`:
 
 Modulo.TemplateTags = modulo => ({//md:```html=component<Template>{% if state.a %}
     'comment':() => ({ start: "/*", end: "*/"}),//md:<p>Y</p>{% else %}<p>N</p>
@@ -575,7 +566,7 @@ const CONFIG = { /*#UNLESS#*/
     },
     contentlist: {
         DataType: 'CSV',
-        DefFinalizers: [ 'Load', 'command|Command' ],
+        DefFinalizers: [ 'command|Command' ],
         CommandBuilders: [ 'build|BuildAll' ],
         build: 'build',
         command: '', // (default: def.commands = [])
@@ -611,7 +602,7 @@ const CONFIG = { /*#UNLESS#*/
         DefLoaders: [ 'DefTarget', 'DefinedAs', 'Src', 'Content' ],
         defaultDef: { DefTarget: null, DefinedAs: null, DefName: null },
         defaultDefLoaders: [ 'DefTarget', 'DefinedAs', 'DataType', 'Src' ],
-        defaultDefBuilders: [ 'FilterContent', 'ContentType' ],
+        defaultDefBuilders: [ 'FilterContent', 'ContentType', 'Load' ],
     },
     script: {
         Directives: [ 'refMount', 'refUnmount' ],
@@ -624,7 +615,6 @@ const CONFIG = { /*#UNLESS#*/
     },
     style: {
         AutoIsolate: true, // true is "default behavior" (autodetect)
-        urlReplace: null, // null is "default behavior" (only if -src is specified)
         isolateSelector: null, // Later has list of selectors
         isolateClass: null, // By default, it does not use class isolation
         prefix: null, // Used to specify prefix-based isolation (most common)
@@ -669,7 +659,7 @@ artifact: `
     <ht><he>{{ doc.head.innerHTML|safe }}
     <link rel="stylesheet" href="{{ definitions._artifact_css.path }}"></link>
     {% if "vanish" not in argv|get:0 %}
-    <js async src="{{ definitions._artifact_js.path }}"></js>
+    <js defer src="{{ definitions._artifact_js.path }}"></js>
     {% endif %}</he><bo>{{ doc.body.innerHTML|safe }}</bo></ht>
 </Artifact>
 <Artifact name=edit -collect=? -save-reqs build=edit></Artifact>
@@ -741,8 +731,8 @@ component: `
     {{ state.view|yesno:'50%,1fr' }} 53px {{ state.view|yesno:'1fr,auto' }}"><div>
     {% if props.full %}<h1><a href="?argv={{ global.argv|join:'&argv='|safe }}">
     &#x27F3; {{ global.argv|join:' ' }} &nbsp;</a></h1> {% if proc.log|length %}
-    <div>{% for row in proc.log %}<iframe src="{{ row|get:0 }}"></iframe>
-    {% endfor %}</div>{% endif %}<pre>{% for row in proc.log %}
+    <div>{% for row in proc.log %}<iframe src="{{ global.root-path }}{{ row|get:0 }}"
+    ></iframe>{% endfor %}</div>{% endif %}<pre>{% for row in proc.log %}
     {{ row|reversed|join:" \t" }}<br />{% endfor %}</pre><pre>
     {% for path, text in build.fdata %}<a download="{{ path }}"
         href="data:text/plain;charset=utf-8,{{ text|urlencode:true }}"
@@ -842,6 +832,7 @@ CONFIG.syntax.js.push([ new RegExp(`(\\b${ Object.keys(
 return CONFIG
 };
 
+
 Modulo.ContentTypes = modulo => ({ // md: **ContentTypes**: CSV (limited),
     CSV: s => (s || '').trim().split('\n').map(r => r.trim().split(',')),
     JS: s => Function('return (' + s + ');')(), // md: JS (expression syntax),
@@ -866,7 +857,8 @@ Modulo.ContentTypes = modulo => ({ // md: **ContentTypes**: CSV (limited),
     TXT: s => s, // md: TXT (plain text),
     BIN: (s, arg = 'application/octet-stream') => //md: BIN (binary types).
         `data:${ arg };charset=utf-8,${ window.encodeURIComponent(s) }`,
-}); /* End of ContentTypes */
+});
+
 
 /* Utility Functions that setup Modulo */
 Modulo.Utils = function UtilityFunctions (modulo) {
@@ -967,7 +959,13 @@ function keyFilter (obj, func = null) {
     const keys = func.call ? Object.keys(obj).filter(func) : func;
     return Object.fromEntries(keys.map(key => [ key, obj[key] ]));
 }
-Object.assign(Utilities, { initComponentClass, instance, instanceParts, newNode, makeStore, keyFilter })
+function urlReplace(str, origin, field = 'href') { // Absolutize URLs
+    const ifURL = (all, pre, url, suf) => /^[a-z]+:\/\/./i.test(url) ? all :
+        `${ pre }"${ (new window.URL(origin + '/../' + url))[field] }"${ suf }`;
+    return str.replace(/(href=|src=|url\()['"]?(.+?)['"]?([\>\s\)])/gi, ifURL);
+}
+Object.assign(Utilities, { initComponentClass, instance, instanceParts,
+    newNode, makeStore, keyFilter, urlReplace })
 
 /*#UNLESS#*/
 function loadString (text, pName) { // Loads string, possibly removing preamble
@@ -1042,11 +1040,14 @@ function configureStatic (modulo) { // Setup default content
         modulo.stores.CACHE.setItem(window.location + '', text)
         file.remove();
     }
-    const dir = staticDir || 'static/'; // has src=static/mdu.js
+    const dir = staticDir || 'static/';
     const mdu = window.document.querySelector(scriptSelector);
-    const root = rootDir || ((mdu || {}).src || '').split(dir)[0]; // e.g. ../
+    const root = rootDir || ((mdu || {}).src || '').split(dir)[0];
+    modulo.filePath = (window.location + '').replace(root, '');
+    const rPath = modulo.filePath.split('/').slice(1).map(s => '..').join('/');
+    modulo.rootPath = rPath ? (rPath + '/') : '';
     if (!modulo.definitions.modulo && mdu && root !== mdu.src && // (No Modulo)
-            !(window.location + '').includes(root + dir)) { // (Not static)
+            !modulo.filePath.startsWith(dir)) { // (Not static)
         modulo.util.loadString(`<Modulo -src="${ root + dir }">`); // Load default
     }
 }
@@ -1129,6 +1130,7 @@ Object.assign(Utilities, { applyNextProcessor, configureStatic, hash,
 return Utilities;
 }; /* End of UtilityFunctions */
 
+
 Modulo.Processors = function DefProcessors (modulo) { /*#UNLESS#*/
 // md: ### Content Processors
 function src (modulo, def, value) { // md: `-src="path..."` - Loads content
@@ -1140,10 +1142,12 @@ function src (modulo, def, value) { // md: `-src="path..."` - Loads content
         def.Content = text || '' + (def.Content || '');
     });
 }
+
 function srcSync (modulo, def, value) { // md: `-src-sync="path..."` - Like
     modulo.processor.src(modulo, def, value); // md: src, except it waits.
     return modulo.consts.WAIT;
 }
+
 function filterContent (modulo, def, value) { //md: `-filter-content=` allows
     if (def.Content && value) { // md: for a mini-template of just filters
         const miniTemplate = `{{ def.Content|${ value }|safe }}`; //md: to
@@ -1151,11 +1155,13 @@ function filterContent (modulo, def, value) { //md: `-filter-content=` allows
         def.Content = tmplt.render({ def, config: modulo.config }); //md:to
     } //md: the definition's content _before_ loading it.
 }
+
 function defer (modulo, def, value) {
     if (value !== 'none') {
         return value === 'all' ? modulo.consts.WAITALL : modulo.consts.WAIT;
     }
 }
+
 function defTarget (modulo, def, value) { // saves def
     const resolverName = def.DefResolver || 'ValueResolver';
     const resolver = new modulo.engine[resolverName](modulo);
@@ -1167,6 +1173,7 @@ function defTarget (modulo, def, value) { // saves def
         }
     }
 }
+
 function command (modulo, def, value) {
     def.commands = (value || ' ').split(/,/.test(value) ? ',' : '\n');
     for (const cmd of def.commands) { // Register dev commands
@@ -1187,13 +1194,16 @@ function command (modulo, def, value) {
         }
     }
 }
+
 function content (modulo, conf, value) {
     modulo.util.loadString(value, conf.DefinitionName);
 }
+
 function mainRequire (modulo, conf, value) {
     modulo.config.modulo.build.mainModules.push(value);
     modulo.registry.modules[value].call(window, modulo);
 }
+
 function definedAs (modulo, def, value) {
     def.Name = value ? def[value] : (def.Name || def.Type.toLowerCase());
     const parentDef = modulo.definitions[def.Parent];
@@ -1214,6 +1224,7 @@ function definedAs (modulo, def, value) {
         parentConf.ChildrenNames.push(def.DefinitionName);
     }
 }
+
 function dataType (modulo, def, value) {
     if (value === '?') { // '?' means determine based on extension
         const ext = def.Src && def.Src.match(/\.([a-z]+)$/i);
@@ -1221,6 +1232,7 @@ function dataType (modulo, def, value) {
     }
     def.ContentType = [ value.toUpperCase(), def.Hint ];
 }
+
 function code (modulo, def, value) {
     const { newNode, bundleHead } = modulo.util;
     const name = def.DefinitionName; // Defines global module with name
@@ -1233,14 +1245,17 @@ function code (modulo, def, value) {
         Function('window', 'modulo', content)(window, modulo);
     }
 }
+
 function contentType (modulo, def, value) {
     def.data = modulo.contentType[value[0]](def.Content, value[1]);
     delete def.Content;
 }
+
 return modulo.util.insObject({ src, srcSync, defTarget, command, content,
     mainRequire, definedAs, dataType, filterContent, code, contentType, defer })
 /*#ENDUNLESS#*/
 } /* End of Modulo.DefProcessors */
+
 
 Modulo.Engines = function Engines (modulo) {
 
@@ -1607,6 +1622,7 @@ class DOMReconciler {
 return { FetchQueue, DOMLoader, ValueResolver, DOMReconciler, DOMCursor }
 } /* End of Modulo.Engines */
 
+
 Modulo.FetchQueues = function FetchQueues (modulo) {
     Object.assign(modulo, {
         _connectedQueue: [],
@@ -1907,7 +1923,7 @@ class ContentList { // md: **ContentList** - CMS system for pages and content.
         value = value.toUpperCase() || 'TXT'; // md: file list as markdown.
         const cache = { }
         for (const row of def.data) {
-            modulo.fetchQueue.fetch(row[0]).then(data => {
+            modulo.fetchQueue.fetch(modulo.rootPath + row[0]).then(data => {
                 const body = modulo.contentType[value](data, def.LoadHint);
                 cache[row[0]] = typeof body !== 'object' ? { body } : body;
                 cache[row[0]].Source = row[0];

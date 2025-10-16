@@ -550,8 +550,7 @@ const CONFIG = { /*#UNLESS#*/
         DefinedAs: 'name',
         BuildLifecycle: 'build',
         RenderObj: 'component',
-        Defer: 'wait',
-        DefLoaders: [ 'DefTarget', 'DefinedAs', 'Src', 'Defer', 'FilterContent', 'Content' ],
+        DefLoaders: [ 'DefTarget', 'DefinedAs', 'Src', 'FilterContent', 'Content' ],
         DefBuilders: [ 'CustomElement', 'alias|AliasNamespace', 'Code' ],
         FilterContent: 'trimfile|trim',
         DefFinalizers: [ 'MainRequire' ],
@@ -653,13 +652,13 @@ artifact: `
         modulo.registry.modules.{{ name }}.call(window, modulo);
     {% endif %}{% endfor %}
 </Artifact>
-<Artifact name=html path-template="{{ config.path-name|default:'index.html' }}"
+<Artifact name=html path-template="{{ file-path|default:'index.html' }}"
     -remove="head iframe,modulo,script[modulo],template[modulo]"
     prefix="<!DOCTYPE html>" build=build,buildvanish>
-    <ht><he>{{ doc.head.innerHTML|safe }}
-    <link rel="stylesheet" href="{{ definitions._artifact_css.path }}"></link>
+    <ht><he>{{ doc.head.innerHTML|safe }}<link rel="stylesheet"
+    href="{{ root-path }}{{ definitions._artifact_css.path }}"></link>
     {% if "vanish" not in argv|get:0 %}
-    <js defer src="{{ definitions._artifact_js.path }}"></js>
+    <js defer src="{{ root-path }}{{ definitions._artifact_js.path }}"></js>
     {% endif %}</he><bo>{{ doc.body.innerHTML|safe }}</bo></ht>
 </Artifact>
 <Artifact name=edit -collect=? -save-reqs build=edit></Artifact>
@@ -1021,6 +1020,10 @@ function applyNextProcessor (def, processorNameArray) {
 function configureStatic (modulo) { // Setup default content
     const { staticDir, rootDir, scriptSelector, fileSelector } = modulo.config.modulo;
     const [ cmdName, src ] = modulo.argv;
+    const dir = staticDir || 'static/';
+    const mdu = window.document.querySelector(scriptSelector);
+    const root = rootDir || ((mdu || {}).src || '').split(dir)[0];
+    modulo.filePath = (window.location + '').replace(root, '').split('?')[0];
     const file = window.document.querySelector(fileSelector);
     if (file) { // Content file exists, extract data then remove
         const preamble = /^([^\n]+?script[^\n]+?[ \n]type=[^\n>]+?>).*$/is;
@@ -1037,13 +1040,9 @@ function configureStatic (modulo) { // Setup default content
                 document.body.innerHTML += modulo.config.modulo.defaultContent;
             }, true);
         }
-        modulo.stores.CACHE.setItem(window.location + '', text)
+        modulo.stores.CACHE.setItem(modulo.filePath, text)
         file.remove();
     }
-    const dir = staticDir || 'static/';
-    const mdu = window.document.querySelector(scriptSelector);
-    const root = rootDir || ((mdu || {}).src || '').split(dir)[0];
-    modulo.filePath = (window.location + '').replace(root, '');
     const rPath = modulo.filePath.split('/').slice(1).map(s => '..').join('/');
     modulo.rootPath = rPath ? (rPath + '/') : '';
     if (!modulo.definitions.modulo && mdu && root !== mdu.src && // (No Modulo)
@@ -1156,12 +1155,6 @@ function filterContent (modulo, def, value) { //md: `-filter-content=` allows
     } //md: the definition's content _before_ loading it.
 }
 
-function defer (modulo, def, value) {
-    if (value !== 'none') {
-        return value === 'all' ? modulo.consts.WAITALL : modulo.consts.WAIT;
-    }
-}
-
 function defTarget (modulo, def, value) { // saves def
     const resolverName = def.DefResolver || 'ValueResolver';
     const resolver = new modulo.engine[resolverName](modulo);
@@ -1252,7 +1245,7 @@ function contentType (modulo, def, value) {
 }
 
 return modulo.util.insObject({ src, srcSync, defTarget, command, content,
-    mainRequire, definedAs, dataType, filterContent, code, contentType, defer })
+    mainRequire, definedAs, dataType, filterContent, code, contentType })
 /*#ENDUNLESS#*/
 } /* End of Modulo.DefProcessors */
 

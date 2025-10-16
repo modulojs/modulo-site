@@ -1,25 +1,39 @@
 <meta charset=utf8><script src=Modulo.html></script><template type=f>
 
 
-<ContentList command="buildall">
+<ContentList>
 index.html, Modulo, ᵐ°dᵘ⁄o
-docs.html, Docs
+docs/index.html, Docs
 playground.html, Playground
 about.html, About
 </ContentList>
+
+<ContentList -name=buildlist command="buildall">
+index.html
+playground.html
+about.html
+</ContentList>
+
+
 <!--
+<ContentList -src="../docs/static/pages.csv.htm"></ContentList>
 article-index.html, News
 tutorial.html, Tutorial
 article-example-1.html
 article-example-2.html
--->
-
 <ContentList -name=articlelist -load=md command="buildall">
 </ContentList>
+-->
 
 <ContentList -name=navlinks>
 https://codeberg.org/modulo/modulo/,Source (Git)
 https://www.npmjs.com/package/create-modulo,create-modulo (npmjs)
+</ContentList>
+
+
+<ContentList -name=nestedpaths>
+docs
+news
 </ContentList>
 
 

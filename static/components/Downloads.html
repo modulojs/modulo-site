@@ -1,0 +1,50 @@
+<script src=../Modulo.html></script><template type=f>
+
+<Props showonly></Props>
+
+<Template>
+<p style="text-align:center"><strong>NPM:</strong> <tt style="background:var(--bg);color:var(--fg)">npx create-modulo</tt></p>
+
+<div style="display:flex">
+    {% for obj in staticdata %}
+    <p style="margin-top:30px;font-size:20px;text-align:center;width:300px"><a 
+        href="{% if obj.path %}https://unpkg.com/create-modulo@{{ state.create-modulo-modulo-version="1.0.9" }}/{{ obj.path }}{% else %}{{ obj.url }}{% endif %}"
+        download="{{ obj.file }}">
+        <span style="font-size: 400%; background: #aaa" alt="{{ obj.alt }}">{{ obj.icon }}</span><br />
+        <span style="font-size: 15px; color: var(--fg)"><tt>{{ obj.file }}<br />({{ obj.size }})</tt></span></a></p>
+    {% endfor %}
+</div>
+
+<p style="text-align:center"><strong>Hint:</strong> Download an above file to
+start a new Modulo project.</p>
+</Template>
+
+<State
+    create-modulo-version="1.0.9"
+></State>
+
+<StaticData -data-type=js>
+[
+    {
+        file: 'modulo-starter.zip',
+        size: '~60kb',
+        path: 'build/modulo-starter.zip',
+        icon: '&#x1f4e6;',
+        alt: 'archive icon',
+    },
+    {
+        file: 'modulo-docs.zip',
+        size: '~300kb',
+        url: 'https://codeberg.org/modulo/docs/archive/main.zip',
+        icon: '&#x1f4e6;',
+        alt: 'archive icon',
+    },
+    {
+        file: 'Modulo.html',
+        size: '~99kb',
+        path: 'build/starter/static/Modulo.html',
+        icon: '&#x1F4C4;',
+        alt: 'file icon',
+    },
+]
+</StaticData>

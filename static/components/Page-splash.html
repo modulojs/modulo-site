@@ -97,59 +97,28 @@ changes!</p>
 
 </div>
 
-<div style="float:right; max-width:65%; position:relative;z-index:2;">
-    <div style="display:flex;">
+<x-Downloads style="float:right; max-width:65%; position:relative;z-index:2;"></x-Downloads>
 
+<p style="font-family:serif;font-size:25px;">Modulo (or ᵐ°dᵘ⁄o) is
+a single-file frontend framework, squeezing in numerous tools for modern HTML,
+CSS, and JavaScript develpment.  Modulo includes many familiar and handy tools
+for modern web development, including Web Components, CSS Scoping, Shadow DOM,
+Jamstack / SSG / SSR, Markdown-powered CMS, Bundling, Store and State
+Management, and Templating.</p>
 
-    <p style="margin-top:30px;font-size:20px;text-align:center;width:300px"><a href="https://unpkg.com/create-modulo@1.0.7/build/modulo-starter.zip" download="modulo-starter.zip">
-        <span style="font-size: 400%; background: #aaa" alt="archive emoji">&#x1f4e6;</span><br />
-        <span style="font-size: 15px; color: var(--fg)"><tt>modulo-starter.zip (55kb)</tt></span></a></p>
-
-    <p style="margin-top:30px;font-size:20px;text-align:center;width:300px"><a href="https://codeberg.org/modulo/docs/archive/main.zip"
-            download="modulo-docs.zip">
-        <span style="font-size: 400%; background: #aaa" alt="archive emoji">&#x1f4e6;</span><br />
-        <span style="font-size: 15px; color: var(--fg)"><tt>modulo-docs.zip (250kb)</tt></span></a></p>
-    <p style="margin-top:30px;font-size:20px;text-align:center;width:300px"><a href="https://app.unpkg.com/create-modulo@1.0.7/files/build/starter/static/Modulo.html" download="Modulo.html">
-        <span style="font-size: 400%; background: #aaa" alt="file emoji">&#x1F4C4;
-    </span><br />
-        <span style="font-size: 15px; color: var(--fg)"><tt>Modulo.html (99kb)</tt></span><br />
-    </a></p>
-    </div>
-
-    <p style="text-align:center"><em><strong>Hint:</strong>
-         Download an above file to start a new Modulo project. If you prefer
-NPX:</em>  <tt style="background:var(--bg);color:var(--fg)">npx create-modulo</tt></p>
-        <!-- (easiest), or install with NPM:</strong>
-        <tt>npm init modulo</tt></p>-->
-</div>
-
-
-
-     <p style="font-family:serif;font-size:25px;">Modulo (or ᵐ°dᵘ⁄o) is a single-file frontend framework,
-        squeezing in numerous tools for modern HTML, CSS, and JavaScript develpment.
-        Modulo includes many familiar and handy tools for modern web development,
-        including Web Components, CSS Scoping, Shadow DOM, Jamstack / SSG / SSR,
-        Markdown-powered CMS, Bundling, Store and State Management, and Templating.
-    </p>
-
-
-
-            <x-WordArt3D text="React 🔥_fast_"></x-WordArt3D>
+<x-WordArt3D text="React 🔥_fast_"></x-WordArt3D>
 
        </div> <!-- close of green -->
 
 
 <x-Demo style="float:right" mode=html demo=component ui=demo show=ui value='<Template>
-  <section>
-    <p><input state.bind name="text" title="Text" /></p>
-    {% for index, point in state.points %}
-      <label style="display: inline-block; width: 5%" title="Point #{{ index }}">
-        <input state.bind.input name="points.{{ index }}.1"
-            style="position: relative; transform: rotate(90deg); left: -60px; top: 60px"
-            type="range" max="100" min="0" />
+  <p><input state.bind name="text" title="Message" /></p>
+  {% for index, point in state.points %}
+     <label style="display: inline-block; width: 5%" title="Point #{{ index }}">
+        <input state.bind.input name="points.{{ index }}.1" type="range" max="100" min="0" 
+            style="position: relative; transform: rotate(90deg); left: -60px; top: 60px">
       </label>
-    {% endfor %}
-  </section>
+  {% endfor %}
   <div style="height: 150px; width:150px; border: 2px solid black; margin-top: 200px">
       <svg viewBox="0 0 100 100" style="width: 350px; margin-left: -55px; height: 250px;">
           <path id="curve" fill="transparent" d="M 10,50 C {{ state.points|join:&apos; &apos; }}" />

@@ -5,12 +5,14 @@ if [[ -z "$1" ]]; then
     exit 1
 fi
 
+DOWNLOADS="static/components/Downloads.html"
+
 echo "-------------------------"
 echo "RELEASING VERSION: $1"
 echo "--- Updating create-modulo version number"
-jq '.createmodulo="'"$1"'"' package.json > /tmp/package.json
-cp /tmp/package.json package.json
+sed -i 's/create-modulo-version=".*"/create-modulo-version="'$1'"/'  $DOWNLOADS
 echo "-------------------------"
+
 
 ######
 # (Step 1: Copy static / dev stuff to _build)
@@ -20,8 +22,7 @@ cp favicon.ico _build/
 
 ######
 # (Step 2: Copy results to modulo-pages)
-rm modulo-pages/*.*
-rm -r modulo-pages/static
+rm -r modulo-pages/*
 cp -r _build/* modulo-pages/
 
 cd modulo-pages/

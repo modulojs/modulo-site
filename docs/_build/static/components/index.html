@@ -1,0 +1,52 @@
+<script src=../Modulo.html></script><template type=f>
+
+<!-- Include and configure all core components -->
+<Component
+    name="Page"
+    mode="vanish"
+    -src="Page.html"
+></Component>
+
+<Component
+    name="Search"
+    -src="Search.html"
+></Component>
+
+<Component
+    name="SyntaxHighlighter"
+    -src="SyntaxHighlighter.html"
+></Component>
+
+<Component
+    name="MirrorEditor"
+    rerender=manual
+    -src="MirrorEditor.html"
+></Component>
+
+<Component
+    name="TableOfContents"
+     -src="TableOfContents.html"
+></Component>
+
+<!-- Configure the mini-demo component -->
+<Component name="QuickDemo" -src="QuickDemo.html">
+    <Template
+        -name="template_modulo_component"
+        -src="demos/modulo_component_demo.html"
+    ></Template>
+
+    <Template
+        -name="template_modulo"
+        -src="demos/modulo_component_demo.html"
+    ></Template>
+
+    <Template
+        -name="template_modulo_embed"
+        -src="demos/modulo_embed_demo.html"
+    ></Template>
+
+    <Template
+        -name="template_html_demo"
+        -src="demos/html_demo.html"
+    ></Template>
+</Component>

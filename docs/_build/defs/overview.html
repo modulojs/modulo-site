@@ -1,0 +1,763 @@
+<!DOCTYPE html><html>
+        <head>
+            <meta charset="utf8"><script src="../static/Modulo.html"></script><meta name="charset" charset="utf8" id="include_xxm0qoac"><meta name="content-type" http-equiv="Content-Type" content="text/html; charset=utf-8" id="include_xxnd8o0e"><meta name="viewport" content="width=device-width, initial-scale=1" id="include_x13l7u56"><meta name="robots" content="index, follow" id="include_xxriq75n"><meta name="revisit-after" content="30 days" id="include_x1m4jm9p">
+            
+                <script src="../static/Modulo.html"></script>
+            
+            <link rel="stylesheet" href="../buildpartial-xxpik5e0.css">
+            <script defer="" src="../buildpartial-x1j38gsp.js"></script>
+        </head>
+        <body>
+            
+            
+        <meta charset="utf8">
+        <title>Overview - Modulo Documentation</title>
+    
+    <div class="layout Page">
+        <nav class="page-nav Page">
+            <a style="font-size:60px;text-align:center;display:block;font-weight:200" href="../" class="Page">ᵐ°dᵘ⁄o</a>
+            <ul style="position: sticky; top: 1px" class="Page">
+                <li class="toc--outer Page">
+                    <p><a style="font-size: 70%" title="Download Modulo Docs as a offline-friendly zip" href="https://codeberg.org/modulo/docs/archive/main.zip" class="Page">
+                            ⤓ docs-main.zip</a>
+                        <tt>v0.1.0</tt>
+                    </p>
+                </li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">       Modulo</h3></li>
+                    <li class="toc--"><a href="../start/index.html" class="Page">           Introduction</a></li>
+                
+                    
+                    <li class="toc--"><a href="../start/getting-started.html" class="Page"> Getting Started</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">           Definitions</h3></li>
+                    <li class="toc--active Page"><a href="../defs/overview.html" class="Page">         Overview</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/importing.html" class="Page">        Importing</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/definitions.html" class="Page">      Definition Types</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/processors.html" class="Page">       Processors</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/custom.html" class="Page">           Custom Types</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">  Templating</h3></li>
+                    <li class="toc--"><a href="../templating/index.html" class="Page">      Language Overview</a></li>
+                
+                    
+                    <li class="toc--"><a href="../templating/filters.html" class="Page">    Template Filters</a></li>
+                
+                    
+                    <li class="toc--"><a href="../templating/tags.html" class="Page">       Template Tags</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">              Component Parts</h3></li>
+                    <li class="toc--"><a href="../parts/props.html" class="Page">           Props</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/script.html" class="Page">          Script</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/state.html" class="Page">           State</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/staticdata.html" class="Page">      StaticData</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/style.html" class="Page">           Style</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/template.html" class="Page">        Template</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">           Core Definitions</h3></li>
+                    <li class="toc--"><a href="../core/artifact.html" class="Page">         Artifact</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/component.html" class="Page">        Component</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/configuration.html" class="Page">    Configuration</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/contentlist.html" class="Page">      ContentList</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/include.html" class="Page">          Include</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/library.html" class="Page">          Library</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">  Extension</h3></li>
+                    <li class="toc--"><a href="../extension/engine.html" class="Page">      Upgrading Engines</a></li>
+                
+            </ul>
+        </nav>
+        <main class="page-container Page">
+            
+                
+                    
+                        <x-tableofcontents toc="[{&quot;match&quot;:&quot;&lt;h1 id=\&quot;componentparts\&quot;&gt;Component Parts&lt;/h1&gt;&quot;,&quot;level&quot;:1,&quot;attrs&quot;:&quot;id=\&quot;componentparts\&quot;&quot;,&quot;title&quot;:&quot;Component Parts&quot;,&quot;id&quot;:&quot;componentparts&quot;},{&quot;match&quot;:&quot;&lt;h5 id=\&quot;example1simplestyle\&quot;&gt;Example 1: SimpleStyle&lt;/h5&gt;&quot;,&quot;level&quot;:5,&quot;attrs&quot;:&quot;id=\&quot;example1simplestyle\&quot;&quot;,&quot;title&quot;:&quot;Example 1: SimpleStyle&quot;,&quot;id&quot;:&quot;example1simplestyle&quot;},{&quot;match&quot;:&quot;&lt;h5 id=\&quot;example2todomvc\&quot;&gt;Example 2: To-Do MVC&lt;/h5&gt;&quot;,&quot;level&quot;:5,&quot;attrs&quot;:&quot;id=\&quot;example2todomvc\&quot;&quot;,&quot;title&quot;:&quot;Example 2: To-Do MVC&quot;,&quot;id&quot;:&quot;example2todomvc&quot;},{&quot;match&quot;:&quot;&lt;h1 id=\&quot;coredefinitions\&quot;&gt;Core Definitions&lt;/h1&gt;&quot;,&quot;level&quot;:1,&quot;attrs&quot;:&quot;id=\&quot;coredefinitions\&quot;&quot;,&quot;title&quot;:&quot;Core Definitions&quot;,&quot;id&quot;:&quot;coredefinitions&quot;},{&quot;match&quot;:&quot;&lt;h5 id=\&quot;example1loadinganddisplayingcontent\&quot;&gt;Example #1: Loading and Displaying Content&lt;/h5&gt;&quot;,&quot;level&quot;:5,&quot;attrs&quot;:&quot;id=\&quot;example1loadinganddisplayingcontent\&quot;&quot;,&quot;title&quot;:&quot;Example #1: Loading and Displaying Content&quot;,&quot;id&quot;:&quot;example1loadinganddisplayingcontent&quot;},{&quot;match&quot;:&quot;&lt;h5 id=\&quot;example2custombundle\&quot;&gt;Example #2: Custom Bundle&lt;/h5&gt;&quot;,&quot;level&quot;:5,&quot;attrs&quot;:&quot;id=\&quot;example2custombundle\&quot;&quot;,&quot;title&quot;:&quot;Example #2: Custom Bundle&quot;,&quot;id&quot;:&quot;example2custombundle&quot;},{&quot;match&quot;:&quot;&lt;h1 id=\&quot;customtypes\&quot;&gt;Custom Types&lt;/h1&gt;&quot;,&quot;level&quot;:1,&quot;attrs&quot;:&quot;id=\&quot;customtypes\&quot;&quot;,&quot;title&quot;:&quot;Custom Types&quot;,&quot;id&quot;:&quot;customtypes&quot;}]" modulo-mount-html=""><nav class="regular&quot;=&quot;">
+        <div> </div>
+        <div>
+            <div>
+                <label>[ <input name="show" type="checkbox"> Table of Contents ]</label>
+                <label title="Stick to upper right">[ <span alt="upper right arrow">↗</span>
+                    <input name="sticky" type="checkbox"> ]</label>
+            </div>
+            
+                <ul>
+                    
+                        
+                            <li style="--level: 1">
+                                    <a href="#componentparts">Component Parts</a>
+                            </li>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <li style="--level: 1">
+                                    <a href="#coredefinitions">Core Definitions</a>
+                            </li>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <li style="--level: 1">
+                                    <a href="#customtypes">Custom Types</a>
+                            </li>
+                        
+                    
+                </ul>
+            
+        </div>
+    </nav></x-tableofcontents>
+                    
+                    <div class="markdown-body"><p>Learn more about Modulo definitions through a tour of definition-related
+features with interactive component examples.</p>
+<h1 id="componentparts">Component Parts</h1>
+<p><strong>More info: <a href="definitions.html#componentparts">Definition Types / Component Parts</a></strong></p>
+<p>Once you have included Modulo and activated it, you can fill it up with
+Component <em>definitions</em>, which are special tags in HTML format. These work like
+keywords or configuration settings in order to set-up the component and define
+it's apearance and behavior. Component <em>definitions</em> start with a "Component"
+opening tag in the format of <code>&lt;Component name="HelloWorld"&gt;</code>.</p>
+<p>What goes inside of Component Definitions? Why, <em>Component Parts</em>, of course!
+By using a <em>Template</em> and <em>Style</em> in a Component we can make a very simple
+starting component definition:</p>
+<h5 id="example1simplestyle">Example 1: SimpleStyle</h5><x-quickdemo mode="modulo" demo="modulo" value="&lt;!-- The simplest component: Template &amp; Style only --&gt;
+&lt;Template&gt;
+    Components can use any number of &lt;strong&gt;Parts&lt;/strong&gt;.
+    Here we use only &lt;em&gt;Style&lt;/em&gt; and &lt;em&gt;Template&lt;/em&gt;.
+&lt;/Template&gt;
+&lt;Style&gt;
+    em { color: darkgreen; }
+    * { text-decoration: underline; }
+&lt;/Style&gt;
+&lt;!-- HINT: 1. Make a change and click RUN to see result
+           2. Hover over RUN button for more options --&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;!-- The simplest component: Template &amp; Style only --&gt;
+&lt;Template&gt;
+    Components can use any number of &lt;strong&gt;Parts&lt;/strong&gt;.
+    Here we use only &lt;em&gt;Style&lt;/em&gt; and &lt;em&gt;Template&lt;/em&gt;.
+&lt;/Template&gt;
+&lt;Style&gt;
+    em { color: darkgreen; }
+    * { text-decoration: underline; }
+&lt;/Style&gt;
+&lt;!-- HINT: 1. Make a change and click RUN to see result
+           2. Hover over RUN button for more options --&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-comment">&lt;!-- The simplest component: Template &amp; Style only --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    Components can use any number of <span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>Parts<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>.
+    Here we use only <span class="hljs-tag">&lt;<span class="hljs-name">em</span>&gt;</span>Style<span class="hljs-tag">&lt;/<span class="hljs-name">em</span>&gt;</span> and <span class="hljs-tag">&lt;<span class="hljs-name">em</span>&gt;</span>Template<span class="hljs-tag">&lt;/<span class="hljs-name">em</span>&gt;</span>.
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Style</span>&gt;</span><span class="language-css">
+    <span class="hljs-selector-tag">em</span> { <span class="hljs-attribute">color</span>: darkgreen; }
+    * { <span class="hljs-attribute">text-decoration</span>: underline; }
+</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Style</span>&gt;</span>
+<span class="hljs-comment">&lt;!-- HINT: 1. Make a change and click RUN to see result
+           2. Hover over RUN button for more options --&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<blockquote>
+  <p><strong>MVC</strong> - The Model-View-Controller paradigm somewhat matches here: The <em>State</em> is
+  the <em>Model</em>, the <em>Template</em> is the <em>View</em>, and the <em>Script</em> is the
+  <em>Controller</em>.</p>
+</blockquote>
+<h5 id="example2todomvc">Example 2: To-Do MVC</h5>
+<p>Template and Style are just the beginning.  Here's the classic <strong>To Do MVC
+App</strong> written using Template, State, and Script, and taking advantage of these
+Modulo features: <em>Template Variables</em> (<code>{{ item }}</code>), Template Tags
+ (<code>{% for %} ... {% endfor %}</code>), and DOM directives (<code>state.bind</code>, <code>on.click</code>).</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+&lt;ol&gt;
+    {% for item in state.list %}
+        &lt;li&gt;{{ item }}&lt;/li&gt;
+    {% endfor %}
+    &lt;li&gt;&lt;input state.bind name=&quot;text&quot;&gt;
+        &lt;button on.click=script.add&gt;Add&lt;/button&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/Template&gt;
+&lt;State
+    list:='[&quot;Milk&quot;, &quot;Bread&quot;, &quot;Candy&quot;]'
+    text=&quot;Coffee&quot;
+&gt;&lt;/State&gt;
+&lt;Script&gt;
+    function add() {
+        state.list.push(state.text); // add to list
+        state.text = &quot;&quot;; // clear input
+    }
+&lt;/Script&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Template&gt;
+&lt;ol&gt;
+    {% for item in state.list %}
+        &lt;li&gt;{{ item }}&lt;/li&gt;
+    {% endfor %}
+    &lt;li&gt;&lt;input state.bind name=&quot;text&quot;&gt;
+        &lt;button on.click=script.add&gt;Add&lt;/button&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/Template&gt;
+&lt;State
+    list:='[&quot;Milk&quot;, &quot;Bread&quot;, &quot;Candy&quot;]'
+    text=&quot;Coffee&quot;
+&gt;&lt;/State&gt;
+&lt;Script&gt;
+    function add() {
+        state.list.push(state.text); // add to list
+        state.text = &quot;&quot;; // clear input
+    }
+&lt;/Script&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">ol</span>&gt;</span>
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">for</span></span> item <span class="hljs-keyword">in</span> state.list %}</span><span class="language-xml">
+        <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span></span><span class="hljs-template-variable">{{ item }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endfor</span></span> %}</span><span class="language-xml">
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">state.bind</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"text"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">on.click</span>=<span class="hljs-modulo-attr-value">script.add</span>&gt;</span>Add<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ol</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
+    <span class="hljs-attr">list:</span>=<span class="hljs-string">'["Milk", "Bread", "Candy"]'</span>
+    <span class="hljs-attr">text</span>=<span class="hljs-string">"Coffee"</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Script</span>&gt;</span><span class="language-javascript">
+    <span class="hljs-keyword">function</span> <span class="hljs-title function_">add</span>(<span class="hljs-params"></span>) {
+        state.<span class="hljs-property">list</span>.<span class="hljs-title function_">push</span>(state.<span class="hljs-property">text</span>); <span class="hljs-comment">// add to list</span>
+        state.<span class="hljs-property">text</span> = <span class="hljs-string">""</span>; <span class="hljs-comment">// clear input</span>
+    }
+</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Script</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h1 id="coredefinitions">Core Definitions</h1>
+<blockquote>
+  <p><strong>Markdown and HTML… at once!?</strong> Modulo uses a little "magic trick" that's
+  visible if you do "View Page Source": This documentation is written in
+  Markdown files that "disguise themselves" as HTML.  This gets the best of all
+  worlds: Directly viewable in a browser, directly editable in an editor, and
+  directly loadable by Modulo. Try viewing source!</p>
+</blockquote>
+<p><strong>More info: <a href="definitions.html#coredefinitions">Definition Types / Core Definitions</a></strong></p>
+<p>Modulo can do more than just define web components. It ships with dependency
+and configuration management tools (see "Include" and "Configuration"),
+a management command system with a powerful SSG / SSR build system (see
+"Artifact" and built-in management commands), a content management system (see
+"ContentList" and it's built-in content types), and finally file inclusion and
+namespacing tols (see "Library" and <code>-src=</code> pre-processor).</p>
+<h5 id="example1loadinganddisplayingcontent">Example #1: Loading and Displaying Content</h5>
+<p>Combining the "Component Part" described above with the <em>ContentList</em> described
+here, we can create a simple Markdown file-based content management system:</p><x-quickdemo mode="modulo" demo="modulo_embed" value="&lt;ContentList -load=&quot;md&quot;&gt;
+    defs/overview.html
+    defs/importing.html
+    defs/processors.html
+&lt;/ContentList&gt;
+
+&lt;Component name=App&gt;
+    &lt;Template&gt;
+        {% for file in global.definitions.contentlist.files %}
+        &lt;article&gt;
+            &lt;h3&gt;&lt;a href=&quot;{{ file.Source }}&quot;&gt;{{ file.title }}&lt;/a&gt;&lt;/h3&gt;
+            &lt;p&gt;{{ file.description }}&lt;/p&gt;
+            &lt;div&gt;{{ file.body|truncate:200|syntax:&quot;md&quot;|safe }}&lt;/div&gt;
+        &lt;/article&gt;
+        {% endfor %}
+    &lt;/Template&gt;
+    &lt;Style&gt;
+        article,
+        article &gt; div {
+            padding: 2%;
+            margin: 2%;
+            background: #aaaaee55;
+            border:5px inset #338;
+            font-size: 90%;
+        }
+        h3 { font-size: 1.1rem; }
+    &lt;/Style&gt;
+&lt;/Component&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;ContentList -load=&quot;md&quot;&gt;
+    defs/overview.html
+    defs/importing.html
+    defs/processors.html
+&lt;/ContentList&gt;
+
+&lt;Component name=App&gt;
+    &lt;Template&gt;
+        {% for file in global.definitions.contentlist.files %}
+        &lt;article&gt;
+            &lt;h3&gt;&lt;a href=&quot;{{ file.Source }}&quot;&gt;{{ file.title }}&lt;/a&gt;&lt;/h3&gt;
+            &lt;p&gt;{{ file.description }}&lt;/p&gt;
+            &lt;div&gt;{{ file.body|truncate:200|syntax:&quot;md&quot;|safe }}&lt;/div&gt;
+        &lt;/article&gt;
+        {% endfor %}
+    &lt;/Template&gt;
+    &lt;Style&gt;
+        article,
+        article &gt; div {
+            padding: 2%;
+            margin: 2%;
+            background: #aaaaee55;
+            border:5px inset #338;
+            font-size: 90%;
+        }
+        h3 { font-size: 1.1rem; }
+    &lt;/Style&gt;
+&lt;/Component&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">ContentList</span> <span class="hljs-modulo-defprocessor">-load</span>=<span class="hljs-string">"md"</span>&gt;</span>
+    defs/overview.html
+    defs/importing.html
+    defs/processors.html
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">ContentList</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Component</span> <span class="hljs-attr">name</span>=<span class="hljs-modulo-attr-value">App</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+        </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">for</span></span> file <span class="hljs-keyword">in</span> global.definitions.contentlist.files %}</span><span class="language-xml">
+        <span class="hljs-tag">&lt;<span class="hljs-name">article</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"</span></span></span><span class="hljs-template-variable">{{ file.Source }}</span><span class="language-xml"><span class="hljs-tag"><span class="hljs-string">"</span>&gt;</span></span><span class="hljs-template-variable">{{ file.title }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span></span><span class="hljs-template-variable">{{ file.description }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><span class="hljs-template-variable">{{ file.body|truncate:200|syntax:<span class="hljs-string">"md"</span>|<span class="hljs-name">safe</span> }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">article</span>&gt;</span>
+        </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endfor</span></span> %}</span><span class="language-xml">
+    <span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Style</span>&gt;</span><span class="language-css">
+        <span class="hljs-selector-tag">article</span>,
+        <span class="hljs-selector-tag">article</span> &gt; <span class="hljs-selector-tag">div</span> {
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">2%</span>;
+            <span class="hljs-attribute">margin</span>: <span class="hljs-number">2%</span>;
+            <span class="hljs-attribute">background</span>: <span class="hljs-number">#aaaaee55</span>;
+            <span class="hljs-attribute">border</span>:<span class="hljs-number">5px</span> inset <span class="hljs-number">#338</span>;
+            <span class="hljs-attribute">font-size</span>: <span class="hljs-number">90%</span>;
+        }
+        <span class="hljs-selector-tag">h3</span> { <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1.1rem</span>; }
+    </span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Style</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Component</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<blockquote>
+  <p><strong>What's "building" or "bundling"?</strong> Building" is a feature of Modulo where
+  it packs up all the components, JavaScript, and CSS you have loaded on
+  a particular page into single <code>.js</code> and <code>.css</code> files, respectively. Each
+  single file, called a <em>build</em>, contains all the code from all your components
+  and various includes, optimized for fast loading. You can run this and all
+  Modulo commands from the Modulo menu, available in your browser's console.</p>
+</blockquote>
+<p>Note that as with custom Component Parts, users can create or customize new,
+custom Core Definitions types as well, as well as registering custom management
+commands, or content types or formats.</p>
+<h5 id="example2custombundle">Example #2: Custom Bundle</h5>
+<p>Using the <em>Core Definition</em> of <code>&lt;Artifact&gt;</code>, we can create custom build bundles
+("artifacts") that only target certain operations, or modify code in a certain
+way. Since Artifacts use Modulo's templating language, we can use 
+<code>&lt;script Configuration&gt;</code> to create a custom <code>minify</code> templateFilter, and output
+a file called: <code>custom_bundle.(hash).js</code>:</p><x-quickdemo mode="modulo" demo="modulo_embed" value="&lt;Artifact -bundle=&quot;script,modscript&quot; name=js build=custom_bundle&gt;
+    {% for id in def.ids %}
+        {{ def.data|get:id|minify|safe }}
+    {% endfor %}
+    {% for name in config.modulo.build.mainmodules %}
+        modulo.registry.modules.{{ name }}.call(window, modulo);
+    {% endfor %}
+&lt;/Artifact&gt;
+
+&lt;script Configuration&gt;
+    modulo.templateFilter.minify = function (s) {
+        // Collapses whitespace and removes comments
+        return s.replace(/\/\*[^\*\!][\s\S]*?\*\/|\/\/.*$/gm, '')
+                .replace(/[\n \t]+/gm, ' ')
+    }
+&lt;/script&gt;
+
+&lt;Component name=App&gt;
+    &lt;Template&gt;
+        &lt;button on.click=script.doCmd&gt;&amp;#9658; run &quot;custom_bundle&quot;&lt;/button&gt;
+    &lt;/Template&gt;
+    &lt;Script&gt;
+        function doCmd () {
+            modulo.argv = [ 'custom_bundle' ] // (bundle file gets this name)
+            modulo.command.custom_bundle(modulo)
+        }
+    &lt;/Script&gt;
+&lt;/Component&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Artifact -bundle=&quot;script,modscript&quot; name=js build=custom_bundle&gt;
+    {% for id in def.ids %}
+        {{ def.data|get:id|minify|safe }}
+    {% endfor %}
+    {% for name in config.modulo.build.mainmodules %}
+        modulo.registry.modules.{{ name }}.call(window, modulo);
+    {% endfor %}
+&lt;/Artifact&gt;
+
+&lt;script Configuration&gt;
+    modulo.templateFilter.minify = function (s) {
+        // Collapses whitespace and removes comments
+        return s.replace(/\/\*[^\*\!][\s\S]*?\*\/|\/\/.*$/gm, '')
+                .replace(/[\n \t]+/gm, ' ')
+    }
+&lt;/script&gt;
+
+&lt;Component name=App&gt;
+    &lt;Template&gt;
+        &lt;button on.click=script.doCmd&gt;&amp;#9658; run &quot;custom_bundle&quot;&lt;/button&gt;
+    &lt;/Template&gt;
+    &lt;Script&gt;
+        function doCmd () {
+            modulo.argv = [ 'custom_bundle' ] // (bundle file gets this name)
+            modulo.command.custom_bundle(modulo)
+        }
+    &lt;/Script&gt;
+&lt;/Component&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Artifact</span> <span class="hljs-modulo-defprocessor">-bundle</span>=<span class="hljs-string">"script,modscript"</span> <span class="hljs-attr">name</span>=<span class="hljs-modulo-attr-value">js</span> <span class="hljs-attr">build</span>=<span class="hljs-modulo-attr-value">custom_bundle</span>&gt;</span>
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">for</span></span> id <span class="hljs-keyword">in</span> def.ids %}</span><span class="language-xml">
+        </span><span class="hljs-template-variable">{{ def.data|get:id|minify|<span class="hljs-name">safe</span> }}</span><span class="language-xml">
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endfor</span></span> %}</span><span class="language-xml">
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">for</span></span> name <span class="hljs-keyword">in</span> config.modulo.build.mainmodules %}</span><span class="language-xml">
+        modulo.registry.modules.</span><span class="hljs-template-variable">{{ name }}</span><span class="language-xml">.call(window, modulo);
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endfor</span></span> %}</span><span class="language-xml">
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Artifact</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-modulo-deftype-attr">Configuration</span>&gt;</span><span class="language-javascript">
+    modulo.<span class="hljs-property">templateFilter</span>.<span class="hljs-property">minify</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">s</span>) {
+        <span class="hljs-comment">// Collapses whitespace and removes comments</span>
+        <span class="hljs-keyword">return</span> s.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/\/\*[^\*\!][\s\S]*?\*\/|\/\/.*$/gm</span>, <span class="hljs-string">''</span>)
+                .<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/[\n \t]+/gm</span>, <span class="hljs-string">' '</span>)
+    }
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Component</span> <span class="hljs-attr">name</span>=<span class="hljs-modulo-attr-value">App</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">on.click</span>=<span class="hljs-modulo-attr-value">script.doCmd</span>&gt;</span><span class="hljs-symbol">&amp;#9658;</span> run "custom_bundle"<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Script</span>&gt;</span><span class="language-javascript">
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">doCmd</span> () {
+            modulo.<span class="hljs-property">argv</span> = [ <span class="hljs-string">'custom_bundle'</span> ] <span class="hljs-comment">// (bundle file gets this name)</span>
+            modulo.<span class="hljs-property">command</span>.<span class="hljs-title function_">custom_bundle</span>(modulo)
+        }
+    </span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Component</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h1 id="customtypes">Custom Types</h1>
+<p><strong>More info: <a href="custom.html">Custom Types</a></strong></p>
+<p>It's easy to make re-usable Component Parts using JavaScript (or variants).
+See below for how easy it is to make your own version of a component part, to
+integrate custom JavaScript code or third party libraries:</p><x-quickdemo mode="modulo" demo="modulo_embed" value="&lt;script Configuration&gt;
+
+modulo.part.autorefresh = class AutoRefresh {
+
+    initializedCallback() { // (once)
+        this.data = { count: 0 }
+        return this.data; // expose data to template
+    }
+
+    updateCallback() { // (after every render)
+        this.data.count++
+        const { delay } = this.attrs
+        setTimeout(() =&gt; this.element.rerender(), delay);
+    }
+
+}
+
+&lt;/script&gt;
+
+&lt;Component name=App&gt;
+    &lt;Template&gt;
+        &lt;h1&gt;Refresh Count: {{ autorefresh.count }}&lt;/h1&gt;
+    &lt;/Template&gt;
+    &lt;AutoRefresh
+        delay:=1000
+    &gt;&lt;/AutoRefresh&gt;
+&lt;/Component&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;script Configuration&gt;
+
+modulo.part.autorefresh = class AutoRefresh {
+
+    initializedCallback() { // (once)
+        this.data = { count: 0 }
+        return this.data; // expose data to template
+    }
+
+    updateCallback() { // (after every render)
+        this.data.count++
+        const { delay } = this.attrs
+        setTimeout(() =&gt; this.element.rerender(), delay);
+    }
+
+}
+
+&lt;/script&gt;
+
+&lt;Component name=App&gt;
+    &lt;Template&gt;
+        &lt;h1&gt;Refresh Count: {{ autorefresh.count }}&lt;/h1&gt;
+    &lt;/Template&gt;
+    &lt;AutoRefresh
+        delay:=1000
+    &gt;&lt;/AutoRefresh&gt;
+&lt;/Component&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-modulo-deftype-attr">Configuration</span>&gt;</span><span class="language-javascript">
+
+modulo.<span class="hljs-property">part</span>.<span class="hljs-property">autorefresh</span> = <span class="hljs-keyword">class</span> <span class="hljs-title class_">AutoRefresh</span> {
+
+    <span class="hljs-title function_">initializedCallback</span>(<span class="hljs-params"></span>) { <span class="hljs-comment">// (once)</span>
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">data</span> = { <span class="hljs-attr">count</span>: <span class="hljs-number">0</span> }
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">data</span>; <span class="hljs-comment">// expose data to template</span>
+    }
+
+    <span class="hljs-title function_">updateCallback</span>(<span class="hljs-params"></span>) { <span class="hljs-comment">// (after every render)</span>
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">data</span>.<span class="hljs-property">count</span>++
+        <span class="hljs-keyword">const</span> { delay } = <span class="hljs-variable language_">this</span>.<span class="hljs-property">attrs</span>
+        <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">element</span>.<span class="hljs-title function_">rerender</span>(), delay);
+    }
+
+}
+
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Component</span> <span class="hljs-attr">name</span>=<span class="hljs-modulo-attr-value">App</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Refresh Count: </span><span class="hljs-template-variable">{{ autorefresh.count }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">AutoRefresh</span>
+        <span class="hljs-attr">delay:</span>=<span class="hljs-modulo-attr-value-lit">1000</span>
+    &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">AutoRefresh</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Component</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+</div>
+                
+            
+        </main>
+    </div>
+            
+        </body>
+    </html>

@@ -1,0 +1,268 @@
+/* <script src=../Modulo.html></script><style type=f> */
+
+/*
+ * Modulo Docs Markdown
+ * An improved Markdown parser for Modulo
+ * */
+modulo.config.markdown = {
+    tags: { // Generic, paragraph-like block-level tags (WIP: Switching to block and inline)
+        '#': 'h1',
+        '##': 'h2',
+        '###': 'h3',
+        '####': 'h4',
+        '#####': 'h5',
+        '######': 'h6',
+        '>': 'blockquote',
+        '* ': 'li',
+        '-': 'li',
+        '---': 'hr',
+        '    ': 'pre',
+    },
+    typographySyntax: [ // Generic, paragraph-like block-level tags
+        [ /^----*/, 'hr' ],
+        [ /^    /, 'pre' ],
+        [ /^######/, 'h6' ],
+        [ /^#####/, 'h5' ],
+        [ /^####/, 'h4' ],
+        [ /^###/, 'h3' ],
+        [ /^##/, 'h2' ],
+        [ /^#/, 'h1' ],
+        [ /^/, 'p' ], // matches any string, including empty
+    ],
+    blockTypes: { // Block behavior, and what types of HTML elements to contain
+        blockquote: { innerTag: '' },
+        ul: { innerTag: '<li>' },
+        ol: { innerTag: '<li>' },
+        table: {
+            innerTag: '<tr><td>',
+            splitTag: '<td>',
+            splitRE: /\-*\|\-*/g, // cell separators
+        },
+    },
+    blockSyntax: [ // Block element containers, in order of checking
+        [ /(^|\n)>\s*/g, 'blockquote' ],
+        [ /(^|\n)[\-\*\+](?!\*)/g, 'ul' ],
+        [ /(^|\n)[0-9]+[\.\)]/g, 'ol' ],
+        [ /(^|\n)\|/g, 'table' ],
+    ],
+    /*blockTags: [ // Block element containers
+        [ /(^|\n)>/g,               [ 'blockquote' ], 'p', ],
+        [ /(^|\n)[\*\+-]/g,         [ 'ul', 'li' ], 'li', ],
+        [ /(^|\n)[0-9]+[\.\)]/g,    [ 'ol', 'li' ], 'li', ],
+        [ /(^|\n)\|/g,              [ 'table', 'tbody', 'td', 'tr' ], 'tr', /(^|\n)\|/g, 'td', ],
+    ],*/
+    inlineTags: [ // Inline element containers
+        [ /\!\[([^\]]+)\]\(([^\)]+)\)/g, '<img src="$2" alt="$1" />' ],
+        [ /\[([^\]]+)\]\(([^\)]+)\)/g, '<a href="$2">$1</a>' ],
+        [ /_([^_`]+)_/g, '<em>$1</em>' ],
+        [ /`([^`]+)`/g, '<code>$1</code>' ],
+        [ /\*\*([^\*]+)\*\*/g, '<strong>$1</strong>' ],
+        [ /\*([^\*]+)\*/g, '<em>$1</em>' ],
+    ],
+    literalPrefix: '<', // Use a tag that starts with '<' as the indicator
+    openComment: '<!--', // Use HTML syntax for comments
+    closeComment: '-->',
+    codeFenceSyntax: '```', // Use ``` for fenced blocks
+    codeFenceExtraSyntax: null, // Set to use for extra properties
+    codeFenceTag: 'pre', // Convert fenced blocks to this
+    searchHighlight: null, // Set this to cause a universal "highlight" effect
+    searchResults: [ ], // Will get filled (globally) as results come back
+    markdownUtil: 'moduloMarkdown',
+    searchStyle: 'background: yellow; color: black;',
+}
+
+
+// "QuickDemo" and "Showdown" support: 
+modulo.config.markdown.codeFenceTag = "x-QuickDemo" // Convert fenced blocks to this
+modulo.config.markdown.codeFenceExtraSyntax = 'edit:'
+modulo.config.markdown.markdownUtil = 'showdownConvert'
+
+
+modulo.util.highlightSearch = (text) => {
+    const { searchHighlight, searchStyle, searchResults } = modulo.config.markdown
+    const fuzzy = '.?[^A-Z0-9]*'
+    const s = searchHighlight.split(/ /g).join(fuzzy)
+    const re = new RegExp('(.{0,20})(' + s + ')(.{0,20})', 'gi')
+    text = text.replace(re, (m, m1, m2, m3) => {
+        searchResults.push([ m1, m2, m3 ])
+        return `${ m1 }<span md-search style="${ searchStyle }">${ m2 }</span>${ m3 }`
+    })
+    return text
+}
+
+modulo.util.markdownEscape = (text) => {
+    // Utility function to escape HTML special chars & handle closing script
+    // tag short-hands expansions. Explanation: Without the "script-tag"
+    // shorthands of <-script> for closing tag, it's impossible to mention
+    // these in code snippets within a <script type=md> tag without closing it.
+    const { searchHighlight } = modulo.config.markdown
+    text = (text + '')
+        .replace(/<-(script)>/ig, '<' + '/$1>')
+        .replace(/([\n\s])\/(script)>/ig, '$1<' + '/$2>')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/'/g, '&#x27;').replace(/"/g, '&quot;')
+    if (searchHighlight) { // If specified, assumes utils.highlightSearch
+        text = modulo.util.highlightSearch(text)
+    }
+    return text;
+}
+
+modulo.util.parseMarkdownBlocks = (text) => {
+    const { blockSyntax, typographySyntax, blockTypes } = modulo.config.markdown
+    const blocks = [ ]
+    let children = [ ]
+    let name = null
+    function pushBlock(next) { // TODO: Can I refactor this into the loop?
+        if (children.length && (next === false || name !== next)) { // Snip off this block
+            if (!name) { // typography
+                for (let text of children) {
+                    const [ re, name ] = typographySyntax.find(([ re ]) => re.exec(text.trim()))
+                    text = (name === 'p') ? text : text.replace(re, '')
+                    blocks.push({ name, text })
+                }
+            } else {
+                blocks.push({ name, children, block: blockTypes[name] })
+            }
+            children = [ ] // create new empty array
+        }
+    }
+    for (const code of text.split(/\n\r?\n\r?/gi)) { // Loop through \n\n
+        if (!code.trim()) { // add & skip as empty, since no matchers for empty
+            children.push(code)
+            pushBlock(null)
+        } else { // Otherwise, split by block
+            const [ re, next ] = blockSyntax.find(([ re ]) => re.exec(code.trim())) || [ ]
+            pushBlock(next)
+            const { innerTag } = (blockTypes[next] || { })
+            const nextChildren = innerTag ? code.split(re) : [ code.replace(re, '\n') ]
+            children.push(...nextChildren) // Split by children if inner-tag
+            name = next
+        }
+    }
+    pushBlock(false) // ensure the last tag gets pushed
+    return blocks
+};
+
+modulo.util.moduloMarkdown = (content, parentOut = null) => {
+    const { markdownEscape, moduloMarkdown, parseMarkdownBlocks } = modulo.util
+    const { inlineTags } = modulo.config.markdown
+    const out = parentOut || []
+    for (const { name, text, children, block } of parseMarkdownBlocks(content)) { // Loop through
+        out.push(`<${ name }>`)
+        if (children) { // Container, recurse
+            for (let content of children) {
+                if (content.trim() || block.allowEmpty) {
+                    out.push(block.innerTag)
+                    if (block.splitTag) { // E.g. table
+                        content = block.splitTag + content.split(block.splitRE).join(block.splitTag)
+                    }
+                    moduloMarkdown(content, out) // Recursively parse
+                }
+            }
+        } else { // Has direct inline text -- e.g. typography
+            let content = markdownEscape(text)
+            for (const [ regexp, replacement ] of inlineTags) {
+                content = content.replace(regexp, replacement)
+            }
+            out.push(content)
+        }
+        out.push(`</${ name }>`)
+    }
+    return parentOut ? null : out.join('\n')
+}
+
+
+// Converts Markdown into HTML, using default tags, or optional extra tags
+// Usage Example:   {{ myhtml|markdown|safe }}
+if (modulo.config.file) {
+    modulo.config.file.Filter = 'markdown' // Ensure it's default for File
+}
+modulo.templateFilter.markdown = (content) => {
+    const { markdownEscape } = modulo.util
+    let {
+        closeComment,
+        codeFenceExtraSyntax,
+        codeFenceSyntax,
+        codeFenceTag,
+        literalPrefix,
+        openComment,
+        markdownUtil,
+    } = modulo.config.markdown
+    if (modulo.argv[0] === 'search') { // activate static / search display mode
+        markdownUtil = 'moduloMarkdown' // Use fast / naive markdown parsing
+        codeFenceTag = 'pre' // Fence code with "pre" tags, no demos or syntax
+    }
+
+    const endsFenceRE = new RegExp(codeFenceSyntax + '[\n\s]*$')
+    const out = []
+
+    function emitMarkdown() {
+        const html = modulo.util[markdownUtil](markdownBuffer.join('\n\n'))
+        markdownBuffer = null
+        out.push(html)
+    }
+
+    function bufferMarkdown(code) {
+        markdownBuffer = markdownBuffer || []
+        markdownBuffer.push(code)
+    }
+
+    function emit(code) {
+        if (markdownBuffer) {
+            emitMarkdown()
+        }
+        out.push(code)
+    }
+
+    const strip3 = s => s.replace(/^\s\s?\s?/, '') // Ignore 0-3 WS chars
+    let literal = null
+    let codeLiteral = null
+    let comment = false
+    let markdownBuffer = null
+    for (let code of content.split(/\n\r?\n\r?/gi)) { // Loop through \n\n
+        if (!(literal || codeLiteral || comment)) {
+            if (strip3(code).startsWith(openComment)) { // Comment
+                comment = true // ignore entire line
+            } else if (strip3(code).startsWith(codeFenceSyntax)) { // Fence
+                code = strip3(code)
+                const firstLine = code.split('\n')[0] // parse mode
+                code = code.substr(firstLine.length + 1) // the +1 is for \n
+                codeLiteral = firstLine.split(codeFenceSyntax)[1] || 'modulo'
+                // Check for extra properties for the code editor, e.g. demo
+                let extra = ''
+                const secondLine = code.split('\n')[0] // parse editor settings
+                if (codeFenceExtraSyntax && secondLine.includes(codeFenceExtraSyntax)) {
+                    extra = secondLine.split(codeFenceExtraSyntax)[1].trim()
+                    code = code.substr(secondLine.length + 1)
+                }
+                emit(`<${ codeFenceTag } mode="${ codeLiteral }" ${ extra } value="`)
+            } else if (strip3(code).startsWith(literalPrefix)) { // HTML tag
+                code = strip3(code)
+                literal = code.split(/[^a-zA-Z0-9_-]/)[1] // Get tag name
+            }
+        }
+
+        if (comment) { // Comment - ignore
+            comment = !code.includes(closeComment) // continue only if no close
+        } else if (codeLiteral) { // Fenced code snippet -- handle differently
+            if (endsFenceRE.test(code)) { // Reached end of code fence
+                code = code.replace(endsFenceRE, '') // remove ending fence
+                codeLiteral = null // end the code literal
+            }
+            emit(markdownEscape(code) + (codeLiteral ? '\n\n' : ''))
+            if (codeLiteral === null) {
+                emit(`"></${ codeFenceTag }>\n`)
+            }
+        } else if (literal) { // Literal HTML: Parse until a line ends with closing tag
+            emit(code + '\n\n')
+            if (code.endsWith(`</${ literal }>`)) {
+                literal = null // ends with close - stop literal
+            }
+        } else {
+            bufferMarkdown(code)
+        }
+    }
+    emit('') // Ensure markdown buffer is empty
+    return out.join('')
+}

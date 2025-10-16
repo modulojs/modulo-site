@@ -1,0 +1,77 @@
+/* <script src=../Modulo.html></script><style type=f> */
+/*
+ * "modulo-toc-helpers" - An example library
+ * */
+
+
+// A little helper to detect when active:
+// Usage:   {% if row|ifactive %}
+//    or:   class="{{ row|ifactive:'active-cls' }}
+Modulo.ModuloTOCHelper = modulo => {
+    const HEADER_RE = /<h([1-6])\s*([^>]*)>([^<]+)<.h[1-6]>/gi;
+
+    function html2toc(html) { // convert html to ToC structure
+        const toc = [];
+        for (const [ match, level, attrs, title ] of html.matchAll(HEADER_RE)) {
+            let id = null;
+            if (attrs && attrs.includes("id")) {
+                id = attrs.split('id="').pop().split('"').shift();
+            }
+            toc.push({ match, level: Number(level || 0), attrs, title, id });
+        }
+        return toc
+    }
+
+    function ifactive(row, cls = 'active') {
+        const path = (window.location.pathname +'')
+        return path.endsWith(row[0]) ? cls : '';
+    }
+
+    // Checks if it's the "index.html" of a collapsible item in the page list
+    function istop(row) {
+        const collapsedDirs = modulo.definitions.contentlist.collapse.split(/,/g).map(s => '/' + s + '/')
+        const collapsedDirsRE = new RegExp('(' + collapsedDirs.join('|') + ')')
+        return row[0].endsWith('/index.html') && collapsedDirsRE.exec('/' + row[0])
+    }
+
+    // Checks if ANYTHING has been un-collapsed / selected, of all the rows
+    function selectedtop(rows) {
+        const collapsedDirs = modulo.definitions.contentlist.collapse.split(/,/g).map(s => '/' + s + '/')
+        const collapsedDirsRE = new RegExp('(' + collapsedDirs.join('|') + ')')
+        const path = (window.location.pathname +'')
+        return collapsedDirs.find(s => path.includes(s))
+    }
+
+    // A little helper to detect when a directory is "collapsed" or not
+    function isvisible(row) {
+        const collapsedDirs = modulo.definitions.contentlist.collapse.split(/,/g).map(s => '/' + s + '/')
+        const collapsedDirsRE = new RegExp('(' + collapsedDirs.join('|') + ')')
+        const path = (window.location.pathname +'')
+        const selected = collapsedDirs.find(s => path.includes(s))
+        return selected ? ('/' + row[0]).includes(selected) : !collapsedDirsRE.exec('/' + row[0])
+    }
+
+    // A Syntax Highlighter that in turn uses hljs.highlight
+    // Usage:   {% if code|highlight:'html'|safe %}
+    function highlight(text, lang = 'django') {
+        const language = lang.includes('modulo') ? 'django' : lang; // rename modulo -> django
+        let html = hljs.highlight(text, { language }).value;
+        // Add in colors for Modulo tag names / attributes
+        if (lang.includes('modulo')) {
+            html = html.replace(/"hljs-name">([A-Z])/g, '"hljs-modulo-deftype">$1');
+            html = html.replace(/"hljs-attr">(-[a-z])/g, '"hljs-modulo-defprocessor">$1'); // lowercase, dash prefixed
+            html = html.replace(/"hljs-attr">([A-Z])/g, '"hljs-modulo-deftype-attr">$1');
+            html = html.replace(/"hljs-name">([a-z]+-[A-Z])/g, '"hljs-modulo-component-tag">$1');
+            html = html.replace(/"hljs-string">(true|false|null)/g, '"hljs-modulo-attr-value-lit">$1');
+            html = html.replace(/"hljs-string">([A-Za-z])/g, '"hljs-modulo-attr-value">$1');
+            html = html.replace(/"hljs-string">([0-9\[\{])/g, '"hljs-modulo-attr-value-lit">$1');
+        }
+        return html
+    }
+
+
+    return { html2toc, ifactive, highlight, isvisible, selectedtop, istop }
+}; /* End of ModuloTOCHelper */
+
+
+Object.assign(modulo.templateFilter, Modulo.ModuloTOCHelper(modulo))

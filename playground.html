@@ -1,0 +1,363 @@
+<!DOCTYPE html><html><head><meta charset="utf8"><meta name="charset" charset="utf8" id="include_xxm0qoac"><meta name="content-type" http-equiv="Content-Type" content="text/html; charset=utf-8" id="include_xxnd8o0e"><meta name="viewport" content="width=device-width, initial-scale=1" id="include_x13l7u56"><meta name="robots" content="index, follow" id="include_xxriq75n"><meta name="revisit-after" content="30 days" id="include_x1m4jm9p">
+<link rel="stylesheet" href="build-xxnc164u.css">
+
+<script defer="" src="build-xxqtkadu.js"></script>
+</head><body><meta charset="utf8">
+
+
+<h2 h="#" class="_component_Page">Playground</h2><p class="_component_Page"><strong>To see and edit the source code, select "CODE" or "EDIT" from the drop down
+in the upper right of each example.</strong></p><hr class="_component_Page"><p class="_component_Page"></p><h2 h="##" class="_component_Page">Component Examples</h2><p class="_component_Page">In this section you will find a several component examples. The content of
+these code samples can be put into any <code class="_component_Page">&lt;Component&gt;</code> definition.
+</p><p class="_component_Page"></p><h2 h="#####" class="_component_Page">Example 1 - ToDo MVC</h2><p class="_component_Page"><x-demo show="ui" ui="demo" mode="js" demo="component" value="&lt;Template&gt;
+  &lt;ol&gt;
+    {% for item in state.list %}
+        &lt;li&gt;{{ item }}
+    {% endfor %}
+    &lt;li&gt;&lt;input state.bind name=text&gt;&lt;button on.click=script.add&gt;Add&lt;/button&gt;
+  &lt;/ol&gt;
+&lt;/Template&gt;
+&lt;State
+  text=&quot;Coffee&quot;
+  list:=[]
+  list.0=&quot;Butter&quot;
+  list.1=&quot;Bread&quot;
+&gt;&lt;/State&gt;
+&lt;Script&gt;
+  function add() {
+    state.list.push(state.text)
+    state.text = ''
+  }
+&lt;/Script&gt;" modulo-mount-html="">
+<select style="" name="ui">
+    
+        <option value="demo">🗎 DEMO</option>
+    
+        <option value="code">🗎 CODE</option>
+    
+        <option value="edit">🗎 EDIT</option>
+    
+</select>
+
+
+
+
+
+
+    
+    
+        <iframe srcdoc=" "></iframe>
+    
+    
+
+
+
+</x-demo></p><p class="_component_Page"></p><h2 h="#####" class="_component_Page">Example 2 - Accordion Widget</h2><p class="_component_Page"><x-demo show="ui" ui="demo" mode="html" demo="component" value="&lt;Template&gt;
+    &lt;select state.bind name=&quot;val&quot;&gt;
+        &lt;option value=&quot;top&quot;&gt;View Top&lt;/option&gt;
+        &lt;option value=&quot;bottom&quot;&gt;View Bottom&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;article class=&quot;{% if state.val is 'top' %}active{% endif %}&quot;&gt;
+        &lt;h1&gt;Top&lt;/h1&gt;  {% include top %}
+    &lt;/article&gt;
+    &lt;article class=&quot;{% if state.val is 'bottom' %}active{% endif %}&quot;&gt;
+        &lt;h1&gt;Bottom&lt;/h1&gt;  {% include bottom %}
+    &lt;/article&gt;
+&lt;/Template&gt;
+&lt;Template -name=&quot;bottom&quot;&gt;&lt;p&gt;Bottom content&lt;/p&gt;&lt;/Template&gt;
+&lt;Template -name=&quot;top&quot;&gt;&lt;p&gt;Top content&lt;/p&gt;&lt;/Template&gt;
+&lt;State
+    val=&quot;top&quot;
+&gt;&lt;/State&gt;
+&lt;Style&gt;
+    article {
+        overflow: hidden;
+        transition: height 0.5s;
+        padding: 5px;
+        height: 0;
+        border: groove 4px #88888888;
+    }
+    article.active { height: 120px; }
+&lt;/Style&gt;" modulo-mount-html="">
+<select style="" name="ui">
+    
+        <option value="demo">🗎 DEMO</option>
+    
+        <option value="code">🗎 CODE</option>
+    
+        <option value="edit">🗎 EDIT</option>
+    
+</select>
+
+
+
+
+
+
+    
+    
+        <iframe srcdoc=" "></iframe>
+    
+    
+
+
+
+</x-demo></p><p class="_component_Page"></p><h2 h="####" class="_component_Page">Example 3: Search API</h2><p class="_component_Page"><x-demo show="ui" ui="demo" mode="js" demo="component" value="&lt;Template&gt;
+    &lt;form on.submit=script.doSearch&gt;
+        &lt;input state.bind name=search&gt;
+        &lt;button on.click=script.doSearch&gt;Submit&lt;/button&gt;
+    &lt;/form&gt;
+    {% if state.results is null %}&lt;strong&gt;Loading&lt;/strong&gt;{% endif %}
+    &lt;ol&gt;{% for item in state.results %}&lt;li&gt;{{ item.title }}&lt;/li&gt;{% endfor %}&lt;/ol&gt;
+&lt;/Template&gt;
+&lt;State
+    search=&quot;MacBeth&quot;
+    results:=[]
+&gt;&lt;/State&gt;
+&lt;Script&gt;
+    const API = 'https://openlibrary.org/search.json?q='
+    const OPTS = '&amp;limit=20&amp;fields=title'
+    async function doSearch() {
+        state.results = null
+        state.results = (await (await fetch(API + state.search + OPTS)).json()).docs
+        element.rerender()
+    }
+&lt;/Script&gt;
+&lt;Style&gt;* { font-size: 110%; padding: 30px; box-shadow: 0 0 10px #88888888; }&lt;/Style&gt;" modulo-mount-html="">
+<select style="" name="ui">
+    
+        <option value="demo">🗎 DEMO</option>
+    
+        <option value="code">🗎 CODE</option>
+    
+        <option value="edit">🗎 EDIT</option>
+    
+</select>
+
+
+
+
+
+
+    
+    
+        <iframe srcdoc=" "></iframe>
+    
+    
+
+
+
+</x-demo></p><p class="_component_Page"></p><h2 h="###" class="_component_Page">Example 4: Sortable CSV Table</h2><p class="_component_Page"><x-demo show="ui" ui="demo" mode="js" demo="component" value="&lt;Template&gt;
+  &lt;section style=&quot;grid-template-columns:{% for header in staticdata|first %}
+          {% if header is 'Supply Chain' %}5fr{% else %}1fr{% endif %}
+      {% endfor %}&quot;&gt;
+    {% for i, header in staticdata|first %}
+        &lt;button on.click=script.sort payload={{i}}&gt;
+            {% if state.sort is i %}&amp;darr;{% endif %}{{ header|trimfile }}
+        &lt;/button&gt;
+    {% endfor %}
+    {% for row in staticdata|skipfirst|sorted:state.sort %}
+        {% for col in row %}&lt;div&gt;{{ col }}&lt;/div&gt; {% endfor %}
+    {% endfor %}
+  &lt;/section&gt;
+&lt;/Template&gt;
+&lt;State
+    sort=&quot;0&quot;
+&gt;&lt;/State&gt;
+&lt;StaticData
+    -data-type=csv
+    -src=&quot;static/demos/co2.csv.htm&quot;
+&gt;&lt;/StaticData&gt;
+&lt;Script&gt;
+    function sort(index) {
+        state.sort = index
+    }
+&lt;/Script&gt;
+&lt;Style&gt;
+    div { border-bottom: 1px dotted black; padding: 2px; }
+    section { display: grid; width: 100%; }
+&lt;/Style&gt;" modulo-mount-html="">
+<select style="" name="ui">
+    
+        <option value="demo">🗎 DEMO</option>
+    
+        <option value="code">🗎 CODE</option>
+    
+        <option value="edit">🗎 EDIT</option>
+    
+</select>
+
+
+
+
+
+
+    
+    
+        <iframe srcdoc=" "></iframe>
+    
+    
+
+
+
+</x-demo></p><hr class="_component_Page"><p class="_component_Page"></p><h2 h="##" class="_component_Page">Page Examples</h2><p class="_component_Page">In this section you will find a several full page examples.
+</p><p class="_component_Page"><strong>The content of these code samples represent the entirity of an HTML file, and
+can be put directly into an HTML file.</strong> Note that for HTML Pages, they <em>can
+be</em> either embedded in a larger HTML file, or be the entirity of the file. For
+Markdown Pages, however, they <em>must be</em> the entirity of the file (that is,
+Modulo will not automatically render the Markdown page if there is other HTML
+content or Modulo definitions -- you will have to manually do this).
+</p><p class="_component_Page"></p><h2 h="#####" class="_component_Page">Page Example 1 - HTML Page</h2><p class="_component_Page"><x-demo show="ui" ui="demo" mode="html" demo="embed" value="&lt;script Modulo src=Modulo.html&gt;
+    &lt;Component name=Page&gt;
+        &lt;Style&gt;:host { display: block; background: Pink; }&lt;/Style&gt;
+    &lt;/Component&gt;
+&lt;/script&gt;
+&lt;x-Page&gt;
+    &lt;h1&gt;Lorem ipsum dolor set modulo lorem ipsum moduloum dolor set modulo&lt;/h1&gt;
+&lt;/x-Page&gt;" modulo-mount-html="">
+<select style="" name="ui">
+    
+        <option value="demo">🗎 DEMO</option>
+    
+        <option value="code">🗎 CODE</option>
+    
+        <option value="edit">🗎 EDIT</option>
+    
+</select>
+
+
+
+
+
+
+    
+    
+        <iframe srcdoc=" "></iframe>
+    
+    
+
+
+
+</x-demo></p><p class="_component_Page"></p><h2 h="#####" class="_component_Page">Page Example 2 - HTML Page (Static Auto-Import)</h2><p class="_component_Page"><x-demo show="ui" ui="demo" mode="html" demo="embed" value="&lt;script src=static/Modulo.html&gt;&lt;/script&gt;
+&lt;x-Page&gt;
+    &lt;h1&gt;Lorem ipsum dolor set modulo lorem ipsum moduloum dolor set modulo&lt;/h1&gt;
+&lt;/x-Page&gt;" modulo-mount-html="">
+<select style="" name="ui">
+    
+        <option value="demo">🗎 DEMO</option>
+    
+        <option value="code">🗎 CODE</option>
+    
+        <option value="edit">🗎 EDIT</option>
+    
+</select>
+
+
+
+
+
+
+    
+    
+        <iframe srcdoc=" "></iframe>
+    
+    
+
+
+
+</x-demo></p><p class="_component_Page"></p><h2 h="#####" class="_component_Page">Page Example 3 - Markdown-HTML Page</h2><p class="_component_Page"><x-demo show="ui" ui="demo" mode="html" demo="embed" value="&lt;script src=Modulo.html&gt;&lt;/script&gt;&lt;script type=md&gt;---
+NOTE: Modulo will render this with a plain default theme.
+example: meta-data
+example-multiline:
+    123
+    abc
+    do re mi
+example2: More meta data
+---
+Lorem ipsum dolor set modulo lorem ipsum moduloum dolor set modulo" modulo-mount-html="">
+<select style="" name="ui">
+    
+        <option value="demo">🗎 DEMO</option>
+    
+        <option value="code">🗎 CODE</option>
+    
+        <option value="edit">🗎 EDIT</option>
+    
+</select>
+
+
+
+
+
+
+    
+    
+        <iframe srcdoc=" "></iframe>
+    
+    
+
+
+
+</x-demo></p><p class="_component_Page"></p><h2 h="#####" class="_component_Page">Page Example 4 - Markdown-HTML Page (Static Auto-Import)</h2><p class="_component_Page"><x-demo show="ui" ui="demo" mode="html" demo="embed" value="&lt;script src=static/Modulo.html&gt;&lt;/script&gt;&lt;script type=md&gt;---
+NOTE: The difference is the &quot;static/Modulo.html&quot; above!
+example: meta-data
+example-multiline:
+    123
+    abc
+    do re mi
+example2: More meta data
+---
+Lorem ipsum dolor set modulo lorem ipsum moduloum dolor set modulo" modulo-mount-html="">
+<select style="" name="ui">
+    
+        <option value="demo">🗎 DEMO</option>
+    
+        <option value="code">🗎 CODE</option>
+    
+        <option value="edit">🗎 EDIT</option>
+    
+</select>
+
+
+
+
+
+
+    
+    
+        <iframe srcdoc=" "></iframe>
+    
+    
+
+
+
+</x-demo></p><p class="_component_Page"></p><h2 h="#####" class="_component_Page">Page Example 5 - Markdown-HTML Page (Remote Static Auto-Import)</h2><p class="_component_Page">If CORS permits, you can even do an implicit auto-import directly from an
+absolute URL:
+</p><p class="_component_Page"><x-demo show="ui" ui="demo" mode="html" demo="embed" value="&lt;script src=https://modulo.codeberg.page/modulo-starter/static/Modulo.html&gt;&lt;/script&gt;&lt;script type=md&gt;---
+example: ABC
+---
+Lorem ipsum dolor set modulo lorem ipsum moduloum dolor set modulo" modulo-mount-html="">
+<select style="" name="ui">
+    
+        <option value="demo">🗎 DEMO</option>
+    
+        <option value="code">🗎 CODE</option>
+    
+        <option value="edit">🗎 EDIT</option>
+    
+</select>
+
+
+
+
+
+
+    
+    
+        <iframe srcdoc=" "></iframe>
+    
+    
+
+
+
+</x-demo></p><hr class="_component_Page"><p class="_component_Page"><em>Continue learning with Modulo's Documentation, which has many more interactive "playground" examples...</em></p><p class="_component_Page"></p><h2 h="##" class="_component_Page"><a href="./docs.html">Continue to DOCS</a></h2><p class="_component_Page">
+</p></body></html>

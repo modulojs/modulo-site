@@ -117,7 +117,7 @@ news
 
     // Configuration script to register showdown and configure markdown 
     if (modulo.DEV) {
-        const content = modulo.stores.CACHE.getItem(window.location + '')
+        const content = modulo.stores.CACHE.getItem(modulo.filePath)
         if (content) { // Viewing a content file, mount Page, save as "global.page"
             modulo.page = modulo.contentType.MD(content)
             modulo.fetchQueue.enqueue(() => { // loads default viewer

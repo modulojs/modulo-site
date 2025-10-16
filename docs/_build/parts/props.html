@@ -1,0 +1,570 @@
+<!DOCTYPE html><html>
+        <head>
+            <script src="../static/Modulo.html"></script><meta name="charset" charset="utf8" id="include_xxm0qoac"><meta name="content-type" http-equiv="Content-Type" content="text/html; charset=utf-8" id="include_xxnd8o0e"><meta name="viewport" content="width=device-width, initial-scale=1" id="include_x13l7u56"><meta name="robots" content="index, follow" id="include_xxriq75n"><meta name="revisit-after" content="30 days" id="include_x1m4jm9p">
+            
+                <script src="../static/Modulo.html"></script>
+            
+            <link rel="stylesheet" href="../buildpartial-xxpik5e0.css">
+            <script defer="" src="../buildpartial-x1j38gsp.js"></script>
+        </head>
+        <body>
+            
+            
+        <meta charset="utf8">
+        <title>Props - Component Parts - Modulo Documentation</title>
+    
+    <div class="layout Page">
+        <nav class="page-nav Page">
+            <a style="font-size:60px;text-align:center;display:block;font-weight:200" href="../" class="Page">ᵐ°dᵘ⁄o</a>
+            <ul style="position: sticky; top: 1px" class="Page">
+                <li class="toc--outer Page">
+                    <p><a style="font-size: 70%" title="Download Modulo Docs as a offline-friendly zip" href="https://codeberg.org/modulo/docs/archive/main.zip" class="Page">
+                            ⤓ docs-main.zip</a>
+                        <tt>v0.1.0</tt>
+                    </p>
+                </li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">       Modulo</h3></li>
+                    <li class="toc--"><a href="../start/index.html" class="Page">           Introduction</a></li>
+                
+                    
+                    <li class="toc--"><a href="../start/getting-started.html" class="Page"> Getting Started</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">           Definitions</h3></li>
+                    <li class="toc--"><a href="../defs/overview.html" class="Page">         Overview</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/importing.html" class="Page">        Importing</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/definitions.html" class="Page">      Definition Types</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/processors.html" class="Page">       Processors</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/custom.html" class="Page">           Custom Types</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">  Templating</h3></li>
+                    <li class="toc--"><a href="../templating/index.html" class="Page">      Language Overview</a></li>
+                
+                    
+                    <li class="toc--"><a href="../templating/filters.html" class="Page">    Template Filters</a></li>
+                
+                    
+                    <li class="toc--"><a href="../templating/tags.html" class="Page">       Template Tags</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">              Component Parts</h3></li>
+                    <li class="toc--active Page"><a href="../parts/props.html" class="Page">           Props</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/script.html" class="Page">          Script</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/state.html" class="Page">           State</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/staticdata.html" class="Page">      StaticData</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/style.html" class="Page">           Style</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/template.html" class="Page">        Template</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">           Core Definitions</h3></li>
+                    <li class="toc--"><a href="../core/artifact.html" class="Page">         Artifact</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/component.html" class="Page">        Component</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/configuration.html" class="Page">    Configuration</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/contentlist.html" class="Page">      ContentList</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/include.html" class="Page">          Include</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/library.html" class="Page">          Library</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">  Extension</h3></li>
+                    <li class="toc--"><a href="../extension/engine.html" class="Page">      Upgrading Engines</a></li>
+                
+            </ul>
+        </nav>
+        <main class="page-container Page">
+            
+                
+                    
+                        <x-tableofcontents toc="[{&quot;match&quot;:&quot;&lt;h1 id=\&quot;props\&quot;&gt;Props&lt;/h1&gt;&quot;,&quot;level&quot;:1,&quot;attrs&quot;:&quot;id=\&quot;props\&quot;&quot;,&quot;title&quot;:&quot;Props&quot;,&quot;id&quot;:&quot;props&quot;},{&quot;match&quot;:&quot;&lt;h3 id=\&quot;renderobj\&quot;&gt;renderObj&lt;/h3&gt;&quot;,&quot;level&quot;:3,&quot;attrs&quot;:&quot;id=\&quot;renderobj\&quot;&quot;,&quot;title&quot;:&quot;renderObj&quot;,&quot;id&quot;:&quot;renderobj&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;examples\&quot;&gt;Examples&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;examples\&quot;&quot;,&quot;title&quot;:&quot;Examples&quot;,&quot;id&quot;:&quot;examples&quot;},{&quot;match&quot;:&quot;&lt;h3 id=\&quot;example1definingprops\&quot;&gt;Example #1: Defining Props&lt;/h3&gt;&quot;,&quot;level&quot;:3,&quot;attrs&quot;:&quot;id=\&quot;example1definingprops\&quot;&quot;,&quot;title&quot;:&quot;Example #1: Defining Props&quot;,&quot;id&quot;:&quot;example1definingprops&quot;},{&quot;match&quot;:&quot;&lt;h3 id=\&quot;example2settingprops\&quot;&gt;Example #2: Setting Props&lt;/h3&gt;&quot;,&quot;level&quot;:3,&quot;attrs&quot;:&quot;id=\&quot;example2settingprops\&quot;&quot;,&quot;title&quot;:&quot;Example #2: Setting Props&quot;,&quot;id&quot;:&quot;example2settingprops&quot;},{&quot;match&quot;:&quot;&lt;h3 id=\&quot;example3flashcardwithhtmlprops\&quot;&gt;Example #3: Flash card with HTML props&lt;/h3&gt;&quot;,&quot;level&quot;:3,&quot;attrs&quot;:&quot;id=\&quot;example3flashcardwithhtmlprops\&quot;&quot;,&quot;title&quot;:&quot;Example #3: Flash card with HTML props&quot;,&quot;id&quot;:&quot;example3flashcardwithhtmlprops&quot;}]" modulo-mount-html=""><nav class="regular&quot;=&quot;">
+        <div> </div>
+        <div>
+            <div>
+                <label>[ <input name="show" type="checkbox"> Table of Contents ]</label>
+                <label title="Stick to upper right">[ <span alt="upper right arrow">↗</span>
+                    <input name="sticky" type="checkbox"> ]</label>
+            </div>
+            
+                <ul>
+                    
+                        
+                            <li style="--level: 1">
+                                    <a href="#props">Props</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 3">
+                                    <a href="#renderobj">renderObj</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#examples">Examples</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 3">
+                                    <a href="#example1definingprops">Example #1: Defining Props</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 3">
+                                    <a href="#example2settingprops">Example #2: Setting Props</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 3">
+                                    <a href="#example3flashcardwithhtmlprops">Example #3: Flash card with HTML props</a>
+                            </li>
+                        
+                    
+                </ul>
+            
+        </div>
+    </nav></x-tableofcontents>
+                    
+                    <div class="markdown-body"><h1 id="props">Props</h1>
+<blockquote>
+  <p><strong>Read-only</strong> Props are read-only within a component, and only be set by the
+  parent component. If the values change, the component re-renders with the new
+  values. They are only supposed to be information being <em>passed to</em> the
+  component, which means they can't be changed internally. For internal,
+  mutable data, use <a href="#state">State</a> instead.</p>
+</blockquote>
+<p>Props allow components to receive data. You can think of Props as being like
+"function parameters": They allow you to pass down "arguments" (attributes) to
+component which can then modify it's appearance, behavior, or content based on
+the values of these parameters.</p>
+<p>Props are set by the parent component (or HTML page). For String values, use plain attributes (e.g. <code>&lt;x-Btn design="round"&gt;</code>). For any non-String types, you can use <em>data props</em> set using a <code>:=</code> directive syntax for (e.g. <code>&lt;x-Chart data:='[1, 2, 3]'&gt;</code>).</p>
+<h3 id="renderobj">renderObj</h3>
+<p>Props contributes it's received values to the renderObj. Examples:</p>
+<ol>
+<li>Prop set like: <code>&lt;x-Btn design="round"&gt;</code> will be accessible on the renderObj
+like <code>renderObj.props.design</code>, and in the Script or Template Component Parts like
+<code>props.design</code>.</li>
+<li>Prop set like: <code>&lt;x-Chart data:='["a", "b"]'&gt;</code> will be accessible on the
+renderObj like <code>renderObj.props.data</code> (with individual items accessed with code
+that ends with "<code>.data[0]</code>"), and in the Script or Template Component Parts like
+<code>props.data</code>.</li>
+</ol>
+<h2 id="examples">Examples</h2>
+<h3 id="example1definingprops">Example #1: Defining Props</h3>
+<p><em>Props must always be defined first:</em></p><x-quickdemo mode="modulo" demo="modulo_component" name="SimplePropsComponent" usage="USAGE:" value="&lt;Props
+    thing1
+    thing2
+&gt;&lt;/Props&gt;
+
+&lt;Template&gt;
+    &lt;p&gt;
+        &lt;strong&gt;{{ props.thing1 }}&lt;/strong&gt;:
+        &lt;em&gt;{{ props.thing2 }}&lt;/em&gt;
+    &lt;/p&gt;
+&lt;/Template&gt;
+
+USAGE:
+
+&lt;x-SimplePropsComponent
+    thing1=&quot;Foobar&quot;
+    thing2=&quot;Lorem Ipsum&quot;
+&gt;&lt;/x-SimplePropsComponent&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Props
+    thing1
+    thing2
+&gt;&lt;/Props&gt;
+
+&lt;Template&gt;
+    &lt;p&gt;
+        &lt;strong&gt;{{ props.thing1 }}&lt;/strong&gt;:
+        &lt;em&gt;{{ props.thing2 }}&lt;/em&gt;
+    &lt;/p&gt;
+&lt;/Template&gt;
+
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Props</span>
+    <span class="hljs-attr">thing1</span>
+    <span class="hljs-attr">thing2</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Props</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span></span><span class="hljs-template-variable">{{ props.thing1 }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>:
+        <span class="hljs-tag">&lt;<span class="hljs-name">em</span>&gt;</span></span><span class="hljs-template-variable">{{ props.thing2 }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">em</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h3 id="example2settingprops">Example #2: Setting Props</h3>
+<p><em>Props are set using attributes:</em></p><x-quickdemo mode="modulo" demo="modulo_component" name="SimplePropsComponent" usage="USAGE:" value="&lt;Props
+    thing1
+    thing2
+&gt;&lt;/Props&gt;
+
+&lt;Template&gt;
+    &lt;p&gt;
+        &lt;strong&gt;{{ props.thing1 }}&lt;/strong&gt;:
+        &lt;em&gt;{{ props.thing2 }}&lt;/em&gt;
+    &lt;/p&gt;
+&lt;/Template&gt;
+
+USAGE:
+&lt;p&gt;Example 1:&lt;/p&gt;
+&lt;x-SimplePropsComponent
+    thing1=&quot;Foobar&quot;
+    thing2=&quot;Lorem Ipsum&quot;
+&gt;&lt;/x-SimplePropsComponent&gt;
+&lt;p&gt;Example 2:&lt;/p&gt;
+&lt;x-SimplePropsComponent
+    thing1=&quot;quux++&quot;
+    thing2=&quot;Dolor Sit Amet&quot;
+&gt;&lt;/x-SimplePropsComponent&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Props
+    thing1
+    thing2
+&gt;&lt;/Props&gt;
+
+&lt;Template&gt;
+    &lt;p&gt;
+        &lt;strong&gt;{{ props.thing1 }}&lt;/strong&gt;:
+        &lt;em&gt;{{ props.thing2 }}&lt;/em&gt;
+    &lt;/p&gt;
+&lt;/Template&gt;
+
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Props</span>
+    <span class="hljs-attr">thing1</span>
+    <span class="hljs-attr">thing2</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Props</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span></span><span class="hljs-template-variable">{{ props.thing1 }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>:
+        <span class="hljs-tag">&lt;<span class="hljs-name">em</span>&gt;</span></span><span class="hljs-template-variable">{{ props.thing2 }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">em</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h3 id="example3flashcardwithhtmlprops">Example #3: Flash card with HTML props</h3>
+<p>Here we use "top", "content", and "info" as three props. Note how
+<code>props.content</code> uses <code>|safe</code> filter to allow HTML.</p><x-quickdemo mode="modulo" demo="modulo_component" name="InfoCard" usage="USAGE:" value="&lt;Props
+    top
+    content
+    info
+&gt;&lt;/Props&gt;
+
+&lt;Template&gt;
+    {% if props.top %}
+        &lt;h1&gt;{{ props.top }}&lt;/h1&gt;
+    {% endif %}
+    {{ props.content|safe }}
+    {% if state.show %}
+        &lt;p&gt;
+            &lt;strong&gt;ANSWER:&lt;/strong&gt;&lt;br /&gt;
+            {{ props.info }}
+        &lt;/p&gt;
+    {% else %}
+        &lt;label&gt;
+            ✨ REVEAL ANSWER ✨
+            &lt;input state.bind name=&quot;show&quot; type=&quot;checkbox&quot;&gt;
+        &lt;/label&gt;
+    {% endif %}
+&lt;/Template&gt;
+
+&lt;State
+    show:=false
+&gt;&lt;/State&gt;
+
+&lt;Style&gt;
+    :host {
+        display: block;
+        height: 200px;
+    }
+    :host &gt; * {
+        box-shadow: 10px 10px 10px #00000033;
+        background: salmon;
+        padding: 5px;
+        margin: 0;
+        font-size: 0.9rem;
+        border: 2px outset salmon;
+    }
+    :host p {
+        background: white;
+    }
+    label {
+        height: 50px;
+    }
+    input[name=show] {
+        display: none;
+    }
+&lt;/Style&gt;
+
+USAGE:
+&lt;x-InfoCard
+    top=&quot;True or false?&quot;
+    content=&quot;&lt;p&gt;The most ferocious type of capybara is known as the &lt;em&gt;brave barker&lt;/em&gt;.&lt;/p&gt;&quot;
+    info=&quot;False (this was totally made up)&quot;
+&gt;&lt;/x-InfoCard&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Props
+    top
+    content
+    info
+&gt;&lt;/Props&gt;
+
+&lt;Template&gt;
+    {% if props.top %}
+        &lt;h1&gt;{{ props.top }}&lt;/h1&gt;
+    {% endif %}
+    {{ props.content|safe }}
+    {% if state.show %}
+        &lt;p&gt;
+            &lt;strong&gt;ANSWER:&lt;/strong&gt;&lt;br /&gt;
+            {{ props.info }}
+        &lt;/p&gt;
+    {% else %}
+        &lt;label&gt;
+            ✨ REVEAL ANSWER ✨
+            &lt;input state.bind name=&quot;show&quot; type=&quot;checkbox&quot;&gt;
+        &lt;/label&gt;
+    {% endif %}
+&lt;/Template&gt;
+
+&lt;State
+    show:=false
+&gt;&lt;/State&gt;
+
+&lt;Style&gt;
+    :host {
+        display: block;
+        height: 200px;
+    }
+    :host &gt; * {
+        box-shadow: 10px 10px 10px #00000033;
+        background: salmon;
+        padding: 5px;
+        margin: 0;
+        font-size: 0.9rem;
+        border: 2px outset salmon;
+    }
+    :host p {
+        background: white;
+    }
+    label {
+        height: 50px;
+    }
+    input[name=show] {
+        display: none;
+    }
+&lt;/Style&gt;
+
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Props</span>
+    <span class="hljs-attr">top</span>
+    <span class="hljs-attr">content</span>
+    <span class="hljs-attr">info</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Props</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">if</span></span> props.top %}</span><span class="language-xml">
+        <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span></span><span class="hljs-template-variable">{{ props.top }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endif</span></span> %}</span><span class="language-xml">
+    </span><span class="hljs-template-variable">{{ props.content|<span class="hljs-name">safe</span> }}</span><span class="language-xml">
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">if</span></span> state.show %}</span><span class="language-xml">
+        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>ANSWER:<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+            </span><span class="hljs-template-variable">{{ props.info }}</span><span class="language-xml">
+        <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">else</span></span> %}</span><span class="language-xml">
+        <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
+            ✨ REVEAL ANSWER ✨
+            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">state.bind</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"show"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endif</span></span> %}</span><span class="language-xml">
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
+    <span class="hljs-attr">show:</span>=<span class="hljs-modulo-attr-value-lit">false</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Style</span>&gt;</span><span class="language-css">
+    <span class="hljs-selector-pseudo">:host</span> {
+        <span class="hljs-attribute">display</span>: block;
+        <span class="hljs-attribute">height</span>: <span class="hljs-number">200px</span>;
+    }
+    <span class="hljs-selector-pseudo">:host</span> &gt; * {
+        <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">10px</span> <span class="hljs-number">10px</span> <span class="hljs-number">10px</span> <span class="hljs-number">#00000033</span>;
+        <span class="hljs-attribute">background</span>: salmon;
+        <span class="hljs-attribute">padding</span>: <span class="hljs-number">5px</span>;
+        <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
+        <span class="hljs-attribute">font-size</span>: <span class="hljs-number">0.9rem</span>;
+        <span class="hljs-attribute">border</span>: <span class="hljs-number">2px</span> outset salmon;
+    }
+    <span class="hljs-selector-pseudo">:host</span> <span class="hljs-selector-tag">p</span> {
+        <span class="hljs-attribute">background</span>: white;
+    }
+    <span class="hljs-selector-tag">label</span> {
+        <span class="hljs-attribute">height</span>: <span class="hljs-number">50px</span>;
+    }
+    <span class="hljs-selector-tag">input</span><span class="hljs-selector-attr">[name=show]</span> {
+        <span class="hljs-attribute">display</span>: none;
+    }
+</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Style</span>&gt;</span>
+
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+</div>
+                
+            
+        </main>
+    </div>
+            
+        </body>
+    </html>

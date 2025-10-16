@@ -1,0 +1,142 @@
+<script src=../Modulo.html></script><template type=f>
+
+<Props
+    results
+></Props>
+
+<Template>
+    <form>
+        <h2><span>{{ script.title-arr|join:'</span><span>'|safe }}</span></h2>
+        <input name="q" placeholder="Search" style="max-width: 100%" value="{{ state.q|default:'' }}" />
+        <button>Go &#x1F50D;</button>
+    </form>
+    <!--<button>I'm Feeling Lucky... &#x1F3B2;</button>-->
+    <ol class="results">
+        {% for row in global.definitions.contentlist.data %}
+            <li style="display: none">
+                <div>
+                    <a href="{{ row|get:0 }}"><tt>{{ row|get:0 }}</tt></a>
+                </div>
+                <iframe
+                    style="display:none" 
+                    src="../{{ row|get:0 }}?argv=search&q={{ state.q|urlencode }}"
+                ></iframe>
+            </li>
+        {% endfor %}
+    </ol>
+</Template>
+
+<State
+    q=""
+    visible:={}
+></State>
+
+<Script>
+    // Ensure markdown gets highlight effect applied
+    if (modulo.argv && modulo.argv[0] === 'search') {
+        modulo.config.markdown.searchHighlight =
+            new window.URLSearchParams(window.location.search).get('q')
+        //console.log(modulo.config.markdown.searchHighlight, modulo.argv)
+    }
+
+    modulo.command.search = function search(modulo) {
+        if (!window.parent) {
+            return
+        } // If child, send message to alert loaded
+        // TODO: Reconfigure modulo markdown etc for search
+        window.setTimeout(() => {
+            const results = modulo.config.markdown.searchResults
+            if (!results.length) {
+                return // nothing found, dont report
+            }
+            const msg = {
+                searchLoadSuccess: true,
+                pathname: window.location.pathname,
+                src: window.location + '',
+                results,
+            }
+            window.parent.postMessage(JSON.stringify(msg), '*')
+            //document.body.querySelector('[md-search]').scrollIntoView()
+        }, 3000)
+    }
+
+    function _getResult(src) { // Gets li element of given src
+        const iframes = element.querySelectorAll('iframe')
+        for (const iframe of iframes) {
+            if (iframe.src === src) {
+                return iframe.parentNode
+            }
+        }
+    }
+
+    function _getMessage(msg) {
+        const { pathname, src } = msg
+        const li = _getResult(src)
+        if (li) {
+            li.style.display = 'grid'
+        }
+    }
+
+    function initializedCallback(renderObj) { // Called when first mounted
+        state.q = new window.URLSearchParams(window.location.search).get('q')
+        window.addEventListener('message', (ev) => _getMessage(JSON.parse(ev.data)), false);
+        return {
+            titleArr: 'Modulo Search'.split('')
+        }
+    }
+</Script>
+
+<Style>
+    iframe {
+        border: none;
+        width: 100%;
+    }
+    h2 {
+        font-size: 40px !important;
+        margin: 0 !important;
+        font-weight: 400;
+        font-family: serif;
+        display: inline-block;
+        padding-right: 20px;
+    }
+    h2 span:nth-child(even) {
+        color: var(--color)
+    }
+    h2 span:nth-child(odd) {
+        color: var(--color-alt)
+    }
+    input, button {
+        font-size: 30px;
+    }
+    ul {
+        margin: 0;
+        margin-left: -20px;
+    }
+    li {
+        grid-template-columns: 1fr 2fr;
+        margin-top: 10px;
+    }
+    li a {
+        font-size: 30px;
+    }
+    @media (max-width: 992px) {
+        .page-container,
+        .page-nav {
+            padding: 4px;
+            margin: 2px;
+        }
+        .layout {
+            --sidebar-width: 200px;
+        }
+    }
+    @media (max-width: 576px) {
+        .layout {
+            display: block;
+        }
+        .page-nav ul {
+            margin-left: 0;
+            font-size: 110%;
+        }
+    }
+</Style>
+

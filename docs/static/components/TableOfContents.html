@@ -1,0 +1,89 @@
+<script src=../Modulo.html></script><template type=f>
+
+<Props toc="[]"></Props>
+
+<Template>
+    <nav class="{{ state.sticky|yesno:"sticky,regular" }}">
+        <div> </div>
+        <div>
+            <div>
+                <label>[ <input state.bind name="show" type="checkbox"> Table of Contents ]</label>
+                <label title="Stick to upper right">[ <span alt="upper right arrow">↗</span>
+                    <input state.bind name="sticky" type="checkbox"> ]</label>
+            </div>
+            {% if state.show %}
+                <ul>
+                    {% for item in state.toc %}
+                        {% if item.level lt 4 %}
+                            <li style="--level: {{ item.level }}">
+                                    <a href="#{{ item.id }}">{{ item.title|safe }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    </nav>
+</Template>
+
+<State
+    sticky:=false
+    show:=false
+></State>
+
+<Script>
+    function prepareCallback() {
+        if (!state.toc) { // Load / parse props
+            state.toc = JSON.parse(props.toc)
+            state.show = !!state.toc.length
+            state.orig = element.parentNode.style.paddingRight;
+        }
+    }
+    function updateCallback() { // If sticky, update to fit my content
+        element.parentNode.style.paddingRight = state.sticky
+                ? '310px' : state.orig;
+    }
+</Script>
+
+<Style>
+    :host {
+        position: relative;
+        display: block;
+        z-index: 100;
+    }
+
+    nav.sticky {
+        position: fixed;
+        right: 0;
+        top: 0;
+        width: 300px;
+        z-index: 100;
+    }
+
+    ul {
+        padding: 10px;
+        border: 1px solid black;
+    }
+
+    li {
+        margin-left: calc(30px * var(--level));
+    }
+
+    a {
+        grid-column: span 6;
+        font-size: calc(1.0rem - var(--level) * 0.02rem);
+        font-weight: calc(800  - var(--level)  * 100);
+        color: var(--color-fg-semidark);
+    }
+
+
+    label {
+        font-size: 0.8rem;
+        padding: 0;
+        font-weight: bold;
+    }
+
+    label:hover {
+        opacity: 1;
+    }
+</Style>

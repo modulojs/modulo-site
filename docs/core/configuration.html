@@ -1,0 +1,378 @@
+<!DOCTYPE html><html>
+        <head>
+            <script src="../static/Modulo.html"></script><meta name="charset" charset="utf8" id="include_xxm0qoac"><meta name="content-type" http-equiv="Content-Type" content="text/html; charset=utf-8" id="include_xxnd8o0e"><meta name="viewport" content="width=device-width, initial-scale=1" id="include_x13l7u56"><meta name="robots" content="index, follow" id="include_xxriq75n"><meta name="revisit-after" content="30 days" id="include_x1m4jm9p">
+            
+                <script src="../static/Modulo.html"></script>
+            
+            <link rel="stylesheet" href="../buildpartial-xxpik5e0.css">
+            <script defer="" src="../buildpartial-x1j38gsp.js"></script>
+        </head>
+        <body>
+            
+            
+        <meta charset="utf8">
+        <title>Configuration - Modulo Documentation</title>
+    
+    <div class="layout Page">
+        <nav class="page-nav Page">
+            <a style="font-size:60px;text-align:center;display:block;font-weight:200" href="../" class="Page">ᵐ°dᵘ⁄o</a>
+            <ul style="position: sticky; top: 1px" class="Page">
+                <li class="toc--outer Page">
+                    <p><a style="font-size: 70%" title="Download Modulo Docs as a offline-friendly zip" href="https://codeberg.org/modulo/docs/archive/main.zip" class="Page">
+                            ⤓ docs-main.zip</a>
+                        <tt>v0.1.0</tt>
+                    </p>
+                </li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">       Modulo</h3></li>
+                    <li class="toc--"><a href="../start/index.html" class="Page">           Introduction</a></li>
+                
+                    
+                    <li class="toc--"><a href="../start/getting-started.html" class="Page"> Getting Started</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">           Definitions</h3></li>
+                    <li class="toc--"><a href="../defs/overview.html" class="Page">         Overview</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/importing.html" class="Page">        Importing</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/definitions.html" class="Page">      Definition Types</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/processors.html" class="Page">       Processors</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/custom.html" class="Page">           Custom Types</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">  Templating</h3></li>
+                    <li class="toc--"><a href="../templating/index.html" class="Page">      Language Overview</a></li>
+                
+                    
+                    <li class="toc--"><a href="../templating/filters.html" class="Page">    Template Filters</a></li>
+                
+                    
+                    <li class="toc--"><a href="../templating/tags.html" class="Page">       Template Tags</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">              Component Parts</h3></li>
+                    <li class="toc--"><a href="../parts/props.html" class="Page">           Props</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/script.html" class="Page">          Script</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/state.html" class="Page">           State</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/staticdata.html" class="Page">      StaticData</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/style.html" class="Page">           Style</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/template.html" class="Page">        Template</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">           Core Definitions</h3></li>
+                    <li class="toc--"><a href="../core/artifact.html" class="Page">         Artifact</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/component.html" class="Page">        Component</a></li>
+                
+                    
+                    <li class="toc--active Page"><a href="../core/configuration.html" class="Page">    Configuration</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/contentlist.html" class="Page">      ContentList</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/include.html" class="Page">          Include</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/library.html" class="Page">          Library</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">  Extension</h3></li>
+                    <li class="toc--"><a href="../extension/engine.html" class="Page">      Upgrading Engines</a></li>
+                
+            </ul>
+        </nav>
+        <main class="page-container Page">
+            
+                
+                    
+                        <x-tableofcontents toc="[{&quot;match&quot;:&quot;&lt;h1 id=\&quot;configuration\&quot;&gt;Configuration&lt;/h1&gt;&quot;,&quot;level&quot;:1,&quot;attrs&quot;:&quot;id=\&quot;configuration\&quot;&quot;,&quot;title&quot;:&quot;Configuration&quot;,&quot;id&quot;:&quot;configuration&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;registeringfilters\&quot;&gt;Registering filters&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;registeringfilters\&quot;&quot;,&quot;title&quot;:&quot;Registering filters&quot;,&quot;id&quot;:&quot;registeringfilters&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;integratinganalytics\&quot;&gt;Integrating analytics&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;integratinganalytics\&quot;&quot;,&quot;title&quot;:&quot;Integrating analytics&quot;,&quot;id&quot;:&quot;integratinganalytics&quot;}]" modulo-mount-html=""><nav class="regular&quot;=&quot;">
+        <div> </div>
+        <div>
+            <div>
+                <label>[ <input name="show" type="checkbox"> Table of Contents ]</label>
+                <label title="Stick to upper right">[ <span alt="upper right arrow">↗</span>
+                    <input name="sticky" type="checkbox"> ]</label>
+            </div>
+            
+                <ul>
+                    
+                        
+                            <li style="--level: 1">
+                                    <a href="#configuration">Configuration</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#registeringfilters">Registering filters</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#integratinganalytics">Integrating analytics</a>
+                            </li>
+                        
+                    
+                </ul>
+            
+        </div>
+    </nav></x-tableofcontents>
+                    
+                    <div class="markdown-body"><h1 id="configuration">Configuration</h1>
+<p>Use a Configuration definition to configure Modulo at the global level, or
+extend Modulo's functionality with JavaScript.</p>
+<h2 id="registeringfilters">Registering filters</h2>
+<p>A common use of <em>Configuration</em> is registering custom types, such as filters or
+component parts. Here is an example of registering a filter:</p><x-quickdemo mode="modulo" demo="modulo_embed" value="&lt;script Configuration&gt;
+    // This example shows, as an arbitrary example, a filter which reverses the
+    // words in a sentence, while trying to fix punctuation and capitalization.
+    modulo.templateFilter.reversewords = function (s, punc = '.') {
+        if (!s) {
+            return ''
+        }
+        // split the words
+        const split = s.toLowerCase().replace(punc, '').split(' ')
+        split.reverse() // reverse the words
+        split[0] = split[0][0].toUpperCase() + split[0].slice(1) // upper first
+        return split.join(' ') + punc
+    }
+&lt;/script&gt;
+
+
+&lt;Component name=App&gt;
+    &lt;Template&gt;
+        &lt;input state.bind name=&quot;msg&quot;&gt;
+        &lt;div&gt;{{ state.msg|reversewords }}&lt;/div&gt;
+    &lt;/Template&gt;
+    &lt;State msg=&quot;The red fox ran quick.&quot;&gt;&lt;/State&gt;
+    &lt;Style&gt;
+        input, div {
+            border: 1px solid blue;
+            padding: 5px;
+            margin: 5px;
+        }
+    &lt;/Style&gt;
+    
+&lt;/Component&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;script Configuration&gt;
+    // This example shows, as an arbitrary example, a filter which reverses the
+    // words in a sentence, while trying to fix punctuation and capitalization.
+    modulo.templateFilter.reversewords = function (s, punc = '.') {
+        if (!s) {
+            return ''
+        }
+        // split the words
+        const split = s.toLowerCase().replace(punc, '').split(' ')
+        split.reverse() // reverse the words
+        split[0] = split[0][0].toUpperCase() + split[0].slice(1) // upper first
+        return split.join(' ') + punc
+    }
+&lt;/script&gt;
+
+
+&lt;Component name=App&gt;
+    &lt;Template&gt;
+        &lt;input state.bind name=&quot;msg&quot;&gt;
+        &lt;div&gt;{{ state.msg|reversewords }}&lt;/div&gt;
+    &lt;/Template&gt;
+    &lt;State msg=&quot;The red fox ran quick.&quot;&gt;&lt;/State&gt;
+    &lt;Style&gt;
+        input, div {
+            border: 1px solid blue;
+            padding: 5px;
+            margin: 5px;
+        }
+    &lt;/Style&gt;
+    
+&lt;/Component&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-modulo-deftype-attr">Configuration</span>&gt;</span><span class="language-javascript">
+    <span class="hljs-comment">// This example shows, as an arbitrary example, a filter which reverses the</span>
+    <span class="hljs-comment">// words in a sentence, while trying to fix punctuation and capitalization.</span>
+    modulo.<span class="hljs-property">templateFilter</span>.<span class="hljs-property">reversewords</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">s, punc = <span class="hljs-string">'.'</span></span>) {
+        <span class="hljs-keyword">if</span> (!s) {
+            <span class="hljs-keyword">return</span> <span class="hljs-string">''</span>
+        }
+        <span class="hljs-comment">// split the words</span>
+        <span class="hljs-keyword">const</span> split = s.<span class="hljs-title function_">toLowerCase</span>().<span class="hljs-title function_">replace</span>(punc, <span class="hljs-string">''</span>).<span class="hljs-title function_">split</span>(<span class="hljs-string">' '</span>)
+        split.<span class="hljs-title function_">reverse</span>() <span class="hljs-comment">// reverse the words</span>
+        split[<span class="hljs-number">0</span>] = split[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>].<span class="hljs-title function_">toUpperCase</span>() + split[<span class="hljs-number">0</span>].<span class="hljs-title function_">slice</span>(<span class="hljs-number">1</span>) <span class="hljs-comment">// upper first</span>
+        <span class="hljs-keyword">return</span> split.<span class="hljs-title function_">join</span>(<span class="hljs-string">' '</span>) + punc
+    }
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Component</span> <span class="hljs-attr">name</span>=<span class="hljs-modulo-attr-value">App</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">state.bind</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"msg"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><span class="hljs-template-variable">{{ state.msg|reversewords }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span> <span class="hljs-attr">msg</span>=<span class="hljs-string">"The red fox ran quick."</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Style</span>&gt;</span><span class="language-css">
+        <span class="hljs-selector-tag">input</span>, <span class="hljs-selector-tag">div</span> {
+            <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid blue;
+            <span class="hljs-attribute">padding</span>: <span class="hljs-number">5px</span>;
+            <span class="hljs-attribute">margin</span>: <span class="hljs-number">5px</span>;
+        }
+    </span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Style</span>&gt;</span>
+    
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Component</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h2 id="integratinganalytics">Integrating analytics</h2>
+<p>If you have some custom analytics script to integrate, it can be done this way.
+Examine the following snippet that was taken from the Fathom Lite
+mini-analytics software:</p><x-quickdemo mode="modulo" value="&lt;!-- Setup Fathom --&gt;
+&lt;script Configuration&gt;
+     function setupFathom(code) {
+        const host = window.location.host;
+        // Check common things we skip -- ensure doesn't trigger during builds
+        if (host.startsWith('localhost') ||
+                host.includes('.local') ||
+                host.startsWith('127') ||
+                host.startsWith('192') ||
+                host.startsWith('dev--'))  {
+            return;
+        }
+        (function(f, a, t, h, o, m){
+            a[h]=a[h]||function(){
+                (a[h].q=a[h].q||[]).push(arguments)
+            };
+            o=f.createElement('script'),
+            m=f.getElementsByTagName('script')[0];
+            o.async=1; o.src=t; o.id='fathom-script';
+            m.parentNode.insertBefore(o,m)
+        })(document, window, '//ZZ.XXXXXXXX.YYY/tracker.js', 'fathom');
+        fathom('set', 'siteId', code);
+        fathom('trackPageview');
+    }
+    setupFathom('XXXXX');
+&lt;/script&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+        
+            <x-syntaxhighlighter mode="modulo" value="&lt;!-- Setup Fathom --&gt;
+&lt;script Configuration&gt;
+     function setupFathom(code) {
+        const host = window.location.host;
+        // Check common things we skip -- ensure doesn't trigger during builds
+        if (host.startsWith('localhost') ||
+                host.includes('.local') ||
+                host.startsWith('127') ||
+                host.startsWith('192') ||
+                host.startsWith('dev--'))  {
+            return;
+        }
+        (function(f, a, t, h, o, m){
+            a[h]=a[h]||function(){
+                (a[h].q=a[h].q||[]).push(arguments)
+            };
+            o=f.createElement('script'),
+            m=f.getElementsByTagName('script')[0];
+            o.async=1; o.src=t; o.id='fathom-script';
+            m.parentNode.insertBefore(o,m)
+        })(document, window, '//ZZ.XXXXXXXX.YYY/tracker.js', 'fathom');
+        fathom('set', 'siteId', code);
+        fathom('trackPageview');
+    }
+    setupFathom('XXXXX');
+&lt;/script&gt;
+" style="font-size: 18px" modulo-mount-html=""><span class="language-xml"><span class="hljs-comment">&lt;!-- Setup Fathom --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-modulo-deftype-attr">Configuration</span>&gt;</span><span class="language-javascript">
+     <span class="hljs-keyword">function</span> <span class="hljs-title function_">setupFathom</span>(<span class="hljs-params">code</span>) {
+        <span class="hljs-keyword">const</span> host = <span class="hljs-variable language_">window</span>.<span class="hljs-property">location</span>.<span class="hljs-property">host</span>;
+        <span class="hljs-comment">// Check common things we skip -- ensure doesn't trigger during builds</span>
+        <span class="hljs-keyword">if</span> (host.<span class="hljs-title function_">startsWith</span>(<span class="hljs-string">'localhost'</span>) ||
+                host.<span class="hljs-title function_">includes</span>(<span class="hljs-string">'.local'</span>) ||
+                host.<span class="hljs-title function_">startsWith</span>(<span class="hljs-string">'127'</span>) ||
+                host.<span class="hljs-title function_">startsWith</span>(<span class="hljs-string">'192'</span>) ||
+                host.<span class="hljs-title function_">startsWith</span>(<span class="hljs-string">'dev--'</span>))  {
+            <span class="hljs-keyword">return</span>;
+        }
+        (<span class="hljs-keyword">function</span>(<span class="hljs-params">f, a, t, h, o, m</span>){
+            a[h]=a[h]||<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>){
+                (a[h].<span class="hljs-property">q</span>=a[h].<span class="hljs-property">q</span>||[]).<span class="hljs-title function_">push</span>(<span class="hljs-variable language_">arguments</span>)
+            };
+            o=f.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">'script'</span>),
+            m=f.<span class="hljs-title function_">getElementsByTagName</span>(<span class="hljs-string">'script'</span>)[<span class="hljs-number">0</span>];
+            o.<span class="hljs-property">async</span>=<span class="hljs-number">1</span>; o.<span class="hljs-property">src</span>=t; o.<span class="hljs-property">id</span>=<span class="hljs-string">'fathom-script'</span>;
+            m.<span class="hljs-property">parentNode</span>.<span class="hljs-title function_">insertBefore</span>(o,m)
+        })(<span class="hljs-variable language_">document</span>, <span class="hljs-variable language_">window</span>, <span class="hljs-string">'//ZZ.XXXXXXXX.YYY/tracker.js'</span>, <span class="hljs-string">'fathom'</span>);
+        <span class="hljs-title function_">fathom</span>(<span class="hljs-string">'set'</span>, <span class="hljs-string">'siteId'</span>, code);
+        <span class="hljs-title function_">fathom</span>(<span class="hljs-string">'trackPageview'</span>);
+    }
+    <span class="hljs-title function_">setupFathom</span>(<span class="hljs-string">'XXXXX'</span>);
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</span></x-syntaxhighlighter>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             toolbar--snippet">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+            
+        </div>
+        
+    </div>
+    <div class="overlay"></div></x-quickdemo>
+<p><em>(Note that <code>ZZ.XXXXXXXX.YYY</code> would be replaced with a real domain)</em></p></div>
+                
+            
+        </main>
+    </div>
+            
+        </body>
+    </html>

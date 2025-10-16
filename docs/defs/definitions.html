@@ -1,0 +1,454 @@
+<!DOCTYPE html><html>
+        <head>
+            <meta charset="utf8"><script src="../static/Modulo.html"></script><meta name="charset" charset="utf8" id="include_xxm0qoac"><meta name="content-type" http-equiv="Content-Type" content="text/html; charset=utf-8" id="include_xxnd8o0e"><meta name="viewport" content="width=device-width, initial-scale=1" id="include_x13l7u56"><meta name="robots" content="index, follow" id="include_xxriq75n"><meta name="revisit-after" content="30 days" id="include_x1m4jm9p">
+            
+                <script src="../static/Modulo.html"></script>
+            
+            <link rel="stylesheet" href="../buildpartial-xxpik5e0.css">
+            <script defer="" src="../buildpartial-x1j38gsp.js"></script>
+        </head>
+        <body>
+            
+            
+        <meta charset="utf8">
+        <title>Definitions - Modulo Documentation</title>
+    
+    <div class="layout Page">
+        <nav class="page-nav Page">
+            <a style="font-size:60px;text-align:center;display:block;font-weight:200" href="../" class="Page">ᵐ°dᵘ⁄o</a>
+            <ul style="position: sticky; top: 1px" class="Page">
+                <li class="toc--outer Page">
+                    <p><a style="font-size: 70%" title="Download Modulo Docs as a offline-friendly zip" href="https://codeberg.org/modulo/docs/archive/main.zip" class="Page">
+                            ⤓ docs-main.zip</a>
+                        <tt>v0.1.0</tt>
+                    </p>
+                </li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">       Modulo</h3></li>
+                    <li class="toc--"><a href="../start/index.html" class="Page">           Introduction</a></li>
+                
+                    
+                    <li class="toc--"><a href="../start/getting-started.html" class="Page"> Getting Started</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">           Definitions</h3></li>
+                    <li class="toc--"><a href="../defs/overview.html" class="Page">         Overview</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/importing.html" class="Page">        Importing</a></li>
+                
+                    
+                    <li class="toc--active Page"><a href="../defs/definitions.html" class="Page">      Definition Types</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/processors.html" class="Page">       Processors</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/custom.html" class="Page">           Custom Types</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">  Templating</h3></li>
+                    <li class="toc--"><a href="../templating/index.html" class="Page">      Language Overview</a></li>
+                
+                    
+                    <li class="toc--"><a href="../templating/filters.html" class="Page">    Template Filters</a></li>
+                
+                    
+                    <li class="toc--"><a href="../templating/tags.html" class="Page">       Template Tags</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">              Component Parts</h3></li>
+                    <li class="toc--"><a href="../parts/props.html" class="Page">           Props</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/script.html" class="Page">          Script</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/state.html" class="Page">           State</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/staticdata.html" class="Page">      StaticData</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/style.html" class="Page">           Style</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/template.html" class="Page">        Template</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">           Core Definitions</h3></li>
+                    <li class="toc--"><a href="../core/artifact.html" class="Page">         Artifact</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/component.html" class="Page">        Component</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/configuration.html" class="Page">    Configuration</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/contentlist.html" class="Page">      ContentList</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/include.html" class="Page">          Include</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/library.html" class="Page">          Library</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">  Extension</h3></li>
+                    <li class="toc--"><a href="../extension/engine.html" class="Page">      Upgrading Engines</a></li>
+                
+            </ul>
+        </nav>
+        <main class="page-container Page">
+            
+                
+                    
+                        <x-tableofcontents toc="[{&quot;match&quot;:&quot;&lt;h1 id=\&quot;definitiontypes\&quot;&gt;Definition types&lt;/h1&gt;&quot;,&quot;level&quot;:1,&quot;attrs&quot;:&quot;id=\&quot;definitiontypes\&quot;&quot;,&quot;title&quot;:&quot;Definition types&quot;,&quot;id&quot;:&quot;definitiontypes&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;introductiontotypes\&quot;&gt;Introduction to types&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;introductiontotypes\&quot;&quot;,&quot;title&quot;:&quot;Introduction to types&quot;,&quot;id&quot;:&quot;introductiontotypes&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;componentparts\&quot;&gt;Component Parts&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;componentparts\&quot;&quot;,&quot;title&quot;:&quot;Component Parts&quot;,&quot;id&quot;:&quot;componentparts&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;coredefinitions\&quot;&gt;Core Definitions&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;coredefinitions\&quot;&quot;,&quot;title&quot;:&quot;Core Definitions&quot;,&quot;id&quot;:&quot;coredefinitions&quot;},{&quot;match&quot;:&quot;&lt;h1 id=\&quot;loading\&quot;&gt;Loading&lt;/h1&gt;&quot;,&quot;level&quot;:1,&quot;attrs&quot;:&quot;id=\&quot;loading\&quot;&quot;,&quot;title&quot;:&quot;Loading&quot;,&quot;id&quot;:&quot;loading&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;loadorder\&quot;&gt;Load order&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;loadorder\&quot;&quot;,&quot;title&quot;:&quot;Load order&quot;,&quot;id&quot;:&quot;loadorder&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;loadingwithsrc\&quot;&gt;Loading with -src=&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;loadingwithsrc\&quot;&quot;,&quot;title&quot;:&quot;Loading with -src=&quot;,&quot;id&quot;:&quot;loadingwithsrc&quot;},{&quot;match&quot;:&quot;&lt;h1 id=\&quot;naming\&quot;&gt;Naming&lt;/h1&gt;&quot;,&quot;level&quot;:1,&quot;attrs&quot;:&quot;id=\&quot;naming\&quot;&quot;,&quot;title&quot;:&quot;Naming&quot;,&quot;id&quot;:&quot;naming&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;defaultnaming\&quot;&gt;Default naming&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;defaultnaming\&quot;&quot;,&quot;title&quot;:&quot;Default naming&quot;,&quot;id&quot;:&quot;defaultnaming&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;namingwithname\&quot;&gt;Naming with -name=&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;namingwithname\&quot;&quot;,&quot;title&quot;:&quot;Naming with -name=&quot;,&quot;id&quot;:&quot;namingwithname&quot;},{&quot;match&quot;:&quot;&lt;h5 id=\&quot;example1explicitnamingstate\&quot;&gt;Example 1: Explicit Naming (State)&lt;/h5&gt;&quot;,&quot;level&quot;:5,&quot;attrs&quot;:&quot;id=\&quot;example1explicitnamingstate\&quot;&quot;,&quot;title&quot;:&quot;Example 1: Explicit Naming (State)&quot;,&quot;id&quot;:&quot;example1explicitnamingstate&quot;},{&quot;match&quot;:&quot;&lt;h5 id=\&quot;example2explicitnamingtemplate\&quot;&gt;Example 2: Explicit Naming (Template)&lt;/h5&gt;&quot;,&quot;level&quot;:5,&quot;attrs&quot;:&quot;id=\&quot;example2explicitnamingtemplate\&quot;&quot;,&quot;title&quot;:&quot;Example 2: Explicit Naming (Template)&quot;,&quot;id&quot;:&quot;example2explicitnamingtemplate&quot;}]" modulo-mount-html=""><nav class="regular&quot;=&quot;">
+        <div> </div>
+        <div>
+            <div>
+                <label>[ <input name="show" type="checkbox"> Table of Contents ]</label>
+                <label title="Stick to upper right">[ <span alt="upper right arrow">↗</span>
+                    <input name="sticky" type="checkbox"> ]</label>
+            </div>
+            
+                <ul>
+                    
+                        
+                            <li style="--level: 1">
+                                    <a href="#definitiontypes">Definition types</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#introductiontotypes">Introduction to types</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#componentparts">Component Parts</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#coredefinitions">Core Definitions</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 1">
+                                    <a href="#loading">Loading</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#loadorder">Load order</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#loadingwithsrc">Loading with -src=</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 1">
+                                    <a href="#naming">Naming</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#defaultnaming">Default naming</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#namingwithname">Naming with -name=</a>
+                            </li>
+                        
+                    
+                        
+                    
+                        
+                    
+                </ul>
+            
+        </div>
+    </nav></x-tableofcontents>
+                    
+                    <div class="markdown-body"><h1 id="definitiontypes">Definition types</h1>
+<p>Like the underlying HTML language itself, Modulo is <em>declarative</em>. This means
+that the central concept to Modulo is that of <em>Definitions</em>: Almost all of your
+code will be "declaring" that things are defined in a certain way.</p>
+<h2 id="introductiontotypes">Introduction to types</h2>
+<p><em>Components</em> consist of configuring one or more <em>Component Part</em> definitions.
+These powerful tools let you create interactive and data-driven reactive
+components.</p>
+<p>Configuring global Modulo setitngs and content is done by setting <em>Core
+Definitions</em> at the top level. <em>Core Definitions</em> provide tools for global
+operations with includes, configuration, global data, and content.</p>
+<blockquote>
+  <p><strong>Know thy name; know thy data:</strong> All definitions get stored in the global
+  variable <code>modulo.defintions</code>. Note that the keys includes parent names spaced
+  by underscore, e.g. names like <code>library_App_template</code>.  If you ever doubt
+  about naming or data, bring up a JavaScript console and look there!</p>
+</blockquote>
+<h2 id="componentparts">Component Parts</h2>
+<p>To keep things consistent, you may want to follow this order convention
+within a given <em>Component</em> definition:</p>
+<ol>
+<li><a href="../part/props.html">Props</a></li>
+<li><a href="../part/template.html">Template</a></li>
+<li><a href="../part/style.html">Style</a></li>
+<li><em>[Other Component Part(s)]</em></li>
+<li><a href="../part/staticdata.html">StaticData</a></li>
+<li><a href="../part/state.html">State</a></li>
+<li><a href="../part/script.html">Script</a></li>
+</ol>
+<p>The rationale for this ordering is to "sort" by <em>"most simple, most external"</em>
+to <em>"most complex, most internal"</em>. This will seem the most logical for others
+reading or using your libraries.</p>
+<h2 id="coredefinitions">Core Definitions</h2>
+<blockquote>
+  <p><strong>Which ones to use?</strong> Most users of Modulo will use the <em>Component</em>
+  definition the most. The other definitions listed here are useful most when
+  you want to extend Modulo with custom JavaScript behavior, or integrate with
+  third party code.</p>
+</blockquote>
+<p>In addition to <a href="../core/component.html">Component</a> itself, Modulo comes with
+several other global or core definitions:</p>
+<ol>
+<li><a href="../core/configuration.html">Configuration</a> <em>and</em> <a href="../core/include.html">Include</a>  -
+<em>(Extending or configuring Modulo and including third-party JavaScript
+libraries)</em></li>
+<li><a href="../core/configuration.html">ContentList</a> <em>(Include lists of files for
+preloading metadata and site builds)</em></li>
+<li><a href="../core/library.html">Library</a> - <em>(Importing component libraries with
+non-conflicting namespaces or aliases)</em></li>
+<li><a href="../core/artifact.html">Artifact</a> - <em>(Customizing build behavior or specifying
+additional build artifacts)</em></li>
+</ol>
+<h1 id="loading">Loading</h1>
+<h2 id="loadorder">Load order</h2>
+<p>You are free to order <em>Core Definitions</em> and <em>Component Parts</em> in any order.</p>
+<p>However, note that ordering can make a big difference: Modulo will load,
+process and execute definitions, top-to-bottom, in the order provided.  You
+might find it necessary to change the ordering because of specific needs, e.g.
+to ensure aspects of Modulo get configured before they are used.</p>
+<h2 id="loadingwithsrc">Loading with -src=</h2>
+<p>The <code>-src="..."</code> is the first most important definition processor. It lets you
+load many file types with a similar behavior to how in plain HTML you can
+easily use <code>&lt;script src="..."&gt;</code> or <code>&lt;link rel=stylesheet href="..."&gt;</code> to ensure
+the page loads with given dependencies. See below:</p><x-quickdemo mode="modulo" value="&lt;Template -src=&quot;templates/my-template.html&quot;&gt;&lt;/Template&gt;
+&lt;Script -src=&quot;js/my-javascript.js&quot;&gt;&lt;/Script&gt;
+&lt;Style -src=&quot;css/my-style.css&quot;&gt;&lt;/Style&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+        
+            <x-syntaxhighlighter mode="modulo" value="&lt;Template -src=&quot;templates/my-template.html&quot;&gt;&lt;/Template&gt;
+&lt;Script -src=&quot;js/my-javascript.js&quot;&gt;&lt;/Script&gt;
+&lt;Style -src=&quot;css/my-style.css&quot;&gt;&lt;/Style&gt;
+" style="font-size: 18px" modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span> <span class="hljs-modulo-defprocessor">-src</span>=<span class="hljs-string">"templates/my-template.html"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Script</span> <span class="hljs-modulo-defprocessor">-src</span>=<span class="hljs-string">"js/my-javascript.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Style</span> <span class="hljs-modulo-defprocessor">-src</span>=<span class="hljs-string">"css/my-style.css"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Style</span>&gt;</span>
+</span></x-syntaxhighlighter>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             toolbar--snippet">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+            
+        </div>
+        
+    </div>
+    <div class="overlay"></div></x-quickdemo>
+<h1 id="naming">Naming</h1>
+<h2 id="defaultnaming">Default naming</h2>
+<p>All definitions have a name. By default, all definitions get <em>named</em> in
+lower-case (e.g. <code>StaticData</code> becomes <code>staticdata</code>).  If there are multiples,
+they will get incrementing numbers affixed.  Generally, you do not want the
+numbered naming behavior, since it's hard to remember, and should instead be
+specify the name.  For example, the two <em>State</em> parts get the names <code>state</code> and
+<code>state1</code> below:</p><x-quickdemo mode="modulo" value="&lt;Template&gt;{{ state.abc }} and {{ state1.abc }}&lt;/Template&gt;
+&lt;State abc=&quot;first state data&quot;&gt;&lt;/State&gt;
+&lt;State abc=&quot;second state data&quot;&gt;&lt;/State&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+        
+            <x-syntaxhighlighter mode="modulo" value="&lt;Template&gt;{{ state.abc }} and {{ state1.abc }}&lt;/Template&gt;
+&lt;State abc=&quot;first state data&quot;&gt;&lt;/State&gt;
+&lt;State abc=&quot;second state data&quot;&gt;&lt;/State&gt;
+" style="font-size: 18px" modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span></span><span class="hljs-template-variable">{{ state.abc }}</span><span class="language-xml"> and </span><span class="hljs-template-variable">{{ state1.abc }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span> <span class="hljs-attr">abc</span>=<span class="hljs-string">"first state data"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span> <span class="hljs-attr">abc</span>=<span class="hljs-string">"second state data"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+</span></x-syntaxhighlighter>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             toolbar--snippet">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+            
+        </div>
+        
+    </div>
+    <div class="overlay"></div></x-quickdemo>
+<h2 id="namingwithname">Naming with -name=</h2>
+<p>The <code>-name</code> attribute lets us name and distinguish duplicate parts, and
+prevents the numbering behavior. </p>
+<h5 id="example1explicitnamingstate">Example 1: Explicit Naming (State)</h5>
+<p>For example, here we can have
+two <em>State</em> Component Parts, each with the same <code>abc</code> attribute, but different
+names:</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+    &lt;p&gt;first_state.abc is {{ first_state.abc }}&lt;/p&gt;
+    &lt;p&gt;second_state.abc is {{ second_state.abc }}&lt;/p&gt;
+&lt;/Template&gt;
+&lt;State
+    -name=&quot;first_state&quot;
+    abc=&quot;first state data&quot;
+&gt;&lt;/State&gt;
+&lt;State
+    -name=&quot;second_state&quot;
+    abc=&quot;second state data&quot;
+&gt;&lt;/State&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Template&gt;
+    &lt;p&gt;first_state.abc is {{ first_state.abc }}&lt;/p&gt;
+    &lt;p&gt;second_state.abc is {{ second_state.abc }}&lt;/p&gt;
+&lt;/Template&gt;
+&lt;State
+    -name=&quot;first_state&quot;
+    abc=&quot;first state data&quot;
+&gt;&lt;/State&gt;
+&lt;State
+    -name=&quot;second_state&quot;
+    abc=&quot;second state data&quot;
+&gt;&lt;/State&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>first_state.abc is </span><span class="hljs-template-variable">{{ first_state.abc }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>second_state.abc is </span><span class="hljs-template-variable">{{ second_state.abc }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
+    <span class="hljs-modulo-defprocessor">-name</span>=<span class="hljs-string">"first_state"</span>
+    <span class="hljs-attr">abc</span>=<span class="hljs-string">"first state data"</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
+    <span class="hljs-modulo-defprocessor">-name</span>=<span class="hljs-string">"second_state"</span>
+    <span class="hljs-attr">abc</span>=<span class="hljs-string">"second state data"</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h5 id="example2explicitnamingtemplate">Example 2: Explicit Naming (Template)</h5>
+<p>This is also handy for breaking apart large templates. Here we name two extra
+templates <code>template_a</code> and <code>template_b</code>, which we include in a final template:</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template -name=&quot;template_a&quot;&gt;&lt;h3&gt;First template&lt;/h3&gt;&lt;/Template&gt;
+&lt;Template -name=&quot;template_b&quot;&gt;&lt;h3&gt;Second Template&lt;/h3&gt;&lt;/Template&gt;
+&lt;Template&gt;
+    {% include template_a %}
+    &lt;hr /&gt;
+    {% include template_b %}
+&lt;/Template&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Template -name=&quot;template_a&quot;&gt;&lt;h3&gt;First template&lt;/h3&gt;&lt;/Template&gt;
+&lt;Template -name=&quot;template_b&quot;&gt;&lt;h3&gt;Second Template&lt;/h3&gt;&lt;/Template&gt;
+&lt;Template&gt;
+    {% include template_a %}
+    &lt;hr /&gt;
+    {% include template_b %}
+&lt;/Template&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span> <span class="hljs-modulo-defprocessor">-name</span>=<span class="hljs-string">"template_a"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>First template<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span> <span class="hljs-modulo-defprocessor">-name</span>=<span class="hljs-string">"template_b"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Second Template<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">include</span></span> template_a %}</span><span class="language-xml">
+    <span class="hljs-tag">&lt;<span class="hljs-name">hr</span> /&gt;</span>
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">include</span></span> template_b %}</span><span class="language-xml">
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+</div>
+                
+            
+        </main>
+    </div>
+            
+        </body>
+    </html>

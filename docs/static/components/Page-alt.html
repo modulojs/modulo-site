@@ -1,0 +1,95 @@
+
+<Template>
+    {% if global.argv|get:0 is "search" %}
+        {% include template_search_results %}
+    {% else %}
+        {% include template_regular_page %}
+    {% endif %}
+</Template>
+
+<Template -name="template_regular_page">
+    {% if global.docs-content %}
+        <meta charset=utf8>
+        <title>{{ global.docs-content.title }} - Modulo</title>
+    {% endif %}
+    <div class="layout">
+        <nav class="page-nav">
+            <a style="font-size:60px;text-align:center;display:block;font-weight:200" href="../start/index.html">ᵐ°dᵘ⁄o</a>
+            <ul style="position: sticky; top: 1px">
+                <li class="toc--outer">
+                    <p><a style="font-size: 70%"
+                           title="Download Modulo Docs as a offline-friendly zip"
+                           href="https://codeberg.org/modulo/docs/archive/main.zip">
+                            &#x2913; docs-main.zip</a>
+                        <tt>v{{ global.config.modulo.version }}</tt>
+                    </p>
+                </li>
+                {% if global.definitions.contentlist.data|selectedtop %}
+                    {# A collapsible "sub-category"  has been selected #}
+                    <li class="toc--outer">
+                        <a href="../{{ global.definitions.contentlist.data|first|first }}">
+                            &larr; Back to General Documentation
+                        </a>
+                    </li>
+                    <li class="toc--active toc--outer">
+                        <h2>&#x21a6; {{ global.definitions.contentlist.data|selectedtop }}</h2>
+                    </li>
+                    {% for row in global.definitions.contentlist.data %}
+                        {% if row|isvisible %} {# Top level, always show #}
+                            {% if row|get:2 %}<li class="toc--active toc--outer"><h3>&rdsh; {{ row|get:2 }}</h3></li>{% endif %}
+                            <li class="toc--{{ row|ifactive }}"><a href="../{{ row|get:0 }}">{{ row|get:1 }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    {# Default case; nothing selected #}
+                    {% for row in global.definitions.contentlist.data %}
+                        {% if row|istop %} {# Top level, always show #}
+                            <li class="toc--outer">
+                                <h3 class="toc--section"><a href="../{{ row|get:0 }}">
+                                    {% if row|isvisible %}{% else %}&#x21a6;{% endif %} {{ row|get:2 }}
+                                </a></h3>
+                            </li>
+                        {% elif row|isvisible %} {# Not top level #}
+                            {% if row|get:2 %}<li class="toc--outer"><h3>{{ row|get:2 }}</h3></li>{% endif %}
+                            <li class="toc--{{ row|ifactive }}"><a href="../{{ row|get:0 }}">{{ row|get:1 }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                {% comment %}
+                <li class="toc--outer">
+                    <h3 class="toc--section">Search</h3>
+                    <form action="../search/index.html">
+                        <input placeholder="Type keyword(s)..." style="width: 72%" name="q" /><button style="width: 20%">&#x21e8;</button>
+                    </form>
+                </li>
+                {% endcomment %}
+            </ul>
+        </nav>
+        <main class="page-container">
+            {% if global.docs-content %}
+                {% with global.docs-content.body|markdown as html %}
+                    {% if not global.docs-content.skiptoc %}
+                    <x-TableOfContents
+                        toc='{{ html|html2toc|json }}'
+                    ></x-TableOfContents>
+                    {% endif %}
+                    <div class="markdown-body">{{ html|safe }}</div>
+                {% endwith %}
+            {% else %}
+                <slot></slot> {# Default to "slot" behavior #}
+            {% endif %}
+        </main>
+    </div>
+</Template>
+
+<Template -name="template_search_results">
+    {% if global.docs-content %}
+        <div class="markdown-body">
+            {{ global.docs-content.body|markdown|safe }}
+        </div>
+    {% else %}
+        <slot></slot> {# Default to "slot" behavior #}
+    {% endif %}
+</Template>
+
+

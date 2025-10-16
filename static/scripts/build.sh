@@ -11,6 +11,7 @@ npm run build
 # run docs build
 cd docs
 bash build.sh
+mv _build ../_build/docs
 cd ..
 
 # Do release

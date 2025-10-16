@@ -1,0 +1,241 @@
+<script src=../Modulo.html></script><template type=f>
+
+<Props
+    value
+    name
+    spellcheck
+    wrap
+></Props>
+<!--
+This example is the same code that powers the editor on the Modulo website,
+e.g. the one you are using now. It uses a common technique for code editors:
+"Mirror", where you have a transparent textarea that is placed on top of the
+highlighted version of the same text with the exact same font size. This
+creates the "syntax highlighting editor" effect.
+
+This is a useful little mirror-editor component in about 200 lines of Modulo
+code. The "Markdown syntax highlighter" is included as an example, but can be
+replaced. Read on to learn how it all works!
+-->
+
+<Template>
+  <div class="editor-wrapper" on.click=script.updateDimensions>
+      <div class="editor-underlay-container"
+          style="
+            width:  {% if state.width %}  {{ state.width }}px
+                    {% else %} 100% {% endif %};
+            height: {% if state.height %} {{ state.height }}px
+                    {% else %} 100% {% endif %};
+          ">
+          <div class="editor-underlay-offset-wrapper"
+              style="
+                {% if state.scrollTop %}  
+                    top: -{{ state.scrollTop }}px; {% endif %}
+                {% if state.scrollLeft %} 
+                    left: -{{ state.scrollLeft }}px; {% endif %}
+                {% if state.width %}
+                    width: {{ state.width }}px; {% endif %}
+              "><x-SyntaxHighlighter
+                  value="{{ state.value }}"
+                  mode="{{ state.mode }}"
+                  style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: {{ editor_settings.font-size }}px;
+                    {% if props.wrap %}
+                        white-space: pre-wrap;
+                        overflow-wrap: break-word;
+                    {% else %}
+                        white-space: pre;
+                    {% endif %}"
+              ></x-SyntaxHighlighter>
+          </div>
+      </div>
+      <textarea
+          script.ref
+          on.scroll=script.updateDimensions
+          data-gramm="false"
+          name="{{ props.name|default:'editor' }}"
+          spellcheck="{{ props.spellcheck|default:'false' }}"
+          style="
+            font-size: {{ editor_settings.font-size }}px;
+            {% if props.wrap %}
+                white-space: pre-wrap;
+                overflow-wrap: break-word;
+            {% else %}
+                white-space: pre;
+            {% endif %}"
+      ></textarea>
+  </div>
+</Template>
+
+<State
+    -store=editor_settings
+    -name=editor_settings
+    font-size:=18
+></State>
+
+<State
+    selection-start:=0
+    scroll-top:=0
+    scroll-left:=0
+    width:=0
+    height:=0
+    value:=null
+    mode="modulo"
+></State>
+
+<Script>
+    function initializedCallback() {
+        if (element.value) { // Set state.value (if early)
+            state.value = element.value;
+        }
+    }
+
+    function prepareCallback() {
+        if (state.value === null) {
+            const value = (state.value || props.value ||
+                           element.textContent || '').trim();
+            state.value = value;
+        }
+    }
+
+    function updateCallback(){
+        // Mounting of the actual <textarea>: Set-up and rerender
+        if (!ref.textarea) {
+            return
+        }
+        ref.textarea.value = state.value;
+
+        // For low-level control, we 1) manually rerender, and
+        // 2) manually attach event listeners
+        setStateAndRerender(ref.textarea);
+        ref.textarea.addEventListener('keydown', keyDown);
+        ref.textarea.addEventListener('keyup', keyUp);
+
+        // The stateChangedCallback is for state.bind compatibility:
+        // Parent components can bind this like a normal input
+        element.stateChangedCallback = (name, val, originalEl) => {
+            ref.textarea.value = val;
+            ref.textarea.setSelectionRange(state.selectionStart,
+                                       state.selectionStart);
+            setStateAndRerender(ref.textarea);
+        };
+
+        // Run "updateDimensions" on resize events, to maintain mirror
+        try {
+            new ResizeObserver(updateDimensions).observe(ref.textarea);
+        } catch {
+            console.error('Could not listen to resize of ref.textarea');
+        }
+    }
+
+    let globalDebounce = null;
+    function keyUp(ev) {
+        if (globalDebounce) { // Clear debounce to stop keyDown
+            clearTimeout(globalDebounce);
+            globalDebounce = null;
+        }
+        setStateAndRerender(ev.target); // Ensure text is updated
+    }
+
+    function keyDown(ev) { // For held keys
+        const textarea = ev.target;
+        if (globalDebounce) { // Always clear if it exists
+            clearTimeout(globalDebounce);
+            globalDebounce = null;
+        }
+        const qRerender = () => setStateAndRerender(textarea);
+        globalDebounce = setTimeout(qRerender, 10);
+    }
+
+    function updateDimensions() {
+        if (!ref.textarea) {
+            return; // Called too early, ignore
+        }
+        const { scrollLeft, scrollTop } = ref.textarea;
+        const { clientWidth, clientHeight } = ref.textarea;
+        if (state.scrollLeft !== scrollLeft || 
+                state.scrollTop !== scrollTop ||
+                state.width !== clientWidth || 
+                state.height !== clientHeight) {
+            // Updates the state, in turn updating backing div
+            state.scrollTop = scrollTop;
+            state.scrollLeft = scrollLeft;
+            state.width = clientWidth;
+            state.height = clientHeight;
+            element.rerender();
+        }
+    }
+
+    function setStateAndRerender(textarea) {
+        state.selectionStart = textarea.selectionStart;
+        if (state.value !== textarea.value) {
+            state.value = textarea.value;
+            element.value = state.value;
+            element.rerender();
+        }
+    }
+</Script>
+
+
+<Style>
+    :host {
+        display: block;
+        position: relative;
+        min-height: 1rem;
+        min-width: 1rem;
+        text-align: start;
+        line-height: 1;
+
+        /* Passable for both "light" and "dark" designs */
+        --outline-color: #888888EA;
+        --outline-width: 3px;
+        --text-color: #151515;
+    }
+
+    .editor-wrapper {
+        position: relative;
+        height: 100%;
+    }
+
+    textarea {
+        top: 0;
+        left: 0;
+        line-height: 1;
+        width: 100%;
+        border: none;
+        padding: 0;
+        margin: 0;
+        min-height: 1rem;
+        height: 100%;
+        font-family: monospace;
+        text-align: start;
+        resize: none;
+        overflow-wrap: break-word;
+        box-sizing: border-box;
+        position: relative;
+        background: none;
+        color: #00000000 !important;
+        caret-color: var(--text-color);
+    }
+
+    .editor-underlay-container {
+        position: absolute;
+        left: 0;
+        overflow: hidden;
+    }
+
+    .editor-underlay-offset-wrapper {
+        left: 0;
+        position: absolute;
+    }
+
+    textarea:focus {
+        outline: none !important;
+        box-shadow: 0 0 0 var(--outline-width) var(--outline-color);
+    }
+</Style>
+

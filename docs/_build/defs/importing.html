@@ -1,0 +1,943 @@
+<!DOCTYPE html><html>
+        <head>
+            <meta charset="utf8"><script src="../static/Modulo.html"></script><meta name="charset" charset="utf8" id="include_xxm0qoac"><meta name="content-type" http-equiv="Content-Type" content="text/html; charset=utf-8" id="include_xxnd8o0e"><meta name="viewport" content="width=device-width, initial-scale=1" id="include_x13l7u56"><meta name="robots" content="index, follow" id="include_xxriq75n"><meta name="revisit-after" content="30 days" id="include_x1m4jm9p">
+            
+                <script src="../static/Modulo.html"></script>
+            
+            <link rel="stylesheet" href="../buildpartial-xxpik5e0.css">
+            <script defer="" src="../buildpartial-x1rlipu2.js"></script>
+        </head>
+        <body>
+            
+            
+        <meta charset="utf8">
+        <title>Importing - Modulo Documentation</title>
+    
+    <div class="layout Page">
+        <nav class="page-nav Page">
+            <a style="font-size:60px;text-align:center;display:block;font-weight:200" href="../" class="Page">ᵐ°dᵘ⁄o</a>
+            <ul style="position: sticky; top: 1px" class="Page">
+                <li class="toc--outer Page">
+                    <p><a style="font-size: 70%" title="Download Modulo Docs as a offline-friendly zip" href="https://codeberg.org/modulo/docs/archive/main.zip" class="Page">
+                            ⤓ docs-main.zip</a>
+                        <tt>v0.1.0</tt>
+                    </p>
+                </li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">       Modulo</h3></li>
+                    <li class="toc--"><a href="../start/index.html" class="Page">           Introduction</a></li>
+                
+                    
+                    <li class="toc--"><a href="../start/getting-started.html" class="Page"> Getting Started</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">           Definitions</h3></li>
+                    <li class="toc--"><a href="../defs/overview.html" class="Page">         Overview</a></li>
+                
+                    
+                    <li class="toc--active Page"><a href="../defs/importing.html" class="Page">        Importing</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/definitions.html" class="Page">      Definition Types</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/processors.html" class="Page">       Processors</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/custom.html" class="Page">           Custom Types</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">  Templating</h3></li>
+                    <li class="toc--"><a href="../templating/index.html" class="Page">      Language Overview</a></li>
+                
+                    
+                    <li class="toc--"><a href="../templating/filters.html" class="Page">    Template Filters</a></li>
+                
+                    
+                    <li class="toc--"><a href="../templating/tags.html" class="Page">       Template Tags</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">              Component Parts</h3></li>
+                    <li class="toc--"><a href="../parts/props.html" class="Page">           Props</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/script.html" class="Page">          Script</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/state.html" class="Page">           State</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/staticdata.html" class="Page">      StaticData</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/style.html" class="Page">           Style</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/template.html" class="Page">        Template</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">           Core Definitions</h3></li>
+                    <li class="toc--"><a href="../core/artifact.html" class="Page">         Artifact</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/component.html" class="Page">        Component</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/configuration.html" class="Page">    Configuration</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/contentlist.html" class="Page">      ContentList</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/include.html" class="Page">          Include</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/library.html" class="Page">          Library</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">  Extension</h3></li>
+                    <li class="toc--"><a href="../extension/engine.html" class="Page">      Upgrading Engines</a></li>
+                
+            </ul>
+        </nav>
+        <main class="page-container Page">
+            
+                
+                    
+                        <x-tableofcontents toc="[{&quot;match&quot;:&quot;&lt;h1 id=\&quot;rampingup\&quot;&gt;Ramping Up&lt;/h1&gt;&quot;,&quot;level&quot;:1,&quot;attrs&quot;:&quot;id=\&quot;rampingup\&quot;&quot;,&quot;title&quot;:&quot;Ramping Up&quot;,&quot;id&quot;:&quot;rampingup&quot;},{&quot;match&quot;:&quot;&lt;h5 id=\&quot;option1embedintemplate\&quot;&gt;Option 1: Embed in Template&lt;/h5&gt;&quot;,&quot;level&quot;:5,&quot;attrs&quot;:&quot;id=\&quot;option1embedintemplate\&quot;&quot;,&quot;title&quot;:&quot;Option 1: Embed in Template&quot;,&quot;id&quot;:&quot;option1embedintemplate&quot;},{&quot;match&quot;:&quot;&lt;h5 id=\&quot;option2loadafile\&quot;&gt;Option 2: Load a File&lt;/h5&gt;&quot;,&quot;level&quot;:5,&quot;attrs&quot;:&quot;id=\&quot;option2loadafile\&quot;&quot;,&quot;title&quot;:&quot;Option 2: Load a File&quot;,&quot;id&quot;:&quot;option2loadafile&quot;},{&quot;match&quot;:&quot;&lt;h5 id=\&quot;option3staticdirectorystructure\&quot;&gt;Option 3: Static Directory Structure&lt;/h5&gt;&quot;,&quot;level&quot;:5,&quot;attrs&quot;:&quot;id=\&quot;option3staticdirectorystructure\&quot;&quot;,&quot;title&quot;:&quot;Option 3: Static Directory Structure&quot;,&quot;id&quot;:&quot;option3staticdirectorystructure&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;htmltagsscriptandtemplate\&quot;&gt;HTML tags: Script and template&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;htmltagsscriptandtemplate\&quot;&quot;,&quot;title&quot;:&quot;HTML tags: Script and template&quot;,&quot;id&quot;:&quot;htmltagsscriptandtemplate&quot;},{&quot;match&quot;:&quot;&lt;h5 id=\&quot;example1incorrectcodeleakage\&quot;&gt;Example 1: Incorrect: Code \&quot;leakage\&quot;&lt;/h5&gt;&quot;,&quot;level&quot;:5,&quot;attrs&quot;:&quot;id=\&quot;example1incorrectcodeleakage\&quot;&quot;,&quot;title&quot;:&quot;Example 1: Incorrect: Code \&quot;leakage\&quot;&quot;,&quot;id&quot;:&quot;example1incorrectcodeleakage&quot;},{&quot;match&quot;:&quot;&lt;h5 id=\&quot;example2correctembeddedtemplatemodulotag\&quot;&gt;Example 2: Correct: Embedded \&quot;template Modulo\&quot; tag&lt;/h5&gt;&quot;,&quot;level&quot;:5,&quot;attrs&quot;:&quot;id=\&quot;example2correctembeddedtemplatemodulotag\&quot;&quot;,&quot;title&quot;:&quot;Example 2: Correct: Embedded \&quot;template Modulo\&quot; tag&quot;,&quot;id&quot;:&quot;example2correctembeddedtemplatemodulotag&quot;},{&quot;match&quot;:&quot;&lt;h1 id=\&quot;importingafile\&quot;&gt;Importing a file&lt;/h1&gt;&quot;,&quot;level&quot;:1,&quot;attrs&quot;:&quot;id=\&quot;importingafile\&quot;&quot;,&quot;title&quot;:&quot;Importing a file&quot;,&quot;id&quot;:&quot;importingafile&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;modulofileheader\&quot;&gt;Modulo File Header&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;modulofileheader\&quot;&quot;,&quot;title&quot;:&quot;Modulo File Header&quot;,&quot;id&quot;:&quot;modulofileheader&quot;},{&quot;match&quot;:&quot;&lt;h5 id=\&quot;example1modulohtml\&quot;&gt;Example 1: Modulo-HTML&lt;/h5&gt;&quot;,&quot;level&quot;:5,&quot;attrs&quot;:&quot;id=\&quot;example1modulohtml\&quot;&quot;,&quot;title&quot;:&quot;Example 1: Modulo-HTML&quot;,&quot;id&quot;:&quot;example1modulohtml&quot;},{&quot;match&quot;:&quot;&lt;h5 id=\&quot;example2csshtml\&quot;&gt;Example 2: CSS-HTML&lt;/h5&gt;&quot;,&quot;level&quot;:5,&quot;attrs&quot;:&quot;id=\&quot;example2csshtml\&quot;&quot;,&quot;title&quot;:&quot;Example 2: CSS-HTML&quot;,&quot;id&quot;:&quot;example2csshtml&quot;},{&quot;match&quot;:&quot;&lt;h5 id=\&quot;example3javascripthtml\&quot;&gt;Example 3: JavaScript-HTML&lt;/h5&gt;&quot;,&quot;level&quot;:5,&quot;attrs&quot;:&quot;id=\&quot;example3javascripthtml\&quot;&quot;,&quot;title&quot;:&quot;Example 3: JavaScript-HTML&quot;,&quot;id&quot;:&quot;example3javascripthtml&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;explicitstaticimport\&quot;&gt;Explicit static import&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;explicitstaticimport\&quot;&quot;,&quot;title&quot;:&quot;Explicit static import&quot;,&quot;id&quot;:&quot;explicitstaticimport&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;implicitstaticimport\&quot;&gt;Implicit static import&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;implicitstaticimport\&quot;&quot;,&quot;title&quot;:&quot;Implicit static import&quot;,&quot;id&quot;:&quot;implicitstaticimport&quot;},{&quot;match&quot;:&quot;&lt;h3 id=\&quot;deactivatingimplicitstaticimport\&quot;&gt;Deactivating implicit static import&lt;/h3&gt;&quot;,&quot;level&quot;:3,&quot;attrs&quot;:&quot;id=\&quot;deactivatingimplicitstaticimport\&quot;&quot;,&quot;title&quot;:&quot;Deactivating implicit static import&quot;,&quot;id&quot;:&quot;deactivatingimplicitstaticimport&quot;},{&quot;match&quot;:&quot;&lt;h1 id=\&quot;troubleshooting\&quot;&gt;Troubleshooting&lt;/h1&gt;&quot;,&quot;level&quot;:1,&quot;attrs&quot;:&quot;id=\&quot;troubleshooting\&quot;&quot;,&quot;title&quot;:&quot;Troubleshooting&quot;,&quot;id&quot;:&quot;troubleshooting&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;extensionsnosniffandmimetypes\&quot;&gt;Extensions, \&quot;nosniff\&quot;, and mime-types&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;extensionsnosniffandmimetypes\&quot;&quot;,&quot;title&quot;:&quot;Extensions, \&quot;nosniff\&quot;, and mime-types&quot;,&quot;id&quot;:&quot;extensionsnosniffandmimetypes&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;fileheadersunicodeandquirksmode\&quot;&gt;File headers: Unicode and Quirks Mode&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;fileheadersunicodeandquirksmode\&quot;&quot;,&quot;title&quot;:&quot;File headers: Unicode and Quirks Mode&quot;,&quot;id&quot;:&quot;fileheadersunicodeandquirksmode&quot;},{&quot;match&quot;:&quot;&lt;h5 id=\&quot;bug1warningsgalore\&quot;&gt;BUG #1: \&quot;Warnings Galore!\&quot;&lt;/h5&gt;&quot;,&quot;level&quot;:5,&quot;attrs&quot;:&quot;id=\&quot;bug1warningsgalore\&quot;&quot;,&quot;title&quot;:&quot;BUG #1: \&quot;Warnings Galore!\&quot;&quot;,&quot;id&quot;:&quot;bug1warningsgalore&quot;},{&quot;match&quot;:&quot;&lt;h5 id=\&quot;bug2whathavetheydonetomybeautifullogo\&quot;&gt;BUG #2: \&quot;What have they done to my beautiful logo!\&quot;&lt;/h5&gt;&quot;,&quot;level&quot;:5,&quot;attrs&quot;:&quot;id=\&quot;bug2whathavetheydonetomybeautifullogo\&quot;&quot;,&quot;title&quot;:&quot;BUG #2: \&quot;What have they done to my beautiful logo!\&quot;&quot;,&quot;id&quot;:&quot;bug2whathavetheydonetomybeautifullogo&quot;},{&quot;match&quot;:&quot;&lt;h3 id=\&quot;solutions\&quot;&gt;Solutions&lt;/h3&gt;&quot;,&quot;level&quot;:3,&quot;attrs&quot;:&quot;id=\&quot;solutions\&quot;&quot;,&quot;title&quot;:&quot;Solutions&quot;,&quot;id&quot;:&quot;solutions&quot;},{&quot;match&quot;:&quot;&lt;h5 id=\&quot;soultion1highlycompatiblemarkdownhtml\&quot;&gt;Soultion 1: Highly Compatible Markdown-HTML&lt;/h5&gt;&quot;,&quot;level&quot;:5,&quot;attrs&quot;:&quot;id=\&quot;soultion1highlycompatiblemarkdownhtml\&quot;&quot;,&quot;title&quot;:&quot;Soultion 1: Highly Compatible Markdown-HTML&quot;,&quot;id&quot;:&quot;soultion1highlycompatiblemarkdownhtml&quot;},{&quot;match&quot;:&quot;&lt;h5 id=\&quot;solution2highlycompatiblehtmlfragments\&quot;&gt;Solution 2: Highly Compatible HTML fragments&lt;/h5&gt;&quot;,&quot;level&quot;:5,&quot;attrs&quot;:&quot;id=\&quot;solution2highlycompatiblehtmlfragments\&quot;&quot;,&quot;title&quot;:&quot;Solution 2: Highly Compatible HTML fragments&quot;,&quot;id&quot;:&quot;solution2highlycompatiblehtmlfragments&quot;}]" modulo-mount-html=""><nav class="regular&quot;=&quot;">
+        <div> </div>
+        <div>
+            <div>
+                <label>[ <input name="show" type="checkbox"> Table of Contents ]</label>
+                <label title="Stick to upper right">[ <span alt="upper right arrow">↗</span>
+                    <input name="sticky" type="checkbox"> ]</label>
+            </div>
+            
+                <ul>
+                    
+                        
+                            <li style="--level: 1">
+                                    <a href="#rampingup">Ramping Up</a>
+                            </li>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#htmltagsscriptandtemplate">HTML tags: Script and template</a>
+                            </li>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <li style="--level: 1">
+                                    <a href="#importingafile">Importing a file</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#modulofileheader">Modulo File Header</a>
+                            </li>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#explicitstaticimport">Explicit static import</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#implicitstaticimport">Implicit static import</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 3">
+                                    <a href="#deactivatingimplicitstaticimport">Deactivating implicit static import</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 1">
+                                    <a href="#troubleshooting">Troubleshooting</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#extensionsnosniffandmimetypes">Extensions, "nosniff", and mime-types</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#fileheadersunicodeandquirksmode">File headers: Unicode and Quirks Mode</a>
+                            </li>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <li style="--level: 3">
+                                    <a href="#solutions">Solutions</a>
+                            </li>
+                        
+                    
+                        
+                    
+                        
+                    
+                </ul>
+            
+        </div>
+    </nav></x-tableofcontents>
+                    
+                    <div class="markdown-body"><blockquote>
+  <p><strong>Ramping Up vs Greenfielding</strong> - Consider for a moment: Are you
+  "greenfielding" a project (for example, starting a new site from scratch), as
+  opposed to integrating or embedding Modulo into an
+  existing web application (e.g. "brownfielding")? If you are "greenfielding", then it's
+  probably easiest to start with a starter. For example, the Modulo Starter and
+  Docs Starter ZIP files both have the <code>static/index.html</code> and
+  <code>static/components/index.html</code> correctly set-up.  However, if you are "Ramping
+  Up" an integration into an existing project, then consider these options.</p>
+</blockquote>
+<h1 id="rampingup">Ramping Up</h1>
+<p>You'll soon "outgrow" an embedded script tag as you develop components beyond
+simple, one-off components on a single page. Modulo recommends several options to
+"ramp up" in complexity.</p>
+<h5 id="option1embedintemplate">Option 1: Embed in Template</h5>
+<p>Modulo supports private Script Tags, which it calls the <a href="../cparts/script.html">Script Component
+Part</a>. To use those in an embedded page and prevent the
+browser from automatically running them globally,  you'll need to use the
+template tag as a container instead:</p><x-quickdemo mode="modulo" value="&lt;template Modulo&gt;
+    &lt;Component name=&quot;GreetYear&quot;&gt;
+        &lt;Template&gt;Hello {{ script.year }}!&lt;/Template&gt;
+        &lt;Script&gt;
+            // This script tag is &quot;private&quot; to the component
+            const year = new Date().getYear()
+            function prepareCallback() {
+                return { year }
+            }
+        &lt;/Script&gt;
+&lt;/template&gt;
+&lt;script src=http://modu.lol&gt;&lt;/script&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+        
+            <x-syntaxhighlighter mode="modulo" value="&lt;template Modulo&gt;
+    &lt;Component name=&quot;GreetYear&quot;&gt;
+        &lt;Template&gt;Hello {{ script.year }}!&lt;/Template&gt;
+        &lt;Script&gt;
+            // This script tag is &quot;private&quot; to the component
+            const year = new Date().getYear()
+            function prepareCallback() {
+                return { year }
+            }
+        &lt;/Script&gt;
+&lt;/template&gt;
+&lt;script src=http://modu.lol&gt;&lt;/script&gt;
+" style="font-size: 18px" modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-modulo-deftype-attr">Modulo</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Component</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"GreetYear"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>Hello </span><span class="hljs-template-variable">{{ script.year }}</span><span class="language-xml">!<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Script</span>&gt;</span><span class="language-javascript">
+            <span class="hljs-comment">// This script tag is "private" to the component</span>
+            <span class="hljs-keyword">const</span> year = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>().<span class="hljs-title function_">getYear</span>()
+            <span class="hljs-keyword">function</span> <span class="hljs-title function_">prepareCallback</span>(<span class="hljs-params"></span>) {
+                <span class="hljs-keyword">return</span> { year }
+            }
+        </span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-modulo-attr-value">http://modu.lol</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</span></x-syntaxhighlighter>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             toolbar--snippet">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+            
+        </div>
+        
+    </div>
+    <div class="overlay"></div></x-quickdemo>
+<h5 id="option2loadafile">Option 2: Load a File</h5>
+<p>Much like CSS being separated and brought in using a <code>&lt;link&gt;</code> tag, it's best to
+put our <code>&lt;Component&gt;</code> definitions into a separate file, and then bring them in
+using Modulo's special <code>-src=</code> attribute, that loads from another file. For
+example, it might be called "modulo-component-library.html":</p><x-quickdemo mode="modulo" value="&lt;script Modulo
+     src=&quot;//modu.lol&quot;
+     -src=&quot;./modulo-component-library.html&quot;
+&gt;&lt;/script&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+        
+            <x-syntaxhighlighter mode="modulo" value="&lt;script Modulo
+     src=&quot;//modu.lol&quot;
+     -src=&quot;./modulo-component-library.html&quot;
+&gt;&lt;/script&gt;
+" style="font-size: 18px" modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-modulo-deftype-attr">Modulo</span>
+     <span class="hljs-attr">src</span>=<span class="hljs-string">"//modu.lol"</span>
+     <span class="hljs-modulo-defprocessor">-src</span>=<span class="hljs-string">"./modulo-component-library.html"</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</span></x-syntaxhighlighter>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             toolbar--snippet">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+            
+        </div>
+        
+    </div>
+    <div class="overlay"></div></x-quickdemo>
+<p><em>Note:</em> If you are only using <code>http</code> or <code>https</code>, you can use <code>src=//modu.lol</code>
+instead.</p>
+<h5 id="option3staticdirectorystructure">Option 3: Static Directory Structure</h5>
+<p>If you put your definitions in a <code>static/</code> directory, along with being sure to
+save a local copy of <code>Modulo.html</code> for this project, it makes it easier to edit
+and share component code between pages.  Here's an example of how we can modify
+the tag above to reference <code>Modulo.html</code>:</p><x-quickdemo mode="modulo" value="&lt;script Modulo src=&quot;static/Modulo.html&quot; -src=&quot;static/&quot;&gt;&lt;/script&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+        
+            <x-syntaxhighlighter mode="modulo" value="&lt;script Modulo src=&quot;static/Modulo.html&quot; -src=&quot;static/&quot;&gt;&lt;/script&gt;
+" style="font-size: 18px" modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-modulo-deftype-attr">Modulo</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"static/Modulo.html"</span> <span class="hljs-modulo-defprocessor">-src</span>=<span class="hljs-string">"static/"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</span></x-syntaxhighlighter>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             toolbar--snippet">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+            
+        </div>
+        
+    </div>
+    <div class="overlay"></div></x-quickdemo>
+<p>The <code>static/index.html</code> file, in turn, can serve as a "component library".
+Inside of <code>static/index.html</code>, we can put:</p><x-quickdemo mode="modulo" value="&lt;script src=Modulo.html&gt;&lt;/script&gt;&lt;script File type=txt&gt;
+&lt;!-- My new component: Greet --&gt;
+&lt;Component name=&quot;Greet&quot;&gt;
+    &lt;Template&gt;
+        &lt;h2&gt;Hey there, &lt;slot&gt;&lt;/slot&gt;!&lt;/h2&gt;
+    &lt;/Template&gt;
+&lt;/Component&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+        
+            <x-syntaxhighlighter mode="modulo" value="&lt;script src=Modulo.html&gt;&lt;/script&gt;&lt;script File type=txt&gt;
+&lt;!-- My new component: Greet --&gt;
+&lt;Component name=&quot;Greet&quot;&gt;
+    &lt;Template&gt;
+        &lt;h2&gt;Hey there, &lt;slot&gt;&lt;/slot&gt;!&lt;/h2&gt;
+    &lt;/Template&gt;
+&lt;/Component&gt;
+" style="font-size: 18px" modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-modulo-attr-value">Modulo.html</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-modulo-deftype-attr">File</span> <span class="hljs-attr">type</span>=<span class="hljs-modulo-attr-value">txt</span>&gt;</span><span class="language-xml">
+<span class="hljs-comment">&lt;!-- My new component: Greet --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Component</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"Greet"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Hey there, <span class="hljs-tag">&lt;<span class="hljs-name">slot</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">slot</span>&gt;</span>!<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Component</span>&gt;</span>
+</span></span></x-syntaxhighlighter>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             toolbar--snippet">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+            
+        </div>
+        
+    </div>
+    <div class="overlay"></div></x-quickdemo>
+<blockquote>
+  <p><strong>Boot-Up Logic</strong> - Modulo will search in 4 steps for top-level definitions:
+  <em>(Step 1)</em> First, <code>&lt;head&gt;...</code> - Modulo searches children of the head element,
+  and execute definitions synchronously, blocking, and before the page is done
+  loading, with the document still open for writing. <em>(Step 2)</em> Load own dev
+  library and default tools. <em>(Step 3)</em> Wait for <code>DOMContentReady</code>, then
+  implicit static import happens along with default content viewer setup.
+  <em>(Step 4)</em>  Finally, <code>&lt;body&gt;</code> - load children of the body element,
+  asynchronously.</p>
+</blockquote>
+<h2 id="htmltagsscriptandtemplate">HTML tags: Script and template</h2>
+<p>Understanding the special HTML behavior of <code>&lt;script&gt;</code> and <code>&lt;template&gt;</code> tags is
+important, since HTML treats these tags differently. Using the wrong tag can
+cause syntax-related errors (in the case of accidentally closing a <code>&lt;script&gt;</code>
+tag) or accidentaly "leakage" (global execution) of code. For a demonstration
+of this behavior, see the following two examples of correct and incorrect ways
+to include Modulo components in an HTML page:</p>
+<h5 id="example1incorrectcodeleakage">Example 1: Incorrect: Code "leakage"</h5><x-quickdemo mode="modulo" demo="html_demo" value="&lt;head&gt;
+&lt;title&gt;Lorem Ipsum&lt;/title&gt;
+&lt;Modulo&gt;
+    &lt;Component mode=vanish name=App&gt;
+        &lt;Template&gt;&lt;p&gt;INSIDE APP: Should be red&lt;/p&gt;&lt;/Template&gt;
+        &lt;!-- INCORRECT: These tags &quot;leak&quot;:
+             Everything is red, and window.myVar === true --&gt;
+        &lt;Script&gt;var myVar = true&lt;/Script&gt;
+        &lt;Style&gt;* { color: red }&lt;/Style&gt;
+    &lt;/Component&gt;
+&lt;/Modulo&gt;
+&lt;script src=../static/Modulo.html&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;p&gt;Not red (outside App).&lt;/p&gt;
+&lt;x-App&gt;&lt;/x-App&gt;
+&lt;/body&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;head&gt;
+&lt;title&gt;Lorem Ipsum&lt;/title&gt;
+&lt;Modulo&gt;
+    &lt;Component mode=vanish name=App&gt;
+        &lt;Template&gt;&lt;p&gt;INSIDE APP: Should be red&lt;/p&gt;&lt;/Template&gt;
+        &lt;!-- INCORRECT: These tags &quot;leak&quot;:
+             Everything is red, and window.myVar === true --&gt;
+        &lt;Script&gt;var myVar = true&lt;/Script&gt;
+        &lt;Style&gt;* { color: red }&lt;/Style&gt;
+    &lt;/Component&gt;
+&lt;/Modulo&gt;
+&lt;script src=../static/Modulo.html&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;p&gt;Not red (outside App).&lt;/p&gt;
+&lt;x-App&gt;&lt;/x-App&gt;
+&lt;/body&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Lorem Ipsum<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Modulo</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Component</span> <span class="hljs-attr">mode</span>=<span class="hljs-modulo-attr-value">vanish</span> <span class="hljs-attr">name</span>=<span class="hljs-modulo-attr-value">App</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>INSIDE APP: Should be red<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+        <span class="hljs-comment">&lt;!-- INCORRECT: These tags "leak":
+             Everything is red, and window.myVar === true --&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Script</span>&gt;</span><span class="language-javascript"><span class="hljs-keyword">var</span> myVar = <span class="hljs-literal">true</span></span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Script</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Style</span>&gt;</span><span class="language-css">* { <span class="hljs-attribute">color</span>: red }</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Style</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Component</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Modulo</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">../static/Modulo.html</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Not red (outside App).<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-component-tag">x-App</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-component-tag">x-App</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h5 id="example2correctembeddedtemplatemodulotag">Example 2: Correct: Embedded "template Modulo" tag</h5><x-quickdemo mode="modulo" demo="html_demo" value="&lt;head&gt;
+&lt;title&gt;Lorem Ipsum&lt;/title&gt;
+&lt;template Modulo&gt;
+    &lt;Component mode=vanish name=App&gt;
+        &lt;Template&gt;&lt;p&gt;INSIDE APP: Should be red&lt;/p&gt;&lt;/Template&gt;
+        &lt;!-- No leakage, since &quot;template&quot; doesn't run: --&gt;
+        &lt;Script&gt;var myVar = true&lt;/Script&gt;
+        &lt;Style&gt;* { color: red }&lt;/Style&gt;
+    &lt;/Component&gt;
+&lt;/template&gt;
+&lt;script src=../static/Modulo.html&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;p&gt;Not red (outside App).&lt;/p&gt;
+&lt;x-App&gt;&lt;/x-App&gt;
+&lt;/body&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;head&gt;
+&lt;title&gt;Lorem Ipsum&lt;/title&gt;
+&lt;template Modulo&gt;
+    &lt;Component mode=vanish name=App&gt;
+        &lt;Template&gt;&lt;p&gt;INSIDE APP: Should be red&lt;/p&gt;&lt;/Template&gt;
+        &lt;!-- No leakage, since &quot;template&quot; doesn't run: --&gt;
+        &lt;Script&gt;var myVar = true&lt;/Script&gt;
+        &lt;Style&gt;* { color: red }&lt;/Style&gt;
+    &lt;/Component&gt;
+&lt;/template&gt;
+&lt;script src=../static/Modulo.html&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;p&gt;Not red (outside App).&lt;/p&gt;
+&lt;x-App&gt;&lt;/x-App&gt;
+&lt;/body&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Lorem Ipsum<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-modulo-deftype-attr">Modulo</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Component</span> <span class="hljs-attr">mode</span>=<span class="hljs-modulo-attr-value">vanish</span> <span class="hljs-attr">name</span>=<span class="hljs-modulo-attr-value">App</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>INSIDE APP: Should be red<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+        <span class="hljs-comment">&lt;!-- No leakage, since "template" doesn't run: --&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Script</span>&gt;</span><span class="language-javascript"><span class="hljs-keyword">var</span> myVar = <span class="hljs-literal">true</span></span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Script</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Style</span>&gt;</span><span class="language-css">* { <span class="hljs-attribute">color</span>: red }</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Style</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Component</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">../static/Modulo.html</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Not red (outside App).<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-component-tag">x-App</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-component-tag">x-App</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<blockquote>
+  <p><strong>Why iframes? Why not fetch / JSONP?</strong> - Modulo will use <em>fetch</em> while on
+  HTTP(S), but for it to work seemlessly over the restricted <code>file:///</code> scheme,
+  it uses a "hack" where files of any type can be treated as a HTML file and
+  loaded using an iframe. While far from ideal, the only other "hack" is JSONP,
+  which is even more difficult to edit by hand, and offers few advantages over
+  iframe, and thus was cut as an option.</p>
+</blockquote>
+<h1 id="importingafile">Importing a file</h1>
+<p>Components can either go directly embedded into a <code>&lt;Modulo&gt;</code> definitions for
+quick, one-off JavaScript (what we've mostly seen so far), or in the form of
+<code>&lt;Modulo -src="lib.html"&gt;...</code> to load separate HTML file(s) containing your
+components.  You can do this as many times as you want.</p>
+<h2 id="modulofileheader">Modulo File Header</h2>
+<blockquote>
+  <p><strong>Using the file header "hack"</strong> - While it is cumbersome to rename files to
+  <code>.htm</code> and add these comments at top, at last there is no need for a closing
+  tag so only the top of the file needs this special comment, and that Modulo
+  uses this relative path for importing as well (see <em>Implicit static import</em>
+  below).  Finally, stylistic purposes, consider using <code>.css.htm</code> or <code>.js.htm</code>
+  as a convention, while actual HTML files can still just use <code>.html</code>.</p>
+</blockquote>
+<p>When using <code>http(s)</code>, Modulo loads files using <code>fetch</code> (like other frameworks),
+but if you are working locally over <code>file</code>, Modulo uses an iframe technique
+that requires you to follow two rules: 1) Add a header (below) and <code>.htm</code>
+extension to every file you bundle with <code>-src=</code> or <code>&lt;Include&gt;</code>, and
+2) Avoid using a closing <code>&lt;-script&gt;</code> tag if you have an openeing one at top,
+   since that will terminate the "loading" mechanism (this is usually only an
+issue if you happen to be writing documentation for something HTML related).</p>
+<p>As long as you follow this convention for file type headers, Modulo will be
+able to load them in an identical manner over any protocol.  Furthermore, since
+the HTML is contained in a comment, they remain valid CSS or JS, so they can be
+included with <code>&lt;script&gt;</code> and <code>&lt;link&gt;</code> tags as well.</p>
+<h5 id="example1modulohtml">Example 1: Modulo-HTML</h5>
+<p><code>static/index.html</code> <em>(Example)</em></p><x-quickdemo mode="html" value="&lt;script src=Modulo.html&gt;&lt;/script&gt;&lt;template type=f&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+        
+            <x-syntaxhighlighter mode="html" value="&lt;script src=Modulo.html&gt;&lt;/script&gt;&lt;template type=f&gt;
+" style="font-size: 18px" modulo-mount-html=""><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">Modulo.html</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">type</span>=<span class="hljs-string">f</span>&gt;</span>
+</x-syntaxhighlighter>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             toolbar--snippet">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+            
+        </div>
+        
+    </div>
+    <div class="overlay"></div></x-quickdemo>
+<h5 id="example2csshtml">Example 2: CSS-HTML</h5>
+<p><code>static/css/my-styles.css.htm</code> <em>(Example)</em></p><x-quickdemo mode="html" value="/* &lt;script src=../Modulo.html&gt;&lt;/script&gt;&lt;style type=f&gt; */
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+        
+            <x-syntaxhighlighter mode="html" value="/* &lt;script src=../Modulo.html&gt;&lt;/script&gt;&lt;style type=f&gt; */
+" style="font-size: 18px" modulo-mount-html="">/* <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">../Modulo.html</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">type</span>=<span class="hljs-string">f</span>&gt;</span> */
+</x-syntaxhighlighter>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             toolbar--snippet">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+            
+        </div>
+        
+    </div>
+    <div class="overlay"></div></x-quickdemo>
+<h5 id="example3javascripthtml">Example 3: JavaScript-HTML</h5>
+<p><code>static/js/main.js.htm</code> <em>(Example)</em></p><x-quickdemo mode="html" value="/* &lt;script src=../Modulo.html&gt;&lt;/script&gt;&lt;script type=f&gt; */
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+        
+            <x-syntaxhighlighter mode="html" value="/* &lt;script src=../Modulo.html&gt;&lt;/script&gt;&lt;script type=f&gt; */
+" style="font-size: 18px" modulo-mount-html="">/* <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">../Modulo.html</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">f</span>&gt;</span> */
+</x-syntaxhighlighter>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             toolbar--snippet">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+            
+        </div>
+        
+    </div>
+    <div class="overlay"></div></x-quickdemo>
+<blockquote>
+  <p><strong>What goes in static?</strong>  In other frameworks, this is sometimes called
+  <code>public/</code> or <code>assets/</code>. Regardless, it consists of all of the static assets
+  that are required to build your site. <em>Components</em>, <em>Core Definitions</em>, as
+  well as CSS, JS, and image assets should go in a <code>static/</code> directory.  HTML
+  routes live outside.</p>
+</blockquote>
+<h2 id="explicitstaticimport">Explicit static import</h2>
+<p>Modulo expects a directory at the root of your project called <code>static/</code>.  The
+first file loaded is <code>static/index.html</code>.  With the default configuration,
+Modulo expects all of your project's dependencies to live in this directory.</p>
+<p>In order to simplify the top of your HTML files, you can include Modulo and
+import static in one simple tag:</p><x-quickdemo mode="modulo" value="&lt;script Modulo src=&quot;./static/Modulo.html&quot; -src=&quot;./static/&quot;&gt;&lt;/script&gt;
+
+&lt;x-Page&gt;&lt;/x-Page&gt;&lt;!-- etc --&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+        
+            <x-syntaxhighlighter mode="modulo" value="&lt;script Modulo src=&quot;./static/Modulo.html&quot; -src=&quot;./static/&quot;&gt;&lt;/script&gt;
+
+&lt;x-Page&gt;&lt;/x-Page&gt;&lt;!-- etc --&gt;
+" style="font-size: 18px" modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-modulo-deftype-attr">Modulo</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"./static/Modulo.html"</span> <span class="hljs-modulo-defprocessor">-src</span>=<span class="hljs-string">"./static/"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-component-tag">x-Page</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-component-tag">x-Page</span>&gt;</span><span class="hljs-comment">&lt;!-- etc --&gt;</span>
+</span></x-syntaxhighlighter>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             toolbar--snippet">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+            
+        </div>
+        
+    </div>
+    <div class="overlay"></div></x-quickdemo>
+<h2 id="implicitstaticimport">Implicit static import</h2>
+<p><strong>All you need is Modulo.html:</strong> In order to make the top of your HTML files as
+simple and elegant as possible, all you need to do is place <code>Modulo.html</code> in
+a <code>static/</code> directory ("folder"), and then not attempt define any Modulo
+definitions at all in that file. Then, Modulo will automatically attempt to
+<em>implicitly</em> import <code>static/index.html</code>. This also works for a subdirectory:
+<code>static/js/Modulo.js</code> for example will still import <code>static/index.html</code>.</p>
+<p>See below for an example that imports <em>Modulo Docs</em> static directory itself:</p><x-quickdemo mode="modulo" demo="html_demo" value="&lt;script src=../static/Modulo.html&gt;&lt;/script&gt;
+
+&lt;!-- Implicitly adds: &lt;Modulo -src=&quot;../static/index.html&quot;&gt;&lt;/Modulo&gt; --&gt;
+
+&lt;x-Page&gt;
+    &lt;h1&gt;Example page&lt;/h1&gt;
+    &lt;p&gt;Lorem ipsum.&lt;/p&gt;
+&lt;/x-Page&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;script src=../static/Modulo.html&gt;&lt;/script&gt;
+
+&lt;!-- Implicitly adds: &lt;Modulo -src=&quot;../static/index.html&quot;&gt;&lt;/Modulo&gt; --&gt;
+
+&lt;x-Page&gt;
+    &lt;h1&gt;Example page&lt;/h1&gt;
+    &lt;p&gt;Lorem ipsum.&lt;/p&gt;
+&lt;/x-Page&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">../static/Modulo.html</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!-- Implicitly adds: &lt;Modulo -src="../static/index.html"&gt;&lt;/Modulo&gt; --&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-component-tag">x-Page</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Example page<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Lorem ipsum.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-component-tag">x-Page</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h3 id="deactivatingimplicitstaticimport">Deactivating implicit static import</h3>
+<p>If you don't want this to happen, be sure to add an explicit embedded <code>Modulo</code>
+tag as a tag name or as the first attribute of a tag. <strong>This will deactivate
+the implicit import feature.</strong></p><x-quickdemo mode="modulo" value="&lt;script Modulo src=../static/Modulo.html&gt;&lt;/script&gt;
+&lt;!-- No import... -&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+        
+            <x-syntaxhighlighter mode="modulo" value="&lt;script Modulo src=../static/Modulo.html&gt;&lt;/script&gt;
+&lt;!-- No import... -&gt;
+" style="font-size: 18px" modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-modulo-deftype-attr">Modulo</span> <span class="hljs-attr">src</span>=<span class="hljs-string">../static/Modulo.html</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-comment">&lt;!-- No import... -&gt;
+</span></span></x-syntaxhighlighter>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             toolbar--snippet">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+            
+        </div>
+        
+    </div>
+    <div class="overlay"></div></x-quickdemo>
+<h1 id="troubleshooting">Troubleshooting</h1>
+<p>Browsers with <code>file:</code> protocol will <em>only</em> load frames if they have the <code>.htm</code>
+or <code>.html</code> extension. This means that to keep identical file and http support,
+you will need to follow several guideliness to keep things loading the same on
+<code>file</code> as with <code>http</code>.</p>
+<h2 id="extensionsnosniffandmimetypes">Extensions, "nosniff", and mime-types</h2>
+<p><strong>Aka, what's in a name? Modulo.html vs Modulo.js</strong></p>
+<p>Modulo is one file, but it can be re-named to several extensions: <code>.html</code>
+(becomes the help page when viewed), <code>.js</code> (a valid JS file that sets up
+Modulo), and <code>.md</code> (version info in a particular Markdown meta syntax). In
+general, <code>.html</code> is preferred: It is able to load its own source code when you
+run <em>build</em>, even if it's being viewed locally over <code>file</code>.  However, some
+<code>http</code> dev servers are configured to send <code>.html</code> and <code>.js</code> with "nosniff"
+headers and guessed mime-types. This means that only <code>Modulo.js</code> will work, if
+you cannot reconfigure your dev server. Ultimately, which extension you use
+depends on your target dev setup.</p>
+<h2 id="fileheadersunicodeandquirksmode">File headers: Unicode and Quirks Mode</h2>
+<p>This section contains troubleshooting tips for Quirks Mode and Webkit Unicode
+Support.</p>
+<h5 id="bug1warningsgalore">BUG #1: "Warnings Galore!"</h5>
+<p>Are you getting many warnings with text like what's listed below?  <strong>As long as
+you are only getting them during develpoment, and they do not affect your app,
+then they are probably safe to ignore.</strong></p>
+<p>See the following warnings:</p><x-quickdemo mode="modulo" value="Page layout may be unexpected due to Quirks Mode
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+        
+            <x-syntaxhighlighter mode="modulo" value="Page layout may be unexpected due to Quirks Mode
+" style="font-size: 18px" modulo-mount-html=""><span class="language-xml">Page layout may be unexpected due to Quirks Mode
+</span></x-syntaxhighlighter>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             toolbar--snippet">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+            
+        </div>
+        
+    </div>
+    <div class="overlay"></div></x-quickdemo>
+<x-quickdemo mode="modulo" value="This page is in Quirks Mode. Page layout may be impacted. For Standards Mode use “&lt;!DOCTYPE html&gt;”.
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+        
+            <x-syntaxhighlighter mode="modulo" value="This page is in Quirks Mode. Page layout may be impacted. For Standards Mode use “&lt;!DOCTYPE html&gt;”.
+" style="font-size: 18px" modulo-mount-html=""><span class="language-xml">This page is in Quirks Mode. Page layout may be impacted. For Standards Mode use “<span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>”.
+</span></x-syntaxhighlighter>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             toolbar--snippet">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+            
+        </div>
+        
+    </div>
+    <div class="overlay"></div></x-quickdemo>
+<x-quickdemo mode="modulo" value="The character encoding of a framed document was not declared. The document may appear different if viewed without the document framing it.
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+        
+            <x-syntaxhighlighter mode="modulo" value="The character encoding of a framed document was not declared. The document may appear different if viewed without the document framing it.
+" style="font-size: 18px" modulo-mount-html=""><span class="language-xml">The character encoding of a framed document was not declared. The document may appear different if viewed without the document framing it.
+</span></x-syntaxhighlighter>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             toolbar--snippet">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+            
+        </div>
+        
+    </div>
+    <div class="overlay"></div></x-quickdemo>
+<p><strong>Quirks Mode:</strong> In this guide, little is discussed around <em>QuirksMode</em>. In most
+cases, this shouldn't make a difference: Websites will display almost
+identically. However, without a doctype, your content files may prview
+differently than the final files you produce when building. In this case,
+simply add a doctype to your header (Modulo will correctly ignore this too when
+loading). Note that unlike unicode, this only affects pages you directly view
+during development, although it can generate annoying warnings on other pages.</p>
+<p><strong>Developing Using Webkit (<em>Apple Safari</em>, <em>GNOME Web</em>):</strong> In some cases, you
+can get unicode loading issues in Webkit-based browsers such as Safari or GNOME
+Web. To fix this, ensure "utf8" is set on all HTML documents that contain
+unicode characters by adding a meta tag (Modulo will correctly ignore this too
+when loading).</p>
+<h5 id="bug2whathavetheydonetomybeautifullogo">BUG #2: "What have they done to my beautiful logo!"</h5>
+<p>To illustrate the second bug, here is the same text being rendered in Firefox
+vs Webkit (Konquer / Epiphany / Safari):</p><x-quickdemo mode="modulo" value="(Firefox)  (Safari)
+🔥         ðŸ”¥
+
+(Firefox)  (Safari)
+ᵐ°dᵘ⁄o     áµ�Â°dáµ˜â�„o
+
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+        
+            <x-syntaxhighlighter mode="modulo" value="(Firefox)  (Safari)
+🔥         ðŸ”¥
+
+(Firefox)  (Safari)
+ᵐ°dᵘ⁄o     áµ�Â°dáµ˜â�„o
+
+" style="font-size: 18px" modulo-mount-html=""><span class="language-xml">(Firefox)  (Safari)
+🔥         ðŸ”¥
+
+(Firefox)  (Safari)
+ᵐ°dᵘ⁄o     áµ�Â°dáµ˜â�„o
+
+</span></x-syntaxhighlighter>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             toolbar--snippet">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+            
+        </div>
+        
+    </div>
+    <div class="overlay"></div></x-quickdemo>
+<p>See how the "modulo" logo is completely destroyed? The only remaining
+characters are "°" (degree sign), "d", and "o", since those are in the
+plain-text base range. However, the other symbols are all extended unicode, and
+thus get misread as separate code points.</p>
+<p><strong>If you are having unicode issues while developing with Webkit, then keep on
+reading!</strong> However, note that if you are correctly building your site before
+launching, this should not be an issue on production, since you should always
+have your UTF8 meta set in final HTML files, and no HTML loading will be done.</p>
+<h3 id="solutions">Solutions</h3>
+<h5 id="soultion1highlycompatiblemarkdownhtml">Soultion 1: Highly Compatible Markdown-HTML</h5>
+<p><code>my-page.html</code> <em>(Example)</em></p><x-quickdemo mode="html" value="&lt;!DOCTYPE html&gt;&lt;meta charset=utf8&gt;&lt;script src=static/Modulo.html&gt;&lt;/script&gt;&lt;template type=f&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+        
+            <x-syntaxhighlighter mode="html" value="&lt;!DOCTYPE html&gt;&lt;meta charset=utf8&gt;&lt;script src=static/Modulo.html&gt;&lt;/script&gt;&lt;template type=f&gt;
+" style="font-size: 18px" modulo-mount-html=""><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">utf8</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">static/Modulo.html</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">type</span>=<span class="hljs-string">f</span>&gt;</span>
+</x-syntaxhighlighter>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             toolbar--snippet">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+            
+        </div>
+        
+    </div>
+    <div class="overlay"></div></x-quickdemo>
+<h5 id="solution2highlycompatiblehtmlfragments">Solution 2: Highly Compatible HTML fragments</h5>
+<p><code>static/content-data/product_info_1.html</code> <em>(Example)</em></p><x-quickdemo mode="html" value="&lt;meta charset=utf8&gt;&lt;script src=../Modulo.html&gt;&lt;/script&gt;&lt;template type=f&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+        
+            <x-syntaxhighlighter mode="html" value="&lt;meta charset=utf8&gt;&lt;script src=../Modulo.html&gt;&lt;/script&gt;&lt;template type=f&gt;
+" style="font-size: 18px" modulo-mount-html=""><span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">utf8</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">../Modulo.html</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">type</span>=<span class="hljs-string">f</span>&gt;</span>
+</x-syntaxhighlighter>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             toolbar--snippet">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+            
+        </div>
+        
+    </div>
+    <div class="overlay"></div></x-quickdemo>
+</div>
+                
+            
+        </main>
+    </div>
+            
+        </body>
+    </html>

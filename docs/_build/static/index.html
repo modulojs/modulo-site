@@ -1,0 +1,165 @@
+<script src=Modulo.html></script><template type=f>
+
+<!-- All content files must be listed here, in a comma-separated format:
+(File path),                (Title),            (New section title)      -->
+<ContentList>
+start/index.html,           Introduction,       Modulo
+start/getting-started.html, Getting Started
+defs/overview.html,         Overview,           Definitions
+defs/importing.html,        Importing
+defs/definitions.html,      Definition Types
+defs/processors.html,       Processors
+defs/custom.html,           Custom Types
+templating/index.html,      Language Overview,  Templating
+templating/filters.html,    Template Filters
+templating/tags.html,       Template Tags
+parts/props.html,           Props,              Component Parts
+parts/script.html,          Script
+parts/state.html,           State
+parts/staticdata.html,      StaticData
+parts/style.html,           Style
+parts/template.html,        Template
+core/artifact.html,         Artifact,           Core Definitions
+core/component.html,        Component
+core/configuration.html,    Configuration
+core/contentlist.html,      ContentList
+core/include.html,          Include
+core/library.html,          Library
+extension/engine.html,      Upgrading Engines,  Extension
+</ContentList>
+
+<!-- until i can make builds more dependable, broke down into sections: -->
+<ContentList build=buildpartial command="build1">
+index.html
+start/index.html
+start/getting-started.html
+defs/overview.html
+defs/importing.html
+defs/definitions.html
+defs/processors.html
+defs/custom.html
+</ContentList>
+
+<ContentList build=buildpartial command="build2">
+parts/props.html
+parts/script.html
+parts/state.html
+parts/staticdata.html
+parts/style.html
+parts/template.html
+</ContentList>
+
+
+<ContentList build=buildpartial command="build3">
+core/artifact.html
+core/component.html
+core/configuration.html
+core/contentlist.html
+core/include.html
+core/library.html
+extension/engine.html
+</ContentList>
+
+<ContentList build=buildpartial command="build4">
+templating/index.html
+templating/filters.html
+templating/tags.html
+</ContentList>
+
+
+<!--
+extension/lifecycle.html,   Lifecycle and Directives
+start/examples.html,        Example Gallery
+extension/lifecycle.html,   Lifecycle and Directives
+api/index.html,             Overview,           API and Extension
+api/upgrading-from-alpha.html,Upgrading Versions
+api/domcursor.html,         DOMCursor,          Reconciliation
+api/reconciler.html,        Reconciler and Patches,
+api/directives.html,        Directives,         Component API
+api/lifecycle.html,         Lifecycle
+api/processors.html,        Processors,         Definition API
+eg/index.html,              Overview,           Examples
+eg/forms.html,              Forms
+eg/widgets.html,            Widgets
+eg/data.html,               Data
+eg/component-scripting.html,More Scripting
+eg/tutorial_1.html,         Part 1,             Components Tutorial
+eg/tutorial_2.html,         Part 2
+eg/tutorial_3.html,         Part 3
+eg/tutorial_4.html,         Part 4
+eg/tutorial_5.html,         Part 5
+eg/tutorial_6.html,         Part 6
+eg/tutorial_7.html,         Part 7
+-->
+
+<!-- Bring in JS libraries -->
+<Include>
+    <script src="js/highlight.min.htm"></script>
+    <script src="js/showdown_2.1.0.min.htm"></script>
+    <script src="js/ModuloDocs-markdown.htm"></script>
+    <script src="js/ModuloDocs-toc-helpers.htm"></script>
+</Include>
+
+<!-- "Modulo" tag directly includes config.html and components/index.html -->
+<Modulo -src="config.html"></Modulo>
+<Modulo -src="components/"></Modulo>
+
+
+<!-- Does not include collected,  only bundled: -->
+<Artifact name="js" -bundle="script,modscript" build=buildpartial>
+{% for id in def.ids %}{{ def.data|get:id|syntax:"trimcode"|safe }}{% endfor %}
+modulo.definitions = { {% for name, value in definitions %}
+    {% if name|first is not "_" %}{{ name }}: {{ value|json|safe }},{% endif %}
+{% endfor %} };
+{% for name in config.modulo.build.mainModules %}{% if name|first is not "_" %}
+    modulo.registry.modules.{{ name }}.call(window, modulo);
+{% endif %}{% endfor %}
+</Artifact>
+
+<Artifact name="css" -bundle="link,modstyle,style" build=buildpartial>
+    {% for id in def.ids %}{{ def.data|get:id|safe }}{% endfor %}
+</Artifact>
+
+<!-- A new HTML build that includes partials above and below -->
+<Artifact name=phtml path-template="{{ file-path|default:'index.html' }}"
+    -remove="head iframe,modulo,script[modulo],template[modulo]"
+    prefix="<!DOCTYPE html>" build=buildpartial>
+    <ht>
+        <he>
+            {{ doc.head.innerHTML|safe }}
+            {% if not global.partial.head %}
+                <js src="{{ root-path }}static/Modulo.html"></js>
+            {% endif %}
+            <link rel="stylesheet" href="{{ root-path }}{{ definitions.css.path }}"></link>
+            <js defer src="{{ root-path }}{{ definitions.js.path }}"></js>
+        </he>
+        <bo>
+            {{ global.partial.body|safe }}
+            {{ doc.body.innerHTML|safe }}
+            {{ global.partial.footer|safe }}
+        </bo>
+    </ht>
+</Artifact>
+
+
+<script Configuration>
+    // Configuration script to register showdown and configure markdown 
+    if (modulo.DEV) {
+        if (modulo.argv[0] === 'buildpartial') {
+            const params = new window.URLSearchParams(window.location.search)
+            const body = params.get('body') || ''
+            const footer = params.get('footer') || ''
+            const head = params.get('head') || ''
+            modulo.partial = { body, head, footer }
+        }
+
+        modulo.util.showdownConvert = function showdownConvert (text) {
+            return (new showdown.Converter()).makeHtml(text)
+        }
+        const content = modulo.stores.CACHE.getItem(window.location + '')
+        if (content) { // Viewing a content file, mount Page
+            modulo.docsContent = modulo.contentType.MD(content)
+            document.body.innerHTML = '<x-Page>'
+        }
+    }
+</script>

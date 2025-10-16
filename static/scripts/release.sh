@@ -22,8 +22,10 @@ cp favicon.ico _build/
 
 ######
 # (Step 2: Copy results to modulo-pages)
+mv modulo-pages/CNAME ./
 rm -r modulo-pages/*
 cp -r _build/* modulo-pages/
+mv ./CNAME modulo-pages/
 
 cd modulo-pages/
 

@@ -1,0 +1,917 @@
+<!DOCTYPE html><html>
+        <head>
+            <script src="../static/Modulo.html"></script><meta name="charset" charset="utf8" id="include_xxm0qoac"><meta name="content-type" http-equiv="Content-Type" content="text/html; charset=utf-8" id="include_xxnd8o0e"><meta name="viewport" content="width=device-width, initial-scale=1" id="include_x13l7u56"><meta name="robots" content="index, follow" id="include_xxriq75n"><meta name="revisit-after" content="30 days" id="include_x1m4jm9p">
+            
+                <script src="../static/Modulo.html"></script>
+            
+            <link rel="stylesheet" href="../buildpartial-xxpik5e0.css">
+            <script defer="" src="../buildpartial-xxcf34cd.js"></script>
+        </head>
+        <body>
+            
+            
+        <meta charset="utf8">
+        <title>Script - Component Parts - Modulo Documentation</title>
+    
+    <div class="layout Page">
+        <nav class="page-nav Page">
+            <a style="font-size:60px;text-align:center;display:block;font-weight:200" href="../" class="Page">ᵐ°dᵘ⁄o</a>
+            <ul style="position: sticky; top: 1px" class="Page">
+                <li class="toc--outer Page">
+                    <p><a style="font-size: 70%" title="Download Modulo Docs as a offline-friendly zip" href="https://codeberg.org/modulo/docs/archive/main.zip" class="Page">
+                            ⤓ docs-main.zip</a>
+                        <tt>v0.1.0</tt>
+                    </p>
+                </li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">       Modulo</h3></li>
+                    <li class="toc--"><a href="../start/index.html" class="Page">           Introduction</a></li>
+                
+                    
+                    <li class="toc--"><a href="../start/getting-started.html" class="Page"> Getting Started</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">           Definitions</h3></li>
+                    <li class="toc--"><a href="../defs/overview.html" class="Page">         Overview</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/importing.html" class="Page">        Importing</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/definitions.html" class="Page">      Definition Types</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/processors.html" class="Page">       Processors</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/custom.html" class="Page">           Custom Types</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">  Templating</h3></li>
+                    <li class="toc--"><a href="../templating/index.html" class="Page">      Language Overview</a></li>
+                
+                    
+                    <li class="toc--"><a href="../templating/filters.html" class="Page">    Template Filters</a></li>
+                
+                    
+                    <li class="toc--"><a href="../templating/tags.html" class="Page">       Template Tags</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">              Component Parts</h3></li>
+                    <li class="toc--"><a href="../parts/props.html" class="Page">           Props</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/script.html" class="Page">          Script</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/state.html" class="Page">           State</a></li>
+                
+                    
+                    <li class="toc--active Page"><a href="../parts/staticdata.html" class="Page">      StaticData</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/style.html" class="Page">           Style</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/template.html" class="Page">        Template</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">           Core Definitions</h3></li>
+                    <li class="toc--"><a href="../core/artifact.html" class="Page">         Artifact</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/component.html" class="Page">        Component</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/configuration.html" class="Page">    Configuration</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/contentlist.html" class="Page">      ContentList</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/include.html" class="Page">          Include</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/library.html" class="Page">          Library</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">  Extension</h3></li>
+                    <li class="toc--"><a href="../extension/engine.html" class="Page">      Upgrading Engines</a></li>
+                
+            </ul>
+        </nav>
+        <main class="page-container Page">
+            
+                
+                    
+                        <x-tableofcontents toc="[{&quot;match&quot;:&quot;&lt;h1 id=\&quot;staticdata\&quot;&gt;StaticData&lt;/h1&gt;&quot;,&quot;level&quot;:1,&quot;attrs&quot;:&quot;id=\&quot;staticdata\&quot;&quot;,&quot;title&quot;:&quot;StaticData&quot;,&quot;id&quot;:&quot;staticdata&quot;},{&quot;match&quot;:&quot;&lt;h3 id=\&quot;usage\&quot;&gt;Usage&lt;/h3&gt;&quot;,&quot;level&quot;:3,&quot;attrs&quot;:&quot;id=\&quot;usage\&quot;&quot;,&quot;title&quot;:&quot;Usage&quot;,&quot;id&quot;:&quot;usage&quot;},{&quot;match&quot;:&quot;&lt;h3 id=\&quot;attrs\&quot;&gt;attrs&lt;/h3&gt;&quot;,&quot;level&quot;:3,&quot;attrs&quot;:&quot;id=\&quot;attrs\&quot;&quot;,&quot;title&quot;:&quot;attrs&quot;,&quot;id&quot;:&quot;attrs&quot;},{&quot;match&quot;:&quot;&lt;h3 id=\&quot;renderobj\&quot;&gt;renderObj&lt;/h3&gt;&quot;,&quot;level&quot;:3,&quot;attrs&quot;:&quot;id=\&quot;renderobj\&quot;&quot;,&quot;title&quot;:&quot;renderObj&quot;,&quot;id&quot;:&quot;renderobj&quot;},{&quot;match&quot;:&quot;&lt;h3 id=\&quot;usageexamples\&quot;&gt;Usage Examples&lt;/h3&gt;&quot;,&quot;level&quot;:3,&quot;attrs&quot;:&quot;id=\&quot;usageexamples\&quot;&quot;,&quot;title&quot;:&quot;Usage Examples&quot;,&quot;id&quot;:&quot;usageexamples&quot;},{&quot;match&quot;:&quot;&lt;h4 id=\&quot;usinganapi\&quot;&gt;Using an API&lt;/h4&gt;&quot;,&quot;level&quot;:4,&quot;attrs&quot;:&quot;id=\&quot;usinganapi\&quot;&quot;,&quot;title&quot;:&quot;Using an API&quot;,&quot;id&quot;:&quot;usinganapi&quot;},{&quot;match&quot;:&quot;&lt;h4 id=\&quot;displayingatablewithaforloop\&quot;&gt;Displaying a table with a for loop&lt;/h4&gt;&quot;,&quot;level&quot;:4,&quot;attrs&quot;:&quot;id=\&quot;displayingatablewithaforloop\&quot;&quot;,&quot;title&quot;:&quot;Displaying a table with a for loop&quot;,&quot;id&quot;:&quot;displayingatablewithaforloop&quot;},{&quot;match&quot;:&quot;&lt;h4 id=\&quot;displayingatablefromanapi\&quot;&gt;Displaying a table from an API&lt;/h4&gt;&quot;,&quot;level&quot;:4,&quot;attrs&quot;:&quot;id=\&quot;displayingatablefromanapi\&quot;&quot;,&quot;title&quot;:&quot;Displaying a table from an API&quot;,&quot;id&quot;:&quot;displayingatablefromanapi&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;usagemixinginjavascript\&quot;&gt;Usage: Mixing in JavaScript&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;usagemixinginjavascript\&quot;&quot;,&quot;title&quot;:&quot;Usage: Mixing in JavaScript&quot;,&quot;id&quot;:&quot;usagemixinginjavascript&quot;},{&quot;match&quot;:&quot;&lt;h4 id=\&quot;embeddingdatawithdatatypejs\&quot;&gt;Embedding data with -data-type=\&quot;js\&quot;&lt;/h4&gt;&quot;,&quot;level&quot;:4,&quot;attrs&quot;:&quot;id=\&quot;embeddingdatawithdatatypejs\&quot;&quot;,&quot;title&quot;:&quot;Embedding data with -data-type=\&quot;js\&quot;&quot;,&quot;id&quot;:&quot;embeddingdatawithdatatypejs&quot;},{&quot;match&quot;:&quot;&lt;h4 id=\&quot;filteringwithjavascript\&quot;&gt;Filtering with JavaScript&lt;/h4&gt;&quot;,&quot;level&quot;:4,&quot;attrs&quot;:&quot;id=\&quot;filteringwithjavascript\&quot;&quot;,&quot;title&quot;:&quot;Filtering with JavaScript&quot;,&quot;id&quot;:&quot;filteringwithjavascript&quot;},{&quot;match&quot;:&quot;&lt;h4 id=\&quot;makingasmallchartwithjavascript\&quot;&gt;Making a small chart with JavaScript&lt;/h4&gt;&quot;,&quot;level&quot;:4,&quot;attrs&quot;:&quot;id=\&quot;makingasmallchartwithjavascript\&quot;&quot;,&quot;title&quot;:&quot;Making a small chart with JavaScript&quot;,&quot;id&quot;:&quot;makingasmallchartwithjavascript&quot;}]" modulo-mount-html=""><nav class="regular&quot;=&quot;">
+        <div> </div>
+        <div>
+            <div>
+                <label>[ <input name="show" type="checkbox"> Table of Contents ]</label>
+                <label title="Stick to upper right">[ <span alt="upper right arrow">↗</span>
+                    <input name="sticky" type="checkbox"> ]</label>
+            </div>
+            
+                <ul>
+                    
+                        
+                            <li style="--level: 1">
+                                    <a href="#staticdata">StaticData</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 3">
+                                    <a href="#usage">Usage</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 3">
+                                    <a href="#attrs">attrs</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 3">
+                                    <a href="#renderobj">renderObj</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 3">
+                                    <a href="#usageexamples">Usage Examples</a>
+                            </li>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#usagemixinginjavascript">Usage: Mixing in JavaScript</a>
+                            </li>
+                        
+                    
+                        
+                    
+                        
+                    
+                        
+                    
+                </ul>
+            
+        </div>
+    </nav></x-tableofcontents>
+                    
+                    <div class="markdown-body"><h1 id="staticdata">StaticData</h1>
+<p>The <em>StaticData</em> Component Part is useful for loading JSON files to use as a data
+source. StaticData has no "refresh" capability, meaning this should only
+consist data that you do not expect to change while running your program, such
+as type definitions or data from a API that does not change frequently.</p>
+<h3 id="usage">Usage</h3>
+<p>The StaticData Component Part can be used in two different ways. The most common is
+loading data from a JSON file or JSON API by specifying a <code>-src=</code> attribute.
+During development, this will "fetch" when refreshing the page, but once you
+"build" the component, the specified content will be "frozen in time" during
+the build, and bundled in with the resulting JS file with any filtering
+applied. The other usage is to simply "hardcode" the data in the element
+itself. As with remote data, it can be in JSON, or other file-formats as
+described below with the <code>-data-type=</code> attribute.</p>
+<h3 id="attrs">attrs</h3>
+<ul>
+<li><code>-src</code> - Just like any other Component Parts, the <code>-src=</code> attribute lets you load the
+content from another URL. This could be from an API (e.g. something like
+<code>-src="https://some.api.com/v1/getdata?p=3"</code>), or for loading from a file
+(e.g. <code>-src="./data/weatherData.json"</code>), or for loading from a file. If not
+specified, then the data must be specified within the StaticData tag, or else
+it will be simply "undefined".</li>
+<li><code>-data-type</code> - This optional attribute should be set to a file-type string
+(e.g. extension) of a registered converter. By default, the ones that are
+available are:<ul>
+<li><em>Default:</em> <code>-data-type="json"</code> - This is a strictly JSON syntax (no
+trailing commas, double quotes only)</li>
+<li><code>-data-type="js"</code> - This is a JavaScript syntax JSON object (allows for
+trailing commas, optional quotes, and even invoking functions to
+manipulate the data before "freezing" it or bundling it)</li>
+<li><code>-data-type="csv"</code> - This is a simple CSV parser, great for importing
+spreadsheet data as exported from popular spreadsheet apps</li>
+<li><code>-data-type="txt"</code> - This is a plain text file. It will be made available
+as a string in the renderObj.</li></ul></li>
+</ul>
+<h3 id="renderobj">renderObj</h3>
+<p>The StaticData Component Part exposes it's data directly (e.g. so it can be accessed in Script, Template, etc).</p>
+<h3 id="usageexamples">Usage Examples</h3>
+<p>Examine the following examples for ideas on how to use StaticData:</p>
+<h4 id="usinganapi">Using an API</h4><x-quickdemo mode="modulo" runas="modulo" value="&lt;!-- Load package.json file directly from GitHub --&gt;
+&lt;Template&gt;
+    {{ staticdata.name }} v{{ staticdata.version }}
+    (by {{ staticdata.author }})
+&lt;/Template&gt;
+&lt;StaticData
+    -src=&quot;https://raw.githubusercontent.com/modulojs/modulo/main/package.json&quot;
+&gt;&lt;/StaticData&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+        
+            <x-syntaxhighlighter mode="modulo" value="&lt;!-- Load package.json file directly from GitHub --&gt;
+&lt;Template&gt;
+    {{ staticdata.name }} v{{ staticdata.version }}
+    (by {{ staticdata.author }})
+&lt;/Template&gt;
+&lt;StaticData
+    -src=&quot;https://raw.githubusercontent.com/modulojs/modulo/main/package.json&quot;
+&gt;&lt;/StaticData&gt;
+" style="font-size: 18px" modulo-mount-html=""><span class="language-xml"><span class="hljs-comment">&lt;!-- Load package.json file directly from GitHub --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    </span><span class="hljs-template-variable">{{ staticdata.name }}</span><span class="language-xml"> v</span><span class="hljs-template-variable">{{ staticdata.version }}</span><span class="language-xml">
+    (by </span><span class="hljs-template-variable">{{ staticdata.author }}</span><span class="language-xml">)
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">StaticData</span>
+    <span class="hljs-modulo-defprocessor">-src</span>=<span class="hljs-string">"https://raw.githubusercontent.com/modulojs/modulo/main/package.json"</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">StaticData</span>&gt;</span>
+</span></x-syntaxhighlighter>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             toolbar--snippet">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+            
+        </div>
+        
+    </div>
+    <div class="overlay"></div></x-quickdemo>
+<h4 id="displayingatablewithaforloop">Displaying a table with a for loop</h4><x-quickdemo mode="modulo" runas="modulo" value="&lt;Template&gt;
+    &lt;h4&gt;uid&lt;/h4&gt; &lt;h4&gt;Title&lt;/h4&gt; &lt;h4&gt;Body&lt;/h4&gt;
+    {% for item in staticdata %}
+        &lt;div&gt;#{{ item.userId }}&lt;/div&gt;
+        &lt;div&gt;{{ item.title|truncate:5 }}&lt;/div&gt;
+        &lt;div&gt;{{ item.body|truncate:10 }}&lt;/div&gt;
+    {% endfor %}
+&lt;/Template&gt;
+&lt;!-- Load 100 items of sample data from a
+     JSON placeholder website &quot;typicode&quot; --&gt;
+&lt;StaticData
+    -src=&quot;https://jsonplaceholder.typicode.com/posts&quot;
+&gt;&lt;/StaticData&gt;
+&lt;Style&gt;
+    :host {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        height: 150px;
+        overflow: auto;
+    }
+&lt;/Style&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+        
+            <x-syntaxhighlighter mode="modulo" value="&lt;Template&gt;
+    &lt;h4&gt;uid&lt;/h4&gt; &lt;h4&gt;Title&lt;/h4&gt; &lt;h4&gt;Body&lt;/h4&gt;
+    {% for item in staticdata %}
+        &lt;div&gt;#{{ item.userId }}&lt;/div&gt;
+        &lt;div&gt;{{ item.title|truncate:5 }}&lt;/div&gt;
+        &lt;div&gt;{{ item.body|truncate:10 }}&lt;/div&gt;
+    {% endfor %}
+&lt;/Template&gt;
+&lt;!-- Load 100 items of sample data from a
+     JSON placeholder website &quot;typicode&quot; --&gt;
+&lt;StaticData
+    -src=&quot;https://jsonplaceholder.typicode.com/posts&quot;
+&gt;&lt;/StaticData&gt;
+&lt;Style&gt;
+    :host {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        height: 150px;
+        overflow: auto;
+    }
+&lt;/Style&gt;
+" style="font-size: 18px" modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span>uid<span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span>Title<span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span>Body<span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span>
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">for</span></span> item <span class="hljs-keyword">in</span> staticdata %}</span><span class="language-xml">
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>#</span><span class="hljs-template-variable">{{ item.userId }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><span class="hljs-template-variable">{{ item.title|truncate:5 }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><span class="hljs-template-variable">{{ item.body|truncate:10 }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endfor</span></span> %}</span><span class="language-xml">
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+<span class="hljs-comment">&lt;!-- Load 100 items of sample data from a
+     JSON placeholder website "typicode" --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">StaticData</span>
+    <span class="hljs-modulo-defprocessor">-src</span>=<span class="hljs-string">"https://jsonplaceholder.typicode.com/posts"</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">StaticData</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Style</span>&gt;</span><span class="language-css">
+    <span class="hljs-selector-pseudo">:host</span> {
+        <span class="hljs-attribute">display</span>: grid;
+        <span class="hljs-attribute">grid-template-columns</span>: <span class="hljs-number">1</span>fr <span class="hljs-number">1</span>fr <span class="hljs-number">1</span>fr;
+        <span class="hljs-attribute">height</span>: <span class="hljs-number">150px</span>;
+        <span class="hljs-attribute">overflow</span>: auto;
+    }
+</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Style</span>&gt;</span>
+</span></x-syntaxhighlighter>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             toolbar--snippet">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+            
+        </div>
+        
+    </div>
+    <div class="overlay"></div></x-quickdemo>
+<h4 id="displayingatablefromanapi">Displaying a table from an API</h4><x-quickdemo mode="modulo" runas="modulo" value="&lt;Template&gt;
+    {% for category, info in staticdata %}
+        &lt;h4&gt;{{ category }}&lt;/h4&gt;
+        &lt;section&gt;
+            &lt;h5&gt;date&lt;/h5&gt; &lt;h5&gt;name&lt;/h5&gt; &lt;h5&gt;bunt&lt;/h5&gt;
+            {% for holiday in info.events %}
+                &lt;div&gt;{{ holiday.date }}&lt;/div&gt;
+                &lt;div&gt;{{ holiday.title }}&lt;/div&gt;
+                &lt;div&gt;{{ holiday.bunting|yesno:&quot;X,_,?&quot; }}&lt;/div&gt;
+            {% endfor %}
+        &lt;/section&gt;
+    {% endfor %}
+&lt;/Template&gt;
+&lt;StaticData
+    -src=&quot;https://www.gov.uk/bank-holidays.json&quot;
+&gt;&lt;/StaticData&gt;
+&lt;Style&gt;
+  section {
+      display: grid;
+      grid-template-columns: 2fr 3fr 1fr;
+      font-size: 0.7rem;
+      height: 80px;
+      overflow-x: auto;
+  }
+  h4, h5 {
+      margin: 0;
+      padding: 0;
+  }
+&lt;/Style&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+        
+            <x-syntaxhighlighter mode="modulo" value="&lt;Template&gt;
+    {% for category, info in staticdata %}
+        &lt;h4&gt;{{ category }}&lt;/h4&gt;
+        &lt;section&gt;
+            &lt;h5&gt;date&lt;/h5&gt; &lt;h5&gt;name&lt;/h5&gt; &lt;h5&gt;bunt&lt;/h5&gt;
+            {% for holiday in info.events %}
+                &lt;div&gt;{{ holiday.date }}&lt;/div&gt;
+                &lt;div&gt;{{ holiday.title }}&lt;/div&gt;
+                &lt;div&gt;{{ holiday.bunting|yesno:&quot;X,_,?&quot; }}&lt;/div&gt;
+            {% endfor %}
+        &lt;/section&gt;
+    {% endfor %}
+&lt;/Template&gt;
+&lt;StaticData
+    -src=&quot;https://www.gov.uk/bank-holidays.json&quot;
+&gt;&lt;/StaticData&gt;
+&lt;Style&gt;
+  section {
+      display: grid;
+      grid-template-columns: 2fr 3fr 1fr;
+      font-size: 0.7rem;
+      height: 80px;
+      overflow-x: auto;
+  }
+  h4, h5 {
+      margin: 0;
+      padding: 0;
+  }
+&lt;/Style&gt;
+" style="font-size: 18px" modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">for</span></span> category, info <span class="hljs-keyword">in</span> staticdata %}</span><span class="language-xml">
+        <span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span></span><span class="hljs-template-variable">{{ category }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">section</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">h5</span>&gt;</span>date<span class="hljs-tag">&lt;/<span class="hljs-name">h5</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">h5</span>&gt;</span>name<span class="hljs-tag">&lt;/<span class="hljs-name">h5</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">h5</span>&gt;</span>bunt<span class="hljs-tag">&lt;/<span class="hljs-name">h5</span>&gt;</span>
+            </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">for</span></span> holiday <span class="hljs-keyword">in</span> info.events %}</span><span class="language-xml">
+                <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><span class="hljs-template-variable">{{ holiday.date }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><span class="hljs-template-variable">{{ holiday.title }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><span class="hljs-template-variable">{{ holiday.bunting|<span class="hljs-name">yesno</span>:<span class="hljs-string">"X,_,?"</span> }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+            </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endfor</span></span> %}</span><span class="language-xml">
+        <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endfor</span></span> %}</span><span class="language-xml">
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">StaticData</span>
+    <span class="hljs-modulo-defprocessor">-src</span>=<span class="hljs-string">"https://www.gov.uk/bank-holidays.json"</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">StaticData</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Style</span>&gt;</span><span class="language-css">
+  <span class="hljs-selector-tag">section</span> {
+      <span class="hljs-attribute">display</span>: grid;
+      <span class="hljs-attribute">grid-template-columns</span>: <span class="hljs-number">2</span>fr <span class="hljs-number">3</span>fr <span class="hljs-number">1</span>fr;
+      <span class="hljs-attribute">font-size</span>: <span class="hljs-number">0.7rem</span>;
+      <span class="hljs-attribute">height</span>: <span class="hljs-number">80px</span>;
+      <span class="hljs-attribute">overflow-x</span>: auto;
+  }
+  <span class="hljs-selector-tag">h4</span>, <span class="hljs-selector-tag">h5</span> {
+      <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
+      <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;
+  }
+</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Style</span>&gt;</span>
+</span></x-syntaxhighlighter>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             toolbar--snippet">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+            
+        </div>
+        
+    </div>
+    <div class="overlay"></div></x-quickdemo>
+<blockquote>
+  <p><strong>Use case: DataViz</strong> - Data visualization is a huge topic. Modulo is not
+  strictly a data visualization tool: Typically, you'll want to use a
+  tried-and-true, "off-the-shelf" graphing library, or SVG-based graphics,
+  which Modulo could work in conjunction with or pass the data into.  However,
+  in either case, "StaticData" and "Template" combined can be used for quick
+  data visualizations, very useful for assembling dashboards, reports, and many
+  other types of web projects.</p>
+</blockquote>
+<h2 id="usagemixinginjavascript">Usage: Mixing in JavaScript</h2>
+<p>By adding -data-type=js, we can begin to mix in JavaScript in with our
+<code>StaticData</code>. This JavaScript will run at "build time", meaning it will happen
+before the data is bundled in. This allows you to filter through large data
+sets and only include the data you want, or provide the attributes you want.</p>
+<p>For example:</p><x-quickdemo mode="modulo" value="&lt;script StaticData -src=&quot;https://www.gov.uk/bank-holidays.json&quot; -data-type=&quot;js&quot; -name=&quot;years&quot;&gt;
+    ['england-and-wales']
+    ['events']
+    .map(function (ev) {
+        return Number(ev.date.split('-')[0]); // Get year of each date
+    })
+&lt;/script&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+        
+            <x-syntaxhighlighter mode="modulo" value="&lt;script StaticData -src=&quot;https://www.gov.uk/bank-holidays.json&quot; -data-type=&quot;js&quot; -name=&quot;years&quot;&gt;
+    ['england-and-wales']
+    ['events']
+    .map(function (ev) {
+        return Number(ev.date.split('-')[0]); // Get year of each date
+    })
+&lt;/script&gt;
+" style="font-size: 18px" modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-modulo-deftype-attr">StaticData</span> <span class="hljs-modulo-defprocessor">-src</span>=<span class="hljs-string">"https://www.gov.uk/bank-holidays.json"</span> <span class="hljs-modulo-defprocessor">-data-type</span>=<span class="hljs-string">"js"</span> <span class="hljs-modulo-defprocessor">-name</span>=<span class="hljs-string">"years"</span>&gt;</span><span class="language-javascript">
+    [<span class="hljs-string">'england-and-wales'</span>]
+    [<span class="hljs-string">'events'</span>]
+    .<span class="hljs-title function_">map</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">ev</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Number</span>(ev.<span class="hljs-property">date</span>.<span class="hljs-title function_">split</span>(<span class="hljs-string">'-'</span>)[<span class="hljs-number">0</span>]); <span class="hljs-comment">// Get year of each date</span>
+    })
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</span></x-syntaxhighlighter>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             toolbar--snippet">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+            
+        </div>
+        
+    </div>
+    <div class="overlay"></div></x-quickdemo>
+<p>Note the alternative <code>&lt;script StaticData</code> syntax for defining StaticData.  This
+is not a Script Component Part: It is indeed a StaticData Component Part! However, we can start
+with <code>&lt;script ...</code> just as a convenience, so that editors will recognize it as
+JavaScript code. Just make sure to include that StaticData as the first
+attribute, otherwise Modulo will think it's a regular Script, which behaves much
+differently than StaticData!</p>
+<h4 id="embeddingdatawithdatatypejs">Embedding data with -data-type="js"</h4><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+    {% for item in staticdata %}
+        &lt;label&gt;
+          &lt;img src=&quot;{{ item.url }}&quot; /&gt;
+          &lt;tt&gt;#{{ item.id }}&lt;/tt&gt;
+          {{ item.title|capfirst }}
+        &lt;/label&gt;
+    {% endfor %}
+&lt;/Template&gt;
+&lt;!-- Hardcode lorem ipsum / sample data, with a custom data type specified so
+we can use the more relaxed JavaScript syntax rules --&gt;
+&lt;script StaticData -data-type=&quot;js&quot;&gt;
+[
+  {
+    id: 1,
+    title: &quot;accusamus beatae ad facilis cum similique qui sunt&quot;,
+    url: &quot;./example-data/example_image.jpg&quot;
+  },
+  {
+    id: 2,
+    title: &quot;reprehenderit est deserunt velit ipsam&quot;,
+    url: &quot;./example-data/example_image.jpg&quot;
+  },
+]
+&lt;/script&gt;
+&lt;Style&gt;
+    :host {
+        display: flex;
+        height: 150px;
+        overflow: auto;
+    }
+    tt {
+        font-size: 2rem;
+    }
+&lt;/Style&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Template&gt;
+    {% for item in staticdata %}
+        &lt;label&gt;
+          &lt;img src=&quot;{{ item.url }}&quot; /&gt;
+          &lt;tt&gt;#{{ item.id }}&lt;/tt&gt;
+          {{ item.title|capfirst }}
+        &lt;/label&gt;
+    {% endfor %}
+&lt;/Template&gt;
+&lt;!-- Hardcode lorem ipsum / sample data, with a custom data type specified so
+we can use the more relaxed JavaScript syntax rules --&gt;
+&lt;script StaticData -data-type=&quot;js&quot;&gt;
+[
+  {
+    id: 1,
+    title: &quot;accusamus beatae ad facilis cum similique qui sunt&quot;,
+    url: &quot;./example-data/example_image.jpg&quot;
+  },
+  {
+    id: 2,
+    title: &quot;reprehenderit est deserunt velit ipsam&quot;,
+    url: &quot;./example-data/example_image.jpg&quot;
+  },
+]
+&lt;/script&gt;
+&lt;Style&gt;
+    :host {
+        display: flex;
+        height: 150px;
+        overflow: auto;
+    }
+    tt {
+        font-size: 2rem;
+    }
+&lt;/Style&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">for</span></span> item <span class="hljs-keyword">in</span> staticdata %}</span><span class="language-xml">
+        <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"</span></span></span><span class="hljs-template-variable">{{ item.url }}</span><span class="language-xml"><span class="hljs-tag"><span class="hljs-string">"</span> /&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">tt</span>&gt;</span>#</span><span class="hljs-template-variable">{{ item.id }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">tt</span>&gt;</span>
+          </span><span class="hljs-template-variable">{{ item.title|<span class="hljs-name">capfirst</span> }}</span><span class="language-xml">
+        <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endfor</span></span> %}</span><span class="language-xml">
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+<span class="hljs-comment">&lt;!-- Hardcode lorem ipsum / sample data, with a custom data type specified so
+we can use the more relaxed JavaScript syntax rules --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-modulo-deftype-attr">StaticData</span> <span class="hljs-modulo-defprocessor">-data-type</span>=<span class="hljs-string">"js"</span>&gt;</span><span class="language-javascript">
+[
+  {
+    <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">title</span>: <span class="hljs-string">"accusamus beatae ad facilis cum similique qui sunt"</span>,
+    <span class="hljs-attr">url</span>: <span class="hljs-string">"./example-data/example_image.jpg"</span>
+  },
+  {
+    <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>,
+    <span class="hljs-attr">title</span>: <span class="hljs-string">"reprehenderit est deserunt velit ipsam"</span>,
+    <span class="hljs-attr">url</span>: <span class="hljs-string">"./example-data/example_image.jpg"</span>
+  },
+]
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Style</span>&gt;</span><span class="language-css">
+    <span class="hljs-selector-pseudo">:host</span> {
+        <span class="hljs-attribute">display</span>: flex;
+        <span class="hljs-attribute">height</span>: <span class="hljs-number">150px</span>;
+        <span class="hljs-attribute">overflow</span>: auto;
+    }
+    tt {
+        <span class="hljs-attribute">font-size</span>: <span class="hljs-number">2rem</span>;
+    }
+</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Style</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h4 id="filteringwithjavascript">Filtering with JavaScript</h4><x-quickdemo mode="modulo" runas="modulo" value="&lt;Template&gt;
+    &lt;h4&gt;uid&lt;/h4&gt; &lt;h4&gt;Title&lt;/h4&gt; &lt;h4&gt;Body&lt;/h4&gt;
+    {% for item in staticdata %}
+        &lt;div&gt;#{{ item.userId }}&lt;/div&gt;
+        &lt;div&gt;{{ item.title|truncate:5 }}&lt;/div&gt;
+        &lt;div&gt;{{ item.body|truncate:10 }}&lt;/div&gt;
+    {% endfor %}
+&lt;/Template&gt;
+&lt;!-- Load items from a JSON placeholder website &quot;typicode&quot;, and then use the
+content of a StaticData tag to pre-filter them right after loading --&gt;
+&lt;script StaticData -data-type=&quot;js&quot; -src=&quot;https://jsonplaceholder.typicode.com/posts&quot;&gt;
+    .filter(post =&gt;
+        post.userId === 5
+    )
+&lt;/script&gt;
+
+&lt;Style&gt;
+    :host {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        height: 150px;
+        overflow: auto;
+    }
+&lt;/Style&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+        
+            <x-syntaxhighlighter mode="modulo" value="&lt;Template&gt;
+    &lt;h4&gt;uid&lt;/h4&gt; &lt;h4&gt;Title&lt;/h4&gt; &lt;h4&gt;Body&lt;/h4&gt;
+    {% for item in staticdata %}
+        &lt;div&gt;#{{ item.userId }}&lt;/div&gt;
+        &lt;div&gt;{{ item.title|truncate:5 }}&lt;/div&gt;
+        &lt;div&gt;{{ item.body|truncate:10 }}&lt;/div&gt;
+    {% endfor %}
+&lt;/Template&gt;
+&lt;!-- Load items from a JSON placeholder website &quot;typicode&quot;, and then use the
+content of a StaticData tag to pre-filter them right after loading --&gt;
+&lt;script StaticData -data-type=&quot;js&quot; -src=&quot;https://jsonplaceholder.typicode.com/posts&quot;&gt;
+    .filter(post =&gt;
+        post.userId === 5
+    )
+&lt;/script&gt;
+
+&lt;Style&gt;
+    :host {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        height: 150px;
+        overflow: auto;
+    }
+&lt;/Style&gt;
+" style="font-size: 18px" modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span>uid<span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span>Title<span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span>Body<span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span>
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">for</span></span> item <span class="hljs-keyword">in</span> staticdata %}</span><span class="language-xml">
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>#</span><span class="hljs-template-variable">{{ item.userId }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><span class="hljs-template-variable">{{ item.title|truncate:5 }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><span class="hljs-template-variable">{{ item.body|truncate:10 }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endfor</span></span> %}</span><span class="language-xml">
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+<span class="hljs-comment">&lt;!-- Load items from a JSON placeholder website "typicode", and then use the
+content of a StaticData tag to pre-filter them right after loading --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-modulo-deftype-attr">StaticData</span> <span class="hljs-modulo-defprocessor">-data-type</span>=<span class="hljs-string">"js"</span> <span class="hljs-modulo-defprocessor">-src</span>=<span class="hljs-string">"https://jsonplaceholder.typicode.com/posts"</span>&gt;</span><span class="language-javascript">
+    .<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">post</span> =&gt;</span>
+        post.<span class="hljs-property">userId</span> === <span class="hljs-number">5</span>
+    )
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Style</span>&gt;</span><span class="language-css">
+    <span class="hljs-selector-pseudo">:host</span> {
+        <span class="hljs-attribute">display</span>: grid;
+        <span class="hljs-attribute">grid-template-columns</span>: <span class="hljs-number">1</span>fr <span class="hljs-number">1</span>fr <span class="hljs-number">1</span>fr;
+        <span class="hljs-attribute">height</span>: <span class="hljs-number">150px</span>;
+        <span class="hljs-attribute">overflow</span>: auto;
+    }
+</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Style</span>&gt;</span>
+</span></x-syntaxhighlighter>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             toolbar--snippet">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+            
+        </div>
+        
+    </div>
+    <div class="overlay"></div></x-quickdemo>
+<h4 id="makingasmallchartwithjavascript">Making a small chart with JavaScript</h4><x-quickdemo mode="modulo" runas="modulo" value="&lt;Template&gt;
+    {% for number in month_numbers %}
+        &lt;section style=&quot;--month-number: {{ number }};&quot;&gt;
+            &lt;h2 title=&quot;Month #{{ number }}&quot;&gt;{{ number }}&lt;/h2&gt;
+            {% for event in staticdata %}
+                {% if event.month is number %}
+                    &lt;article&gt;{{ event.title }}&lt;/article&gt;
+                {% endif %}
+            {% endfor %}
+        &lt;/section&gt;
+    {% endfor %}
+&lt;/Template&gt;
+
+&lt;StaticData -name=&quot;month_numbers&quot;&gt;
+    [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ]
+&lt;/StaticData&gt;
+
+&lt;script StaticData -src=&quot;https://www.gov.uk/bank-holidays.json&quot; -data-type=&quot;js&quot;&gt;
+    ['england-and-wales']
+    ['events']
+    .map(function (originalEvent) {
+        // Get item 1 when split by dashes, convert to number (gets month)
+        return {
+            month: Number(originalEvent.date.split('-')[1]),
+            title: originalEvent.title,
+        };
+    })
+&lt;/script&gt;
+
+&lt;Style&gt;
+    :host {
+        height: 200px;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+    }
+    h2 {
+        font-size: 0.9rem;
+    }
+    section {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    section:hover {
+        background: #aaa;
+    }
+    article {
+        font-size: 0.8rem;
+        grid-column: var(--month-number) / span 1;
+        background: orange;
+        color: white;
+        font-weight: bold;
+        box-sizing: border-box;
+        height: 10px;
+        width: 15px;
+        overflow: hidden;
+    }
+    article:hover {
+        height: 50px;
+        width: 85px;
+        margin-bottom: -40px;
+        margin-right: -70px;
+        z-index: 1;
+    }
+&lt;/Style&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+        
+            <x-syntaxhighlighter mode="modulo" value="&lt;Template&gt;
+    {% for number in month_numbers %}
+        &lt;section style=&quot;--month-number: {{ number }};&quot;&gt;
+            &lt;h2 title=&quot;Month #{{ number }}&quot;&gt;{{ number }}&lt;/h2&gt;
+            {% for event in staticdata %}
+                {% if event.month is number %}
+                    &lt;article&gt;{{ event.title }}&lt;/article&gt;
+                {% endif %}
+            {% endfor %}
+        &lt;/section&gt;
+    {% endfor %}
+&lt;/Template&gt;
+
+&lt;StaticData -name=&quot;month_numbers&quot;&gt;
+    [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ]
+&lt;/StaticData&gt;
+
+&lt;script StaticData -src=&quot;https://www.gov.uk/bank-holidays.json&quot; -data-type=&quot;js&quot;&gt;
+    ['england-and-wales']
+    ['events']
+    .map(function (originalEvent) {
+        // Get item 1 when split by dashes, convert to number (gets month)
+        return {
+            month: Number(originalEvent.date.split('-')[1]),
+            title: originalEvent.title,
+        };
+    })
+&lt;/script&gt;
+
+&lt;Style&gt;
+    :host {
+        height: 200px;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+    }
+    h2 {
+        font-size: 0.9rem;
+    }
+    section {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    section:hover {
+        background: #aaa;
+    }
+    article {
+        font-size: 0.8rem;
+        grid-column: var(--month-number) / span 1;
+        background: orange;
+        color: white;
+        font-weight: bold;
+        box-sizing: border-box;
+        height: 10px;
+        width: 15px;
+        overflow: hidden;
+    }
+    article:hover {
+        height: 50px;
+        width: 85px;
+        margin-bottom: -40px;
+        margin-right: -70px;
+        z-index: 1;
+    }
+&lt;/Style&gt;
+" style="font-size: 18px" modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">for</span></span> number <span class="hljs-keyword">in</span> month_numbers %}</span><span class="language-xml">
+        <span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"--month-number: </span></span></span><span class="hljs-template-variable">{{ number }}</span><span class="language-xml"><span class="hljs-tag"><span class="hljs-string">;"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">h2</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"Month #</span></span></span><span class="hljs-template-variable">{{ number }}</span><span class="language-xml"><span class="hljs-tag"><span class="hljs-string">"</span>&gt;</span></span><span class="hljs-template-variable">{{ number }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+            </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">for</span></span> event <span class="hljs-keyword">in</span> staticdata %}</span><span class="language-xml">
+                </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">if</span></span> event.month is number %}</span><span class="language-xml">
+                    <span class="hljs-tag">&lt;<span class="hljs-name">article</span>&gt;</span></span><span class="hljs-template-variable">{{ event.title }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">article</span>&gt;</span>
+                </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endif</span></span> %}</span><span class="language-xml">
+            </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endfor</span></span> %}</span><span class="language-xml">
+        <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endfor</span></span> %}</span><span class="language-xml">
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">StaticData</span> <span class="hljs-modulo-defprocessor">-name</span>=<span class="hljs-string">"month_numbers"</span>&gt;</span>
+    [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ]
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">StaticData</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-modulo-deftype-attr">StaticData</span> <span class="hljs-modulo-defprocessor">-src</span>=<span class="hljs-string">"https://www.gov.uk/bank-holidays.json"</span> <span class="hljs-modulo-defprocessor">-data-type</span>=<span class="hljs-string">"js"</span>&gt;</span><span class="language-javascript">
+    [<span class="hljs-string">'england-and-wales'</span>]
+    [<span class="hljs-string">'events'</span>]
+    .<span class="hljs-title function_">map</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">originalEvent</span>) {
+        <span class="hljs-comment">// Get item 1 when split by dashes, convert to number (gets month)</span>
+        <span class="hljs-keyword">return</span> {
+            <span class="hljs-attr">month</span>: <span class="hljs-title class_">Number</span>(originalEvent.<span class="hljs-property">date</span>.<span class="hljs-title function_">split</span>(<span class="hljs-string">'-'</span>)[<span class="hljs-number">1</span>]),
+            <span class="hljs-attr">title</span>: originalEvent.<span class="hljs-property">title</span>,
+        };
+    })
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Style</span>&gt;</span><span class="language-css">
+    <span class="hljs-selector-pseudo">:host</span> {
+        <span class="hljs-attribute">height</span>: <span class="hljs-number">200px</span>;
+        <span class="hljs-attribute">display</span>: grid;
+        <span class="hljs-attribute">grid-template-columns</span>: <span class="hljs-built_in">repeat</span>(<span class="hljs-number">12</span>, <span class="hljs-number">1</span>fr);
+    }
+    <span class="hljs-selector-tag">h2</span> {
+        <span class="hljs-attribute">font-size</span>: <span class="hljs-number">0.9rem</span>;
+    }
+    <span class="hljs-selector-tag">section</span> {
+        <span class="hljs-attribute">display</span>: flex;
+        <span class="hljs-attribute">flex-direction</span>: column-reverse;
+    }
+    <span class="hljs-selector-tag">section</span><span class="hljs-selector-pseudo">:hover</span> {
+        <span class="hljs-attribute">background</span>: <span class="hljs-number">#aaa</span>;
+    }
+    <span class="hljs-selector-tag">article</span> {
+        <span class="hljs-attribute">font-size</span>: <span class="hljs-number">0.8rem</span>;
+        <span class="hljs-attribute">grid-column</span>: <span class="hljs-built_in">var</span>(--month-number) / span <span class="hljs-number">1</span>;
+        <span class="hljs-attribute">background</span>: orange;
+        <span class="hljs-attribute">color</span>: white;
+        <span class="hljs-attribute">font-weight</span>: bold;
+        <span class="hljs-attribute">box-sizing</span>: border-box;
+        <span class="hljs-attribute">height</span>: <span class="hljs-number">10px</span>;
+        <span class="hljs-attribute">width</span>: <span class="hljs-number">15px</span>;
+        <span class="hljs-attribute">overflow</span>: hidden;
+    }
+    <span class="hljs-selector-tag">article</span><span class="hljs-selector-pseudo">:hover</span> {
+        <span class="hljs-attribute">height</span>: <span class="hljs-number">50px</span>;
+        <span class="hljs-attribute">width</span>: <span class="hljs-number">85px</span>;
+        <span class="hljs-attribute">margin-bottom</span>: -<span class="hljs-number">40px</span>;
+        <span class="hljs-attribute">margin-right</span>: -<span class="hljs-number">70px</span>;
+        <span class="hljs-attribute">z-index</span>: <span class="hljs-number">1</span>;
+    }
+</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Style</span>&gt;</span>
+</span></x-syntaxhighlighter>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             toolbar--snippet">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+            
+        </div>
+        
+    </div>
+    <div class="overlay"></div></x-quickdemo>
+</div>
+                
+            
+        </main>
+    </div>
+            
+        </body>
+    </html>

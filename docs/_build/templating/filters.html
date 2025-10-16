@@ -1,0 +1,3112 @@
+<!DOCTYPE html><html>
+        <head>
+            <meta charset="utf8"><script src="../static/Modulo.html"></script><meta name="charset" charset="utf8" id="include_xxm0qoac"><meta name="content-type" http-equiv="Content-Type" content="text/html; charset=utf-8" id="include_xxnd8o0e"><meta name="viewport" content="width=device-width, initial-scale=1" id="include_x13l7u56"><meta name="robots" content="index, follow" id="include_xxriq75n"><meta name="revisit-after" content="30 days" id="include_x1m4jm9p">
+            
+                <script src="../static/Modulo.html"></script>
+            
+            <link rel="stylesheet" href="../buildpartial-xxpik5e0.css">
+            <script defer="" src="../buildpartial-x1rlipu2.js"></script>
+        </head>
+        <body>
+            
+            
+        <meta charset="utf8">
+        <title>Template Filters - Modulo Documentation</title>
+    
+    <div class="layout Page">
+        <nav class="page-nav Page">
+            <a style="font-size:60px;text-align:center;display:block;font-weight:200" href="../" class="Page">ᵐ°dᵘ⁄o</a>
+            <ul style="position: sticky; top: 1px" class="Page">
+                <li class="toc--outer Page">
+                    <p><a style="font-size: 70%" title="Download Modulo Docs as a offline-friendly zip" href="https://codeberg.org/modulo/docs/archive/main.zip" class="Page">
+                            ⤓ docs-main.zip</a>
+                        <tt>v0.1.0</tt>
+                    </p>
+                </li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">       Modulo</h3></li>
+                    <li class="toc--"><a href="../start/index.html" class="Page">           Introduction</a></li>
+                
+                    
+                    <li class="toc--"><a href="../start/getting-started.html" class="Page"> Getting Started</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">           Definitions</h3></li>
+                    <li class="toc--"><a href="../defs/overview.html" class="Page">         Overview</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/importing.html" class="Page">        Importing</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/definitions.html" class="Page">      Definition Types</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/processors.html" class="Page">       Processors</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/custom.html" class="Page">           Custom Types</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">  Templating</h3></li>
+                    <li class="toc--"><a href="../templating/index.html" class="Page">      Language Overview</a></li>
+                
+                    
+                    <li class="toc--active Page"><a href="../templating/filters.html" class="Page">    Template Filters</a></li>
+                
+                    
+                    <li class="toc--"><a href="../templating/tags.html" class="Page">       Template Tags</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">              Component Parts</h3></li>
+                    <li class="toc--"><a href="../parts/props.html" class="Page">           Props</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/script.html" class="Page">          Script</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/state.html" class="Page">           State</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/staticdata.html" class="Page">      StaticData</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/style.html" class="Page">           Style</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/template.html" class="Page">        Template</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">           Core Definitions</h3></li>
+                    <li class="toc--"><a href="../core/artifact.html" class="Page">         Artifact</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/component.html" class="Page">        Component</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/configuration.html" class="Page">    Configuration</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/contentlist.html" class="Page">      ContentList</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/include.html" class="Page">          Include</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/library.html" class="Page">          Library</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">  Extension</h3></li>
+                    <li class="toc--"><a href="../extension/engine.html" class="Page">      Upgrading Engines</a></li>
+                
+            </ul>
+        </nav>
+        <main class="page-container Page">
+            
+                
+                    
+                        <x-tableofcontents toc="[{&quot;match&quot;:&quot;&lt;h1 id=\&quot;templatefilters\&quot;&gt;Template Filters&lt;/h1&gt;&quot;,&quot;level&quot;:1,&quot;attrs&quot;:&quot;id=\&quot;templatefilters\&quot;&quot;,&quot;title&quot;:&quot;Template Filters&quot;,&quot;id&quot;:&quot;templatefilters&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;add\&quot;&gt;add&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;add\&quot;&quot;,&quot;title&quot;:&quot;add&quot;,&quot;id&quot;:&quot;add&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;allow\&quot;&gt;allow&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;allow\&quot;&quot;,&quot;title&quot;:&quot;allow&quot;,&quot;id&quot;:&quot;allow&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;camelcase\&quot;&gt;camelcase&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;camelcase\&quot;&quot;,&quot;title&quot;:&quot;camelcase&quot;,&quot;id&quot;:&quot;camelcase&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;capfirst\&quot;&gt;capfirst&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;capfirst\&quot;&quot;,&quot;title&quot;:&quot;capfirst&quot;,&quot;id&quot;:&quot;capfirst&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;combine\&quot;&gt;combine&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;combine\&quot;&quot;,&quot;title&quot;:&quot;combine&quot;,&quot;id&quot;:&quot;combine&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;default\&quot;&gt;default&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;default\&quot;&quot;,&quot;title&quot;:&quot;default&quot;,&quot;id&quot;:&quot;default&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;divisibleby\&quot;&gt;divisibleby&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;divisibleby\&quot;&quot;,&quot;title&quot;:&quot;divisibleby&quot;,&quot;id&quot;:&quot;divisibleby&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;entries\&quot;&gt;entries&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;entries\&quot;&quot;,&quot;title&quot;:&quot;entries&quot;,&quot;id&quot;:&quot;entries&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;escapejs\&quot;&gt;escapejs&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;escapejs\&quot;&quot;,&quot;title&quot;:&quot;escapejs&quot;,&quot;id&quot;:&quot;escapejs&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;first\&quot;&gt;first&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;first\&quot;&quot;,&quot;title&quot;:&quot;first&quot;,&quot;id&quot;:&quot;first&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;get\&quot;&gt;get&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;get\&quot;&quot;,&quot;title&quot;:&quot;get&quot;,&quot;id&quot;:&quot;get&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;join\&quot;&gt;join&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;join\&quot;&quot;,&quot;title&quot;:&quot;join&quot;,&quot;id&quot;:&quot;join&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;json\&quot;&gt;json&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;json\&quot;&quot;,&quot;title&quot;:&quot;json&quot;,&quot;id&quot;:&quot;json&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;keys\&quot;&gt;keys&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;keys\&quot;&quot;,&quot;title&quot;:&quot;keys&quot;,&quot;id&quot;:&quot;keys&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;last\&quot;&gt;last&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;last\&quot;&quot;,&quot;title&quot;:&quot;last&quot;,&quot;id&quot;:&quot;last&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;length\&quot;&gt;length&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;length\&quot;&quot;,&quot;title&quot;:&quot;length&quot;,&quot;id&quot;:&quot;length&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;lower\&quot;&gt;lower&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;lower\&quot;&quot;,&quot;title&quot;:&quot;lower&quot;,&quot;id&quot;:&quot;lower&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;multiply\&quot;&gt;multiply&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;multiply\&quot;&quot;,&quot;title&quot;:&quot;multiply&quot;,&quot;id&quot;:&quot;multiply&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;number\&quot;&gt;number&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;number\&quot;&quot;,&quot;title&quot;:&quot;number&quot;,&quot;id&quot;:&quot;number&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;pluralize\&quot;&gt;pluralize&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;pluralize\&quot;&quot;,&quot;title&quot;:&quot;pluralize&quot;,&quot;id&quot;:&quot;pluralize&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;safe\&quot;&gt;safe&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;safe\&quot;&quot;,&quot;title&quot;:&quot;safe&quot;,&quot;id&quot;:&quot;safe&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;skipfirst\&quot;&gt;skipfirst&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;skipfirst\&quot;&quot;,&quot;title&quot;:&quot;skipfirst&quot;,&quot;id&quot;:&quot;skipfirst&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;sorted\&quot;&gt;sorted&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;sorted\&quot;&quot;,&quot;title&quot;:&quot;sorted&quot;,&quot;id&quot;:&quot;sorted&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;subtract\&quot;&gt;subtract&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;subtract\&quot;&quot;,&quot;title&quot;:&quot;subtract&quot;,&quot;id&quot;:&quot;subtract&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;tagswap\&quot;&gt;tagswap&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;tagswap\&quot;&quot;,&quot;title&quot;:&quot;tagswap&quot;,&quot;id&quot;:&quot;tagswap&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;trim\&quot;&gt;trim&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;trim\&quot;&quot;,&quot;title&quot;:&quot;trim&quot;,&quot;id&quot;:&quot;trim&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;truncate\&quot;&gt;truncate&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;truncate\&quot;&quot;,&quot;title&quot;:&quot;truncate&quot;,&quot;id&quot;:&quot;truncate&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;type\&quot;&gt;type&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;type\&quot;&quot;,&quot;title&quot;:&quot;type&quot;,&quot;id&quot;:&quot;type&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;renderas\&quot;&gt;renderas&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;renderas\&quot;&quot;,&quot;title&quot;:&quot;renderas&quot;,&quot;id&quot;:&quot;renderas&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;reversed\&quot;&gt;reversed&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;reversed\&quot;&quot;,&quot;title&quot;:&quot;reversed&quot;,&quot;id&quot;:&quot;reversed&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;upper\&quot;&gt;upper&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;upper\&quot;&quot;,&quot;title&quot;:&quot;upper&quot;,&quot;id&quot;:&quot;upper&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;values\&quot;&gt;values&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;values\&quot;&quot;,&quot;title&quot;:&quot;values&quot;,&quot;id&quot;:&quot;values&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;yesno\&quot;&gt;yesno&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;yesno\&quot;&quot;,&quot;title&quot;:&quot;yesno&quot;,&quot;id&quot;:&quot;yesno&quot;},{&quot;match&quot;:&quot;&lt;h3 id=\&quot;typicalusage\&quot;&gt;Typical usage&lt;/h3&gt;&quot;,&quot;level&quot;:3,&quot;attrs&quot;:&quot;id=\&quot;typicalusage\&quot;&quot;,&quot;title&quot;:&quot;Typical usage&quot;,&quot;id&quot;:&quot;typicalusage&quot;},{&quot;match&quot;:&quot;&lt;h3 id=\&quot;allbehavioroptions\&quot;&gt;All behavior options&lt;/h3&gt;&quot;,&quot;level&quot;:3,&quot;attrs&quot;:&quot;id=\&quot;allbehavioroptions\&quot;&quot;,&quot;title&quot;:&quot;All behavior options&quot;,&quot;id&quot;:&quot;allbehavioroptions&quot;}]" modulo-mount-html=""><nav class="regular&quot;=&quot;">
+        <div> </div>
+        <div>
+            <div>
+                <label>[ <input name="show" type="checkbox"> Table of Contents ]</label>
+                <label title="Stick to upper right">[ <span alt="upper right arrow">↗</span>
+                    <input name="sticky" type="checkbox"> ]</label>
+            </div>
+            
+                <ul>
+                    
+                        
+                            <li style="--level: 1">
+                                    <a href="#templatefilters">Template Filters</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#add">add</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#allow">allow</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#camelcase">camelcase</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#capfirst">capfirst</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#combine">combine</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#default">default</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#divisibleby">divisibleby</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#entries">entries</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#escapejs">escapejs</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#first">first</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#get">get</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#join">join</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#json">json</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#keys">keys</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#last">last</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#length">length</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#lower">lower</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#multiply">multiply</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#number">number</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#pluralize">pluralize</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#safe">safe</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#skipfirst">skipfirst</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#sorted">sorted</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#subtract">subtract</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#tagswap">tagswap</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#trim">trim</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#truncate">truncate</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#type">type</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#renderas">renderas</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#reversed">reversed</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#upper">upper</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#values">values</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#yesno">yesno</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 3">
+                                    <a href="#typicalusage">Typical usage</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 3">
+                                    <a href="#allbehavioroptions">All behavior options</a>
+                            </li>
+                        
+                    
+                </ul>
+            
+        </div>
+    </nav></x-tableofcontents>
+                    
+                    <div class="markdown-body"><p>This document lists and shows examples for each of the the built-in Template
+Filters that are already registered with Modulo template system.</p>
+<h1 id="templatefilters">Template Filters</h1>
+<h2 id="add">add</h2>
+<p>Adds the argument to the value. Example:</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+    {{ state.value|add:7 }} hacks &lt;br /&gt;
+    {{ state.value|add:state.another }} hz
+&lt;/Template&gt;
+
+&lt;State
+    value:=1330
+    another:=1270
+&gt;&lt;/State&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Template&gt;
+    {{ state.value|add:7 }} hacks &lt;br /&gt;
+    {{ state.value|add:state.another }} hz
+&lt;/Template&gt;
+
+&lt;State
+    value:=1330
+    another:=1270
+&gt;&lt;/State&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    </span><span class="hljs-template-variable">{{ state.value|<span class="hljs-name">add</span>:7 }}</span><span class="language-xml"> hacks <span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+    </span><span class="hljs-template-variable">{{ state.value|<span class="hljs-name">add</span>:state.another }}</span><span class="language-xml"> hz
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
+    <span class="hljs-attr">value:</span>=<span class="hljs-modulo-attr-value-lit">1330</span>
+    <span class="hljs-attr">another:</span>=<span class="hljs-modulo-attr-value-lit">1270</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h2 id="allow">allow</h2>
+<p>Given an "allowed list" of comma separated strings, only permit values that
+exist exactly the "allowed list". If the value does not exist within the
+allowed list, it will produce an empty string (<code>""</code>). The fact that empty
+strings are "falsy" means you can chain together this filter with the default
+filter in order to provide a fallback as well, which is demonstrated in the
+third example. Examples:</p>
+<p><em>Note:</em> You should not use this for input validation for security purposes (use
+the backend instead, since any frontend code can be altered by users) or input
+validation, for which you use should <code>pattern=</code> instead since it's built in to
+HTML.</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+    Valid: {{ state.value|allow:&quot;orange,apple,pear&quot; }} &lt;br /&gt;
+    Invalid: {{ state.value|allow:&quot;a,b,c&quot; }} &lt;br /&gt;
+    Invalid + default: {{ state.value|allow:&quot;a,b,c&quot;|default:&quot;Oops!&quot; }}
+&lt;/Template&gt;
+
+&lt;State
+    value=&quot;apple&quot;
+&gt;&lt;/State&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Template&gt;
+    Valid: {{ state.value|allow:&quot;orange,apple,pear&quot; }} &lt;br /&gt;
+    Invalid: {{ state.value|allow:&quot;a,b,c&quot; }} &lt;br /&gt;
+    Invalid + default: {{ state.value|allow:&quot;a,b,c&quot;|default:&quot;Oops!&quot; }}
+&lt;/Template&gt;
+
+&lt;State
+    value=&quot;apple&quot;
+&gt;&lt;/State&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    Valid: </span><span class="hljs-template-variable">{{ state.value|allow:<span class="hljs-string">"orange,apple,pear"</span> }}</span><span class="language-xml"> <span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+    Invalid: </span><span class="hljs-template-variable">{{ state.value|allow:<span class="hljs-string">"a,b,c"</span> }}</span><span class="language-xml"> <span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+    Invalid + default: </span><span class="hljs-template-variable">{{ state.value|allow:<span class="hljs-string">"a,b,c"</span>|<span class="hljs-name">default</span>:<span class="hljs-string">"Oops!"</span> }}</span><span class="language-xml">
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
+    <span class="hljs-attr">value</span>=<span class="hljs-string">"apple"</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h2 id="camelcase">camelcase</h2>
+<p>Converts a <code>kebab-case-style-string</code> (like favored by HTML, or website URL
+slugs), among other formats, into a <code>camelCase</code> (like what's favored by
+JavaScript, others).</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+    Original: {{ state.slug }} &lt;br /&gt;
+    Camel: {{ state.slug|camelcase }} &lt;hr /&gt;
+    Original: {{ state.filename }} &lt;br /&gt;
+    Camel: {{ state.filename|camelcase }}
+&lt;/Template&gt;
+&lt;State
+    slug=&quot;no-more-sluggish-sites&quot;
+    filename=&quot;article-dir-index_2.html&quot;
+&gt;&lt;/State&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Template&gt;
+    Original: {{ state.slug }} &lt;br /&gt;
+    Camel: {{ state.slug|camelcase }} &lt;hr /&gt;
+    Original: {{ state.filename }} &lt;br /&gt;
+    Camel: {{ state.filename|camelcase }}
+&lt;/Template&gt;
+&lt;State
+    slug=&quot;no-more-sluggish-sites&quot;
+    filename=&quot;article-dir-index_2.html&quot;
+&gt;&lt;/State&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    Original: </span><span class="hljs-template-variable">{{ state.slug }}</span><span class="language-xml"> <span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+    Camel: </span><span class="hljs-template-variable">{{ state.slug|camelcase }}</span><span class="language-xml"> <span class="hljs-tag">&lt;<span class="hljs-name">hr</span> /&gt;</span>
+    Original: </span><span class="hljs-template-variable">{{ state.filename }}</span><span class="language-xml"> <span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+    Camel: </span><span class="hljs-template-variable">{{ state.filename|camelcase }}</span><span class="language-xml">
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
+    <span class="hljs-attr">slug</span>=<span class="hljs-string">"no-more-sluggish-sites"</span>
+    <span class="hljs-attr">filename</span>=<span class="hljs-string">"article-dir-index_2.html"</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h2 id="capfirst">capfirst</h2>
+<p>Output given string with the first letter capitalized.</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+    The {{ state.value|capfirst }} framework is my favorite
+&lt;/Template&gt;
+
+&lt;State
+    value=&quot;modulo.html&quot;
+&gt;&lt;/State&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Template&gt;
+    The {{ state.value|capfirst }} framework is my favorite
+&lt;/Template&gt;
+
+&lt;State
+    value=&quot;modulo.html&quot;
+&gt;&lt;/State&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    The </span><span class="hljs-template-variable">{{ state.value|<span class="hljs-name">capfirst</span> }}</span><span class="language-xml"> framework is my favorite
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
+    <span class="hljs-attr">value</span>=<span class="hljs-string">"modulo.html"</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h2 id="combine">combine</h2>
+<p>Combine is for combining values, which results in a few different operations
+depending on type. For Arrays, it will combine them end-to-end. For Objects, it
+will attempt to "squash" them. See the following examples:</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+    Arrays: {{ state.start|combine:state.end|json }}&lt;br /&gt;
+    Objects: {{ state.baseobj|combine:state.topobj|json }}
+&lt;/Template&gt;
+
+&lt;State
+    start:='[ 1, 2, 3 ]'
+    end:='[ &quot;a&quot;, &quot;b&quot;, &quot;c&quot; ]'
+    baseobj:='{ &quot;a&quot;: 1, &quot;b&quot;: 2 }'
+    topobj:='{ &quot;b&quot;: 3, &quot;c&quot;: 4 }'
+&gt;&lt;/State&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Template&gt;
+    Arrays: {{ state.start|combine:state.end|json }}&lt;br /&gt;
+    Objects: {{ state.baseobj|combine:state.topobj|json }}
+&lt;/Template&gt;
+
+&lt;State
+    start:='[ 1, 2, 3 ]'
+    end:='[ &quot;a&quot;, &quot;b&quot;, &quot;c&quot; ]'
+    baseobj:='{ &quot;a&quot;: 1, &quot;b&quot;: 2 }'
+    topobj:='{ &quot;b&quot;: 3, &quot;c&quot;: 4 }'
+&gt;&lt;/State&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    Arrays: </span><span class="hljs-template-variable">{{ state.start|combine:state.end|json }}</span><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+    Objects: </span><span class="hljs-template-variable">{{ state.baseobj|combine:state.topobj|json }}</span><span class="language-xml">
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
+    <span class="hljs-attr">start:</span>=<span class="hljs-string">'[ 1, 2, 3 ]'</span>
+    <span class="hljs-attr">end:</span>=<span class="hljs-string">'[ "a", "b", "c" ]'</span>
+    <span class="hljs-attr">baseobj:</span>=<span class="hljs-string">'{ "a": 1, "b": 2 }'</span>
+    <span class="hljs-attr">topobj:</span>=<span class="hljs-string">'{ "b": 3, "c": 4 }'</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h2 id="default">default</h2>
+<p>If the given value is <a href="https://developer.mozilla.org/en-US/docs/Glossary/Falsy">Falsy</a>, use the given default. Otherwise, use the value.</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+    Fave snack: {{ state.snack|default:&quot;icecream&quot; }} &lt;br /&gt;
+    Snack count: {{ state.count|default:&quot;none&quot; }} &lt;br /&gt;
+    Fave soda: {{ state.soda|default:&quot;Cola&quot; }}
+&lt;/Template&gt;
+&lt;State
+    snack=&quot;&quot;
+    count:=0
+    soda=&quot;guarana&quot;
+&gt;&lt;/State&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Template&gt;
+    Fave snack: {{ state.snack|default:&quot;icecream&quot; }} &lt;br /&gt;
+    Snack count: {{ state.count|default:&quot;none&quot; }} &lt;br /&gt;
+    Fave soda: {{ state.soda|default:&quot;Cola&quot; }}
+&lt;/Template&gt;
+&lt;State
+    snack=&quot;&quot;
+    count:=0
+    soda=&quot;guarana&quot;
+&gt;&lt;/State&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    Fave snack: </span><span class="hljs-template-variable">{{ state.snack|<span class="hljs-name">default</span>:<span class="hljs-string">"icecream"</span> }}</span><span class="language-xml"> <span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+    Snack count: </span><span class="hljs-template-variable">{{ state.count|<span class="hljs-name">default</span>:<span class="hljs-string">"none"</span> }}</span><span class="language-xml"> <span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+    Fave soda: </span><span class="hljs-template-variable">{{ state.soda|<span class="hljs-name">default</span>:<span class="hljs-string">"Cola"</span> }}</span><span class="language-xml">
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
+    <span class="hljs-attr">snack</span>=<span class="hljs-string">""</span>
+    <span class="hljs-attr">count:</span>=<span class="hljs-modulo-attr-value-lit">0</span>
+    <span class="hljs-attr">soda</span>=<span class="hljs-string">"guarana"</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h2 id="divisibleby">divisibleby</h2>
+<p>Returns <code>true</code> if the value is evenly divisible by the given argument.</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+    Can {{ state.value }} divide by 3? &lt;br /&gt;
+    {{ state.value|divisibleby:3 }} &lt;br /&gt;
+    {% if state.value|divisibleby:2 %}
+        {{ state.value }} is even
+    {% endif %}
+&lt;/Template&gt;
+&lt;State
+    value:=4
+&gt;&lt;/State&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Template&gt;
+    Can {{ state.value }} divide by 3? &lt;br /&gt;
+    {{ state.value|divisibleby:3 }} &lt;br /&gt;
+    {% if state.value|divisibleby:2 %}
+        {{ state.value }} is even
+    {% endif %}
+&lt;/Template&gt;
+&lt;State
+    value:=4
+&gt;&lt;/State&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    Can </span><span class="hljs-template-variable">{{ state.value }}</span><span class="language-xml"> divide by 3? <span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+    </span><span class="hljs-template-variable">{{ state.value|<span class="hljs-name">divisibleby</span>:3 }}</span><span class="language-xml"> <span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">if</span></span> state.value|<span class="hljs-name">divisibleby</span>:2 %}</span><span class="language-xml">
+        </span><span class="hljs-template-variable">{{ state.value }}</span><span class="language-xml"> is even
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endif</span></span> %}</span><span class="language-xml">
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
+    <span class="hljs-attr">value:</span>=<span class="hljs-modulo-attr-value-lit">4</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h2 id="entries">entries</h2>
+<p>Convert the entire Object an Array format. If you only want one part of it, see
+the related <a href="#values">values</a> and <a href="#keys">keys</a>.</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+    Entries: {{ state.obj|entries|json }}
+&lt;/Template&gt;
+
+&lt;State
+    obj:='{
+        &quot;abc&quot;: 123,
+        &quot;def&quot;: 456
+    }'
+&gt;&lt;/State&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Template&gt;
+    Entries: {{ state.obj|entries|json }}
+&lt;/Template&gt;
+
+&lt;State
+    obj:='{
+        &quot;abc&quot;: 123,
+        &quot;def&quot;: 456
+    }'
+&gt;&lt;/State&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    Entries: </span><span class="hljs-template-variable">{{ state.obj|entries|json }}</span><span class="language-xml">
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
+    <span class="hljs-attr">obj:</span>=<span class="hljs-string">'{
+        "abc": 123,
+        "def": 456
+    }'</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h2 id="escapejs">escapejs</h2>
+<p>Escape special characters in a given string using JavaScript (specifically,
+JSON) escaping rules. If you have a string like <code>"Hello\nWorld!"</code> (where <code>\n</code>
+is a single new-line character), it will output <code>Hello\nWorld!</code> (that is, as
+"backslash-n" or two characters). It will also "double-up" any backslashes it
+encounters.</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+    Result: {{ state.value|escapejs }} &lt;br /&gt;
+&lt;/Template&gt;
+
+&lt;State
+    value=&quot;Just
+trying
+\stuff\
+out&quot;
+&gt;&lt;/State&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Template&gt;
+    Result: {{ state.value|escapejs }} &lt;br /&gt;
+&lt;/Template&gt;
+
+&lt;State
+    value=&quot;Just
+trying
+\stuff\
+out&quot;
+&gt;&lt;/State&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    Result: </span><span class="hljs-template-variable">{{ state.value|<span class="hljs-name">escapejs</span> }}</span><span class="language-xml"> <span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
+    <span class="hljs-attr">value</span>=<span class="hljs-string">"Just
+trying
+\stuff\
+out"</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h2 id="first">first</h2>
+<p>Retrieve the first item in an Array:</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+    &lt;p&gt;Biggest city: {{ state.cities|first }}&lt;/p&gt;
+&lt;/Template&gt;
+
+&lt;State
+  cities:='[ &quot;Montevideo&quot;, &quot;Salto&quot;, &quot;Rocha&quot;, &quot;Chuy&quot; ]'
+&gt;&lt;/State&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Template&gt;
+    &lt;p&gt;Biggest city: {{ state.cities|first }}&lt;/p&gt;
+&lt;/Template&gt;
+
+&lt;State
+  cities:='[ &quot;Montevideo&quot;, &quot;Salto&quot;, &quot;Rocha&quot;, &quot;Chuy&quot; ]'
+&gt;&lt;/State&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Biggest city: </span><span class="hljs-template-variable">{{ state.cities|<span class="hljs-name">first</span> }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
+  <span class="hljs-attr">cities:</span>=<span class="hljs-string">'[ "Montevideo", "Salto", "Rocha", "Chuy" ]'</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h2 id="get">get</h2>
+<p>The "get" filter is very versatile. It's used for traversing complex data
+structures to retrieve values based on given "property path", or access
+properties based on the value of variables. Note that for <em>Array</em> types, it
+will use JavaScript logic of starting counting at 0 (e.g. counting index as 0,
+1, 2 … ). Also note that it treats <em>Array</em> and <em>Object</em> types interchangeably:
+You can use dot (<code>.</code>) notation for either.</p>
+<p>The following demonstrates 3 uses:</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+    &lt;p&gt;Basic: {{ state.cities|get:2 }}&lt;/p&gt;
+    &lt;p&gt;Another variable: {{ state.cities|get:state.my-num }}&lt;/p&gt;
+    &lt;p&gt;Drill down: {{ state.complex-data|get:'a.b.c.2' }}&lt;/p&gt;
+&lt;/Template&gt;
+&lt;State
+  my-num:=3
+  cities:='[ &quot;Oakland&quot;, &quot;Berkeley&quot;, &quot;Richmond&quot;, &quot;Concord&quot; ]'
+  complex-data:='{ &quot;a&quot;: { &quot;b&quot;: { &quot;c&quot;: [ &quot;x&quot;, &quot;y&quot;, &quot;z&quot; ] } } }'
+&gt;&lt;/State&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Template&gt;
+    &lt;p&gt;Basic: {{ state.cities|get:2 }}&lt;/p&gt;
+    &lt;p&gt;Another variable: {{ state.cities|get:state.my-num }}&lt;/p&gt;
+    &lt;p&gt;Drill down: {{ state.complex-data|get:'a.b.c.2' }}&lt;/p&gt;
+&lt;/Template&gt;
+&lt;State
+  my-num:=3
+  cities:='[ &quot;Oakland&quot;, &quot;Berkeley&quot;, &quot;Richmond&quot;, &quot;Concord&quot; ]'
+  complex-data:='{ &quot;a&quot;: { &quot;b&quot;: { &quot;c&quot;: [ &quot;x&quot;, &quot;y&quot;, &quot;z&quot; ] } } }'
+&gt;&lt;/State&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Basic: </span><span class="hljs-template-variable">{{ state.cities|get:2 }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Another variable: </span><span class="hljs-template-variable">{{ state.cities|get:state.my-num }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Drill down: </span><span class="hljs-template-variable">{{ state.complex-data|get:<span class="hljs-string">'a.b.c.2'</span> }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
+  <span class="hljs-attr">my-num:</span>=<span class="hljs-modulo-attr-value-lit">3</span>
+  <span class="hljs-attr">cities:</span>=<span class="hljs-string">'[ "Oakland", "Berkeley", "Richmond", "Concord" ]'</span>
+  <span class="hljs-attr">complex-data:</span>=<span class="hljs-string">'{ "a": { "b": { "c": [ "x", "y", "z" ] } } }'</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h2 id="join">join</h2>
+<p>Formats an array to be comma-separated. Optionally, a different separator can be specified as an argument.</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+    &lt;p&gt;{{ state.athletes|join }}&lt;/p&gt;
+    &lt;p&gt;{{ state.athletes|join:&quot; + &quot; }}&lt;/p&gt;
+&lt;/Template&gt;
+
+&lt;State
+  athletes:='[ &quot;Gustavo Goodman&quot;, &quot;Zoey Zaïre&quot; ]'
+&gt;&lt;/State&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Template&gt;
+    &lt;p&gt;{{ state.athletes|join }}&lt;/p&gt;
+    &lt;p&gt;{{ state.athletes|join:&quot; + &quot; }}&lt;/p&gt;
+&lt;/Template&gt;
+
+&lt;State
+  athletes:='[ &quot;Gustavo Goodman&quot;, &quot;Zoey Zaïre&quot; ]'
+&gt;&lt;/State&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span></span><span class="hljs-template-variable">{{ state.athletes|<span class="hljs-name">join</span> }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span></span><span class="hljs-template-variable">{{ state.athletes|<span class="hljs-name">join</span>:<span class="hljs-string">" + "</span> }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
+  <span class="hljs-attr">athletes:</span>=<span class="hljs-string">'[ "Gustavo Goodman", "Zoey Zaïre" ]'</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h2 id="json">json</h2>
+<p>Formats given data as a JSON string. It takes one optional argument, that if specified, will cause indentation by the given amount.</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+    &lt;pre&gt;{{ state.athletes|json }}&lt;/pre&gt;
+    &lt;pre&gt;{{ state.athletes|json:2 }}&lt;/pre&gt;
+&lt;/Template&gt;
+
+&lt;State
+    athletes:='[
+        { &quot;name&quot;: &quot;Gus&quot;, &quot;sport&quot;: &quot;Pickleball&quot; },
+        { &quot;name&quot;: &quot;Zoe&quot; },
+        { &quot;name&quot;: &quot;Mahmoud &quot;}
+    ]'
+&gt;&lt;/State&gt;
+
+&lt;Style&gt;
+    :host {
+        overflow: auto;
+        display: block;
+        height: 180px;
+    }
+&lt;/Style&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Template&gt;
+    &lt;pre&gt;{{ state.athletes|json }}&lt;/pre&gt;
+    &lt;pre&gt;{{ state.athletes|json:2 }}&lt;/pre&gt;
+&lt;/Template&gt;
+
+&lt;State
+    athletes:='[
+        { &quot;name&quot;: &quot;Gus&quot;, &quot;sport&quot;: &quot;Pickleball&quot; },
+        { &quot;name&quot;: &quot;Zoe&quot; },
+        { &quot;name&quot;: &quot;Mahmoud &quot;}
+    ]'
+&gt;&lt;/State&gt;
+
+&lt;Style&gt;
+    :host {
+        overflow: auto;
+        display: block;
+        height: 180px;
+    }
+&lt;/Style&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">pre</span>&gt;</span></span><span class="hljs-template-variable">{{ state.athletes|json }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">pre</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">pre</span>&gt;</span></span><span class="hljs-template-variable">{{ state.athletes|json:2 }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">pre</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
+    <span class="hljs-attr">athletes:</span>=<span class="hljs-string">'[
+        { "name": "Gus", "sport": "Pickleball" },
+        { "name": "Zoe" },
+        { "name": "Mahmoud "}
+    ]'</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Style</span>&gt;</span><span class="language-css">
+    <span class="hljs-selector-pseudo">:host</span> {
+        <span class="hljs-attribute">overflow</span>: auto;
+        <span class="hljs-attribute">display</span>: block;
+        <span class="hljs-attribute">height</span>: <span class="hljs-number">180px</span>;
+    }
+</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Style</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h2 id="keys">keys</h2>
+<p>Show only the keys of the given Object, converted into an Array format. See
+also the similar <a href="#values">values</a> and <a href="#entries">entries</a>.</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+    Keys: {{ state.obj|keys|json }}
+&lt;/Template&gt;
+
+&lt;State
+    obj:='{
+        &quot;abc&quot;: 123,
+        &quot;def&quot;: 456
+    }'
+&gt;&lt;/State&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Template&gt;
+    Keys: {{ state.obj|keys|json }}
+&lt;/Template&gt;
+
+&lt;State
+    obj:='{
+        &quot;abc&quot;: 123,
+        &quot;def&quot;: 456
+    }'
+&gt;&lt;/State&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    Keys: </span><span class="hljs-template-variable">{{ state.obj|keys|json }}</span><span class="language-xml">
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
+    <span class="hljs-attr">obj:</span>=<span class="hljs-string">'{
+        "abc": 123,
+        "def": 456
+    }'</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h2 id="last">last</h2>
+<p>Retrieve the last item in an Array:</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+    &lt;p&gt;{{ state.sports|last }}&lt;/p&gt;
+&lt;/Template&gt;
+
+&lt;State
+    sports:='[ &quot;Pickleball&quot;, &quot;Footvolley&quot;, &quot;Beach Volleyball&quot; ]'
+&gt;&lt;/State&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Template&gt;
+    &lt;p&gt;{{ state.sports|last }}&lt;/p&gt;
+&lt;/Template&gt;
+
+&lt;State
+    sports:='[ &quot;Pickleball&quot;, &quot;Footvolley&quot;, &quot;Beach Volleyball&quot; ]'
+&gt;&lt;/State&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span></span><span class="hljs-template-variable">{{ state.sports|<span class="hljs-name">last</span> }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
+    <span class="hljs-attr">sports:</span>=<span class="hljs-string">'[ "Pickleball", "Footvolley", "Beach Volleyball" ]'</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h2 id="length">length</h2>
+<p>Determine the length of the given value. This supports Strings, Arrays, and Objects. For Objects, it will return the number of properties on the object.</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+    &lt;p&gt;Sentence length: {{ state.sentence|length }}&lt;/p&gt;
+    &lt;p&gt;Flowers length: {{ state.flowers|length }}&lt;/p&gt;
+    &lt;p&gt;Flights length: {{ state.flights|length }}&lt;/p&gt;
+&lt;/Template&gt;
+
+&lt;State
+    sentence=&quot;The sweat wis lashing oafay Sick Boy; he wis trembling.&quot;
+    flowers:='[ &quot;Marigolds&quot;, &quot;Sunflowers&quot; ]'
+    flights:='{ &quot;SFO&quot;: &quot;LAX&quot;, &quot;BAI&quot;: &quot;MEX&quot;, &quot;MEX&quot;: &quot;MVD&quot; }'
+&gt;&lt;/State&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Template&gt;
+    &lt;p&gt;Sentence length: {{ state.sentence|length }}&lt;/p&gt;
+    &lt;p&gt;Flowers length: {{ state.flowers|length }}&lt;/p&gt;
+    &lt;p&gt;Flights length: {{ state.flights|length }}&lt;/p&gt;
+&lt;/Template&gt;
+
+&lt;State
+    sentence=&quot;The sweat wis lashing oafay Sick Boy; he wis trembling.&quot;
+    flowers:='[ &quot;Marigolds&quot;, &quot;Sunflowers&quot; ]'
+    flights:='{ &quot;SFO&quot;: &quot;LAX&quot;, &quot;BAI&quot;: &quot;MEX&quot;, &quot;MEX&quot;: &quot;MVD&quot; }'
+&gt;&lt;/State&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Sentence length: </span><span class="hljs-template-variable">{{ state.sentence|<span class="hljs-name">length</span> }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Flowers length: </span><span class="hljs-template-variable">{{ state.flowers|<span class="hljs-name">length</span> }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Flights length: </span><span class="hljs-template-variable">{{ state.flights|<span class="hljs-name">length</span> }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
+    <span class="hljs-attr">sentence</span>=<span class="hljs-string">"The sweat wis lashing oafay Sick Boy; he wis trembling."</span>
+    <span class="hljs-attr">flowers:</span>=<span class="hljs-string">'[ "Marigolds", "Sunflowers" ]'</span>
+    <span class="hljs-attr">flights:</span>=<span class="hljs-string">'{ "SFO": "LAX", "BAI": "MEX", "MEX": "MVD" }'</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h2 id="lower">lower</h2>
+<p>Display the given string in all lowercase letters.</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+    &lt;p&gt;Without: {{ state.word }}&lt;/p&gt;
+    &lt;p&gt;Lower: {{ state.word|lower }}&lt;/p&gt;
+&lt;/Template&gt;
+
+&lt;State
+    word=&quot;rAndOm cAPitalS&quot;
+&gt;&lt;/State&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Template&gt;
+    &lt;p&gt;Without: {{ state.word }}&lt;/p&gt;
+    &lt;p&gt;Lower: {{ state.word|lower }}&lt;/p&gt;
+&lt;/Template&gt;
+
+&lt;State
+    word=&quot;rAndOm cAPitalS&quot;
+&gt;&lt;/State&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Without: </span><span class="hljs-template-variable">{{ state.word }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Lower: </span><span class="hljs-template-variable">{{ state.word|<span class="hljs-name">lower</span> }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
+    <span class="hljs-attr">word</span>=<span class="hljs-string">"rAndOm cAPitalS"</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h2 id="multiply">multiply</h2>
+<p>Performs the mathematical operation of "multiplication" of the given numbers.</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+    {{ state.a }} x {{ state.b }} =
+    {{ state.a|multiply:state.b }}
+&lt;/Template&gt;
+&lt;State
+    a:=10
+    b:=3
+&gt;&lt;/State&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Template&gt;
+    {{ state.a }} x {{ state.b }} =
+    {{ state.a|multiply:state.b }}
+&lt;/Template&gt;
+&lt;State
+    a:=10
+    b:=3
+&gt;&lt;/State&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    </span><span class="hljs-template-variable">{{ state.a }}</span><span class="language-xml"> x </span><span class="hljs-template-variable">{{ state.b }}</span><span class="language-xml"> =
+    </span><span class="hljs-template-variable">{{ state.a|multiply:state.b }}</span><span class="language-xml">
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
+    <span class="hljs-attr">a:</span>=<span class="hljs-modulo-attr-value-lit">10</span>
+    <span class="hljs-attr">b:</span>=<span class="hljs-modulo-attr-value-lit">3</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h2 id="number">number</h2>
+<p>Converts a String type to a Number type, so numeric comparisons can be made.
+Otherwise, the String type will default to alphabetically comparisons and
+operations.</p>
+<p>See below for an example of using it to force numeric operations. In this
+example it's necessary since "5" comes after "1" alphabetically (e.g. just as
+<code>"Jo"</code> comes after <code>"Anderson"</code> alphabetically, despite <code>"Jo"</code> being shorter,
+"50" comes after "1000", even if, when read numerically, <code>1000</code> is greater than
+<code>50</code>).</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+    {% if state.a gt state.b %} A is greater than B alphabetically
+    {% else %}B is greater than A alphabetically {% endif %}
+    &lt;p&gt;&lt;em&gt;However...&lt;/em&gt;&lt;/p&gt;
+    {% if state.a|number gt state.b|number %} A is greater than B numerically
+    {% else %}B is greater than A numerically {% endif %}
+&lt;/Template&gt;
+&lt;State
+    a=&quot;1000&quot;
+    b=&quot;50&quot;
+&gt;&lt;/State&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Template&gt;
+    {% if state.a gt state.b %} A is greater than B alphabetically
+    {% else %}B is greater than A alphabetically {% endif %}
+    &lt;p&gt;&lt;em&gt;However...&lt;/em&gt;&lt;/p&gt;
+    {% if state.a|number gt state.b|number %} A is greater than B numerically
+    {% else %}B is greater than A numerically {% endif %}
+&lt;/Template&gt;
+&lt;State
+    a=&quot;1000&quot;
+    b=&quot;50&quot;
+&gt;&lt;/State&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">if</span></span> state.a gt state.b %}</span><span class="language-xml"> A is greater than B alphabetically
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">else</span></span> %}</span><span class="language-xml">B is greater than A alphabetically </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endif</span></span> %}</span><span class="language-xml">
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">em</span>&gt;</span>However...<span class="hljs-tag">&lt;/<span class="hljs-name">em</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">if</span></span> state.a|number gt state.b|number %}</span><span class="language-xml"> A is greater than B numerically
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">else</span></span> %}</span><span class="language-xml">B is greater than A numerically </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endif</span></span> %}</span><span class="language-xml">
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
+    <span class="hljs-attr">a</span>=<span class="hljs-string">"1000"</span>
+    <span class="hljs-attr">b</span>=<span class="hljs-string">"50"</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h2 id="pluralize">pluralize</h2>
+<p>Allows for convenient pluralization in many human languages. This is for words
+in languages where a plural form is used when there is "0" or "2+" items, and a
+singular form for exactly 1 item. This is useful for the majority of noun and
+verb conjugations in English, along with many other Indo-European languages.</p>
+<p>To use, give it a number (typically, the length of a list), and a comma
+separated version of two forms of a word. If that number is exactly "1" it will
+output the second form (or nothing at all, if the second form is not
+specified), otherwise it will output the first form.</p>
+<p>Below are some examples. Note that in the second example, it does not specify a
+singular form, but instead only specifies an "s" to append to the word "flower"
+to make it's plural "flowers".</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+    We visited {{ state.citynames|length}} 
+    {{ state.citynames|length|pluralize:&quot;cities,city&quot; }}
+
+    and picked {{ state.flowers|length}} 
+    flower{{ state.flowers|length|pluralize:&quot;s&quot; }}
+&lt;/Template&gt;
+
+&lt;State
+    flowers:='[&quot;Marigolds&quot;, &quot;Sunflowers&quot;]'
+    citynames:='[&quot;Oakland&quot;, &quot;Berkeley&quot;, &quot;Richmond&quot;, &quot;Concord&quot;]'
+&gt;&lt;/State&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Template&gt;
+    We visited {{ state.citynames|length}} 
+    {{ state.citynames|length|pluralize:&quot;cities,city&quot; }}
+
+    and picked {{ state.flowers|length}} 
+    flower{{ state.flowers|length|pluralize:&quot;s&quot; }}
+&lt;/Template&gt;
+
+&lt;State
+    flowers:='[&quot;Marigolds&quot;, &quot;Sunflowers&quot;]'
+    citynames:='[&quot;Oakland&quot;, &quot;Berkeley&quot;, &quot;Richmond&quot;, &quot;Concord&quot;]'
+&gt;&lt;/State&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    We visited </span><span class="hljs-template-variable">{{ state.citynames|<span class="hljs-name">length</span>}}</span><span class="language-xml"> 
+    </span><span class="hljs-template-variable">{{ state.citynames|<span class="hljs-name">length</span>|<span class="hljs-name">pluralize</span>:<span class="hljs-string">"cities,city"</span> }}</span><span class="language-xml">
+
+    and picked </span><span class="hljs-template-variable">{{ state.flowers|<span class="hljs-name">length</span>}}</span><span class="language-xml"> 
+    flower</span><span class="hljs-template-variable">{{ state.flowers|<span class="hljs-name">length</span>|<span class="hljs-name">pluralize</span>:<span class="hljs-string">"s"</span> }}</span><span class="language-xml">
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
+    <span class="hljs-attr">flowers:</span>=<span class="hljs-string">'["Marigolds", "Sunflowers"]'</span>
+    <span class="hljs-attr">citynames:</span>=<span class="hljs-string">'["Oakland", "Berkeley", "Richmond", "Concord"]'</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h2 id="safe">safe</h2>
+<p>By default, template variables automatically escape the output of every
+variable value. Specifically, <code>&gt;</code>, <code>&lt;</code>, <code>'</code>, <code>"</code>, and <code>&amp;</code> are all turned into
+their "escaped" HTML  equivalents, to prevent them from being interpreated as
+HTML tags. </p>
+<p><code>|safe</code> disables this feature. It "marks" the HTML as "safe" for inclusion, and
+thus allowed to be interpreted as HTML, and not just display the sourcecode to
+the user.  Further reading on this topic is in the
+<a href="/docs/templating/#escaping">Templating section on "Escaping"</a>.</p>
+<p>See below for example:</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+    Escaped: {{ state.str }}&lt;br /&gt;
+    Marked safe: {{ state.str|safe }}
+&lt;/Template&gt;
+&lt;State
+    str=&quot;Try to escape &lt;em&gt;this!&lt;/em&gt;&quot;
+&gt;&lt;/State&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Template&gt;
+    Escaped: {{ state.str }}&lt;br /&gt;
+    Marked safe: {{ state.str|safe }}
+&lt;/Template&gt;
+&lt;State
+    str=&quot;Try to escape &lt;em&gt;this!&lt;/em&gt;&quot;
+&gt;&lt;/State&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    Escaped: </span><span class="hljs-template-variable">{{ state.str }}</span><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+    Marked safe: </span><span class="hljs-template-variable">{{ state.str|<span class="hljs-name">safe</span> }}</span><span class="language-xml">
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
+    <span class="hljs-attr">str</span>=<span class="hljs-string">"Try to escape &lt;em&gt;this!&lt;/em&gt;"</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h2 id="skipfirst">skipfirst</h2>
+<p>Takes all except for the first element. It's useful for skipping over data you
+don't need to process.  You can skip more than one by specifying the optional
+argument. For example, "<code>|skipfirst:10</code>" will cause
+it to "skip the first 10".</p>
+<p>Note that it's the opposite of <a href="#first">|first</a>. This means by combining these
+two filters, you can slice up your data for either displaying tables (as shown
+below), or even combine both on the same data to select. Tip for SQL
+developers: <code>LIMIT</code> and <code>OFFSET</code> correspond in behavior to <code>|first</code> and
+<code>|skipfirst</code>.</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+    {% for top in state.data|first %} &lt;h5&gt;{{ top }}&lt;/h5&gt; {% endfor %}
+    {% for row in state.data|skipfirst %}
+        {% for cell in row %}
+            &lt;div&gt;{{ cell }}&lt;/div&gt;
+        {% endfor %}
+    {% endfor %}
+&lt;/Template&gt;
+
+&lt;State
+    data:='[
+        [ &quot;Col 1&quot;, &quot;Col 2&quot;, &quot;Col 3&quot; ],
+        [ 1, 2, 3 ],
+        [ 1, 2, 3 ],
+        [ 1, 2, 3 ]
+    ]'
+&gt;&lt;/State&gt;
+
+&lt;Style&gt;
+    :host {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+&lt;/Style&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Template&gt;
+    {% for top in state.data|first %} &lt;h5&gt;{{ top }}&lt;/h5&gt; {% endfor %}
+    {% for row in state.data|skipfirst %}
+        {% for cell in row %}
+            &lt;div&gt;{{ cell }}&lt;/div&gt;
+        {% endfor %}
+    {% endfor %}
+&lt;/Template&gt;
+
+&lt;State
+    data:='[
+        [ &quot;Col 1&quot;, &quot;Col 2&quot;, &quot;Col 3&quot; ],
+        [ 1, 2, 3 ],
+        [ 1, 2, 3 ],
+        [ 1, 2, 3 ]
+    ]'
+&gt;&lt;/State&gt;
+
+&lt;Style&gt;
+    :host {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+&lt;/Style&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">for</span></span> top <span class="hljs-keyword">in</span> state.data|<span class="hljs-name">first</span> %}</span><span class="language-xml"> <span class="hljs-tag">&lt;<span class="hljs-name">h5</span>&gt;</span></span><span class="hljs-template-variable">{{ top }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">h5</span>&gt;</span> </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endfor</span></span> %}</span><span class="language-xml">
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">for</span></span> row <span class="hljs-keyword">in</span> state.data|skipfirst %}</span><span class="language-xml">
+        </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">for</span></span> cell <span class="hljs-keyword">in</span> row %}</span><span class="language-xml">
+            <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><span class="hljs-template-variable">{{ cell }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endfor</span></span> %}</span><span class="language-xml">
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endfor</span></span> %}</span><span class="language-xml">
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
+    <span class="hljs-attr">data:</span>=<span class="hljs-string">'[
+        [ "Col 1", "Col 2", "Col 3" ],
+        [ 1, 2, 3 ],
+        [ 1, 2, 3 ],
+        [ 1, 2, 3 ]
+    ]'</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Style</span>&gt;</span><span class="language-css">
+    <span class="hljs-selector-pseudo">:host</span> {
+        <span class="hljs-attribute">display</span>: grid;
+        <span class="hljs-attribute">grid-template-columns</span>: <span class="hljs-number">1</span>fr <span class="hljs-number">1</span>fr <span class="hljs-number">1</span>fr;
+    }
+</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Style</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h2 id="sorted">sorted</h2>
+<p>Sorts the given array, possibly by an object key specified:</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;&lt;pre&gt;
+Unsorted:       {{ state.nums|join }}            &lt;br /&gt;
+Sorted:         {{ state.nums|sorted|join }}     &lt;br /&gt; &lt;br /&gt;
+Sorted by &quot;a&quot;:  {{ state.objs|sorted:&quot;a&quot;|json }} &lt;br /&gt;
+by state.field: {{ state.objs|sorted:state.field|json }}
+&lt;/pre&gt;&lt;/Template&gt;
+&lt;State
+    nums:='[ 123, 93, 1, 34, 3, 9 ]'
+    objs:='[ { &quot;a&quot;: 23, &quot;b&quot;: &quot;Al&quot; }, { &quot;a&quot;: 2, &quot;b&quot;: &quot;Zoe&quot; } ]'
+    field=&quot;b&quot;
+&gt;&lt;/State&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Template&gt;&lt;pre&gt;
+Unsorted:       {{ state.nums|join }}            &lt;br /&gt;
+Sorted:         {{ state.nums|sorted|join }}     &lt;br /&gt; &lt;br /&gt;
+Sorted by &quot;a&quot;:  {{ state.objs|sorted:&quot;a&quot;|json }} &lt;br /&gt;
+by state.field: {{ state.objs|sorted:state.field|json }}
+&lt;/pre&gt;&lt;/Template&gt;
+&lt;State
+    nums:='[ 123, 93, 1, 34, 3, 9 ]'
+    objs:='[ { &quot;a&quot;: 23, &quot;b&quot;: &quot;Al&quot; }, { &quot;a&quot;: 2, &quot;b&quot;: &quot;Zoe&quot; } ]'
+    field=&quot;b&quot;
+&gt;&lt;/State&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">pre</span>&gt;</span>
+Unsorted:       </span><span class="hljs-template-variable">{{ state.nums|<span class="hljs-name">join</span> }}</span><span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+Sorted:         </span><span class="hljs-template-variable">{{ state.nums|sorted|<span class="hljs-name">join</span> }}</span><span class="language-xml">     <span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+Sorted by "a":  </span><span class="hljs-template-variable">{{ state.objs|sorted:<span class="hljs-string">"a"</span>|json }}</span><span class="language-xml"> <span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+by state.field: </span><span class="hljs-template-variable">{{ state.objs|sorted:state.field|json }}</span><span class="language-xml">
+<span class="hljs-tag">&lt;/<span class="hljs-name">pre</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
+    <span class="hljs-attr">nums:</span>=<span class="hljs-string">'[ 123, 93, 1, 34, 3, 9 ]'</span>
+    <span class="hljs-attr">objs:</span>=<span class="hljs-string">'[ { "a": 23, "b": "Al" }, { "a": 2, "b": "Zoe" } ]'</span>
+    <span class="hljs-attr">field</span>=<span class="hljs-string">"b"</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h2 id="subtract">subtract</h2>
+<p>Subtracts the argument from the value. Example:</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+    {{ state.value|subtract:3 }} hacks &lt;br /&gt;
+    {{ state.value|subtract:state.another }} is the answer
+&lt;/Template&gt;
+
+&lt;State
+    value:=1340
+    another:=1298
+&gt;&lt;/State&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Template&gt;
+    {{ state.value|subtract:3 }} hacks &lt;br /&gt;
+    {{ state.value|subtract:state.another }} is the answer
+&lt;/Template&gt;
+
+&lt;State
+    value:=1340
+    another:=1298
+&gt;&lt;/State&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    </span><span class="hljs-template-variable">{{ state.value|subtract:3 }}</span><span class="language-xml"> hacks <span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+    </span><span class="hljs-template-variable">{{ state.value|subtract:state.another }}</span><span class="language-xml"> is the answer
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
+    <span class="hljs-attr">value:</span>=<span class="hljs-modulo-attr-value-lit">1340</span>
+    <span class="hljs-attr">another:</span>=<span class="hljs-modulo-attr-value-lit">1298</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h2 id="tagswap">tagswap</h2>
+<p>Given a string of HTML code, this will transform that HTML code by doing a
+simple find-and-replace operation, swapping one or more HTML tags for other
+HTML tags. A few examples of uses: Applying to templates (e.g. see <a href="#renderas">renderas
+filter</a> below), making quick previews of user-inputted HTML by
+substituting real HTML tags with components that generate previews, or
+to get around limitations of HTML with how certain tags behave differently when
+parsing (e.g. see how it's used in the
+<a href="/docs/processors.html#filtercontent"><code>-filter-content</code></a> <em>Processor</em> to more
+conveniently construct <code>&lt;table&gt;</code> tags).</p>
+<p>handles content in <code>&lt;table&gt;</code> and <code>&lt;td&gt;</code>
+tags differently than other tags).</p>
+<p>. The
+result will be automatically marked as safe, since the only purpose of this tag
+is to output HTML.</p>
+<p>The argument can be in the format of a String (using <code>=</code> to indicate
+substitution, separating each one by a space) or an Object. Examples of both
+below:</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+    &lt;p&gt;{{ state.html-code|tagswap:&quot;a=del b=a&quot; }}&lt;/p&gt;
+    &lt;p&gt;{{ state.html-code|tagswap:state.tags }}&lt;/p&gt;
+&lt;/Template&gt;
+
+&lt;State
+    html-code=&quot;&lt;a&gt;abc&lt;/a&gt;&lt;b&gt;123&lt;/b&gt;&lt;A&gt;def&lt;/a&gt;&quot;
+    tags:='{ &quot;a&quot;: &quot;del&quot; }'
+&gt;&lt;/State&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Template&gt;
+    &lt;p&gt;{{ state.html-code|tagswap:&quot;a=del b=a&quot; }}&lt;/p&gt;
+    &lt;p&gt;{{ state.html-code|tagswap:state.tags }}&lt;/p&gt;
+&lt;/Template&gt;
+
+&lt;State
+    html-code=&quot;&lt;a&gt;abc&lt;/a&gt;&lt;b&gt;123&lt;/b&gt;&lt;A&gt;def&lt;/a&gt;&quot;
+    tags:='{ &quot;a&quot;: &quot;del&quot; }'
+&gt;&lt;/State&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span></span><span class="hljs-template-variable">{{ state.html-code|tagswap:<span class="hljs-string">"a=del b=a"</span> }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span></span><span class="hljs-template-variable">{{ state.html-code|tagswap:state.tags }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
+    <span class="hljs-attr">html-code</span>=<span class="hljs-string">"&lt;a&gt;abc&lt;/a&gt;&lt;b&gt;123&lt;/b&gt;&lt;A&gt;def&lt;/a&gt;"</span>
+    <span class="hljs-attr">tags:</span>=<span class="hljs-string">'{ "a": "del" }'</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h2 id="trim">trim</h2>
+<p>Trims away whitespace and other unwanted text from the start and/or end
+of the given <em>String</em>. By default, it will only trim whitespace, but if given
+an argument, it will attempt to remove both whitespace, and what is specified,
+with a comma to separate beginning or end of the string. Example:</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+    &lt;pre&gt;Without: {{ state.country }}&lt;/pre&gt;
+    &lt;pre&gt;Default: {{ state.country|trim }}&lt;/pre&gt;
+    &lt;pre&gt;Extras:  {{ state.country|trim:'[,]()' }}&lt;/pre&gt;
+&lt;/Template&gt;
+
+&lt;State
+    country=&quot;  
+[Türkiye]()   &quot;
+&gt;&lt;/State&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Template&gt;
+    &lt;pre&gt;Without: {{ state.country }}&lt;/pre&gt;
+    &lt;pre&gt;Default: {{ state.country|trim }}&lt;/pre&gt;
+    &lt;pre&gt;Extras:  {{ state.country|trim:'[,]()' }}&lt;/pre&gt;
+&lt;/Template&gt;
+
+&lt;State
+    country=&quot;  
+[Türkiye]()   &quot;
+&gt;&lt;/State&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">pre</span>&gt;</span>Without: </span><span class="hljs-template-variable">{{ state.country }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">pre</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">pre</span>&gt;</span>Default: </span><span class="hljs-template-variable">{{ state.country|trim }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">pre</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">pre</span>&gt;</span>Extras:  </span><span class="hljs-template-variable">{{ state.country|trim:<span class="hljs-string">'[,]()'</span> }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">pre</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
+    <span class="hljs-attr">country</span>=<span class="hljs-string">"  
+[Türkiye]()   "</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h2 id="truncate">truncate</h2>
+<p>Cut off the given string after a number of characters specified by the argument. If it has to cut off the string, it will append an "ellipsis" character.</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+    &lt;p&gt;Long sentence: {{ state.sentence|truncate:20 }}&lt;/p&gt;
+    &lt;p&gt;Short word: {{ state.word|truncate:20 }}&lt;/p&gt;
+&lt;/Template&gt;
+
+&lt;State
+    sentence=&quot;The sweat wis lashing oafay Sick Boy; he wis trembling.&quot;
+    word=&quot;Bird.&quot;
+&gt;&lt;/State&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Template&gt;
+    &lt;p&gt;Long sentence: {{ state.sentence|truncate:20 }}&lt;/p&gt;
+    &lt;p&gt;Short word: {{ state.word|truncate:20 }}&lt;/p&gt;
+&lt;/Template&gt;
+
+&lt;State
+    sentence=&quot;The sweat wis lashing oafay Sick Boy; he wis trembling.&quot;
+    word=&quot;Bird.&quot;
+&gt;&lt;/State&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Long sentence: </span><span class="hljs-template-variable">{{ state.sentence|truncate:20 }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Short word: </span><span class="hljs-template-variable">{{ state.word|truncate:20 }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
+    <span class="hljs-attr">sentence</span>=<span class="hljs-string">"The sweat wis lashing oafay Sick Boy; he wis trembling."</span>
+    <span class="hljs-attr">word</span>=<span class="hljs-string">"Bird."</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h2 id="type">type</h2>
+<p>Attempts to figure out the JavaScript type of the given value, and returns the
+type, in all lowercase. Useful for acting differently when data, for example,
+is a Number, instead of a String.</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+    {{ state.str|type }} &lt;br /&gt;
+    {{ state.num|type }} &lt;br /&gt;
+    {{ state.arr|type }} &lt;br /&gt;
+    {{ state.obj|type }} &lt;br /&gt;
+    {{ state.bool|type }} &lt;br /&gt;
+    {{ state.arr.reverse|type }} &lt;br /&gt;
+    {% if state.arr|type is &quot;array&quot; %}
+        &lt;hr /&gt; It's an array!
+    {% endif %}
+&lt;/Template&gt;
+
+&lt;State
+    str=&quot;abc&quot;
+    num:=123
+    arr:='[ 1, 2, 3 ]'
+    obj:='{ &quot;a&quot;: 3 }'
+    bool:=false
+&gt;&lt;/State&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Template&gt;
+    {{ state.str|type }} &lt;br /&gt;
+    {{ state.num|type }} &lt;br /&gt;
+    {{ state.arr|type }} &lt;br /&gt;
+    {{ state.obj|type }} &lt;br /&gt;
+    {{ state.bool|type }} &lt;br /&gt;
+    {{ state.arr.reverse|type }} &lt;br /&gt;
+    {% if state.arr|type is &quot;array&quot; %}
+        &lt;hr /&gt; It's an array!
+    {% endif %}
+&lt;/Template&gt;
+
+&lt;State
+    str=&quot;abc&quot;
+    num:=123
+    arr:='[ 1, 2, 3 ]'
+    obj:='{ &quot;a&quot;: 3 }'
+    bool:=false
+&gt;&lt;/State&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    </span><span class="hljs-template-variable">{{ state.str|type }}</span><span class="language-xml"> <span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+    </span><span class="hljs-template-variable">{{ state.num|type }}</span><span class="language-xml"> <span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+    </span><span class="hljs-template-variable">{{ state.arr|type }}</span><span class="language-xml"> <span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+    </span><span class="hljs-template-variable">{{ state.obj|type }}</span><span class="language-xml"> <span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+    </span><span class="hljs-template-variable">{{ state.bool|type }}</span><span class="language-xml"> <span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+    </span><span class="hljs-template-variable">{{ state.arr.reverse|type }}</span><span class="language-xml"> <span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">if</span></span> state.arr|type is "array" %}</span><span class="language-xml">
+        <span class="hljs-tag">&lt;<span class="hljs-name">hr</span> /&gt;</span> It's an array!
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endif</span></span> %}</span><span class="language-xml">
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
+    <span class="hljs-attr">str</span>=<span class="hljs-string">"abc"</span>
+    <span class="hljs-attr">num:</span>=<span class="hljs-modulo-attr-value-lit">123</span>
+    <span class="hljs-attr">arr:</span>=<span class="hljs-string">'[ 1, 2, 3 ]'</span>
+    <span class="hljs-attr">obj:</span>=<span class="hljs-string">'{ "a": 3 }'</span>
+    <span class="hljs-attr">bool:</span>=<span class="hljs-modulo-attr-value-lit">false</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<blockquote>
+  <p><strong>renderas Sandboxing</strong> - Note that the child template will be isolated or
+  "sandboxed" to <em>only</em> have access to properties of the one, specified object,
+  meaning no CParts (e.g. <em>state</em>, <em>props</em>, etc.) will be available, unless
+  those are explicitly included in the specified object. This is to simplify
+  the child templates.  However, sometimes it is desirable for the child
+  template to behave just like the parent so you can quickly split up
+  templates. To simply include another template without any sandboxing, use the
+  <a href="/templating/tags.html">include template-tag</a>.</p>
+</blockquote>
+<h2 id="renderas">renderas</h2>
+<p>A highly useful filter that allows use of re-usable template snippets.
+Typically in the format of <code>{{ state.data|renderas:trow }}</code>, where <code>state.data</code>
+is some Object, and there exists a template like with the <code>-name</code> "trow" that
+renders that object.  The typical usage of this is to take complicated bits of
+template code and refactor them into another smaller, more isolated, and less
+complicated helper, "child" template, that are referenced within the main
+template.</p>
+<p>The "input" to renderas should always be an Object. The keys and values of that
+object will populate the "template variables" for that template, meaning you
+can access them directly as template variables within the child template. As an
+example, if we <code>renderas</code> with an Object like <code>{ "myTitle": "Newest entry" }</code>,
+then within the child template the "myTitle" becomes a "top-level" variable.
+This means we can directly use syntax like <code>{{ myTitle }}</code> or <code>{{ my-title }}</code>
+(no need for "." syntax). Example:</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template -name=&quot;trow&quot;&gt;
+    &lt;div&gt;&lt;strong&gt;{{ name }}&lt;/strong&gt;&lt;/div&gt;
+    &lt;div&gt;&lt;em&gt;{{ type }}&lt;/em&gt;&lt;/div&gt;
+    &lt;div&gt;&lt;tt&gt;{{ level }}&lt;/tt&gt;&lt;/div&gt;
+&lt;/Template&gt;
+&lt;Template&gt;
+    &lt;section&gt;
+        &lt;h3&gt;Name&lt;/h3&gt; &lt;h3&gt;Type&lt;/h3&gt; &lt;h3&gt;Level&lt;/h3&gt;
+        {% for info in state.pokemon %}
+            {{ info|renderas:trow }}
+        {% endfor %}
+    &lt;/section&gt;
+&lt;/Template&gt;
+&lt;State
+    pokemon:='[
+        {&quot;name&quot;: &quot;Jigglypuff&quot;, &quot;type&quot;: &quot;Normal&quot;, &quot;level&quot;: 13},
+        {&quot;name&quot;: &quot;Pikachu&quot;, &quot;type&quot;: &quot;Electric&quot;, &quot;level&quot;: 10},
+        {&quot;name&quot;: &quot;Ghastly&quot;, &quot;type&quot;: &quot;Ghost&quot;, &quot;level&quot;: 8}
+    ]'
+&gt;&lt;/State&gt;
+&lt;Style&gt;
+    section {
+        display: grid;
+        grid-template-columns: 2fr 2fr 1fr;
+    }
+&lt;/Style&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Template -name=&quot;trow&quot;&gt;
+    &lt;div&gt;&lt;strong&gt;{{ name }}&lt;/strong&gt;&lt;/div&gt;
+    &lt;div&gt;&lt;em&gt;{{ type }}&lt;/em&gt;&lt;/div&gt;
+    &lt;div&gt;&lt;tt&gt;{{ level }}&lt;/tt&gt;&lt;/div&gt;
+&lt;/Template&gt;
+&lt;Template&gt;
+    &lt;section&gt;
+        &lt;h3&gt;Name&lt;/h3&gt; &lt;h3&gt;Type&lt;/h3&gt; &lt;h3&gt;Level&lt;/h3&gt;
+        {% for info in state.pokemon %}
+            {{ info|renderas:trow }}
+        {% endfor %}
+    &lt;/section&gt;
+&lt;/Template&gt;
+&lt;State
+    pokemon:='[
+        {&quot;name&quot;: &quot;Jigglypuff&quot;, &quot;type&quot;: &quot;Normal&quot;, &quot;level&quot;: 13},
+        {&quot;name&quot;: &quot;Pikachu&quot;, &quot;type&quot;: &quot;Electric&quot;, &quot;level&quot;: 10},
+        {&quot;name&quot;: &quot;Ghastly&quot;, &quot;type&quot;: &quot;Ghost&quot;, &quot;level&quot;: 8}
+    ]'
+&gt;&lt;/State&gt;
+&lt;Style&gt;
+    section {
+        display: grid;
+        grid-template-columns: 2fr 2fr 1fr;
+    }
+&lt;/Style&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span> <span class="hljs-modulo-defprocessor">-name</span>=<span class="hljs-string">"trow"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span></span><span class="hljs-template-variable">{{ name }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">em</span>&gt;</span></span><span class="hljs-template-variable">{{ type }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">em</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">tt</span>&gt;</span></span><span class="hljs-template-variable">{{ level }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">tt</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">section</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Name<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Type<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Level<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+        </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">for</span></span> info <span class="hljs-keyword">in</span> state.pokemon %}</span><span class="language-xml">
+            </span><span class="hljs-template-variable">{{ info|renderas:trow }}</span><span class="language-xml">
+        </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endfor</span></span> %}</span><span class="language-xml">
+    <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
+    <span class="hljs-attr">pokemon:</span>=<span class="hljs-string">'[
+        {"name": "Jigglypuff", "type": "Normal", "level": 13},
+        {"name": "Pikachu", "type": "Electric", "level": 10},
+        {"name": "Ghastly", "type": "Ghost", "level": 8}
+    ]'</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Style</span>&gt;</span><span class="language-css">
+    <span class="hljs-selector-tag">section</span> {
+        <span class="hljs-attribute">display</span>: grid;
+        <span class="hljs-attribute">grid-template-columns</span>: <span class="hljs-number">2</span>fr <span class="hljs-number">2</span>fr <span class="hljs-number">1</span>fr;
+    }
+</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Style</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h2 id="reversed">reversed</h2>
+<p>Reverses the given input. Typically, this is used to reverse Arrays, such as
+when you want to iterate over an Array in the opposite direction using
+a <code>{% for %}</code> template-tag. If the input is a String or another data type, it
+will attempt to first convert to an Array.</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+    &lt;p&gt;{{ state.flowers|reversed|join }}&lt;/p&gt;
+    {% for city in state.cities|reversed %}
+        &lt;p&gt;{{ city }}&lt;/p&gt;
+    {% endfor %}
+&lt;/Template&gt;
+
+&lt;State
+    flowers:='[ &quot;Marigolds&quot;, &quot;Sunflowers&quot; ]'
+    cities:='[ &quot;Oakland&quot;, &quot;Berkeley&quot;, &quot;Richmond&quot;, &quot;Concord&quot; ]'
+&gt;&lt;/State&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Template&gt;
+    &lt;p&gt;{{ state.flowers|reversed|join }}&lt;/p&gt;
+    {% for city in state.cities|reversed %}
+        &lt;p&gt;{{ city }}&lt;/p&gt;
+    {% endfor %}
+&lt;/Template&gt;
+
+&lt;State
+    flowers:='[ &quot;Marigolds&quot;, &quot;Sunflowers&quot; ]'
+    cities:='[ &quot;Oakland&quot;, &quot;Berkeley&quot;, &quot;Richmond&quot;, &quot;Concord&quot; ]'
+&gt;&lt;/State&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span></span><span class="hljs-template-variable">{{ state.flowers|reversed|<span class="hljs-name">join</span> }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">for</span></span> city <span class="hljs-keyword">in</span> state.cities|reversed %}</span><span class="language-xml">
+        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span></span><span class="hljs-template-variable">{{ city }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endfor</span></span> %}</span><span class="language-xml">
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
+    <span class="hljs-attr">flowers:</span>=<span class="hljs-string">'[ "Marigolds", "Sunflowers" ]'</span>
+    <span class="hljs-attr">cities:</span>=<span class="hljs-string">'[ "Oakland", "Berkeley", "Richmond", "Concord" ]'</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h2 id="upper">upper</h2>
+<p>Display the given string in all uppercase letters.</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+    &lt;p&gt;Without: {{ state.word }}&lt;/p&gt;
+    &lt;p&gt;Upper: {{ state.word|upper }}&lt;/p&gt;
+&lt;/Template&gt;
+
+&lt;State
+    word=&quot;rAndOm cAPitalS&quot;
+&gt;&lt;/State&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Template&gt;
+    &lt;p&gt;Without: {{ state.word }}&lt;/p&gt;
+    &lt;p&gt;Upper: {{ state.word|upper }}&lt;/p&gt;
+&lt;/Template&gt;
+
+&lt;State
+    word=&quot;rAndOm cAPitalS&quot;
+&gt;&lt;/State&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Without: </span><span class="hljs-template-variable">{{ state.word }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Upper: </span><span class="hljs-template-variable">{{ state.word|<span class="hljs-name">upper</span> }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
+    <span class="hljs-attr">word</span>=<span class="hljs-string">"rAndOm cAPitalS"</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h2 id="values">values</h2>
+<p>Show only the values of the given Object, converted into an Array format. See
+also the similar <a href="#keys">keys</a> and <a href="#entries">entries</a>.</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+    Values: {{ state.obj|values|json }}
+&lt;/Template&gt;
+
+&lt;State
+    obj:='{
+        &quot;abc&quot;: 123,
+        &quot;def&quot;: 456
+    }'
+&gt;&lt;/State&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Template&gt;
+    Values: {{ state.obj|values|json }}
+&lt;/Template&gt;
+
+&lt;State
+    obj:='{
+        &quot;abc&quot;: 123,
+        &quot;def&quot;: 456
+    }'
+&gt;&lt;/State&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    Values: </span><span class="hljs-template-variable">{{ state.obj|values|json }}</span><span class="language-xml">
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
+    <span class="hljs-attr">obj:</span>=<span class="hljs-string">'{
+        "abc": 123,
+        "def": 456
+    }'</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h2 id="yesno">yesno</h2>
+<p>The <code>|yesno</code> filter converts the data into a string. The <code>|yesno</code> filter is a
+handy shortcut with many practical uses when generating HTML and displaying
+values from the database.</p>
+<h3 id="typicalusage">Typical usage</h3>
+<p>Without an argument, it will simply convert booleans to the words "yes" and
+"no".  When an argument is provided, this will be used instead, and can end up
+being simpler than a full if statement. Examples of both below:</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+    &lt;input state.bind name=&quot;active&quot; type=&quot;checkbox&quot; /&gt;
+    &lt;p class=&quot;{{ state.active|yesno:'p-act' }}&quot;&gt;
+        Checked? {{ state.active|yesno }}
+    &lt;/p&gt;
+&lt;/Template&gt;
+&lt;State
+    active:=null
+&gt;&lt;/State&gt;
+&lt;Style&gt;
+    .p-act {
+        color: green;
+    }
+&lt;/Style&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Template&gt;
+    &lt;input state.bind name=&quot;active&quot; type=&quot;checkbox&quot; /&gt;
+    &lt;p class=&quot;{{ state.active|yesno:'p-act' }}&quot;&gt;
+        Checked? {{ state.active|yesno }}
+    &lt;/p&gt;
+&lt;/Template&gt;
+&lt;State
+    active:=null
+&gt;&lt;/State&gt;
+&lt;Style&gt;
+    .p-act {
+        color: green;
+    }
+&lt;/Style&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">state.bind</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"active"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"</span></span></span><span class="hljs-template-variable">{{ state.active|<span class="hljs-name">yesno</span>:<span class="hljs-string">'p-act'</span> }}</span><span class="language-xml"><span class="hljs-tag"><span class="hljs-string">"</span>&gt;</span>
+        Checked? </span><span class="hljs-template-variable">{{ state.active|<span class="hljs-name">yesno</span> }}</span><span class="language-xml">
+    <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
+    <span class="hljs-attr">active:</span>=<span class="hljs-modulo-attr-value-lit">null</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Style</span>&gt;</span><span class="language-css">
+    <span class="hljs-selector-class">.p-act</span> {
+        <span class="hljs-attribute">color</span>: green;
+    }
+</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Style</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h3 id="allbehavioroptions">All behavior options</h3>
+<p>By default, it will convert <code>true</code> and other true values into "yes", <code>false</code>
+and other false values, and the "placeholder" <code>null</code> type into a "" (blank),
+since that is often used to designate something that is not yet defined (such
+as a null value in a database). When arguments are provided, these substitute
+these 3 options, as designated by commas. If a single argument is provided,
+then both "no" and "null" options get combined into "", and only "truthy"
+values will cause the given argument to show. With two arguments, the default
+behavior is replaced with the two alternaties.  With 3 arguments, then a value
+is presented for the undefined third value as well.</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+    &lt;span&gt;&lt;/span&gt; &lt;h3&gt;{{ state.a }}&lt;/h3&gt;       &lt;h3&gt;{{ state.b }}&lt;/h3&gt;       &lt;h3&gt;{{ state.c }}&lt;/h3&gt;
+    &lt;span&gt;&lt;/span&gt; &lt;span&gt;{{ state.a|yesno }}&lt;/span&gt; &lt;span&gt;{{ state.b|yesno }}&lt;/span&gt; &lt;span&gt;{{ state.c|yesno }}&lt;/span&gt;
+    &lt;span&gt;on&lt;/span&gt; &lt;span&gt;{{ state.a|yesno:&quot;on&quot; }}&lt;/span&gt; &lt;span&gt;{{ state.b|yesno:&quot;on&quot; }}&lt;/span&gt; &lt;span&gt;{{ state.c|yesno:&quot;on&quot; }}&lt;/span&gt;
+    &lt;span&gt;on,off&lt;/span&gt; &lt;span&gt;{{ state.a|yesno:&quot;on,off&quot; }}&lt;/span&gt; &lt;span&gt;{{ state.b|yesno:&quot;on,off&quot; }}&lt;/span&gt; &lt;span&gt;{{ state.c|yesno:&quot;on,off&quot; }}&lt;/span&gt;
+    &lt;span&gt;on,off,maybe&lt;/span&gt; &lt;span&gt;{{ state.a|yesno:&quot;on,off,maybe&quot; }}&lt;/span&gt; &lt;span&gt;{{ state.b|yesno:&quot;on,off,maybe&quot; }}&lt;/span&gt; &lt;span&gt;{{ state.c|yesno:&quot;on,off,maybe&quot; }}&lt;/span&gt;
+&lt;/Template&gt;
+&lt;State
+    a:=true
+    b:=false
+    c:=null
+&gt;&lt;/State&gt;
+&lt;Style&gt;
+    :host {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        text-align: right;
+    }
+&lt;/Style&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter value="&lt;Template&gt;
+    &lt;span&gt;&lt;/span&gt; &lt;h3&gt;{{ state.a }}&lt;/h3&gt;       &lt;h3&gt;{{ state.b }}&lt;/h3&gt;       &lt;h3&gt;{{ state.c }}&lt;/h3&gt;
+    &lt;span&gt;&lt;/span&gt; &lt;span&gt;{{ state.a|yesno }}&lt;/span&gt; &lt;span&gt;{{ state.b|yesno }}&lt;/span&gt; &lt;span&gt;{{ state.c|yesno }}&lt;/span&gt;
+    &lt;span&gt;on&lt;/span&gt; &lt;span&gt;{{ state.a|yesno:&quot;on&quot; }}&lt;/span&gt; &lt;span&gt;{{ state.b|yesno:&quot;on&quot; }}&lt;/span&gt; &lt;span&gt;{{ state.c|yesno:&quot;on&quot; }}&lt;/span&gt;
+    &lt;span&gt;on,off&lt;/span&gt; &lt;span&gt;{{ state.a|yesno:&quot;on,off&quot; }}&lt;/span&gt; &lt;span&gt;{{ state.b|yesno:&quot;on,off&quot; }}&lt;/span&gt; &lt;span&gt;{{ state.c|yesno:&quot;on,off&quot; }}&lt;/span&gt;
+    &lt;span&gt;on,off,maybe&lt;/span&gt; &lt;span&gt;{{ state.a|yesno:&quot;on,off,maybe&quot; }}&lt;/span&gt; &lt;span&gt;{{ state.b|yesno:&quot;on,off,maybe&quot; }}&lt;/span&gt; &lt;span&gt;{{ state.c|yesno:&quot;on,off,maybe&quot; }}&lt;/span&gt;
+&lt;/Template&gt;
+&lt;State
+    a:=true
+    b:=false
+    c:=null
+&gt;&lt;/State&gt;
+&lt;Style&gt;
+    :host {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        text-align: right;
+    }
+&lt;/Style&gt;
+" mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span></span><span class="hljs-template-variable">{{ state.a }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>       <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span></span><span class="hljs-template-variable">{{ state.b }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>       <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span></span><span class="hljs-template-variable">{{ state.c }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span></span><span class="hljs-template-variable">{{ state.a|<span class="hljs-name">yesno</span> }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span></span><span class="hljs-template-variable">{{ state.b|<span class="hljs-name">yesno</span> }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span></span><span class="hljs-template-variable">{{ state.c|<span class="hljs-name">yesno</span> }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>on<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span></span><span class="hljs-template-variable">{{ state.a|<span class="hljs-name">yesno</span>:<span class="hljs-string">"on"</span> }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span></span><span class="hljs-template-variable">{{ state.b|<span class="hljs-name">yesno</span>:<span class="hljs-string">"on"</span> }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span></span><span class="hljs-template-variable">{{ state.c|<span class="hljs-name">yesno</span>:<span class="hljs-string">"on"</span> }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>on,off<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span></span><span class="hljs-template-variable">{{ state.a|<span class="hljs-name">yesno</span>:<span class="hljs-string">"on,off"</span> }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span></span><span class="hljs-template-variable">{{ state.b|<span class="hljs-name">yesno</span>:<span class="hljs-string">"on,off"</span> }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span></span><span class="hljs-template-variable">{{ state.c|<span class="hljs-name">yesno</span>:<span class="hljs-string">"on,off"</span> }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>on,off,maybe<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span></span><span class="hljs-template-variable">{{ state.a|<span class="hljs-name">yesno</span>:<span class="hljs-string">"on,off,maybe"</span> }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span></span><span class="hljs-template-variable">{{ state.b|<span class="hljs-name">yesno</span>:<span class="hljs-string">"on,off,maybe"</span> }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span></span><span class="hljs-template-variable">{{ state.c|<span class="hljs-name">yesno</span>:<span class="hljs-string">"on,off,maybe"</span> }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
+    <span class="hljs-attr">a:</span>=<span class="hljs-modulo-attr-value-lit">true</span>
+    <span class="hljs-attr">b:</span>=<span class="hljs-modulo-attr-value-lit">false</span>
+    <span class="hljs-attr">c:</span>=<span class="hljs-modulo-attr-value-lit">null</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Style</span>&gt;</span><span class="language-css">
+    <span class="hljs-selector-pseudo">:host</span> {
+        <span class="hljs-attribute">display</span>: grid;
+        <span class="hljs-attribute">grid-template-columns</span>: <span class="hljs-number">1</span>fr <span class="hljs-number">1</span>fr <span class="hljs-number">1</span>fr <span class="hljs-number">1</span>fr;
+        <span class="hljs-attribute">text-align</span>: right;
+    }
+</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Style</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+</div>
+                
+            
+        </main>
+    </div>
+            
+        </body>
+    </html>

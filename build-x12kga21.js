@@ -1703,7 +1703,7 @@ modulo: {"Type":"modulo","Parent":null,"DefName":null,"build":{"mainModules":["c
 
 contentlist: {"Type":"contentlist","Parent":"modulo","DefName":null,"DefFinalizers":["command|Command"],"build":"build","Name":"contentlist","DefinitionName":"contentlist","data":[["index.html"," Modulo"," ᵐ°dᵘ⁄o"],["docs/index.html"," Docs"],["playground.html"," Playground"],["about.html"," About"]],"commands":[" "]},
 
-buildlist: {"Type":"contentlist","Parent":"modulo","DefName":null,"DefFinalizers":["command|Command"],"build":"build","Name":"buildlist","DefinitionName":"buildlist","data":[["index.html"],["playground.html"],["about.html"]],"commands":["buildall"]},
+buildlist: {"Type":"contentlist","Parent":"modulo","DefName":null,"DefFinalizers":["command|Command"],"build":"build","Name":"buildlist","DefinitionName":"buildlist","data":[["index.html"],["playground.html"],["about.html"],["404.html"]],"commands":["buildall"]},
 
 navlinks: {"Type":"contentlist","Parent":"modulo","DefName":null,"DefFinalizers":["command|Command"],"build":"build","Name":"navlinks","DefinitionName":"navlinks","data":[["https://codeberg.org/modulo/modulo/","Source (Git)"],["https://www.npmjs.com/package/create-modulo","create-modulo (npmjs)"]],"commands":[" "]},
 

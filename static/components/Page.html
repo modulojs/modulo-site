@@ -1,6 +1,6 @@
 <script src=../Modulo.html></script><template type=f>
 
-<Props slotclass></Props>
+<Props slotclass rootat></Props>
 
 <Template>
     {% if global.page %}
@@ -15,9 +15,9 @@
             {% for row in global.definitions.contentlist.data %}
                 {% if row|get:2 %}
                 <li><a class="nav-link--{{ row|get:1|trim|lower }}"
-                    href="{{ row|get:0 }}" title="{{ row|get:1 }}">{{ row|get:2 }}</a></li>
+                    href="{{ props.rootat|default:'' }}{{ row|get:0 }}" title="{{ row|get:1 }}">{{ row|get:2 }}</a></li>
                 {% else %}
-                <li><a href="{{ row|get:0 }}">{{ row|get:1 }}</a></li>
+                <li><a href="{{ props.rootat|default:'' }}{{ row|get:0 }}">{{ row|get:1 }}</a></li>
                 {% endif %}
             {% endfor %}
             {% for row in global.definitions.navlinks.data %}

@@ -1,0 +1,43 @@
+<script src=Modulo.html></script><template type=f>
+
+<Modulo namespace=x -src="https://modulohtml.org/static/"></Modulo>
+
+
+<!-- Actually not needed, but useful if needed later: -->
+<!-- 
+<Artifact name="js" -bundle="script,modscript" build=buildpartial>
+{% for id in def.ids %}{{ def.data|get:id|syntax:"trimcode"|safe }}{% endfor %}
+modulo.definitions = { {% for name, value in definitions %}
+    {% if name|first is not "_" %}{{ name }}: {{ value|json|safe }},{% endif %}
+{% endfor %} };
+{% for name in config.modulo.build.mainModules %}{% if name|first is not "_" %}
+    modulo.registry.modules.{{ name }}.call(window, modulo);
+{% endif %}{% endfor %}
+</Artifact>
+<Artifact name="css" -bundle="link,modstyle,style" build=buildpartial>
+    {% for id in def.ids %}{{ def.data|get:id|safe }}{% endfor %}
+</Artifact>
+<Artifact name=phtml path-template="{{ file-path|default:'index.html' }}"
+    -remove="head iframe,modulo,script[modulo],template[modulo]"
+    prefix="<!DOCTYPE html>" build=buildpartial>
+    <ht>
+        <he>
+            {{ doc.head.innerHTML|safe }}
+            {% if not global.docs-partial.body|trim %}
+                <js src="{{ root-path }}static/Modulo.html"></js>
+            {% else %}
+                {{ global.docs-partial.body|safe }}
+            {% endif %}
+            <link rel="stylesheet" href="{{ root-path }}{{ definitions.css.path }}"></link>
+            <js defer src="{{ root-path }}{{ definitions.js.path }}"></js>
+        </he>
+        <bo>
+            {{ global.docs-partial.before|safe }}
+            {{ doc.body.innerHTML|safe }}
+            {{ global.docs-partial.after|safe }}
+        </bo>
+    </ht>
+</Artifact>
+-->
+
+

@@ -49,15 +49,17 @@
     :host {
         position: relative;
         display: block;
-        z-index: 100;
+        z-index: 3;
     }
 
     nav.sticky {
         position: fixed;
-        right: 0;
-        top: 0;
+        right: 2px;
+        top: 80px;
         width: 300px;
-        z-index: 100;
+        z-index: 3;
+        max-height: calc(100vh - 90px);
+        overflow-y: auto;
     }
 
     ul {
@@ -73,9 +75,17 @@
         grid-column: span 6;
         font-size: calc(1.0rem - var(--level) * 0.02rem);
         font-weight: calc(800  - var(--level)  * 100);
-        color: var(--color-fg-semidark);
+        color: var(--fg);
+        text-decoration: none;
+        border-bottom: 4px dotted var(--bg);
     }
 
+    a:hover {
+        border-color: var(--color);
+    }
+    a:selected {
+        border-color: var(--color-alt);
+    }
 
     label {
         font-size: 0.8rem;

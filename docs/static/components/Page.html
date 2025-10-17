@@ -7,6 +7,7 @@
     {% endif %}
     <div class="layout">
         <nav class="page-nav">
+            {% if not global.definitions.contentlist %}
             <a style="font-size:60px;text-align:center;display:block;font-weight:200" href="{{ global.root-path }}">ᵐ°dᵘ⁄o</a>
             <ul style="position: sticky; top: 1px">
                 <li class="toc--outer">
@@ -17,7 +18,10 @@
                         <tt>v{{ global.config.modulo.version }}</tt>
                     </p>
                 </li>
-                {% for row in global.definitions.contentlist.data %}
+            {% else %}
+            <ul style="position: sticky; top: 86px">
+            {% endif %}
+                {% for row in global.definitions.sidebar.data %}
                     {% if row|get:2 %}<li class="toc--outer"><h3>{{ row|get:2 }}</h3></li>{% endif %}
                     <li class="toc--{{ row|ifactive }}"><a href="{{ global.root-path }}{{ row|get:0 }}">{{ row|get:1 }}</a></li>
                 {% endfor %}

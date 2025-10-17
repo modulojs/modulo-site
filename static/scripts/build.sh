@@ -11,7 +11,7 @@ npm run build
 # run docs build
 cd docs
 bash build.sh
-rm -fr _build/docs
+rm -fr ../_build/docs
 mv _build ../_build/docs
 cd ..
 

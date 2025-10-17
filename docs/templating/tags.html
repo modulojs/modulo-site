@@ -1,961 +1,249 @@
-<!DOCTYPE html><html>
-        <head>
-            <meta charset="utf8"><script src="../static/Modulo.html"></script><meta name="charset" charset="utf8" id="include_xxm0qoac"><meta name="content-type" http-equiv="Content-Type" content="text/html; charset=utf-8" id="include_xxnd8o0e"><meta name="viewport" content="width=device-width, initial-scale=1" id="include_x13l7u56"><meta name="robots" content="index, follow" id="include_xxriq75n"><meta name="revisit-after" content="30 days" id="include_x1m4jm9p">
-            
-                <script src="../static/Modulo.html"></script>
-            
-            <link rel="stylesheet" href="../buildpartial-xxpik5e0.css">
-            <script defer="" src="../buildpartial-x1rlipu2.js"></script>
-        </head>
-        <body>
-            
-            
-        <meta charset="utf8">
-        <title>Template Tags - Modulo Documentation</title>
-    
-    <div class="layout Page">
-        <nav class="page-nav Page">
-            <a style="font-size:60px;text-align:center;display:block;font-weight:200" href="../" class="Page">ᵐ°dᵘ⁄o</a>
-            <ul style="position: sticky; top: 1px" class="Page">
-                <li class="toc--outer Page">
-                    <p><a style="font-size: 70%" title="Download Modulo Docs as a offline-friendly zip" href="https://codeberg.org/modulo/docs/archive/main.zip" class="Page">
-                            ⤓ docs-main.zip</a>
-                        <tt>v0.1.0</tt>
-                    </p>
-                </li>
-                
-                    <li class="toc--outer Page"><h3 class="Page">       Modulo</h3></li>
-                    <li class="toc--"><a href="../start/index.html" class="Page">           Introduction</a></li>
-                
-                    
-                    <li class="toc--"><a href="../start/getting-started.html" class="Page"> Getting Started</a></li>
-                
-                    <li class="toc--outer Page"><h3 class="Page">           Definitions</h3></li>
-                    <li class="toc--"><a href="../defs/overview.html" class="Page">         Overview</a></li>
-                
-                    
-                    <li class="toc--"><a href="../defs/importing.html" class="Page">        Importing</a></li>
-                
-                    
-                    <li class="toc--"><a href="../defs/definitions.html" class="Page">      Definition Types</a></li>
-                
-                    
-                    <li class="toc--"><a href="../defs/processors.html" class="Page">       Processors</a></li>
-                
-                    
-                    <li class="toc--"><a href="../defs/custom.html" class="Page">           Custom Types</a></li>
-                
-                    <li class="toc--outer Page"><h3 class="Page">  Templating</h3></li>
-                    <li class="toc--"><a href="../templating/index.html" class="Page">      Language Overview</a></li>
-                
-                    
-                    <li class="toc--"><a href="../templating/filters.html" class="Page">    Template Filters</a></li>
-                
-                    
-                    <li class="toc--active Page"><a href="../templating/tags.html" class="Page">       Template Tags</a></li>
-                
-                    <li class="toc--outer Page"><h3 class="Page">              Component Parts</h3></li>
-                    <li class="toc--"><a href="../parts/props.html" class="Page">           Props</a></li>
-                
-                    
-                    <li class="toc--"><a href="../parts/script.html" class="Page">          Script</a></li>
-                
-                    
-                    <li class="toc--"><a href="../parts/state.html" class="Page">           State</a></li>
-                
-                    
-                    <li class="toc--"><a href="../parts/staticdata.html" class="Page">      StaticData</a></li>
-                
-                    
-                    <li class="toc--"><a href="../parts/style.html" class="Page">           Style</a></li>
-                
-                    
-                    <li class="toc--"><a href="../parts/template.html" class="Page">        Template</a></li>
-                
-                    <li class="toc--outer Page"><h3 class="Page">           Core Definitions</h3></li>
-                    <li class="toc--"><a href="../core/artifact.html" class="Page">         Artifact</a></li>
-                
-                    
-                    <li class="toc--"><a href="../core/component.html" class="Page">        Component</a></li>
-                
-                    
-                    <li class="toc--"><a href="../core/configuration.html" class="Page">    Configuration</a></li>
-                
-                    
-                    <li class="toc--"><a href="../core/contentlist.html" class="Page">      ContentList</a></li>
-                
-                    
-                    <li class="toc--"><a href="../core/include.html" class="Page">          Include</a></li>
-                
-                    
-                    <li class="toc--"><a href="../core/library.html" class="Page">          Library</a></li>
-                
-                    <li class="toc--outer Page"><h3 class="Page">  Extension</h3></li>
-                    <li class="toc--"><a href="../extension/engine.html" class="Page">      Upgrading Engines</a></li>
-                
-            </ul>
-        </nav>
-        <main class="page-container Page">
-            
-                
-                    
-                        <x-tableofcontents toc="[{&quot;match&quot;:&quot;&lt;h1 id=\&quot;templatetags\&quot;&gt;Template Tags&lt;/h1&gt;&quot;,&quot;level&quot;:1,&quot;attrs&quot;:&quot;id=\&quot;templatetags\&quot;&quot;,&quot;title&quot;:&quot;Template Tags&quot;,&quot;id&quot;:&quot;templatetags&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;comment\&quot;&gt;comment&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;comment\&quot;&quot;,&quot;title&quot;:&quot;comment&quot;,&quot;id&quot;:&quot;comment&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;debugger\&quot;&gt;debugger&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;debugger\&quot;&quot;,&quot;title&quot;:&quot;debugger&quot;,&quot;id&quot;:&quot;debugger&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;ignoremissing\&quot;&gt;ignoremissing&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;ignoremissing\&quot;&quot;,&quot;title&quot;:&quot;ignoremissing&quot;,&quot;id&quot;:&quot;ignoremissing&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;include\&quot;&gt;include&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;include\&quot;&quot;,&quot;title&quot;:&quot;include&quot;,&quot;id&quot;:&quot;include&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;for\&quot;&gt;for&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;for\&quot;&quot;,&quot;title&quot;:&quot;for&quot;,&quot;id&quot;:&quot;for&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;empty\&quot;&gt;empty&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;empty\&quot;&quot;,&quot;title&quot;:&quot;empty&quot;,&quot;id&quot;:&quot;empty&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;if\&quot;&gt;if&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;if\&quot;&quot;,&quot;title&quot;:&quot;if&quot;,&quot;id&quot;:&quot;if&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;else\&quot;&gt;else&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;else\&quot;&quot;,&quot;title&quot;:&quot;else&quot;,&quot;id&quot;:&quot;else&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;elifelseif\&quot;&gt;elif, elseif&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;elifelseif\&quot;&quot;,&quot;title&quot;:&quot;elif, elseif&quot;,&quot;id&quot;:&quot;elifelseif&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;with\&quot;&gt;with&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;with\&quot;&quot;,&quot;title&quot;:&quot;with&quot;,&quot;id&quot;:&quot;with&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;iftagcomparisonoperators\&quot;&gt;if-tag comparison operators&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;iftagcomparisonoperators\&quot;&quot;,&quot;title&quot;:&quot;if-tag comparison operators&quot;,&quot;id&quot;:&quot;iftagcomparisonoperators&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;filtersoperators\&quot;&gt;Filters (operators)&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;filtersoperators\&quot;&quot;,&quot;title&quot;:&quot;Filters (operators)&quot;,&quot;id&quot;:&quot;filtersoperators&quot;},{&quot;match&quot;:&quot;&lt;h1 id=\&quot;operators\&quot;&gt;Operators&lt;/h1&gt;&quot;,&quot;level&quot;:1,&quot;attrs&quot;:&quot;id=\&quot;operators\&quot;&quot;,&quot;title&quot;:&quot;Operators&quot;,&quot;id&quot;:&quot;operators&quot;}]" modulo-mount-html=""><nav class="regular&quot;=&quot;">
-        <div> </div>
-        <div>
-            <div>
-                <label>[ <input name="show" type="checkbox"> Table of Contents ]</label>
-                <label title="Stick to upper right">[ <span alt="upper right arrow">↗</span>
-                    <input name="sticky" type="checkbox"> ]</label>
-            </div>
-            
-                <ul>
-                    
-                        
-                            <li style="--level: 1">
-                                    <a href="#templatetags">Template Tags</a>
-                            </li>
-                        
-                    
-                        
-                            <li style="--level: 2">
-                                    <a href="#comment">comment</a>
-                            </li>
-                        
-                    
-                        
-                            <li style="--level: 2">
-                                    <a href="#debugger">debugger</a>
-                            </li>
-                        
-                    
-                        
-                            <li style="--level: 2">
-                                    <a href="#ignoremissing">ignoremissing</a>
-                            </li>
-                        
-                    
-                        
-                            <li style="--level: 2">
-                                    <a href="#include">include</a>
-                            </li>
-                        
-                    
-                        
-                            <li style="--level: 2">
-                                    <a href="#for">for</a>
-                            </li>
-                        
-                    
-                        
-                            <li style="--level: 2">
-                                    <a href="#empty">empty</a>
-                            </li>
-                        
-                    
-                        
-                            <li style="--level: 2">
-                                    <a href="#if">if</a>
-                            </li>
-                        
-                    
-                        
-                            <li style="--level: 2">
-                                    <a href="#else">else</a>
-                            </li>
-                        
-                    
-                        
-                            <li style="--level: 2">
-                                    <a href="#elifelseif">elif, elseif</a>
-                            </li>
-                        
-                    
-                        
-                            <li style="--level: 2">
-                                    <a href="#with">with</a>
-                            </li>
-                        
-                    
-                        
-                            <li style="--level: 2">
-                                    <a href="#iftagcomparisonoperators">if-tag comparison operators</a>
-                            </li>
-                        
-                    
-                        
-                            <li style="--level: 2">
-                                    <a href="#filtersoperators">Filters (operators)</a>
-                            </li>
-                        
-                    
-                        
-                            <li style="--level: 1">
-                                    <a href="#operators">Operators</a>
-                            </li>
-                        
-                    
-                </ul>
-            
-        </div>
-    </nav></x-tableofcontents>
-                    
-                    <div class="markdown-body"><p>This document lists and shows examples for each of the the built-in Template
-Tags that are already registered with Modulo template system.</p>
-<h1 id="templatetags">Template Tags</h1>
-<h2 id="comment">comment</h2>
-<p>Used specifically for commenting out blocks of Templating code. Ignores
-everything between <code>{% comment %}</code> and <code>{% endcomment %}</code>.  Do not nest comment
-tags (e.g. one comment tag cannot contain or comment out another).</p>
-<p>An optional note may be inserted in the first tag. This can be useful to
+<!DOCTYPE html><meta charset=utf8><script src=../static/Modulo.html></script><script type=md>---
+title: Template Tags
+---
+
+This document lists and shows examples for each of the the built-in Template
+Tags that are already registered with Modulo template system.
+
+
+# Template Tags
+
+## comment
+
+Used specifically for commenting out blocks of Templating code. Ignores
+everything between `{% comment %}` and `{% endcomment %}`.  Do not nest comment
+tags (e.g. one comment tag cannot contain or comment out another).
+
+An optional note may be inserted in the first tag. This can be useful to
 document why the code was commented out or disabled.  For example:
-<code>{% comment "Deactivating due to API bug" %}</code></p>
-<p>An example of a comment tag:</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+`{% comment "Deactivating due to API bug" %}`
+
+An example of a comment tag:
+
+```modulo
+edit:demo=modulo
+<Template>
     {% comment %}
-        &lt;p&gt;Commented out text that will be ignored
-          {{ nonExistingVar|brokenFilter:&quot;abc&quot; }}&lt;/p&gt;
+        <p>Commented out text that will be ignored
+          {{ nonExistingVar|brokenFilter:"abc" }}</p>
     {% endcomment %}
-    &lt;p&gt;After comment&lt;/p&gt;
-&lt;/Template&gt;
-" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
-        
-            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
-      <div class="editor-underlay-container" style="
-            width:    224px
-                    ;
-            height:  48px
-                    ;
-          ">
-          <div class="editor-underlay-offset-wrapper" style="
-                
-                
-                
-                    width: 224px; 
-              "><x-syntaxhighlighter value="&lt;Template&gt;
-    {% comment %}
-        &lt;p&gt;Commented out text that will be ignored
-          {{ nonExistingVar|brokenFilter:&quot;abc&quot; }}&lt;/p&gt;
-    {% endcomment %}
-    &lt;p&gt;After comment&lt;/p&gt;
-&lt;/Template&gt;
-" mode="modulo" style="
-                    font-family: monospace;
-                    text-align: start;
-                    resize: none;
-                    box-sizing: border-box;
-                    font-size: 18px;
-                    
-                        white-space: pre;
-                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
-    </span><span class="hljs-comment">{% comment %}
-        &lt;p&gt;Commented out text that will be ignored
-          {{ nonExistingVar|brokenFilter:"abc" }}&lt;/p&gt;
-    {% endcomment %}</span><span class="language-xml">
-    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>After comment<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
-</span></x-syntaxhighlighter>
-          </div>
-      </div>
-      <textarea data-gramm="false" name="value" spellcheck="false" style="
-            font-size: 18px;
-            
-                white-space: pre;
-            " script.ref="" on.scroll="script.updateDimensions"></textarea>
-  </div></x-mirroreditor>
-        
-        <div class="toolbar toolbar--small toolbar--autohide
-             ">
-            
-                <button><span alt="Clipboard icon">📋</span> Copy</button>
-                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
-                <button><span alt="Download arrow downward">⤓</span> Save</button>
-            
-        </div>
-        
-    <iframe></iframe></div>
-    <div class="overlay"></div></x-quickdemo>
-<h2 id="debugger">debugger</h2>
-<p>Inserts a "debugger" statement at that location in JavaScript. This allows for detailed debugging of the generated code.</p>
-<p>In the following demo, you can uncomment the "debugger" statement to practice "stepping through" the for loop, examining the <code>CTX.user</code> variable for each iteration in the Developer Tools debug panel.</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+    <p>After comment</p>
+</Template>
+```
+
+## debugger
+
+Inserts a "debugger" statement at that location in JavaScript. This allows for detailed debugging of the generated code.
+
+In the following demo, you can uncomment the "debugger" statement to practice "stepping through" the for loop, examining the `CTX.user` variable for each iteration in the Developer Tools debug panel.
+
+
+```modulo
+edit:demo=modulo
+<Template>
     {% for user in state.users %}
-        &lt;!-- (Hint: try removing the &quot;comment&quot; tags to enable the debugger --&gt;
+        <!-- (Hint: try removing the "comment" tags to enable the debugger -->
         {% comment %} {% debugger %} {% endcomment %}
-        &lt;p&gt;{{ user.username }}&lt;/p&gt;
+        <p>{{ user.username }}</p>
     {% endfor %}
-&lt;/Template&gt;
+</Template>
 
-&lt;State
+<State
   users:='[
-    {&quot;username&quot;: &quot;zer0c00l&quot;},
-    {&quot;username&quot;: &quot;ac1dburn&quot;, &quot;id&quot;: 1337},
-    {&quot;username&quot;: &quot;the_phantom_phr34k&quot;, &quot;name&quot;: &quot;Ramon&quot;}
-  ]'
-&gt;&lt;/State&gt;
-" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
-        
-            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
-      <div class="editor-underlay-container" style="
-            width:    224px
-                    ;
-            height:  48px
-                    ;
-          ">
-          <div class="editor-underlay-offset-wrapper" style="
-                
-                
-                
-                    width: 224px; 
-              "><x-syntaxhighlighter value="&lt;Template&gt;
-    {% for user in state.users %}
-        &lt;!-- (Hint: try removing the &quot;comment&quot; tags to enable the debugger --&gt;
-        {% comment %} {% debugger %} {% endcomment %}
-        &lt;p&gt;{{ user.username }}&lt;/p&gt;
-    {% endfor %}
-&lt;/Template&gt;
-
-&lt;State
-  users:='[
-    {&quot;username&quot;: &quot;zer0c00l&quot;},
-    {&quot;username&quot;: &quot;ac1dburn&quot;, &quot;id&quot;: 1337},
-    {&quot;username&quot;: &quot;the_phantom_phr34k&quot;, &quot;name&quot;: &quot;Ramon&quot;}
-  ]'
-&gt;&lt;/State&gt;
-" mode="modulo" style="
-                    font-family: monospace;
-                    text-align: start;
-                    resize: none;
-                    box-sizing: border-box;
-                    font-size: 18px;
-                    
-                        white-space: pre;
-                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
-    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">for</span></span> user <span class="hljs-keyword">in</span> state.users %}</span><span class="language-xml">
-        <span class="hljs-comment">&lt;!-- (Hint: try removing the "comment" tags to enable the debugger --&gt;</span>
-        </span><span class="hljs-comment">{% comment %} {% debugger %} {% endcomment %}</span><span class="language-xml">
-        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span></span><span class="hljs-template-variable">{{ user.username }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
-    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endfor</span></span> %}</span><span class="language-xml">
-<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
-
-<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
-  <span class="hljs-attr">users:</span>=<span class="hljs-string">'[
     {"username": "zer0c00l"},
     {"username": "ac1dburn", "id": 1337},
     {"username": "the_phantom_phr34k", "name": "Ramon"}
-  ]'</span>
-&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
-</span></x-syntaxhighlighter>
-          </div>
-      </div>
-      <textarea data-gramm="false" name="value" spellcheck="false" style="
-            font-size: 18px;
-            
-                white-space: pre;
-            " script.ref="" on.scroll="script.updateDimensions"></textarea>
-  </div></x-mirroreditor>
-        
-        <div class="toolbar toolbar--small toolbar--autohide
-             ">
-            
-                <button><span alt="Clipboard icon">📋</span> Copy</button>
-                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
-                <button><span alt="Download arrow downward">⤓</span> Save</button>
-            
-        </div>
-        
-    <iframe></iframe></div>
-    <div class="overlay"></div></x-quickdemo>
-<blockquote>
-  <p><strong>Use sparingly</strong> - This is a tag that should be used sparingly outside of
-  debugging. It's much better to check for missing values (e.g. 
-  <code>{% if not state.val %}...</code>) and provide alternative behavior than for
-  a potentially buggy or partially correct component to continue rendering
-  after an error.</p>
-</blockquote>
-<h2 id="ignoremissing">ignoremissing</h2>
-<p>Ignore missing values (along with <em>all</em> other run-time generated errors).
+  ]'
+></State>
+```
+
+> **Use sparingly** - This is a tag that should be used sparingly outside of
+> debugging. It's much better to check for missing values (e.g. 
+> `{% if not state.val %}...`) and provide alternative behavior than for
+> a potentially buggy or partially correct component to continue rendering
+> after an error.
+
+## ignoremissing
+
+Ignore missing values (along with _all_ other run-time generated errors).
 Usually, when a runtime error occurs, Modulo will allow the exception to stop
 the component from rendereing. This tag will fully silence these errors, and
 continue rendering the rest of the component (possibly with portions missing).
 This tag is useful for debugging, as you can use it to work on one part of
-a template at a time as you silence errors in another spot.</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+a template at a time as you silence errors in another spot.
+
+```modulo
+edit:demo=modulo
+<Template>
     {% ignoremissing %}
-    &lt;p&gt;Testing: {{ state.testing|upper }}&lt;/p&gt;
-    &lt;p&gt;Notreal: {{ state.missing|alsomissing }}&lt;/p&gt;
+    <p>Testing: {{ state.testing|upper }}</p>
+    <p>Notreal: {{ state.missing|alsomissing }}</p>
     {% endignoremissing %}
-&lt;/Template&gt;
+</Template>
 
-&lt;State
-    testing=&quot;hello world!&quot;
-&gt;&lt;/State&gt;
-" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
-        
-            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
-      <div class="editor-underlay-container" style="
-            width:    224px
-                    ;
-            height:  48px
-                    ;
-          ">
-          <div class="editor-underlay-offset-wrapper" style="
-                
-                
-                
-                    width: 224px; 
-              "><x-syntaxhighlighter value="&lt;Template&gt;
-    {% ignoremissing %}
-    &lt;p&gt;Testing: {{ state.testing|upper }}&lt;/p&gt;
-    &lt;p&gt;Notreal: {{ state.missing|alsomissing }}&lt;/p&gt;
-    {% endignoremissing %}
-&lt;/Template&gt;
+<State
+    testing="hello world!"
+></State>
+```
 
-&lt;State
-    testing=&quot;hello world!&quot;
-&gt;&lt;/State&gt;
-" mode="modulo" style="
-                    font-family: monospace;
-                    text-align: start;
-                    resize: none;
-                    box-sizing: border-box;
-                    font-size: 18px;
-                    
-                        white-space: pre;
-                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
-    </span><span class="hljs-template-tag">{% <span class="hljs-name">ignoremissing</span> %}</span><span class="language-xml">
-    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Testing: </span><span class="hljs-template-variable">{{ state.testing|<span class="hljs-name">upper</span> }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Notreal: </span><span class="hljs-template-variable">{{ state.missing|alsomissing }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
-    </span><span class="hljs-template-tag">{% <span class="hljs-name">endignoremissing</span> %}</span><span class="language-xml">
-<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
 
-<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
-    <span class="hljs-attr">testing</span>=<span class="hljs-string">"hello world!"</span>
-&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
-</span></x-syntaxhighlighter>
-          </div>
-      </div>
-      <textarea data-gramm="false" name="value" spellcheck="false" style="
-            font-size: 18px;
-            
-                white-space: pre;
-            " script.ref="" on.scroll="script.updateDimensions"></textarea>
-  </div></x-mirroreditor>
-        
-        <div class="toolbar toolbar--small toolbar--autohide
-             ">
-            
-                <button><span alt="Clipboard icon">📋</span> Copy</button>
-                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
-                <button><span alt="Download arrow downward">⤓</span> Save</button>
-            
-        </div>
-        
-    <iframe></iframe></div>
-    <div class="overlay"></div></x-quickdemo>
-<h2 id="include">include</h2>
-<p>Include another <em>Templater</em>, specified by it's name. It's useful for breaking up large and complicated templates into parts that are loaded independently.</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template -name=&quot;other_template&quot;&gt;
-    &lt;p&gt;{{ state.testing }}&lt;/p&gt;
-&lt;/Template&gt;
+## include
 
-&lt;Template&gt;
-    &lt;h1&gt;hello&lt;/h1&gt;
+Include another _Templater_, specified by it's name. It's useful for breaking up large and complicated templates into parts that are loaded independently.
+
+
+```modulo
+edit:demo=modulo
+<Template -name="other_template">
+    <p>{{ state.testing }}</p>
+</Template>
+
+<Template>
+    <h1>hello</h1>
     {% include other_template %}
-&lt;/Template&gt;
+</Template>
 
-&lt;State
-    testing=&quot;hello world!&quot;
-&gt;&lt;/State&gt;
-" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
-        
-            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
-      <div class="editor-underlay-container" style="
-            width:    224px
-                    ;
-            height:  48px
-                    ;
-          ">
-          <div class="editor-underlay-offset-wrapper" style="
-                
-                
-                
-                    width: 224px; 
-              "><x-syntaxhighlighter value="&lt;Template -name=&quot;other_template&quot;&gt;
-    &lt;p&gt;{{ state.testing }}&lt;/p&gt;
-&lt;/Template&gt;
+<State
+    testing="hello world!"
+></State>
+```
 
-&lt;Template&gt;
-    &lt;h1&gt;hello&lt;/h1&gt;
-    {% include other_template %}
-&lt;/Template&gt;
 
-&lt;State
-    testing=&quot;hello world!&quot;
-&gt;&lt;/State&gt;
-" mode="modulo" style="
-                    font-family: monospace;
-                    text-align: start;
-                    resize: none;
-                    box-sizing: border-box;
-                    font-size: 18px;
-                    
-                        white-space: pre;
-                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span> <span class="hljs-modulo-defprocessor">-name</span>=<span class="hljs-string">"other_template"</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span></span><span class="hljs-template-variable">{{ state.testing }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+## for
 
-<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>hello<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
-    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">include</span></span> other_template %}</span><span class="language-xml">
-<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+For-loops are for repeating the same HTML code multiple times. It will repeat a block of templating code for every item in a specified array or object. It's useful for displaying search results, blog articles, chat messages, and much more: Any time you have unknown quantities or _plural_ amounts of data that you want to template on the screen.
 
-<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
-    <span class="hljs-attr">testing</span>=<span class="hljs-string">"hello world!"</span>
-&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
-</span></x-syntaxhighlighter>
-          </div>
-      </div>
-      <textarea data-gramm="false" name="value" spellcheck="false" style="
-            font-size: 18px;
-            
-                white-space: pre;
-            " script.ref="" on.scroll="script.updateDimensions"></textarea>
-  </div></x-mirroreditor>
-        
-        <div class="toolbar toolbar--small toolbar--autohide
-             ">
-            
-                <button><span alt="Clipboard icon">📋</span> Copy</button>
-                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
-                <button><span alt="Download arrow downward">⤓</span> Save</button>
-            
-        </div>
-        
-    <iframe></iframe></div>
-    <div class="overlay"></div></x-quickdemo>
-<h2 id="for">for</h2>
-<p>For-loops are for repeating the same HTML code multiple times. It will repeat a block of templating code for every item in a specified array or object. It's useful for displaying search results, blog articles, chat messages, and much more: Any time you have unknown quantities or <em>plural</em> amounts of data that you want to template on the screen.</p>
-<p>At it's core, <code>{% for %}</code> will loop over each item in an array, making the item
+At it's core, `{% for %}` will loop over each item in an array, making the item
 available in a specified template variable. This is often done to objects in an
 array stored in state, such as data that came back from an API. Examine the
-following example:</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
-    &lt;ul&gt;
+following example:
+
+
+```modulo
+edit:demo=modulo
+<Template>
+    <ul>
         {% for athlete in state.athletes %}
-            &lt;li&gt;{{ athlete.name }}&lt;/li&gt;
+            <li>{{ athlete.name }}</li>
         {% endfor %}
-    &lt;/ul&gt;
-&lt;/Template&gt;
+    </ul>
+</Template>
 
-&lt;State
+<State
   athletes:='[
-    {&quot;name&quot;: &quot;Devante Adams&quot;},
-    {&quot;name&quot;: &quot;Steph Curry&quot;},
-    {&quot;name&quot;: &quot;Megan Rapinoe&quot;}
-  ]'
-&gt;&lt;/State&gt;
-" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
-        
-            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
-      <div class="editor-underlay-container" style="
-            width:    224px
-                    ;
-            height:  48px
-                    ;
-          ">
-          <div class="editor-underlay-offset-wrapper" style="
-                
-                
-                
-                    width: 224px; 
-              "><x-syntaxhighlighter value="&lt;Template&gt;
-    &lt;ul&gt;
-        {% for athlete in state.athletes %}
-            &lt;li&gt;{{ athlete.name }}&lt;/li&gt;
-        {% endfor %}
-    &lt;/ul&gt;
-&lt;/Template&gt;
-
-&lt;State
-  athletes:='[
-    {&quot;name&quot;: &quot;Devante Adams&quot;},
-    {&quot;name&quot;: &quot;Steph Curry&quot;},
-    {&quot;name&quot;: &quot;Megan Rapinoe&quot;}
-  ]'
-&gt;&lt;/State&gt;
-" mode="modulo" style="
-                    font-family: monospace;
-                    text-align: start;
-                    resize: none;
-                    box-sizing: border-box;
-                    font-size: 18px;
-                    
-                        white-space: pre;
-                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
-        </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">for</span></span> athlete <span class="hljs-keyword">in</span> state.athletes %}</span><span class="language-xml">
-            <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span></span><span class="hljs-template-variable">{{ athlete.name }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
-        </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endfor</span></span> %}</span><span class="language-xml">
-    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
-
-<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
-  <span class="hljs-attr">athletes:</span>=<span class="hljs-string">'[
     {"name": "Devante Adams"},
     {"name": "Steph Curry"},
     {"name": "Megan Rapinoe"}
-  ]'</span>
-&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
-</span></x-syntaxhighlighter>
-          </div>
-      </div>
-      <textarea data-gramm="false" name="value" spellcheck="false" style="
-            font-size: 18px;
-            
-                white-space: pre;
-            " script.ref="" on.scroll="script.updateDimensions"></textarea>
-  </div></x-mirroreditor>
-        
-        <div class="toolbar toolbar--small toolbar--autohide
-             ">
-            
-                <button><span alt="Clipboard icon">📋</span> Copy</button>
-                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
-                <button><span alt="Download arrow downward">⤓</span> Save</button>
-            
-        </div>
-        
-    <iframe></iframe></div>
-    <div class="overlay"></div></x-quickdemo>
-<p>Note that your for loops should conventionally follow the pattern of <code>{% for SINGULAR_THING in PLURAL_THINGS %}</code>. For 3 examples of this: <code>{% for item in state.item_data %}</code>, <code>{% for user in users %}</code>, or <code>{% for city in cities %}</code>.</p>
-<p>Within the repeated code of the for loop, then the "singular thing" (the variable defined by the for loop) will be available as a template variable. Typically, the "plural variable" will be an Array or Object defined from the <code>State</code> or <code>Props</code> CParts. Also, it's worth noting that you can loop over an array in reverse by using the <code>|reversed</code> filter, e.g. <code>{% for obj in list|reversed %}</code>.</p>
-<p>If you need to loop over an <em>object</em>, you can unpack each key / value pair into individual variables. For example, if your state contains an array of (x, y) coordinates called <code>state.data</code>, you could use the following to output the list of points:</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
-    &lt;ul&gt;
+  ]'
+></State>
+```
+
+Note that your for loops should conventionally follow the pattern of `{% for SINGULAR_THING in PLURAL_THINGS %}`. For 3 examples of this: `{% for item in state.item_data %}`, `{% for user in users %}`, or `{% for city in cities %}`.
+
+Within the repeated code of the for loop, then the "singular thing" (the variable defined by the for loop) will be available as a template variable. Typically, the "plural variable" will be an Array or Object defined from the `State` or `Props` CParts. Also, it's worth noting that you can loop over an array in reverse by using the `|reversed` filter, e.g. `{% for obj in list|reversed %}`.
+
+If you need to loop over an _object_, you can unpack each key / value pair into individual variables. For example, if your state contains an array of (x, y) coordinates called `state.data`, you could use the following to output the list of points:
+
+
+```modulo
+edit:demo=modulo
+<Template>
+    <ul>
         {% for name, color in state.fave_colors %}
-            &lt;li&gt;&lt;strong&gt;{{ name }}&lt;/strong&gt;: {{ color }}&lt;/li&gt;
+            <li><strong>{{ name }}</strong>: {{ color }}</li>
         {% endfor %}
-    &lt;/ul&gt;
-&lt;/Template&gt;
+    </ul>
+</Template>
 
-&lt;State
+<State
     fave_colors:='{
-      &quot;Devante Adams&quot;: &quot;Green&quot;,
-      &quot;Steph Curry&quot;: &quot;Golden&quot;,
-      &quot;Megan Rapinoe&quot;: &quot;Blue&quot;
-    }'
-&gt;&lt;/State&gt;
-" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
-        
-            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
-      <div class="editor-underlay-container" style="
-            width:    224px
-                    ;
-            height:  48px
-                    ;
-          ">
-          <div class="editor-underlay-offset-wrapper" style="
-                
-                
-                
-                    width: 224px; 
-              "><x-syntaxhighlighter value="&lt;Template&gt;
-    &lt;ul&gt;
-        {% for name, color in state.fave_colors %}
-            &lt;li&gt;&lt;strong&gt;{{ name }}&lt;/strong&gt;: {{ color }}&lt;/li&gt;
-        {% endfor %}
-    &lt;/ul&gt;
-&lt;/Template&gt;
-
-&lt;State
-    fave_colors:='{
-      &quot;Devante Adams&quot;: &quot;Green&quot;,
-      &quot;Steph Curry&quot;: &quot;Golden&quot;,
-      &quot;Megan Rapinoe&quot;: &quot;Blue&quot;
-    }'
-&gt;&lt;/State&gt;
-" mode="modulo" style="
-                    font-family: monospace;
-                    text-align: start;
-                    resize: none;
-                    box-sizing: border-box;
-                    font-size: 18px;
-                    
-                        white-space: pre;
-                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
-        </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">for</span></span> name, color <span class="hljs-keyword">in</span> state.fave_colors %}</span><span class="language-xml">
-            <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span></span><span class="hljs-template-variable">{{ name }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>: </span><span class="hljs-template-variable">{{ color }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
-        </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endfor</span></span> %}</span><span class="language-xml">
-    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
-
-<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
-    <span class="hljs-attr">fave_colors:</span>=<span class="hljs-string">'{
       "Devante Adams": "Green",
       "Steph Curry": "Golden",
       "Megan Rapinoe": "Blue"
-    }'</span>
-&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
-</span></x-syntaxhighlighter>
-          </div>
-      </div>
-      <textarea data-gramm="false" name="value" spellcheck="false" style="
-            font-size: 18px;
-            
-                white-space: pre;
-            " script.ref="" on.scroll="script.updateDimensions"></textarea>
-  </div></x-mirroreditor>
-        
-        <div class="toolbar toolbar--small toolbar--autohide
-             ">
-            
-                <button><span alt="Clipboard icon">📋</span> Copy</button>
-                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
-                <button><span alt="Download arrow downward">⤓</span> Save</button>
-            
-        </div>
-        
-    <iframe></iframe></div>
-    <div class="overlay"></div></x-quickdemo>
-<h2 id="empty">empty</h2>
-<p>Often you will want to include a default, empty, or "404 message" if nothing is in the array of a <code>for</code> tag. To avoid cluttering your loops with extra if-statements, the for tag can take an optional <code>{% empty %}</code> clause, which functions identically to an if-statement that executes only if the given data is empty or could not be found (e.g. if 0 iterations of the loop were run). Observe the following example:</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
-    &lt;ul&gt;
+    }'
+></State>
+```
+
+## empty
+
+Often you will want to include a default, empty, or "404 message" if nothing is in the array of a `for` tag. To avoid cluttering your loops with extra if-statements, the for tag can take an optional `{% empty %}` clause, which functions identically to an if-statement that executes only if the given data is empty or could not be found (e.g. if 0 iterations of the loop were run). Observe the following example:
+
+```modulo
+edit:demo=modulo
+<Template>
+    <ul>
         {% for name, color in state.fave_colors %}
-            &lt;li&gt;&lt;strong&gt;{{ name }}&lt;/strong&gt;: {{ color }}&lt;/li&gt;
+            <li><strong>{{ name }}</strong>: {{ color }}</li>
         {% empty %}
             No colors were found.
         {% endfor %}
-    &lt;/ul&gt;
-&lt;/Template&gt;
+    </ul>
+</Template>
 
-&lt;State
+<State
     fave_colors:='{}'
-&gt;&lt;/State&gt;
-" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
-        
-            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
-      <div class="editor-underlay-container" style="
-            width:    224px
-                    ;
-            height:  48px
-                    ;
-          ">
-          <div class="editor-underlay-offset-wrapper" style="
-                
-                
-                
-                    width: 224px; 
-              "><x-syntaxhighlighter value="&lt;Template&gt;
-    &lt;ul&gt;
-        {% for name, color in state.fave_colors %}
-            &lt;li&gt;&lt;strong&gt;{{ name }}&lt;/strong&gt;: {{ color }}&lt;/li&gt;
-        {% empty %}
-            No colors were found.
-        {% endfor %}
-    &lt;/ul&gt;
-&lt;/Template&gt;
+></State>
+```
 
-&lt;State
-    fave_colors:='{}'
-&gt;&lt;/State&gt;
-" mode="modulo" style="
-                    font-family: monospace;
-                    text-align: start;
-                    resize: none;
-                    box-sizing: border-box;
-                    font-size: 18px;
-                    
-                        white-space: pre;
-                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
-        </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">for</span></span> name, color <span class="hljs-keyword">in</span> state.fave_colors %}</span><span class="language-xml">
-            <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span></span><span class="hljs-template-variable">{{ name }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>: </span><span class="hljs-template-variable">{{ color }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
-        </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">empty</span></span> %}</span><span class="language-xml">
-            No colors were found.
-        </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endfor</span></span> %}</span><span class="language-xml">
-    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+## if
 
-<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
-    <span class="hljs-attr">fave_colors:</span>=<span class="hljs-string">'{}'</span>
-&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
-</span></x-syntaxhighlighter>
-          </div>
-      </div>
-      <textarea data-gramm="false" name="value" spellcheck="false" style="
-            font-size: 18px;
-            
-                white-space: pre;
-            " script.ref="" on.scroll="script.updateDimensions"></textarea>
-  </div></x-mirroreditor>
-        
-        <div class="toolbar toolbar--small toolbar--autohide
-             ">
-            
-                <button><span alt="Clipboard icon">📋</span> Copy</button>
-                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
-                <button><span alt="Download arrow downward">⤓</span> Save</button>
-            
-        </div>
-        
-    <iframe></iframe></div>
-    <div class="overlay"></div></x-quickdemo>
-<h2 id="if">if</h2>
-<p>The if-statement allows a block of HTML code to be conditionally included. It allows "branching" in your templates: That is, one or more optional "branches" or blocks of HTML templating code that will be included only if a certain condition is satisfied.</p>
-<p>The simplest behavior of the <code>{% if %}</code> tag is to evaluate a variable, and if that variable both exists and is a "truthy" value according to JavaScript (<a href="https://developer.mozilla.org/en-US/docs/Glossary/Truthy">see MDN "Truthy"</a>), the specified block will be included. By default, <code>if</code> will include (or not) all code until it encounters an <code>{% endif %}</code> tag to close. However, it also supports using an <code>{% else %}</code> tag before the <code>{% endif %}</code> tag, which can provide alternative code.</p>
-<p>Examine the following example, and observe what happens as you change state variables from <code>true</code> to <code>false</code>, or vice-versa:</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+The if-statement allows a block of HTML code to be conditionally included. It allows "branching" in your templates: That is, one or more optional "branches" or blocks of HTML templating code that will be included only if a certain condition is satisfied.
+
+The simplest behavior of the `{% if %}` tag is to evaluate a variable, and if that variable both exists and is a "truthy" value according to JavaScript ([see MDN "Truthy"](https://developer.mozilla.org/en-US/docs/Glossary/Truthy)), the specified block will be included. By default, `if` will include (or not) all code until it encounters an `{% endif %}` tag to close. However, it also supports using an `{% else %}` tag before the `{% endif %}` tag, which can provide alternative code.
+
+Examine the following example, and observe what happens as you change state variables from `true` to `false`, or vice-versa:
+
+```modulo
+edit:demo=modulo
+<Template>
     {% if state.show %}
         Hello testing template world!
     {% endif %}
-&lt;/Template&gt;
+</Template>
 
-&lt;State
+<State
   show:=true
-&gt;&lt;/State&gt;
-" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
-        
-            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
-      <div class="editor-underlay-container" style="
-            width:    224px
-                    ;
-            height:  48px
-                    ;
-          ">
-          <div class="editor-underlay-offset-wrapper" style="
-                
-                
-                
-                    width: 224px; 
-              "><x-syntaxhighlighter value="&lt;Template&gt;
-    {% if state.show %}
-        Hello testing template world!
-    {% endif %}
-&lt;/Template&gt;
+></State>
+```
 
-&lt;State
-  show:=true
-&gt;&lt;/State&gt;
-" mode="modulo" style="
-                    font-family: monospace;
-                    text-align: start;
-                    resize: none;
-                    box-sizing: border-box;
-                    font-size: 18px;
-                    
-                        white-space: pre;
-                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
-    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">if</span></span> state.show %}</span><span class="language-xml">
-        Hello testing template world!
-    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endif</span></span> %}</span><span class="language-xml">
-<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
 
-<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
-  <span class="hljs-attr">show:</span>=<span class="hljs-modulo-attr-value-lit">true</span>
-&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
-</span></x-syntaxhighlighter>
-          </div>
-      </div>
-      <textarea data-gramm="false" name="value" spellcheck="false" style="
-            font-size: 18px;
-            
-                white-space: pre;
-            " script.ref="" on.scroll="script.updateDimensions"></textarea>
-  </div></x-mirroreditor>
-        
-        <div class="toolbar toolbar--small toolbar--autohide
-             ">
-            
-                <button><span alt="Clipboard icon">📋</span> Copy</button>
-                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
-                <button><span alt="Download arrow downward">⤓</span> Save</button>
-            
-        </div>
-        
-    <iframe></iframe></div>
-    <div class="overlay"></div></x-quickdemo>
-<h2 id="else">else</h2><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+## else
+
+```modulo
+edit:demo=modulo
+<Template>
     {% if state.hello %}
         Hello testing template world!
     {% else %}
         Goodbye testing template world!
     {% endif %}
-&lt;/Template&gt;
+</Template>
 
-&lt;State
+<State
   hello:=false
-&gt;&lt;/State&gt;
-" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
-        
-            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
-      <div class="editor-underlay-container" style="
-            width:    224px
-                    ;
-            height:  48px
-                    ;
-          ">
-          <div class="editor-underlay-offset-wrapper" style="
-                
-                
-                
-                    width: 224px; 
-              "><x-syntaxhighlighter value="&lt;Template&gt;
-    {% if state.hello %}
-        Hello testing template world!
-    {% else %}
-        Goodbye testing template world!
-    {% endif %}
-&lt;/Template&gt;
+></State>
+```
 
-&lt;State
-  hello:=false
-&gt;&lt;/State&gt;
-" mode="modulo" style="
-                    font-family: monospace;
-                    text-align: start;
-                    resize: none;
-                    box-sizing: border-box;
-                    font-size: 18px;
-                    
-                        white-space: pre;
-                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
-    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">if</span></span> state.hello %}</span><span class="language-xml">
-        Hello testing template world!
-    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">else</span></span> %}</span><span class="language-xml">
-        Goodbye testing template world!
-    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endif</span></span> %}</span><span class="language-xml">
-<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
 
-<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
-  <span class="hljs-attr">hello:</span>=<span class="hljs-modulo-attr-value-lit">false</span>
-&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
-</span></x-syntaxhighlighter>
-          </div>
-      </div>
-      <textarea data-gramm="false" name="value" spellcheck="false" style="
-            font-size: 18px;
-            
-                white-space: pre;
-            " script.ref="" on.scroll="script.updateDimensions"></textarea>
-  </div></x-mirroreditor>
-        
-        <div class="toolbar toolbar--small toolbar--autohide
-             ">
-            
-                <button><span alt="Clipboard icon">📋</span> Copy</button>
-                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
-                <button><span alt="Download arrow downward">⤓</span> Save</button>
-            
-        </div>
-        
-    <iframe></iframe></div>
-    <div class="overlay"></div></x-quickdemo>
-<h2 id="elifelseif">elif, elseif</h2>
-<p>Like with the <code>else</code> tag, the <code>if</code> tag may also optionally proceed <code>{% elif %}</code>
+## elif, elseif
+
+Like with the `else` tag, the `if` tag may also optionally proceed `{% elif %}`
 tags, which is a shortened version of the word "else" and "if", combined into a
-single, made-up word "elif". The behavior of the <code>{% elif %}</code> is very similar
+single, made-up word "elif". The behavior of the `{% elif %}` is very similar
 to the "if": It requires specifying condition which will be evaluated, and it
 will only include the specified code block if that condition evaluates to be
-true. Unlike the <code>{% else %}</code> tag, a single <code>{% if %}</code> can has as many <code>{% elif
-%}</code> tags as you'd like, and it is guaranteed that it will only execute one of
-those. In other words, only one <code>{% if %}</code>, <code>{% elif %}</code>, or <code>{% else %}</code> code
+true. Unlike the `{% else %}` tag, a single `{% if %}` can has as many `{% elif
+%}` tags as you'd like, and it is guaranteed that it will only execute one of
+those. In other words, only one `{% if %}`, `{% elif %}`, or `{% else %}` code
 block will be executed, and there's never a risk that two "elifs" could get
-executed in the same "chain".</p>
-<p>For an example of this, examine the following more complicated example:</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+executed in the same "chain".
+
+For an example of this, examine the following more complicated example:
+
+
+```modulo
+edit:demo=modulo
+<Template>
     {% if state.athletes %}
         Athletes exists. Total athletes: {{ state.athletes|length }}
     {% elif state.benched %}
@@ -963,762 +251,217 @@ executed in the same "chain".</p>
     {% else %}
         No athletes.
     {% endif %}
-&lt;/Template&gt;
+</Template>
 
-&lt;State
+<State
   benched:='[
-    {&quot;name&quot;: &quot;Steph Curry&quot;}
-  ]'
-&gt;&lt;/State&gt;
-" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
-        
-            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
-      <div class="editor-underlay-container" style="
-            width:    224px
-                    ;
-            height:  48px
-                    ;
-          ">
-          <div class="editor-underlay-offset-wrapper" style="
-                
-                
-                
-                    width: 224px; 
-              "><x-syntaxhighlighter value="&lt;Template&gt;
-    {% if state.athletes %}
-        Athletes exists. Total athletes: {{ state.athletes|length }}
-    {% elif state.benched %}
-        Benched exists. Total benched: {{ state.benched|length }}
-    {% else %}
-        No athletes.
-    {% endif %}
-&lt;/Template&gt;
-
-&lt;State
-  benched:='[
-    {&quot;name&quot;: &quot;Steph Curry&quot;}
-  ]'
-&gt;&lt;/State&gt;
-" mode="modulo" style="
-                    font-family: monospace;
-                    text-align: start;
-                    resize: none;
-                    box-sizing: border-box;
-                    font-size: 18px;
-                    
-                        white-space: pre;
-                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
-    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">if</span></span> state.athletes %}</span><span class="language-xml">
-        Athletes exists. Total athletes: </span><span class="hljs-template-variable">{{ state.athletes|<span class="hljs-name">length</span> }}</span><span class="language-xml">
-    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">elif</span></span> state.benched %}</span><span class="language-xml">
-        Benched exists. Total benched: </span><span class="hljs-template-variable">{{ state.benched|<span class="hljs-name">length</span> }}</span><span class="language-xml">
-    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">else</span></span> %}</span><span class="language-xml">
-        No athletes.
-    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endif</span></span> %}</span><span class="language-xml">
-<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
-
-<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
-  <span class="hljs-attr">benched:</span>=<span class="hljs-string">'[
     {"name": "Steph Curry"}
-  ]'</span>
-&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
-</span></x-syntaxhighlighter>
-          </div>
-      </div>
-      <textarea data-gramm="false" name="value" spellcheck="false" style="
-            font-size: 18px;
-            
-                white-space: pre;
-            " script.ref="" on.scroll="script.updateDimensions"></textarea>
-  </div></x-mirroreditor>
-        
-        <div class="toolbar toolbar--small toolbar--autohide
-             ">
-            
-                <button><span alt="Clipboard icon">📋</span> Copy</button>
-                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
-                <button><span alt="Download arrow downward">⤓</span> Save</button>
-            
-        </div>
-        
-    <iframe></iframe></div>
-    <div class="overlay"></div></x-quickdemo>
-<p>In the above, if <code>state.athletes</code> exists, the number of athletes will be
-displayed by the <code>{{ state.athletes|length }}</code> filtered template variable.</p>
-<p><strong>Beta note:</strong> <code>elseif</code> alias not yet implemented.</p>
-<h2 id="with">with</h2>
-<p>With is a highly useful tag to refactor templates that end up getting too
-complex with many filters.  Adding a <code>{% with ... %}</code> lets you "rename" or
+  ]'
+></State>
+```
+
+In the above, if `state.athletes` exists, the number of athletes will be
+displayed by the `{{ state.athletes|length }}` filtered template variable.
+
+**Beta note:** `elseif` alias not yet implemented.
+
+
+## with
+
+With is a highly useful tag to refactor templates that end up getting too
+complex with many filters.  Adding a `{% with ... %}` lets you "rename" or
 "alias" a variable, property, or series of filters as another, shorter variable
 name to be used within the tag. In the generated JavaScript code, this value
-will be computed once and stored as a variable. See below:</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
-    {% with state.users|sorted:&quot;username&quot;|reversed|first as user %}
-        &lt;h4&gt;Last alphabetical user:&lt;/h4&gt;
-        &lt;p&gt;Username: {{ user.username }} - ID #{{ user.id }}&lt;/p&gt;
+will be computed once and stored as a variable. See below:
+
+```modulo
+edit:demo=modulo
+<Template>
+    {% with state.users|sorted:"username"|reversed|first as user %}
+        <h4>Last alphabetical user:</h4>
+        <p>Username: {{ user.username }} - ID #{{ user.id }}</p>
     {% endwith %}
-&lt;/Template&gt;
+</Template>
 
-&lt;State
+<State
   users:='[
-    {&quot;username&quot;: &quot;zer0c00l&quot;, &quot;id&quot;: 2600},
-    {&quot;username&quot;: &quot;ac1dburn&quot;, &quot;id&quot;: 1337},
-    {&quot;username&quot;: &quot;the_phantom_phr34k&quot;, &quot;name&quot;: &quot;Ramon&quot;}
-  ]'
-&gt;&lt;/State&gt;
-" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
-        
-            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
-      <div class="editor-underlay-container" style="
-            width:    224px
-                    ;
-            height:  48px
-                    ;
-          ">
-          <div class="editor-underlay-offset-wrapper" style="
-                
-                
-                
-                    width: 224px; 
-              "><x-syntaxhighlighter value="&lt;Template&gt;
-    {% with state.users|sorted:&quot;username&quot;|reversed|first as user %}
-        &lt;h4&gt;Last alphabetical user:&lt;/h4&gt;
-        &lt;p&gt;Username: {{ user.username }} - ID #{{ user.id }}&lt;/p&gt;
-    {% endwith %}
-&lt;/Template&gt;
-
-&lt;State
-  users:='[
-    {&quot;username&quot;: &quot;zer0c00l&quot;, &quot;id&quot;: 2600},
-    {&quot;username&quot;: &quot;ac1dburn&quot;, &quot;id&quot;: 1337},
-    {&quot;username&quot;: &quot;the_phantom_phr34k&quot;, &quot;name&quot;: &quot;Ramon&quot;}
-  ]'
-&gt;&lt;/State&gt;
-" mode="modulo" style="
-                    font-family: monospace;
-                    text-align: start;
-                    resize: none;
-                    box-sizing: border-box;
-                    font-size: 18px;
-                    
-                        white-space: pre;
-                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
-    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">with</span></span> state.users|sorted:<span class="hljs-string">"username"</span>|reversed|<span class="hljs-name">first</span> <span class="hljs-keyword">as</span> user %}</span><span class="language-xml">
-        <span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span>Last alphabetical user:<span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Username: </span><span class="hljs-template-variable">{{ user.username }}</span><span class="language-xml"> - ID #</span><span class="hljs-template-variable">{{ user.id }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
-    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endwith</span></span> %}</span><span class="language-xml">
-<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
-
-<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
-  <span class="hljs-attr">users:</span>=<span class="hljs-string">'[
     {"username": "zer0c00l", "id": 2600},
     {"username": "ac1dburn", "id": 1337},
     {"username": "the_phantom_phr34k", "name": "Ramon"}
-  ]'</span>
-&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
-</span></x-syntaxhighlighter>
-          </div>
-      </div>
-      <textarea data-gramm="false" name="value" spellcheck="false" style="
-            font-size: 18px;
-            
-                white-space: pre;
-            " script.ref="" on.scroll="script.updateDimensions"></textarea>
-  </div></x-mirroreditor>
-        
-        <div class="toolbar toolbar--small toolbar--autohide
-             ">
-            
-                <button><span alt="Clipboard icon">📋</span> Copy</button>
-                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
-                <button><span alt="Download arrow downward">⤓</span> Save</button>
-            
-        </div>
-        
-    <iframe></iframe></div>
-    <div class="overlay"></div></x-quickdemo>
-<h2 id="iftagcomparisonoperators">if-tag comparison operators</h2>
-<p>Within the if tag, you can use a variety of "operators". Operators behave similarly to JavaScript operators: They allow comparisons of template variables with other template variables and/or hardcoded values. There are about a dozen built-in operators. As with template-tags, it is also possible to configure your own custom operators.</p>
-<p>Built-in operators: <code>==, &gt;, &lt;, &gt;=, &lt;=, !=, not in, is not, is, in, not, gt, lt</code></p>
-<h2 id="filtersoperators">Filters (operators)</h2>
-<p>You can also use filters in combination with operators within an if tag. For example:</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+  ]'
+></State>
+```
+
+## if-tag comparison operators
+
+Within the if tag, you can use a variety of "operators". Operators behave similarly to JavaScript operators: They allow comparisons of template variables with other template variables and/or hardcoded values. There are about a dozen built-in operators. As with template-tags, it is also possible to configure your own custom operators.
+
+Built-in operators: `==, >, <, >=, <=, !=, not in, is not, is, in, not, gt, lt`
+
+
+## Filters (operators)
+
+You can also use filters in combination with operators within an if tag. For example:
+
+```modulo
+edit:demo=modulo
+<Template>
     {% if state.plays|length gt 2 %}
-        &lt;p&gt;There are more than 2 plays!&lt;/p&gt;
+        <p>There are more than 2 plays!</p>
     {% endif %}
-&lt;/Template&gt;
+</Template>
 
-&lt;State
-    plays:='[ &quot;Macbeth&quot;, &quot;Hamlet&quot;, &quot;Cymbeline&quot; ]'
-&gt;&lt;/State&gt;
-" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
-        
-            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
-      <div class="editor-underlay-container" style="
-            width:    224px
-                    ;
-            height:  48px
-                    ;
-          ">
-          <div class="editor-underlay-offset-wrapper" style="
-                
-                
-                
-                    width: 224px; 
-              "><x-syntaxhighlighter value="&lt;Template&gt;
-    {% if state.plays|length gt 2 %}
-        &lt;p&gt;There are more than 2 plays!&lt;/p&gt;
-    {% endif %}
-&lt;/Template&gt;
+<State
+    plays:='[ "Macbeth", "Hamlet", "Cymbeline" ]'
+></State>
+```
 
-&lt;State
-    plays:='[ &quot;Macbeth&quot;, &quot;Hamlet&quot;, &quot;Cymbeline&quot; ]'
-&gt;&lt;/State&gt;
-" mode="modulo" style="
-                    font-family: monospace;
-                    text-align: start;
-                    resize: none;
-                    box-sizing: border-box;
-                    font-size: 18px;
-                    
-                        white-space: pre;
-                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
-    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">if</span></span> state.plays|<span class="hljs-name">length</span> gt 2 %}</span><span class="language-xml">
-        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>There are more than 2 plays!<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
-    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endif</span></span> %}</span><span class="language-xml">
-<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
 
-<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
-    <span class="hljs-attr">plays:</span>=<span class="hljs-string">'[ "Macbeth", "Hamlet", "Cymbeline" ]'</span>
-&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
-</span></x-syntaxhighlighter>
-          </div>
-      </div>
-      <textarea data-gramm="false" name="value" spellcheck="false" style="
-            font-size: 18px;
-            
-                white-space: pre;
-            " script.ref="" on.scroll="script.updateDimensions"></textarea>
-  </div></x-mirroreditor>
-        
-        <div class="toolbar toolbar--small toolbar--autohide
-             ">
-            
-                <button><span alt="Clipboard icon">📋</span> Copy</button>
-                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
-                <button><span alt="Download arrow downward">⤓</span> Save</button>
-            
-        </div>
-        
-    <iframe></iframe></div>
-    <div class="overlay"></div></x-quickdemo>
-<h1 id="operators">Operators</h1>
-<h2 id="isoperator"><code>==</code>, <code>is</code> (operator)</h2>
-<p>Check for equality. Note that this will be a "strict" comparison, equivalent to JavaScript's triple-equals <code>===</code> operator. The syntax variants <code>==</code> and <code>is</code> are aliases of each other.</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
-    {% if state.somevar == &quot;x&quot; %}
-        This appears if variable somevar equals the string &quot;x&quot;
-    {% endif %}
-&lt;/Template&gt;
+# Operators
 
-&lt;State
-  somevar=&quot;x&quot;
-&gt;&lt;/State&gt;
-" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
-        
-            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
-      <div class="editor-underlay-container" style="
-            width:    224px
-                    ;
-            height:  48px
-                    ;
-          ">
-          <div class="editor-underlay-offset-wrapper" style="
-                
-                
-                
-                    width: 224px; 
-              "><x-syntaxhighlighter value="&lt;Template&gt;
-    {% if state.somevar == &quot;x&quot; %}
-        This appears if variable somevar equals the string &quot;x&quot;
-    {% endif %}
-&lt;/Template&gt;
 
-&lt;State
-  somevar=&quot;x&quot;
-&gt;&lt;/State&gt;
-" mode="modulo" style="
-                    font-family: monospace;
-                    text-align: start;
-                    resize: none;
-                    box-sizing: border-box;
-                    font-size: 18px;
-                    
-                        white-space: pre;
-                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
-    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">if</span></span> state.somevar == "x" %}</span><span class="language-xml">
+## `==`, `is` (operator)
+
+Check for equality. Note that this will be a "strict" comparison, equivalent to JavaScript's triple-equals `===` operator. The syntax variants `==` and `is` are aliases of each other.
+
+
+```modulo
+edit:demo=modulo
+<Template>
+    {% if state.somevar == "x" %}
         This appears if variable somevar equals the string "x"
-    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endif</span></span> %}</span><span class="language-xml">
-<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
-
-<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
-  <span class="hljs-attr">somevar</span>=<span class="hljs-string">"x"</span>
-&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
-</span></x-syntaxhighlighter>
-          </div>
-      </div>
-      <textarea data-gramm="false" name="value" spellcheck="false" style="
-            font-size: 18px;
-            
-                white-space: pre;
-            " script.ref="" on.scroll="script.updateDimensions"></textarea>
-  </div></x-mirroreditor>
-        
-        <div class="toolbar toolbar--small toolbar--autohide
-             ">
-            
-                <button><span alt="Clipboard icon">📋</span> Copy</button>
-                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
-                <button><span alt="Download arrow downward">⤓</span> Save</button>
-            
-        </div>
-        
-    <iframe></iframe></div>
-    <div class="overlay"></div></x-quickdemo>
-<h2 id="isnotoperator"><code>!=</code>, <code>is not</code> (operator)</h2>
-<p>Check for inequality. Note that this will be a "strict" comparison, equivalent to JavaScript's triple-not-equals <code>!==</code> operator. The syntax variants <code>!==</code> and <code>is not</code> are aliases of each other.</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
-    {% if state.somevar != &quot;x&quot; %}
-        This appears if variable state.somevar does not equal the string &quot;x&quot;.
     {% endif %}
-&lt;/Template&gt;
+</Template>
 
-&lt;State
-  somevar=&quot;y&quot;
-&gt;&lt;/State&gt;
-" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
-        
-            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
-      <div class="editor-underlay-container" style="
-            width:    224px
-                    ;
-            height:  48px
-                    ;
-          ">
-          <div class="editor-underlay-offset-wrapper" style="
-                
-                
-                
-                    width: 224px; 
-              "><x-syntaxhighlighter value="&lt;Template&gt;
-    {% if state.somevar != &quot;x&quot; %}
-        This appears if variable state.somevar does not equal the string &quot;x&quot;.
-    {% endif %}
-&lt;/Template&gt;
+<State
+  somevar="x"
+></State>
+```
 
-&lt;State
-  somevar=&quot;y&quot;
-&gt;&lt;/State&gt;
-" mode="modulo" style="
-                    font-family: monospace;
-                    text-align: start;
-                    resize: none;
-                    box-sizing: border-box;
-                    font-size: 18px;
-                    
-                        white-space: pre;
-                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
-    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">if</span></span> state.somevar != "x" %}</span><span class="language-xml">
+## `!=`, `is not` (operator)
+
+Check for inequality. Note that this will be a "strict" comparison, equivalent to JavaScript's triple-not-equals `!==` operator. The syntax variants `!==` and `is not` are aliases of each other.
+
+
+```modulo
+edit:demo=modulo
+<Template>
+    {% if state.somevar != "x" %}
         This appears if variable state.somevar does not equal the string "x".
-    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endif</span></span> %}</span><span class="language-xml">
-<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    {% endif %}
+</Template>
 
-<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
-  <span class="hljs-attr">somevar</span>=<span class="hljs-string">"y"</span>
-&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
-</span></x-syntaxhighlighter>
-          </div>
-      </div>
-      <textarea data-gramm="false" name="value" spellcheck="false" style="
-            font-size: 18px;
-            
-                white-space: pre;
-            " script.ref="" on.scroll="script.updateDimensions"></textarea>
-  </div></x-mirroreditor>
-        
-        <div class="toolbar toolbar--small toolbar--autohide
-             ">
-            
-                <button><span alt="Clipboard icon">📋</span> Copy</button>
-                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
-                <button><span alt="Download arrow downward">⤓</span> Save</button>
-            
-        </div>
-        
-    <iframe></iframe></div>
-    <div class="overlay"></div></x-quickdemo>
-<h2 id="notoperator"><code>not</code> (operator)</h2>
-<p>You can use "not" to invert or negate an "if" tag:</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+<State
+  somevar="y"
+></State>
+```
+
+## `not` (operator)
+
+You can use "not" to invert or negate an "if" tag:
+
+```modulo
+edit:demo=modulo
+<Template>
     {% if not state.show %}
         Do not show it!
     {% else %}
         Show it!
     {% endif %}
-&lt;/Template&gt;
+</Template>
 
-&lt;State
+<State
   show:=false
-&gt;&lt;/State&gt;
-" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
-        
-            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
-      <div class="editor-underlay-container" style="
-            width:    224px
-                    ;
-            height:  48px
-                    ;
-          ">
-          <div class="editor-underlay-offset-wrapper" style="
-                
-                
-                
-                    width: 224px; 
-              "><x-syntaxhighlighter value="&lt;Template&gt;
-    {% if not state.show %}
-        Do not show it!
-    {% else %}
-        Show it!
-    {% endif %}
-&lt;/Template&gt;
+></State>
+```
 
-&lt;State
-  show:=false
-&gt;&lt;/State&gt;
-" mode="modulo" style="
-                    font-family: monospace;
-                    text-align: start;
-                    resize: none;
-                    box-sizing: border-box;
-                    font-size: 18px;
-                    
-                        white-space: pre;
-                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
-    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">if</span></span> not state.show %}</span><span class="language-xml">
-        Do not show it!
-    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">else</span></span> %}</span><span class="language-xml">
-        Show it!
-    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endif</span></span> %}</span><span class="language-xml">
-<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+## `lt`, `<`, `<=` (operators)
 
-<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
-  <span class="hljs-attr">show:</span>=<span class="hljs-modulo-attr-value-lit">false</span>
-&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
-</span></x-syntaxhighlighter>
-          </div>
-      </div>
-      <textarea data-gramm="false" name="value" spellcheck="false" style="
-            font-size: 18px;
-            
-                white-space: pre;
-            " script.ref="" on.scroll="script.updateDimensions"></textarea>
-  </div></x-mirroreditor>
-        
-        <div class="toolbar toolbar--small toolbar--autohide
-             ">
-            
-                <button><span alt="Clipboard icon">📋</span> Copy</button>
-                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
-                <button><span alt="Download arrow downward">⤓</span> Save</button>
-            
-        </div>
-        
-    <iframe></iframe></div>
-    <div class="overlay"></div></x-quickdemo>
-<h2 id="ltoperators"><code>lt</code>, <code>&lt;</code>, <code>&lt;=</code> (operators)</h2>
-<p>Less than. Has a few variants: <code>lt</code> (preferred) and <code>&lt;</code> (alternative) will
+Less than. Has a few variants: `lt` (preferred) and `<` (alternative) will
 check to see if a variable is strictly less than a given variable or value,
-while <code>&lt;=</code> will be "less than or equal to" and thus also allow it if its equal.
-Example:</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+while `<=` will be "less than or equal to" and thus also allow it if its equal.
+Example:
+
+
+```modulo
+edit:demo=modulo
+<Template>
     {% if state.somevar lt 100 %}
         This appears if variable somevar is less than 100.
     {% endif %}
-&lt;/Template&gt;
+</Template>
 
-&lt;State
+<State
   somevar:=50
-&gt;&lt;/State&gt;
-" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
-        
-            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
-      <div class="editor-underlay-container" style="
-            width:    224px
-                    ;
-            height:  48px
-                    ;
-          ">
-          <div class="editor-underlay-offset-wrapper" style="
-                
-                
-                
-                    width: 224px; 
-              "><x-syntaxhighlighter value="&lt;Template&gt;
-    {% if state.somevar lt 100 %}
-        This appears if variable somevar is less than 100.
-    {% endif %}
-&lt;/Template&gt;
+></State>
+```
 
-&lt;State
-  somevar:=50
-&gt;&lt;/State&gt;
-" mode="modulo" style="
-                    font-family: monospace;
-                    text-align: start;
-                    resize: none;
-                    box-sizing: border-box;
-                    font-size: 18px;
-                    
-                        white-space: pre;
-                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
-    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">if</span></span> state.somevar lt 100 %}</span><span class="language-xml">
-        This appears if variable somevar is less than 100.
-    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endif</span></span> %}</span><span class="language-xml">
-<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+## `gt`, `>`, `>=` (operators)
 
-<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
-  <span class="hljs-attr">somevar:</span>=<span class="hljs-modulo-attr-value-lit">50</span>
-&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
-</span></x-syntaxhighlighter>
-          </div>
-      </div>
-      <textarea data-gramm="false" name="value" spellcheck="false" style="
-            font-size: 18px;
-            
-                white-space: pre;
-            " script.ref="" on.scroll="script.updateDimensions"></textarea>
-  </div></x-mirroreditor>
-        
-        <div class="toolbar toolbar--small toolbar--autohide
-             ">
-            
-                <button><span alt="Clipboard icon">📋</span> Copy</button>
-                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
-                <button><span alt="Download arrow downward">⤓</span> Save</button>
-            
-        </div>
-        
-    <iframe></iframe></div>
-    <div class="overlay"></div></x-quickdemo>
-<h2 id="gtoperators"><code>gt</code>, <code>&gt;</code>, <code>&gt;=</code> (operators)</h2>
-<p>Greater than. Has a few variants: <code>gt</code> (preferred) and <code>&gt;</code> (alternative) will
+Greater than. Has a few variants: `gt` (preferred) and `>` (alternative) will
 check to see if a variable is strictly greater than a given variable or value,
-while <code>&gt;=</code> will be "greater than or equal to". Example:</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+while `>=` will be "greater than or equal to". Example:
+
+
+```modulo
+edit:demo=modulo
+<Template>
     {% if state.somevar gt 100 %}
         This appears if variable somevar is greater than 100.
     {% endif %}
-&lt;/Template&gt;
+</Template>
 
-&lt;State
+<State
   somevar:=2600
-&gt;&lt;/State&gt;
-" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
-        
-            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
-      <div class="editor-underlay-container" style="
-            width:    224px
-                    ;
-            height:  48px
-                    ;
-          ">
-          <div class="editor-underlay-offset-wrapper" style="
-                
-                
-                
-                    width: 224px; 
-              "><x-syntaxhighlighter value="&lt;Template&gt;
-    {% if state.somevar gt 100 %}
-        This appears if variable somevar is greater than 100.
-    {% endif %}
-&lt;/Template&gt;
+></State>
+```
 
-&lt;State
-  somevar:=2600
-&gt;&lt;/State&gt;
-" mode="modulo" style="
-                    font-family: monospace;
-                    text-align: start;
-                    resize: none;
-                    box-sizing: border-box;
-                    font-size: 18px;
-                    
-                        white-space: pre;
-                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
-    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">if</span></span> state.somevar gt 100 %}</span><span class="language-xml">
-        This appears if variable somevar is greater than 100.
-    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endif</span></span> %}</span><span class="language-xml">
-<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+## `in`, `not in` (operators)
 
-<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
-  <span class="hljs-attr">somevar:</span>=<span class="hljs-modulo-attr-value-lit">2600</span>
-&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
-</span></x-syntaxhighlighter>
-          </div>
-      </div>
-      <textarea data-gramm="false" name="value" spellcheck="false" style="
-            font-size: 18px;
-            
-                white-space: pre;
-            " script.ref="" on.scroll="script.updateDimensions"></textarea>
-  </div></x-mirroreditor>
-        
-        <div class="toolbar toolbar--small toolbar--autohide
-             ">
-            
-                <button><span alt="Clipboard icon">📋</span> Copy</button>
-                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
-                <button><span alt="Download arrow downward">⤓</span> Save</button>
-            
-        </div>
-        
-    <iframe></iframe></div>
-    <div class="overlay"></div></x-quickdemo>
-<h2 id="innotinoperators"><code>in</code>, <code>not in</code> (operators)</h2>
-<p>Contained within. Unlike the built-in JavaScript operator "in" which is only
+Contained within. Unlike the built-in JavaScript operator "in" which is only
 supported by Objects, this operator supports Strings, Arrays, and Objects as
 the "container" types being checked. In all cases, it will test whether the
-given value is within the given container. The <code>not in</code> operator does what you
-might expect: The exact opposite of the <code>in</code> operator.</p>
-<p>The following are some examples of how the <code>in</code> operator will be interpreted in
+given value is within the given container. The `not in` operator does what you
+might expect: The exact opposite of the `in` operator.
+
+
+The following are some examples of how the `in` operator will be interpreted in
 different contexts.  Note that in these examples, some use hardcoded strings in
-places (e.g. <code>"B.C.E"</code>), while others use variables in the same place (e.g.
-<code>state.word</code>). As with every if-statement operator, you can either hardcoded
-values and variables are interchangeable.</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
-{% if &quot;B.C.E.&quot; in state.era %} {# String context #}
-    &lt;p&gt;&quot;B.C.E.&quot; is a substring of &quot;{{ state.era }}&quot;&lt;/p&gt;
+places (e.g. `"B.C.E"`), while others use variables in the same place (e.g.
+`state.word`). As with every if-statement operator, you can either hardcoded
+values and variables are interchangeable.
+
+
+```modulo
+edit:demo=modulo
+<Template>
+{% if "B.C.E." in state.era %} {# String context #}
+    <p>"B.C.E." is a substring of "{{ state.era }}"</p>
 {% endif %}
 
 {% if state.word in state.greetings %} {# Array context  #}
-    &lt;p&gt;&quot;{{ state.word }}&quot; was found in: {{ state.greetings|join:&quot;, &quot; }}&lt;/p&gt;
+    <p>"{{ state.word }}" was found in: {{ state.greetings|join:", " }}</p>
 {% endif %}
 
-{% if &quot;author&quot; in state.article %} {# Object context  #}
-    &lt;p&gt;Author was found in article: {{ state.article.author }}&lt;/p&gt;
+{% if "author" in state.article %} {# Object context  #}
+    <p>Author was found in article: {{ state.article.author }}</p>
 {% endif %}
-&lt;/Template&gt;
+</Template>
 
-&lt;State
-  era=&quot;3rd Century B.C.E. (Macedonia)&quot;
-  word=&quot;hello&quot;
+<State
+  era="3rd Century B.C.E. (Macedonia)"
+  word="hello"
   greetings:='[
-    &quot;hallo&quot;,
-    &quot;hello&quot;,
-    &quot;hola&quot;,
-    &quot;óla&quot;
-  ]'
-  article:='{
-    &quot;author&quot;: &quot;Albert Einstein&quot;,
-    &quot;publication&quot;: &quot;Monthly Review&quot;
-  }'
-&gt;&lt;/State&gt;
-" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
-        
-            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
-      <div class="editor-underlay-container" style="
-            width:    224px
-                    ;
-            height:  48px
-                    ;
-          ">
-          <div class="editor-underlay-offset-wrapper" style="
-                
-                
-                
-                    width: 224px; 
-              "><x-syntaxhighlighter value="&lt;Template&gt;
-{% if &quot;B.C.E.&quot; in state.era %} {# String context #}
-    &lt;p&gt;&quot;B.C.E.&quot; is a substring of &quot;{{ state.era }}&quot;&lt;/p&gt;
-{% endif %}
-
-{% if state.word in state.greetings %} {# Array context  #}
-    &lt;p&gt;&quot;{{ state.word }}&quot; was found in: {{ state.greetings|join:&quot;, &quot; }}&lt;/p&gt;
-{% endif %}
-
-{% if &quot;author&quot; in state.article %} {# Object context  #}
-    &lt;p&gt;Author was found in article: {{ state.article.author }}&lt;/p&gt;
-{% endif %}
-&lt;/Template&gt;
-
-&lt;State
-  era=&quot;3rd Century B.C.E. (Macedonia)&quot;
-  word=&quot;hello&quot;
-  greetings:='[
-    &quot;hallo&quot;,
-    &quot;hello&quot;,
-    &quot;hola&quot;,
-    &quot;óla&quot;
-  ]'
-  article:='{
-    &quot;author&quot;: &quot;Albert Einstein&quot;,
-    &quot;publication&quot;: &quot;Monthly Review&quot;
-  }'
-&gt;&lt;/State&gt;
-" mode="modulo" style="
-                    font-family: monospace;
-                    text-align: start;
-                    resize: none;
-                    box-sizing: border-box;
-                    font-size: 18px;
-                    
-                        white-space: pre;
-                    " modulo-mount-html=""><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
-</span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">if</span></span> "B.C.E." <span class="hljs-keyword">in</span> state.era %}</span><span class="language-xml"> </span><span class="hljs-comment">{# String context #}</span><span class="language-xml">
-    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>"B.C.E." is a substring of "</span><span class="hljs-template-variable">{{ state.era }}</span><span class="language-xml">"<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
-</span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endif</span></span> %}</span><span class="language-xml">
-
-</span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">if</span></span> state.word <span class="hljs-keyword">in</span> state.greetings %}</span><span class="language-xml"> </span><span class="hljs-comment">{# Array context  #}</span><span class="language-xml">
-    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>"</span><span class="hljs-template-variable">{{ state.word }}</span><span class="language-xml">" was found in: </span><span class="hljs-template-variable">{{ state.greetings|<span class="hljs-name">join</span>:<span class="hljs-string">", "</span> }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
-</span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endif</span></span> %}</span><span class="language-xml">
-
-</span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">if</span></span> "author" <span class="hljs-keyword">in</span> state.article %}</span><span class="language-xml"> </span><span class="hljs-comment">{# Object context  #}</span><span class="language-xml">
-    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Author was found in article: </span><span class="hljs-template-variable">{{ state.article.author }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
-</span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endif</span></span> %}</span><span class="language-xml">
-<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
-
-<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
-  <span class="hljs-attr">era</span>=<span class="hljs-string">"3rd Century B.C.E. (Macedonia)"</span>
-  <span class="hljs-attr">word</span>=<span class="hljs-string">"hello"</span>
-  <span class="hljs-attr">greetings:</span>=<span class="hljs-string">'[
     "hallo",
     "hello",
     "hola",
     "óla"
-  ]'</span>
-  <span class="hljs-attr">article:</span>=<span class="hljs-string">'{
+  ]'
+  article:='{
     "author": "Albert Einstein",
     "publication": "Monthly Review"
-  }'</span>
-&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
-</span></x-syntaxhighlighter>
-          </div>
-      </div>
-      <textarea data-gramm="false" name="value" spellcheck="false" style="
-            font-size: 18px;
-            
-                white-space: pre;
-            " script.ref="" on.scroll="script.updateDimensions"></textarea>
-  </div></x-mirroreditor>
-        
-        <div class="toolbar toolbar--small toolbar--autohide
-             ">
-            
-                <button><span alt="Clipboard icon">📋</span> Copy</button>
-                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
-                <button><span alt="Download arrow downward">⤓</span> Save</button>
-            
-        </div>
-        
-    <iframe></iframe></div>
-    <div class="overlay"></div></x-quickdemo>
-</div>
-                
-            
-        </main>
-    </div>
-            
-        </body>
-    </html>
+  }'
+></State>
+```
+
+

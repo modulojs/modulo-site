@@ -1020,6 +1020,10 @@ function applyNextProcessor (def, processorNameArray) {
 function configureStatic (modulo) { // Setup default content
     const { staticDir, rootDir, scriptSelector, fileSelector } = modulo.config.modulo;
     const [ cmdName, src ] = modulo.argv;
+    const dir = staticDir || 'static/';
+    const mdu = window.document.querySelector(scriptSelector);
+    const root = rootDir || ((mdu || {}).src || '').split(dir)[0];
+    modulo.filePath = (window.location + '').replace(root, '').split('?')[0];
     const file = window.document.querySelector(fileSelector);
     if (file) { // Content file exists, extract data then remove
         const preamble = /^([^\n]+?script[^\n]+?[ \n]type=[^\n>]+?>).*$/is;
@@ -1036,13 +1040,9 @@ function configureStatic (modulo) { // Setup default content
                 document.body.innerHTML += modulo.config.modulo.defaultContent;
             }, true);
         }
-        modulo.stores.CACHE.setItem(window.location + '', text)
+        modulo.stores.CACHE.setItem(modulo.filePath, text)
         file.remove();
     }
-    const dir = staticDir || 'static/';
-    const mdu = window.document.querySelector(scriptSelector);
-    const root = rootDir || ((mdu || {}).src || '').split(dir)[0];
-    modulo.filePath = (window.location + '').replace(root, '').split('?')[0];
     const rPath = modulo.filePath.split('/').slice(1).map(s => '..').join('/');
     modulo.rootPath = rPath ? (rPath + '/') : '';
     if (!modulo.definitions.modulo && mdu && root !== mdu.src && // (No Modulo)

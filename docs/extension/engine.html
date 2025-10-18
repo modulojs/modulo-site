@@ -1,0 +1,205 @@
+<!DOCTYPE html><html><head><meta charset="utf8"><meta name="charset" charset="utf8" id="include_xxm0qoac"><meta name="content-type" http-equiv="Content-Type" content="text/html; charset=utf-8" id="include_xxnd8o0e"><meta name="viewport" content="width=device-width, initial-scale=1" id="include_x13l7u56"><meta name="robots" content="index, follow" id="include_xxriq75n"><meta name="revisit-after" content="30 days" id="include_x1m4jm9p"><link rel="stylesheet" href="../build-xxplgqrl.css">
+
+<script defer="" src="../build-x1t9nd3g.js"></script>
+</head><body><x-page rootat="https://modulohtml.org/">
+        <meta charset="utf8">
+        <title>Custom Engines - Modulo Documentation</title>
+    
+    <div class="layout Page">
+        <nav class="page-nav Page">
+            
+            <a style="font-size:60px;text-align:center;display:block;font-weight:200" href="../" class="Page">ᵐ°dᵘ⁄o</a>
+            <ul style="position: sticky; top: 1px" class="Page">
+                <li class="toc--outer Page">
+                    <p><a style="font-size: 70%" title="Download Modulo Docs as a offline-friendly zip" href="https://codeberg.org/modulo/docs/archive/main.zip" class="Page">
+                            ⤓ docs-main.zip</a>
+                        <tt>v0.1.0</tt>
+                    </p>
+                </li>
+            
+                
+                    <li class="toc--outer Page"><h3 class="Page">       Modulo</h3></li>
+                    <li class="toc--"><a href="../start/index.html" class="Page">           Introduction</a></li>
+                
+                    
+                    <li class="toc--"><a href="../start/getting-started.html" class="Page"> Getting Started</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">           Definitions</h3></li>
+                    <li class="toc--"><a href="../defs/overview.html" class="Page">         Overview</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/importing.html" class="Page">        Importing</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/definitions.html" class="Page">      Definition Types</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/processors.html" class="Page">       Processors</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/custom.html" class="Page">           Custom Types</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">  Templating</h3></li>
+                    <li class="toc--"><a href="../templating/index.html" class="Page">      Language Overview</a></li>
+                
+                    
+                    <li class="toc--"><a href="../templating/filters.html" class="Page">    Template Filters</a></li>
+                
+                    
+                    <li class="toc--"><a href="../templating/tags.html" class="Page">       Template Tags</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">              Component Parts</h3></li>
+                    <li class="toc--"><a href="../parts/props.html" class="Page">           Props</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/script.html" class="Page">          Script</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/state.html" class="Page">           State</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/staticdata.html" class="Page">      StaticData</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/style.html" class="Page">           Style</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/template.html" class="Page">        Template</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">           Core Definitions</h3></li>
+                    <li class="toc--"><a href="../core/artifact.html" class="Page">         Artifact</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/component.html" class="Page">        Component</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/configuration.html" class="Page">    Configuration</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/contentlist.html" class="Page">      ContentList</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/include.html" class="Page">          Include</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/library.html" class="Page">          Library</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">  Extension</h3></li>
+                    <li class="toc--active Page"><a href="../extension/engine.html" class="Page">      Upgrading Engines</a></li>
+                
+            </ul>
+        </nav>
+        <main class="page-container Page">
+            
+                
+                    
+                        <x-tableofcontents toc="[{&quot;match&quot;:&quot;&lt;h1 id=\&quot;customdomcursor\&quot;&gt;Custom DOMCursor&lt;/h1&gt;&quot;,&quot;level&quot;:1,&quot;attrs&quot;:&quot;id=\&quot;customdomcursor\&quot;&quot;,&quot;title&quot;:&quot;Custom DOMCursor&quot;,&quot;id&quot;:&quot;customdomcursor&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;motivationoptimizinglargecomponents\&quot;&gt;Motivation: Optimizing large components&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;motivationoptimizinglargecomponents\&quot;&quot;,&quot;title&quot;:&quot;Motivation: Optimizing large components&quot;,&quot;id&quot;:&quot;motivationoptimizinglargecomponents&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;example1addingexamplesimplecustomlogic\&quot;&gt;Example 1: Adding example simple custom logic&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;example1addingexamplesimplecustomlogic\&quot;&quot;,&quot;title&quot;:&quot;Example 1: Adding example simple custom logic&quot;,&quot;id&quot;:&quot;example1addingexamplesimplecustomlogic&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;example2upgradingtokeyedcursorforkeysupport\&quot;&gt;Example 2: Upgrading to KeyedCursor for key= support&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;example2upgradingtokeyedcursorforkeysupport\&quot;&quot;,&quot;title&quot;:&quot;Example 2: Upgrading to KeyedCursor for key= support&quot;,&quot;id&quot;:&quot;example2upgradingtokeyedcursorforkeysupport&quot;}]" modulo-mount-html=""><nav class="regular&quot;=&quot;">
+        <div> </div>
+        <div>
+            <div>
+                <label>[ <input name="show" type="checkbox"> Table of Contents ]</label>
+                <label title="Stick to upper right">[ <span alt="upper right arrow">↗</span>
+                    <input name="sticky" type="checkbox"> ]</label>
+            </div>
+            
+                <ul>
+                    
+                        
+                            <li style="--level: 1">
+                                    <a href="#customdomcursor">Custom DOMCursor</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#motivationoptimizinglargecomponents">Motivation: Optimizing large components</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#example1addingexamplesimplecustomlogic">Example 1: Adding example simple custom logic</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#example2upgradingtokeyedcursorforkeysupport">Example 2: Upgrading to KeyedCursor for key= support</a>
+                            </li>
+                        
+                    
+                </ul>
+            
+        </div>
+    </nav></x-tableofcontents>
+                    
+                    <div class="markdown-body"><h1 id="customdomcursor">Custom DOMCursor</h1>
+<blockquote>
+  <p><strong>Terminology</strong> - In the source code and docs, "child" refers to the existing
+  element, and "rival" refers to the reference element attempting to be matched
+  (e.g., virtual DOM). The role of the DOMCursor is to most "logically" match
+  children elements to rival (VDOM) elements.</p>
+</blockquote>
+<p>The DOMCursor is in charge of matching elements when a component reconciles.
+That is to say, when a component re-renders (e.g. a user clicks and modifies
+something), it attempts to match the the newly rendered element generated from
+the <code>dom</code> or <code>render</code> phase of the lifecycle (e.g. the virtual DOM), with it's
+original in the real, existing DOM.</p>
+<p>Modulo's modular design extends to DOM element pairing as well. By extending
+the simple built-in DOMCursor, we can include basic reconciler features such as
+keyed elements, like in React and other frameworks, or even more complex logic
+if we so desire.</p>
+<h2 id="motivationoptimizinglargecomponents">Motivation: Optimizing large components</h2>
+<blockquote>
+  <p><strong>When to optimize</strong> - Why do we want to do this? The purpose is if you know
+  that Modulo's automatic reconciliation "guesses" are causing your program to
+  be slow. This often happens when adding and removing elements in large,
+  complex components with many elements in a row with the same tag name.
+  Ideally, eleeents should simply be hidden or shown, so this is only useful if
+  thye are actually getting removed and inserted in the DOM, and the default
+  Modulo matching ends up caussing slow-downs.</p>
+</blockquote>
+<p>The main reason you will want to extend the DOMCursor class is for optimizing
+large components that update often. This can happen in UX-intensive
+applications, such as tables that get insertions, swaps, and deletions in the
+middle. By writing custom code to better matching element, we can make fewer
+DOM transformations.</p>
+<h2 id="example1addingexamplesimplecustomlogic">Example 1: Adding example simple custom logic</h2>
+<p>In the following example, we show how you can add custom logic specific to your
+optimization needs or component, in this case to 1) skip over already-rendered
+elements with the <code>skip-me</code> attribute, and 2) compare other elements with the
+first element resolved when selecting with the <code>repalce-me-with</code> attribute.</p><x-quickdemo mode="modulo" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+        
+            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html="" value=""></x-syntaxhighlighter>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             toolbar--snippet">
+            
+                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
+            
+        </div>
+        
+    </div>
+    <div class="overlay"></div></x-quickdemo>
+<h2 id="example2upgradingtokeyedcursorforkeysupport">Example 2: Upgrading to KeyedCursor for key= support</h2>
+<p>By extending the above to keep track of "keyed" elements into the following
+class, we can create a <code>KeyedCursor</code> that supports the keyed element matching
+feature when activated, for huge speed improvements when used correctly, and
+only very little extra overhead compared to the default DOMCursor:</p><x-quickdemo mode="modulo" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+        
+            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html="" value=""></x-syntaxhighlighter>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             toolbar--snippet">
+            
+                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
+            
+        </div>
+        
+    </div>
+    <div class="overlay"></div></x-quickdemo>
+</div>
+                
+            
+        </main>
+    </div></x-page></body></html>

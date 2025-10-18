@@ -1,0 +1,573 @@
+<!DOCTYPE html><html><head><meta name="charset" charset="utf8" id="include_xxm0qoac"><meta name="content-type" http-equiv="Content-Type" content="text/html; charset=utf-8" id="include_xxnd8o0e"><meta name="viewport" content="width=device-width, initial-scale=1" id="include_x13l7u56"><meta name="robots" content="index, follow" id="include_xxriq75n"><meta name="revisit-after" content="30 days" id="include_x1m4jm9p"><link rel="stylesheet" href="../build-xxplgqrl.css">
+
+<script defer="" src="../build-x1t9nd3g.js"></script>
+</head><body><x-page rootat="https://modulohtml.org/">
+        <meta charset="utf8">
+        <title>Component - Modulo Documentation</title>
+    
+    <div class="layout Page">
+        <nav class="page-nav Page">
+            
+            <a style="font-size:60px;text-align:center;display:block;font-weight:200" href="../" class="Page">ᵐ°dᵘ⁄o</a>
+            <ul style="position: sticky; top: 1px" class="Page">
+                <li class="toc--outer Page">
+                    <p><a style="font-size: 70%" title="Download Modulo Docs as a offline-friendly zip" href="https://codeberg.org/modulo/docs/archive/main.zip" class="Page">
+                            ⤓ docs-main.zip</a>
+                        <tt>v0.1.0</tt>
+                    </p>
+                </li>
+            
+                
+                    <li class="toc--outer Page"><h3 class="Page">       Modulo</h3></li>
+                    <li class="toc--"><a href="../start/index.html" class="Page">           Introduction</a></li>
+                
+                    
+                    <li class="toc--"><a href="../start/getting-started.html" class="Page"> Getting Started</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">           Definitions</h3></li>
+                    <li class="toc--"><a href="../defs/overview.html" class="Page">         Overview</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/importing.html" class="Page">        Importing</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/definitions.html" class="Page">      Definition Types</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/processors.html" class="Page">       Processors</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/custom.html" class="Page">           Custom Types</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">  Templating</h3></li>
+                    <li class="toc--"><a href="../templating/index.html" class="Page">      Language Overview</a></li>
+                
+                    
+                    <li class="toc--"><a href="../templating/filters.html" class="Page">    Template Filters</a></li>
+                
+                    
+                    <li class="toc--"><a href="../templating/tags.html" class="Page">       Template Tags</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">              Component Parts</h3></li>
+                    <li class="toc--"><a href="../parts/props.html" class="Page">           Props</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/script.html" class="Page">          Script</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/state.html" class="Page">           State</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/staticdata.html" class="Page">      StaticData</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/style.html" class="Page">           Style</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/template.html" class="Page">        Template</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">           Core Definitions</h3></li>
+                    <li class="toc--"><a href="../core/artifact.html" class="Page">         Artifact</a></li>
+                
+                    
+                    <li class="toc--active Page"><a href="../core/component.html" class="Page">        Component</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/configuration.html" class="Page">    Configuration</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/contentlist.html" class="Page">      ContentList</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/include.html" class="Page">          Include</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/library.html" class="Page">          Library</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">  Extension</h3></li>
+                    <li class="toc--"><a href="../extension/engine.html" class="Page">      Upgrading Engines</a></li>
+                
+            </ul>
+        </nav>
+        <main class="page-container Page">
+            
+                
+                    
+                        <x-tableofcontents toc="[{&quot;match&quot;:&quot;&lt;h1 id=\&quot;component\&quot;&gt;Component&lt;/h1&gt;&quot;,&quot;level&quot;:1,&quot;attrs&quot;:&quot;id=\&quot;component\&quot;&quot;,&quot;title&quot;:&quot;Component&quot;,&quot;id&quot;:&quot;component&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;renderobj\&quot;&gt;renderObj&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;renderobj\&quot;&quot;,&quot;title&quot;:&quot;renderObj&quot;,&quot;id&quot;:&quot;renderobj&quot;},{&quot;match&quot;:&quot;&lt;h3 id=\&quot;examplesofpatches\&quot;&gt;Examples of patches&lt;/h3&gt;&quot;,&quot;level&quot;:3,&quot;attrs&quot;:&quot;id=\&quot;examplesofpatches\&quot;&quot;,&quot;title&quot;:&quot;Examples of patches&quot;,&quot;id&quot;:&quot;examplesofpatches&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;attrs\&quot;&gt;attrs&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;attrs\&quot;&quot;,&quot;title&quot;:&quot;attrs&quot;,&quot;id&quot;:&quot;attrs&quot;},{&quot;match&quot;:&quot;&lt;h3 id=\&quot;name\&quot;&gt;name&lt;/h3&gt;&quot;,&quot;level&quot;:3,&quot;attrs&quot;:&quot;id=\&quot;name\&quot;&quot;,&quot;title&quot;:&quot;name&quot;,&quot;id&quot;:&quot;name&quot;},{&quot;match&quot;:&quot;&lt;h3 id=\&quot;rerender\&quot;&gt;rerender&lt;/h3&gt;&quot;,&quot;level&quot;:3,&quot;attrs&quot;:&quot;id=\&quot;rerender\&quot;&quot;,&quot;title&quot;:&quot;rerender&quot;,&quot;id&quot;:&quot;rerender&quot;},{&quot;match&quot;:&quot;&lt;h3 id=\&quot;mode\&quot;&gt;mode&lt;/h3&gt;&quot;,&quot;level&quot;:3,&quot;attrs&quot;:&quot;id=\&quot;mode\&quot;&quot;,&quot;title&quot;:&quot;mode&quot;,&quot;id&quot;:&quot;mode&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;directives\&quot;&gt;Directives&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;directives\&quot;&quot;,&quot;title&quot;:&quot;Directives&quot;,&quot;id&quot;:&quot;directives&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;slots\&quot;&gt;Slots&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;slots\&quot;&quot;,&quot;title&quot;:&quot;Slots&quot;,&quot;id&quot;:&quot;slots&quot;},{&quot;match&quot;:&quot;&lt;h3 id=\&quot;defaults\&quot;&gt;Defaults&lt;/h3&gt;&quot;,&quot;level&quot;:3,&quot;attrs&quot;:&quot;id=\&quot;defaults\&quot;&quot;,&quot;title&quot;:&quot;Defaults&quot;,&quot;id&quot;:&quot;defaults&quot;},{&quot;match&quot;:&quot;&lt;h3 id=\&quot;namedslots\&quot;&gt;Named slots&lt;/h3&gt;&quot;,&quot;level&quot;:3,&quot;attrs&quot;:&quot;id=\&quot;namedslots\&quot;&quot;,&quot;title&quot;:&quot;Named slots&quot;,&quot;id&quot;:&quot;namedslots&quot;}]" modulo-mount-html=""><nav class="regular&quot;=&quot;">
+        <div> </div>
+        <div>
+            <div>
+                <label>[ <input name="show" type="checkbox"> Table of Contents ]</label>
+                <label title="Stick to upper right">[ <span alt="upper right arrow">↗</span>
+                    <input name="sticky" type="checkbox"> ]</label>
+            </div>
+            
+                <ul>
+                    
+                        
+                            <li style="--level: 1">
+                                    <a href="#component">Component</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#renderobj">renderObj</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 3">
+                                    <a href="#examplesofpatches">Examples of patches</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#attrs">attrs</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 3">
+                                    <a href="#name">name</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 3">
+                                    <a href="#rerender">rerender</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 3">
+                                    <a href="#mode">mode</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#directives">Directives</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#slots">Slots</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 3">
+                                    <a href="#defaults">Defaults</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 3">
+                                    <a href="#namedslots">Named slots</a>
+                            </li>
+                        
+                    
+                </ul>
+            
+        </div>
+    </nav></x-tableofcontents>
+                    
+                    <div class="markdown-body"><h1 id="component">Component</h1>
+<blockquote>
+  <p><strong>Low-level interface</strong> - Component developers will typically
+  only need to use the <code>name="..."</code> attribute on <em>Component</em>. Similarly, none of
+  the <code>renderObj.component</code> properties are typically useful for component
+  developers. Instead, they are used internally by CParts (notably <em>Template</em>) in
+  order to move along the rendering cycle.</p>
+</blockquote>
+<p>The <em>Component</em> definition is the most central to Modulo. It's how we register
+components to be mounted on the page, and define the CParts that go inside
+those Components. It's also what stitches together the "machinery" that makes
+reconciliation and rendering even possible. In other words, the <em>Component</em>  is
+what handles the "low-level" operations of mounting, reconciling to generate
+patches, and applying those patches to rerender, and the interface described
+here allows for low-level manipulation of this process for unusual
+circumstances when it's needed.</p>
+<h2 id="renderobj">renderObj</h2>
+<p>The Component reads several properties from the <code>renderObj</code>, at different
+lifecycle phases. Read below on how to interface with it.</p>
+<ul>
+<li><p><code>component.originalHTML</code> - <em>Read-only</em> - This contains the
+initial HTML that the element had when mounted on the page.</p></li>
+<li><p><code>component.innerHTML</code> - <em>Write-only</em> -
+Assign to this to cause the <em>Component</em> to attempt to
+reconcile the current HTML with the target HTML provided.
+It functions a little bit like HTML's built-in <em>"element.innerHTML"</em>:
+Assign a string containing HTML code to this property to see the HTML
+appear on the page. This is what the <em>Template</em> does behind
+the scenes. Unlike HTML's built-in <em>"element.innerHTML"</em>, assigning
+to this renderObj property will not cause an full update, overwriting
+everything that exists, but instead will cause the <em>Component</em> to
+employ the "reconciler" specified to generate a patches list (see next). By
+default, it will then also apply those patches in the <code>update</code>
+lifecycle.</p></li>
+<li><p><code>component.patches</code> - Between the <code>reconcile</code> and <code>update</code> stages, the
+"patches" property is exposed to allow access to or modification of the
+patches that the Component intends to apply. This is an advanced feature that
+gives fine-grained control to how rendering works, and thus is only useful in
+rare situations where that control is needed. For example, you could use this
+property to "intercept" the patches that are about to be applied to your
+component while re-rendering, and, for an example, forbid the removal of
+attributes by deleting all patches with <em>"removeAttribute"</em>. This is in the
+format of an Array. Each item in the Array is itself a 4-Array (Array of
+length 4), in the following format: <code>[element, method, arg1, arg2]</code>.  For
+example, to do a <em>"removeAttribute"</em> patch on an "id" attribute for a given
+"target element" (a real DOM node on the page somewhere), it might be <code>[(ref
+to "target element"), "removeAttribute", "id", undefined]</code> If the Array is
+empty, then no patches will be applied.</p></li>
+</ul>
+<h3 id="examplesofpatches">Examples of patches</h3>
+<p>Using <code>console.table(component.patches)</code>, you can easily inspect the
+exact order of DOM operations that Modulo will do for every operation.
+This produces useful results in both Firefox and Chromium-based browsers.</p><x-quickdemo mode="modulo" demo="modulo" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html="" state.bind=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html="" value="&lt;Template&gt;
+    &lt;label&gt;&lt;input state.bind name=&quot;enabled&quot; type=&quot;checkbox&quot; /&gt; Show patches in Developer Console&lt;/label&gt; &lt;br /&gt;
+    &lt;hr /&gt;
+    &lt;h3&gt;To Do example:&lt;/h3&gt;
+    &lt;ol&gt;{% for item in state.list %} &lt;li&gt;{{ item }}&lt;/li&gt; {% endfor %}&lt;/ol&gt;
+    &lt;p&gt;
+        &lt;input state.bind name=&quot;text&quot; /&gt;
+        &lt;button on.click=state.list.push payload=&quot;{{ state.text }}&quot;&gt;+&lt;/button&gt;
+    &lt;/p&gt;
+&lt;/Template&gt;
+&lt;State
+    num:=42
+    enabled:=false
+    list:='[&quot;Milk&quot;, &quot;Bread&quot;, &quot;Candy&quot;]'
+    text=&quot;Coffee&quot;
+&gt;&lt;/State&gt;
+&lt;Script&gt;
+    function updateCallback() {
+        if (state.enabled) {
+            console.table(component.patches);
+        }
+    }
+    function countUp() {
+        state.num++;
+    }
+&lt;/Script&gt;
+"><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">state.bind</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"enabled"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span> /&gt;</span> Show patches in Developer Console<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">br</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">hr</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>To Do example:<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">ol</span>&gt;</span></span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">for</span></span> item <span class="hljs-keyword">in</span> state.list %}</span><span class="language-xml"> <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span></span><span class="hljs-template-variable">{{ item }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span> </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endfor</span></span> %}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">ol</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">state.bind</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"text"</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">on.click</span>=<span class="hljs-modulo-attr-value">state.list.push</span> <span class="hljs-attr">payload</span>=<span class="hljs-string">"</span></span></span><span class="hljs-template-variable">{{ state.text }}</span><span class="language-xml"><span class="hljs-tag"><span class="hljs-string">"</span>&gt;</span>+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
+    <span class="hljs-attr">num:</span>=<span class="hljs-modulo-attr-value-lit">42</span>
+    <span class="hljs-attr">enabled:</span>=<span class="hljs-modulo-attr-value-lit">false</span>
+    <span class="hljs-attr">list:</span>=<span class="hljs-string">'["Milk", "Bread", "Candy"]'</span>
+    <span class="hljs-attr">text</span>=<span class="hljs-string">"Coffee"</span>
+&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Script</span>&gt;</span><span class="language-javascript">
+    <span class="hljs-keyword">function</span> <span class="hljs-title function_">updateCallback</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-keyword">if</span> (state.<span class="hljs-property">enabled</span>) {
+            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">table</span>(component.<span class="hljs-property">patches</span>);
+        }
+    }
+    <span class="hljs-keyword">function</span> <span class="hljs-title function_">countUp</span>(<span class="hljs-params"></span>) {
+        state.<span class="hljs-property">num</span>++;
+    }
+</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Script</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
+                <button on.click="script.run"><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button on.click="script.save"><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        <iframe></iframe>
+    </div>
+    <div class="overlay"></div></x-quickdemo>
+<h2 id="attrs">attrs</h2>
+<p>Components use their attributes to set several configuration options.
+They take the following attributes:</p>
+<h3 id="name">name</h3>
+<p><code>name</code> - <em>REQUIRED</em> - The "name" of the component.  Conventionally, it should
+be written in camel or dromedary case, like how class names are written in
+JavaScript: <code>LikeThis</code>.  Technically, it's case insensitive, so a component
+named like <code>LikeThis</code>, imported with an <code>x-</code> namespace, could also be used like
+<code>x-likethis</code> or <code>X-LIKETHIS</code>.</p>
+<h3 id="rerender">rerender</h3>
+<p><code>rerender</code> - <em>default is <code>rerender="event"</code></em>.  Specify mode to change the
+render mode of this component.  A detailed discussion of valid options are
+below:</p>
+<ul>
+<li><code>rerender="event"</code> - The default behavior, where the the component will
+rerender after ever event it handles (e.g. after every user interaction).
+This is typically desirable since usually every user interaction will cause
+some visual change that needs to be reflected.</li>
+<li><code>rerender="manual"</code> - Modulo will not auto-rerender in any situation.  This
+Note that if this is set, you will have to manually rerender, such as in a
+<em>Script</em> CPart (<code>element.rerender()</code>), or in a custom CPart
+(<code>this.element.rerender()</code>) is invoked. This is useful if there are many
+events that don't cause changes (e.g. mouse movement), but you have
+discovered that the extra rerender invocations are impacting performance,
+even though they aren't generating patches to modify the DOM.</li>
+</ul>
+<h3 id="mode">mode</h3>
+<p><code>mode</code> - <em>default is <code>mode="regular"</code></em>.  Specify mode to change the DOM root
+render mode of this component. This changes what is considered to be the root
+of the element, and thus where the content of the Template goes during
+reconciliation. In "regular" and "vanish", it's the custom component itself
+(which will be removed after rendering with "vanish"), and in "shadow", it uses an
+attached shadow DOM as the root.  This allows you to isolate outside CSS from
+your component using "shadow" or do one-time renders only with "vanish".</p>
+<p>A detailed discussion of valid options are below:</p>
+<ul>
+<li><p><code>mode="regular"</code> - The default behavior, where the content generated by this
+the element will be attached to the regular DOM, as the element itself. This
+means that CSS stylesheets attached the normal way (e.g. with a "link" tag)
+will affect the contents of this component. <em>Style</em> CParts are, however,
+automatically scoped to the component, so a selector like <code>p {...}</code> will
+get prefixed like <code>x-MyComp {...}</code> when CSS files are being
+generated from <em>Style</em> CParts. Keep in mind the normal CSS rules will still
+apply, meaning that auto-scoped "p" tag will also affect children,
+grandchildren, etc of sub-components (unless those are "shadow" based).</p></li>
+<li><p><code>mode="shadow"</code> - Use the so-called "shadow DOM" to render the content
+generated by this component. While the <em>shadow DOM</em> may sound like a sci-fi
+villain, it's a mechanism browsers provide for custom elements to isolate
+their contents from CSS selectors or other JavaScript libraries. This
+isolation means means that CSS stylesheets attached the normal way (e.g. with
+a "link" tag) <em>will not</em> affect the contents of this element. Note that other
+than the isolation provided, the shadow mode should work exactly the same as
+regular. That said, <em>Style</em> CParts will still be automatically scoped to the
+component, but will use the shadowDOM feature to more strictly enforce that
+scoping. Note that shadowDOM CSS will <em>not</em> get included in the CSS file
+bundle, but instead will be bundled in the JavaScript source code. For a
+component by itself, switching from "shadow" to "regular" or vice-versa
+shouldn't change behavior at all. It's only useful when CSS from one
+component or a third party CSS library is "getting inside" your other
+components in an undesirable way, and you want to isolate them.</p></li>
+<li><p><code>mode="vanish"</code> - This less-used setting causes the component to "vanish"
+after rendering, or replace itself with it's children. Setting this will
+cause the component to remove itself after the first time it renders,
+effectively using the component as a simple template. All CParts will become
+useless after the first rendering, so CParts like <em>Script</em> or <em>State</em> are
+rarely useful in combination with this mode. This "one-time render" feature
+is most useful for static pages when you don't want your custom components to
+get in the way of the DOM that is generated, and for creating static-site
+generators, when you just want to generate plain HTML, with no JavaScript or
+Modulo behavior in the end.</p></li>
+<li><p><code>mode="custom-root"</code> - This is rarely useful, but allows for setting some
+other DOM element as the new root element for the component to target for
+rendering it's content. This is done by assigning a value to
+<code>renderObj.component.root</code> before reconciliation. If no <code>.root</code> value is set,
+an error will occur.</p></li>
+</ul>
+<h2 id="directives">Directives</h2>
+<p>The <em>Component</em> defines 2 directives:</p>
+<ul>
+<li><p><code>[component.event]</code> (<em>shortcut:</em> <code>@</code>) -
+Attach event listeners to DOM elements, and remove them when the DOM
+elements are removed. (For jQuery users, this is used for similar purposes
+as "live" (delegated) events, but is faster.)</p></li><p></p>
+<li><p><code>[component.dataProp]</code> (<em>shortcut:</em> <code>:</code>) -
+Attach data to a DOM element's <code>.dataProp</code> object, which can be
+used to directly pass <code>renderObj</code> values as <em>Props</em> or
+events</p></li><p></p>
+</ul>
+<h2 id="slots">Slots</h2>
+<p>Reattach the original child elements that this component had when it was first
+mounted to a new DOM element.  (For React users, this is similar to doing
+<code>{this.props.children}</code>.)  For more on the slot interface, see Mozilla's
+<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/slot">The Web Component Slot element</a></p>
+<p>Note that Modulo components can even use this without using shadow rendering
+(e.g. <code>mode="shadow"</code>).  Modulo will attempt to simulate the Shadow DOM
+Behavior: it will detach any nodes it finds and reattach the nodes just before
+the beginning of the reconciliation process (it's DOM load-directive).</p>
+<h3 id="defaults">Defaults</h3>
+<p>The HTML content of the slot will be untouched if no elements are provided.
+This allows you to use this like a default or placeholder. View the <code>USAGE</code>
+mode to see how it's used.</p><x-quickdemo mode="modulo" demo="modulo_component" name="Greet" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html="" state.bind=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html="" value="&lt;Template&gt;
+    &lt;p&gt;Hey &lt;slot&gt;First Name&lt;/slot&gt;, what's up?&lt;/p&gt;
+&lt;/Template&gt;
+"><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Hey <span class="hljs-tag">&lt;<span class="hljs-name">slot</span>&gt;</span>First Name<span class="hljs-tag">&lt;/<span class="hljs-name">slot</span>&gt;</span>, what's up?<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
+                <button on.click="script.run"><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button on.click="script.save"><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        <iframe></iframe>
+    </div>
+    <div class="overlay"></div></x-quickdemo>
+<h3 id="namedslots">Named slots</h3>
+<p>If you give a name to your slot (e.g. <code>&lt;slot name="content"&gt;&lt;/slot&gt;</code>), then it
+will <em>only</em> be attached to similarly "slotted" elements (e.g. <code>&lt;div
+slot="content"&gt;...&lt;/div&gt;</code>).  Below we have an example showing off multiple
+named slots. View <code>USAGE</code> to see how it's used.</p><x-quickdemo mode="modulo" demo="modulo_component" name="PhotoFrame" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html="" state.bind=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html="" value="&lt;Template&gt;
+    &lt;div class=&quot;fancy-frame&quot;&gt;
+        &lt;h1&gt;&lt;slot name=&quot;topTitle&quot;&gt;Picture&lt;/slot&gt;&lt;/h1&gt;
+        &lt;slot&gt;
+            &lt;em&gt;No caption provided.&lt;/em&gt;
+        &lt;/slot&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;fancy-frame&quot;&gt;
+        &lt;slot name=&quot;photograph&quot;&gt;No photograph provided&lt;/slot&gt;
+    &lt;/div&gt;
+&lt;/Template&gt;
+&lt;Style&gt;
+    :host {
+        text-align: center;
+    }
+    .fancy-frame {
+        display: inline-block;
+        border: 10px inset salmon;
+        padding: 10px;
+        margin: 10px;
+        width: 100px;
+        background: pink;
+    }
+&lt;/Style&gt;
+"><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"fancy-frame"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">slot</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"topTitle"</span>&gt;</span>Picture<span class="hljs-tag">&lt;/<span class="hljs-name">slot</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">slot</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">em</span>&gt;</span>No caption provided.<span class="hljs-tag">&lt;/<span class="hljs-name">em</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">slot</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"fancy-frame"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">slot</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"photograph"</span>&gt;</span>No photograph provided<span class="hljs-tag">&lt;/<span class="hljs-name">slot</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Style</span>&gt;</span><span class="language-css">
+    <span class="hljs-selector-pseudo">:host</span> {
+        <span class="hljs-attribute">text-align</span>: center;
+    }
+    <span class="hljs-selector-class">.fancy-frame</span> {
+        <span class="hljs-attribute">display</span>: inline-block;
+        <span class="hljs-attribute">border</span>: <span class="hljs-number">10px</span> inset salmon;
+        <span class="hljs-attribute">padding</span>: <span class="hljs-number">10px</span>;
+        <span class="hljs-attribute">margin</span>: <span class="hljs-number">10px</span>;
+        <span class="hljs-attribute">width</span>: <span class="hljs-number">100px</span>;
+        <span class="hljs-attribute">background</span>: pink;
+    }
+</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Style</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
+                <button on.click="script.run"><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button on.click="script.save"><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        <iframe></iframe>
+    </div>
+    <div class="overlay"></div></x-quickdemo>
+</div>
+                
+            
+        </main>
+    </div></x-page></body></html>

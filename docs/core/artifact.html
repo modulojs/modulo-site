@@ -1,0 +1,349 @@
+<!DOCTYPE html><html><head><meta name="charset" charset="utf8" id="include_xxm0qoac"><meta name="content-type" http-equiv="Content-Type" content="text/html; charset=utf-8" id="include_xxnd8o0e"><meta name="viewport" content="width=device-width, initial-scale=1" id="include_x13l7u56"><meta name="robots" content="index, follow" id="include_xxriq75n"><meta name="revisit-after" content="30 days" id="include_x1m4jm9p"><link rel="stylesheet" href="../build-xxplgqrl.css">
+
+<script defer="" src="../build-x1t9nd3g.js"></script>
+</head><body><x-page rootat="https://modulohtml.org/">
+        <meta charset="utf8">
+        <title>Artifact - Modulo Documentation</title>
+    
+    <div class="layout Page">
+        <nav class="page-nav Page">
+            
+            <a style="font-size:60px;text-align:center;display:block;font-weight:200" href="../" class="Page">ᵐ°dᵘ⁄o</a>
+            <ul style="position: sticky; top: 1px" class="Page">
+                <li class="toc--outer Page">
+                    <p><a style="font-size: 70%" title="Download Modulo Docs as a offline-friendly zip" href="https://codeberg.org/modulo/docs/archive/main.zip" class="Page">
+                            ⤓ docs-main.zip</a>
+                        <tt>v0.1.0</tt>
+                    </p>
+                </li>
+            
+                
+                    <li class="toc--outer Page"><h3 class="Page">       Modulo</h3></li>
+                    <li class="toc--"><a href="../start/index.html" class="Page">           Introduction</a></li>
+                
+                    
+                    <li class="toc--"><a href="../start/getting-started.html" class="Page"> Getting Started</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">           Definitions</h3></li>
+                    <li class="toc--"><a href="../defs/overview.html" class="Page">         Overview</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/importing.html" class="Page">        Importing</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/definitions.html" class="Page">      Definition Types</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/processors.html" class="Page">       Processors</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/custom.html" class="Page">           Custom Types</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">  Templating</h3></li>
+                    <li class="toc--"><a href="../templating/index.html" class="Page">      Language Overview</a></li>
+                
+                    
+                    <li class="toc--"><a href="../templating/filters.html" class="Page">    Template Filters</a></li>
+                
+                    
+                    <li class="toc--"><a href="../templating/tags.html" class="Page">       Template Tags</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">              Component Parts</h3></li>
+                    <li class="toc--"><a href="../parts/props.html" class="Page">           Props</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/script.html" class="Page">          Script</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/state.html" class="Page">           State</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/staticdata.html" class="Page">      StaticData</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/style.html" class="Page">           Style</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/template.html" class="Page">        Template</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">           Core Definitions</h3></li>
+                    <li class="toc--active Page"><a href="../core/artifact.html" class="Page">         Artifact</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/component.html" class="Page">        Component</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/configuration.html" class="Page">    Configuration</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/contentlist.html" class="Page">      ContentList</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/include.html" class="Page">          Include</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/library.html" class="Page">          Library</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">  Extension</h3></li>
+                    <li class="toc--"><a href="../extension/engine.html" class="Page">      Upgrading Engines</a></li>
+                
+            </ul>
+        </nav>
+        <main class="page-container Page">
+            
+                
+                    
+                        <x-tableofcontents toc="[{&quot;match&quot;:&quot;&lt;h1 id=\&quot;artifact\&quot;&gt;Artifact&lt;/h1&gt;&quot;,&quot;level&quot;:1,&quot;attrs&quot;:&quot;id=\&quot;artifact\&quot;&quot;,&quot;title&quot;:&quot;Artifact&quot;,&quot;id&quot;:&quot;artifact&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;overview\&quot;&gt;Overview&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;overview\&quot;&quot;,&quot;title&quot;:&quot;Overview&quot;,&quot;id&quot;:&quot;overview&quot;},{&quot;match&quot;:&quot;&lt;h5 id=\&quot;example1viewingandrunningbuiltincommands\&quot;&gt;Example #1: Viewing and running built-in commands&lt;/h5&gt;&quot;,&quot;level&quot;:5,&quot;attrs&quot;:&quot;id=\&quot;example1viewingandrunningbuiltincommands\&quot;&quot;,&quot;title&quot;:&quot;Example #1: Viewing and running built-in commands&quot;,&quot;id&quot;:&quot;example1viewingandrunningbuiltincommands&quot;},{&quot;match&quot;:&quot;&lt;h5 id=\&quot;example2custombuildbundle\&quot;&gt;Example #2: Custom Build + Bundle&lt;/h5&gt;&quot;,&quot;level&quot;:5,&quot;attrs&quot;:&quot;id=\&quot;example2custombuildbundle\&quot;&quot;,&quot;title&quot;:&quot;Example #2: Custom Build + Bundle&quot;,&quot;id&quot;:&quot;example2custombuildbundle&quot;}]" modulo-mount-html=""><nav class="regular&quot;=&quot;">
+        <div> </div>
+        <div>
+            <div>
+                <label>[ <input name="show" type="checkbox"> Table of Contents ]</label>
+                <label title="Stick to upper right">[ <span alt="upper right arrow">↗</span>
+                    <input name="sticky" type="checkbox"> ]</label>
+            </div>
+            
+                <ul>
+                    
+                        
+                            <li style="--level: 1">
+                                    <a href="#artifact">Artifact</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#overview">Overview</a>
+                            </li>
+                        
+                    
+                        
+                    
+                        
+                    
+                </ul>
+            
+        </div>
+    </nav></x-tableofcontents>
+                    
+                    <div class="markdown-body"><h1 id="artifact">Artifact</h1>
+<blockquote>
+  <p><strong>How Slim Can Modulo.html get?</strong> Modulo's runtime itself is only about 40kb
+  after being trimmed for a build.  Modulo's built-in artifacts will
+  automatically "trim" (minify) it's own source code, but make no attempts to
+  trim other sources.</p>
+</blockquote>
+<p>The <em>Artifact</em> definition is how you can specify custom build
+artifacts. When the build command is run, Modulo loops through all defined
+Artifacts and outputs the files they generate. This is how the JS, CSS, and
+HTML files get generated whenever you run build by default. For most users,
+this is enough--this website uses the default Artifacts, for example. However,
+if you want to create custom build outputs for advanced usage in building a
+SSG-powered site, then you can use this feature to create as many extra files
+per HTML file you SSG as you'd like. For example, you could loop through
+images, generating a "thumbnail" page for each one. It's very versatile, and
+gives you the full power of the Modulo templating language for JS, CSS, and
+prerendered / SSR'ed HTML.</p>
+<p>It manages to be this versatile by functioning as a mini-scripting system
+for specifying and configuring builds, allowing for easy addition of
+minification, split bundles, or other file types. This gives very fine-grained
+control over output in a declarative way.</p>
+<h2 id="overview">Overview</h2>
+<ul>
+<li>Simply by registering an Artifact (<code>&lt;Artifact name="css"&gt;</code>, for example), you can begin
+to customize or add CSS output</li>
+<li>By adding a <code>remove=</code> to your Artifact, you can scrub your HTML before saving
+the built version, e.g. <code>remove="div.delete-me"</code> to remove all divs with
+<code>delete-me</code> class.</li>
+<li>By adding a <code>bundle=</code> to your Artifact, you can specify which elements get
+bundled, or disable it with <code>bundle:=false</code></li>
+<li>Now you can register things like JavaScript, CSS, or HTML minifiers as
+Template filters, and then include them into your build configurations</li>
+<li>Using the Modulo Template syntax allows for extremely precise control over
+the exact JavaScript and CSS output.</li>
+</ul>
+<h5 id="example1viewingandrunningbuiltincommands">Example #1: Viewing and running built-in commands</h5>
+<ol>
+<li><p>Step 1: Bring up Dev tools (Right click, inspect, console)</p></li>
+<li><p>Step 2: Do you see <strong><code>[ᵐ°dᵘ⁄o]</code></strong> logo and a list of management commands? If
+there are too many warnings, consider hiding them. Look for a little arrow
+between <code>[MAIN THREAD]</code> and <code>Object { }</code>. Click on that arrow (and possibly a
+<code>&lt;prototype&gt;</code> arrow), to expand the full command menu.</p></li>
+<li><p>Step 3: Click the little arrow next to a command to run it, such as <code>build</code>
+or <code>edit</code></p></li>
+</ol>
+<h5 id="example2custombuildbundle">Example #2: Custom Build + Bundle</h5>
+<p>Note that in the HTML example, <code>ht</code>, <code>he</code>, <code>bo</code>, and <code>js</code> tags get swapped with <code>html</code>,
+<code>head</code>, <code>body</code> and <code>script</code> tags respectively. This prevents various mistakes
+in some cases with unsuual syntax and HTML DOM behavior around these special
+tags (e.g. closing script tags).</p><x-quickdemo mode="modulo" demo="modulo_embed" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html="" state.bind=""><div class="editor-wrapper" on.click="script.updateDimensions">
+      <div class="editor-underlay-container" style="
+            width:    224px
+                    ;
+            height:  48px
+                    ;
+          ">
+          <div class="editor-underlay-offset-wrapper" style="
+                
+                
+                
+                    width: 224px; 
+              "><x-syntaxhighlighter mode="modulo" style="
+                    font-family: monospace;
+                    text-align: start;
+                    resize: none;
+                    box-sizing: border-box;
+                    font-size: 18px;
+                    
+                        white-space: pre;
+                    " modulo-mount-html="" value="&lt;Artifact name=html prefix=&quot;&lt;!DOCTYPE html&gt;&quot; build=mybundle&gt;
+    &lt;ht lang=&quot;en&quot;&gt;
+        &lt;he&gt;
+            &lt;title&gt;Test Title&lt;/title&gt;
+            &lt;meta charset=&quot;utf8&quot; /&gt;
+            &lt;link rel=&quot;stylesheet&quot; href=&quot;{{ definitions._artifact_css.path }}&quot;&gt;&lt;/link&gt;
+            &lt;js defer src=&quot;{{ definitions._artifact_js.path }}&quot;&gt;&lt;/js&gt;
+        &lt;/he&gt;
+        &lt;bo&gt;
+            {{ doc.body.innerHTML|minifyhtml|safe }}
+        &lt;/bo&gt;
+    &lt;/ht&gt;
+&lt;/Artifact&gt;
+
+&lt;Artifact name=css -bundle=&quot;modstyle&quot; build=mybundle&gt;
+    {% for id in def.ids %}
+        {# Include each Modulo-generated style, with minify filter applied #}
+        {{ def.data|get:id|minify|safe }}
+    {% endfor %}
+&lt;/Artifact&gt;
+
+&lt;Artifact name=js -bundle=&quot;modscript&quot; build=mybundle&gt;
+    {% for id in def.ids %}
+        {# Include each Modulo-generated script, with minify filter applied #}
+        {{ def.data|get:id|minify|safe }}
+    {% endfor %}
+    {% for name in config.modulo.build.mainmodules %}
+        {# Call all &quot;main&quot; modules, running Configuration + Component reg #}
+        modulo.registry.modules.{{ name }}.call(window, modulo);
+    {% endfor %}
+&lt;/Artifact&gt;
+
+&lt;script Configuration&gt;
+    // Very simple minifying functions to scrub whitespace and remove comments
+    modulo.templateFilter.minify = function (s) {
+        return s.replace(/\/\*[^\*\!][\s\S]*?\*\/|\/\/.*$/gm, '')
+                .replace(/[\n \t]+/gm, ' ')
+    }
+
+    modulo.templateFilter.minifyhtml = function (s) {
+        return s.replace(/&lt;!--.*?--&gt;/gm, ' ')
+                .replace(/[\n \t]+/gm, ' ')
+    }
+&lt;/script&gt;
+
+&lt;Component name=App&gt;
+    &lt;Template&gt;
+        &lt;!-- These comments... they should be REMOVED! --&gt;
+        &lt;button on.click=script.runBuild&gt;
+            &lt;!-- remove me --&gt;
+            RUN &quot;mybundle&quot;
+        &lt;/button&gt;
+        &lt;!-- These comments... they should be REMOVED! --&gt;
+    &lt;/Template&gt;
+    &lt;Script&gt;
+        /* COMMENTS should be removed from scripts! */
+        function runBuild () {
+            modulo.argv = [ 'mybundle' ] // (set directly)
+            modulo.command.mybundle(modulo) // (run directly)
+        }
+    &lt;/Script&gt;
+&lt;/Component&gt;
+"><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Artifact</span> <span class="hljs-attr">name</span>=<span class="hljs-modulo-attr-value">html</span> <span class="hljs-attr">prefix</span>=<span class="hljs-string">"&lt;!DOCTYPE html&gt;"</span> <span class="hljs-attr">build</span>=<span class="hljs-modulo-attr-value">mybundle</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">ht</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"en"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">he</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Test Title<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"utf8"</span> /&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"</span></span></span><span class="hljs-template-variable">{{ definitions._artifact_css.path }}</span><span class="language-xml"><span class="hljs-tag"><span class="hljs-string">"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">link</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">js</span> <span class="hljs-attr">defer</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"</span></span></span><span class="hljs-template-variable">{{ definitions._artifact_js.path }}</span><span class="language-xml"><span class="hljs-tag"><span class="hljs-string">"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">js</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">he</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">bo</span>&gt;</span>
+            </span><span class="hljs-template-variable">{{ doc.body.innerHTML|minifyhtml|<span class="hljs-name">safe</span> }}</span><span class="language-xml">
+        <span class="hljs-tag">&lt;/<span class="hljs-name">bo</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">ht</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Artifact</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Artifact</span> <span class="hljs-attr">name</span>=<span class="hljs-modulo-attr-value">css</span> <span class="hljs-modulo-defprocessor">-bundle</span>=<span class="hljs-string">"modstyle"</span> <span class="hljs-attr">build</span>=<span class="hljs-modulo-attr-value">mybundle</span>&gt;</span>
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">for</span></span> id <span class="hljs-keyword">in</span> def.ids %}</span><span class="language-xml">
+        </span><span class="hljs-comment">{# Include each Modulo-generated style, with minify filter applied #}</span><span class="language-xml">
+        </span><span class="hljs-template-variable">{{ def.data|get:id|minify|<span class="hljs-name">safe</span> }}</span><span class="language-xml">
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endfor</span></span> %}</span><span class="language-xml">
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Artifact</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Artifact</span> <span class="hljs-attr">name</span>=<span class="hljs-modulo-attr-value">js</span> <span class="hljs-modulo-defprocessor">-bundle</span>=<span class="hljs-string">"modscript"</span> <span class="hljs-attr">build</span>=<span class="hljs-modulo-attr-value">mybundle</span>&gt;</span>
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">for</span></span> id <span class="hljs-keyword">in</span> def.ids %}</span><span class="language-xml">
+        </span><span class="hljs-comment">{# Include each Modulo-generated script, with minify filter applied #}</span><span class="language-xml">
+        </span><span class="hljs-template-variable">{{ def.data|get:id|minify|<span class="hljs-name">safe</span> }}</span><span class="language-xml">
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endfor</span></span> %}</span><span class="language-xml">
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">for</span></span> name <span class="hljs-keyword">in</span> config.modulo.build.mainmodules %}</span><span class="language-xml">
+        </span><span class="hljs-comment">{# Call all "main" modules, running Configuration + Component reg #}</span><span class="language-xml">
+        modulo.registry.modules.</span><span class="hljs-template-variable">{{ name }}</span><span class="language-xml">.call(window, modulo);
+    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">endfor</span></span> %}</span><span class="language-xml">
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Artifact</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-modulo-deftype-attr">Configuration</span>&gt;</span><span class="language-javascript">
+    <span class="hljs-comment">// Very simple minifying functions to scrub whitespace and remove comments</span>
+    modulo.<span class="hljs-property">templateFilter</span>.<span class="hljs-property">minify</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">s</span>) {
+        <span class="hljs-keyword">return</span> s.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/\/\*[^\*\!][\s\S]*?\*\/|\/\/.*$/gm</span>, <span class="hljs-string">''</span>)
+                .<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/[\n \t]+/gm</span>, <span class="hljs-string">' '</span>)
+    }
+
+    modulo.<span class="hljs-property">templateFilter</span>.<span class="hljs-property">minifyhtml</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">s</span>) {
+        <span class="hljs-keyword">return</span> s.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/&lt;!--.*?--&gt;/gm</span>, <span class="hljs-string">' '</span>)
+                .<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/[\n \t]+/gm</span>, <span class="hljs-string">' '</span>)
+    }
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Component</span> <span class="hljs-attr">name</span>=<span class="hljs-modulo-attr-value">App</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+        <span class="hljs-comment">&lt;!-- These comments... they should be REMOVED! --&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">on.click</span>=<span class="hljs-modulo-attr-value">script.runBuild</span>&gt;</span>
+            <span class="hljs-comment">&lt;!-- remove me --&gt;</span>
+            RUN "mybundle"
+        <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+        <span class="hljs-comment">&lt;!-- These comments... they should be REMOVED! --&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Script</span>&gt;</span><span class="language-javascript">
+        <span class="hljs-comment">/* COMMENTS should be removed from scripts! */</span>
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">runBuild</span> () {
+            modulo.<span class="hljs-property">argv</span> = [ <span class="hljs-string">'mybundle'</span> ] <span class="hljs-comment">// (set directly)</span>
+            modulo.<span class="hljs-property">command</span>.<span class="hljs-title function_">mybundle</span>(modulo) <span class="hljs-comment">// (run directly)</span>
+        }
+    </span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Component</span>&gt;</span>
+</span></x-syntaxhighlighter>
+          </div>
+      </div>
+      <textarea data-gramm="false" name="value" spellcheck="false" style="
+            font-size: 18px;
+            
+                white-space: pre;
+            " script.ref="" on.scroll="script.updateDimensions"></textarea>
+  </div></x-mirroreditor>
+        
+        <div class="toolbar toolbar--small toolbar--autohide
+             ">
+            
+                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
+                <button on.click="script.run"><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button on.click="script.save"><span alt="Download arrow downward">⤓</span> Save</button>
+            
+        </div>
+        <iframe></iframe>
+    </div>
+    <div class="overlay"></div></x-quickdemo>
+</div>
+                
+            
+        </main>
+    </div></x-page></body></html>

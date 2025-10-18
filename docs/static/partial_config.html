@@ -1,10 +1,7 @@
 <script src=Modulo.html></script><template type=f>
 
-<Modulo namespace=x -src="https://modulohtml.org/static/"></Modulo>
-
-
-<!-- Actually not needed, but useful if needed later: -->
 <!-- 
+<Modulo namespace=x -src="https://modulohtml.org/static/"></Modulo>
 <Artifact name="js" -bundle="script,modscript" build=buildpartial>
 {% for id in def.ids %}{{ def.data|get:id|syntax:"trimcode"|safe }}{% endfor %}
 modulo.definitions = { {% for name, value in definitions %}

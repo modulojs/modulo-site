@@ -10,6 +10,10 @@
     function renderCallback() {
         component.innerHTML = highlight(props.value, props.mode)
     }
+
+    function buildCallback() {
+        element.removeAttribute('value')
+    }
 </Script>
 <Style>
     :host {

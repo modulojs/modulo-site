@@ -1747,7 +1747,7 @@ x_Downloads_props: {"Type":"props","Parent":"x_Downloads","Content":"","DefName"
 
 x_Downloads_template: {"Type":"template","Parent":"x_Downloads","DefName":null,"DefFinalizers":["Content|CompileTemplate","Code"],"unsafe":"filters.escape","modeTokens":["{% %}","{{ }}","{# #}","{-{ }-}","{-% %-}"],"opTokens":"==,>,<,>=,<=,!=,not in,is not,is,in,not,gt,lt","opAliases":{"==":"X === Y","is":"X === Y","is not":"X !== Y","!=":"X !== Y","not":"!(Y)","gt":"X > Y","gte":"X >= Y","lt":"X < Y","lte":"X <= Y","in":"(Y).includes ? (Y).includes(X) : (X in Y)","not in":"!((Y).includes ? (Y).includes(X) : (X in Y))"},"Name":"template","DefinitionName":"x_Downloads_template"},
 
-x_Downloads_state: {"Type":"state","Parent":"x_Downloads","Content":"","DefName":null,"Directives":["bindMount","bindUnmount"],"Store":null,"createModuloVersion":"1.0.10","Name":"state","DefinitionName":"x_Downloads_state"},
+x_Downloads_state: {"Type":"state","Parent":"x_Downloads","Content":"","DefName":null,"Directives":["bindMount","bindUnmount"],"Store":null,"createModuloVersion":"1.0.13","Name":"state","DefinitionName":"x_Downloads_state"},
 
 x_Downloads_staticdata: {"Type":"staticdata","Parent":"x_Downloads","DefName":null,"Name":"staticdata","DefinitionName":"x_Downloads_staticdata","data":[{"file":"modulo-starter.zip","size":"~60kb","path":"build/modulo-starter.zip","icon":"📦","alt":"archive icon"},{"file":"modulo-docs.zip","size":"~300kb","url":"https://codeberg.org/modulo/docs/archive/main.zip","icon":"📦","alt":"archive icon"},{"file":"Modulo.html","size":"~99kb","path":"build/starter/static/Modulo.html","icon":"📄","alt":"file icon"}]},
 

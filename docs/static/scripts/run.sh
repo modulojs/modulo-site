@@ -13,6 +13,9 @@ DRIVER="${MODULO_DRIVER:-oludom}"
 # Configure path to your main file to run commands on
 FILE="${MODULO_INDEX:-index.html}"
 
+# Configure timeout delay (ms) -- increase this is if its closing before saving
+DELAY="${MODULO_DELAY:-9000}"
+
 # Configure readable files
 READ="*.* **/*.*"
 
@@ -21,6 +24,7 @@ WRITE="_build/"
 
 # Configure path to OluDOM JavaScript file
 SCRIPT_PATH="static/scripts/node-oludom.mjs"
+
 
 # Configure protocol simulation (e.g, file vs http (default), or https)
 PROTO="file"
@@ -45,4 +49,4 @@ BINARY="$(which $RUNTIME)"
 
 ######
 # (Step 3: Run OluDOM)
-exec $BINARY $SCRIPT_PATH "$FILE?argv=$argvGetArgs" "--$DRIVER" --proto=$PROTO --host=$HOST --port=$PORT --path=$PROJECT_PATH $WRITE $READ
+exec $BINARY $SCRIPT_PATH "$FILE?argv=$argvGetArgs" "--$DRIVER" --proto=$PROTO --host=$HOST --port=$PORT --path=$PROJECT_PATH --delay=$DELAY $WRITE $READ

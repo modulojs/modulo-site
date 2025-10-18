@@ -1605,7 +1605,7 @@ async function runSync(argv, readFileSync, writeFileSync) {
   let saveAsPath = null;
   const exeFrames = [];
   let count = 0;
-  const options = { argv, download: "a[download]", delay: 9000 };
+  const options = { argv, download: "a[download]", delay: 3000 };
   for (let url of argv) {
     if (url.endsWith("node") && url === argv[0] || url.endsWith("-oludom.mjs") && url === argv[1]) {
       continue;
@@ -1685,6 +1685,8 @@ async function configure(flagStr, options) {
       const { chromium } = await import("playwright");
       options.driver = chromium;
     }
+  } else if (flag === "delay") {
+    options.delay = Number(value);
   } else if (flag in { proto: 1, host: 1, port: 1, path: 1 }) {
     options.server = options.server || {};
     options.server[flag] = value;

@@ -1,6 +1,6 @@
 <!DOCTYPE html><html><head><meta charset="utf8"><meta name="charset" charset="utf8" id="include_xxm0qoac"><meta name="content-type" http-equiv="Content-Type" content="text/html; charset=utf-8" id="include_xxnd8o0e"><meta name="viewport" content="width=device-width, initial-scale=1" id="include_x13l7u56"><meta name="robots" content="index, follow" id="include_xxriq75n"><meta name="revisit-after" content="30 days" id="include_x1m4jm9p"><link rel="stylesheet" href="../build-xxplgqrl.css">
 
-<script defer="" src="../build-x1t9nd3g.js"></script>
+<script defer="" src="../build-xxb8nf1g.js"></script>
 </head><body><x-page rootat="https://modulohtml.org/">
         <meta charset="utf8">
         <title>Processors - Modulo Documentation</title>
@@ -163,28 +163,34 @@ definitions.</p>
 <p>Definition processors are conventionally prefixed with a dash (that is, <code>-</code>).
 This distinguishes them from regular attributes. Some processors can only be
 used with a certain type of component parts or definitions. For example,
-examine the <code>-store=</code> processor for <em>State</em>:</p><x-quickdemo mode="modulo" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+examine the <code>-store=</code> processor for <em>State</em>:</p><x-quickdemo mode="modulo" value="&lt;State
+    -store=&quot;userdata&quot;
+    username=&quot;crash0veride&quot;
+&gt;&lt;/State&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
         
-            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html="" value=""></x-syntaxhighlighter>
+            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html=""></x-syntaxhighlighter>
         
         <div class="toolbar toolbar--small toolbar--autohide
              toolbar--snippet">
             
-                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
             
         </div>
         
     </div>
     <div class="overlay"></div></x-quickdemo>
 <p>Others are supported by all component parts. For example, examine the <code>-src=</code>
-processor for loading content from external files.</p><x-quickdemo mode="modulo" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+processor for loading content from external files.</p><x-quickdemo mode="modulo" value="&lt;Template -src=&quot;my-template.html&quot;&gt;&lt;/Template&gt;
+&lt;Style -src=&quot;fancy-look.css&quot;&gt;&lt;/Style&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
         
-            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html="" value=""></x-syntaxhighlighter>
+            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html=""></x-syntaxhighlighter>
         
         <div class="toolbar toolbar--small toolbar--autohide
              toolbar--snippet">
             
-                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
             
         </div>
         
@@ -230,14 +236,15 @@ good news is that after building, no one will notice, since <em>Processors</em> 
 <p>The <code>-name</code> directive allows you to override the default name that Modulo will
 generate with something else. This allows you to have multiple Component Parts
 of the same type without conflict.</p>
-<p>For a simple example, see below:</p><x-quickdemo mode="modulo" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+<p>For a simple example, see below:</p><x-quickdemo mode="modulo" value="&lt;Template -name=&quot;footer_template&quot;&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
         
-            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html="" value=""></x-syntaxhighlighter>
+            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html=""></x-syntaxhighlighter>
         
         <div class="toolbar toolbar--small toolbar--autohide
              toolbar--snippet">
             
-                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
             
         </div>
         
@@ -246,14 +253,31 @@ of the same type without conflict.</p>
 <h3 id="examplenameformultiplecomponentparts">Example: <code>-name</code> for multiple Component Parts</h3>
 <p>Note that <em>Template</em> has special behavior around <code>-name</code>. If you specify a
 name, it will <em>not</em> by default still render, since it will assume you are going
-to include it somewhere else.</p><x-quickdemo mode="modulo_demo" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+to include it somewhere else.</p><x-quickdemo mode="modulo_demo" value="&lt;Template&gt;
+    {# This becomes the &quot;primary template&quot; (named &quot;template&quot;) #}
+    &lt;h3&gt;Welcome to my blog&lt;/h3&gt;
+    &lt;p&gt;Things I like: {{ likes_data }}&lt;/p&gt;
+    &lt;p&gt;Things I dislike: {{ dislikes_data }}&lt;/p&gt;
+    {% include footer_template %}
+&lt;/Template&gt;
+&lt;Template -name=&quot;footer_template&quot;&gt;
+    {# This becomes a non-primary template (named &quot;footer_template&quot;) #}
+    &lt;p&gt;(C) 2095 Tux the Penguin&lt;/p&gt;
+&lt;/Template&gt;
+&lt;StaticData -name=&quot;likes_data&quot;&gt;
+    [ &quot;Fish&quot;, &quot;radishes&quot;, &quot;hackable software&quot; ]
+&lt;/StaticData&gt;
+&lt;StaticData -name=&quot;dislikes_data&quot;&gt;
+    [ &quot;Wet towels&quot; ]
+&lt;/StaticData&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
         
-            <x-syntaxhighlighter mode="modulo_demo" style="font-size: 18px" modulo-mount-html="" value=""></x-syntaxhighlighter>
+            <x-syntaxhighlighter mode="modulo_demo" style="font-size: 18px" modulo-mount-html=""></x-syntaxhighlighter>
         
         <div class="toolbar toolbar--small toolbar--autohide
              toolbar--snippet">
             
-                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
             
         </div>
         
@@ -262,14 +286,25 @@ to include it somewhere else.</p><x-quickdemo mode="modulo_demo" modulo-mount-ht
 <h2 id="src">-src</h2>
 <ul>
 <li>Supported by: <strong>All Definitions</strong></li>
-</ul><x-quickdemo mode="modulo" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+</ul><x-quickdemo mode="modulo" value="&lt;Template
+    -src=&quot;./MyComponent/MyComponent.html&quot;
+&gt;&lt;/Template&gt;
+&lt;Script -src=&quot;./MyComponent/MyComponent.js&quot;&gt;
+   function anotherFunction() {
+        // Etc...
+    }
+&lt;/Script&gt;
+&lt;Style
+    -src=&quot;./MyComponent/MyComponent.css&quot;
+&gt;&lt;/Style&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
         
-            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html="" value=""></x-syntaxhighlighter>
+            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html=""></x-syntaxhighlighter>
         
         <div class="toolbar toolbar--small toolbar--autohide
              toolbar--snippet">
             
-                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
             
         </div>
         
@@ -302,14 +337,18 @@ settings within that other libraries' execution context.</p>
 <h5 id="example1trimexcesscode">Example 1: Trim excess code</h5>
 <p>You can use <code>trim</code> to remove excess characters from a remotely loaded file. For
 example, here we load content from an external document file, and then use
-<code>|trim</code> to clean up the doctype information, text we don't want in the <em>Template</em>:</p><x-quickdemo mode="modulo" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+<code>|trim</code> to clean up the doctype information, text we don't want in the <em>Template</em>:</p><x-quickdemo mode="modulo" value="&lt;Template
+    -src=&quot;https://some-site.com/some-old-document.xhtml&quot;
+    -filter-content=&quot;trim:'&lt;xml version=1.0&gt;&lt;html&gt;,&lt;/html&gt;'&quot;
+&gt;&lt;/Template&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
         
-            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html="" value=""></x-syntaxhighlighter>
+            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html=""></x-syntaxhighlighter>
         
         <div class="toolbar toolbar--small toolbar--autohide
              toolbar--snippet">
             
-                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
             
         </div>
         
@@ -327,9 +366,27 @@ ignored and omitted from the JS builds.</p>
 to read. Note that this is, in fact, a <em>Template</em> CPart, however, we will use a
 <code>style</code> initial tag to make it easier to read and syntax highlight.</p>
 <p>See below for a concrete example of how to use this technique for making a
-quick button designer component:</p><x-quickdemo mode="modulo_demo" demo="modulo" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+quick button designer component:</p><x-quickdemo mode="modulo_demo" demo="modulo" value="&lt;Template&gt;
+    &lt;label&gt;&lt;input state.bind name=&quot;bg&quot; type=&quot;color&quot; /&gt; Color&lt;/label&gt;
+    &lt;label&gt;&lt;input state.bind name=&quot;size&quot; type=&quot;range&quot; min=&quot;5&quot; max=&quot;20&quot; /&gt; Size&lt;/label&gt;
+    &lt;button style=&quot;{% include button_style %}&quot;&gt;Sample Button&lt;/button&gt;
+    &lt;pre&gt;button { {% include button_style %} }&lt;/pre&gt;
+&lt;/Template&gt;
+
+&lt;style Template -filter-content=&quot;trim:'x {,}'&quot; -name=&quot;button_style&quot;&gt;
+x {
+    background-color: {{ state.bg }};
+    font-size: {{ state.size }}px;
+}
+&lt;/style&gt;
+
+&lt;State
+    bg=&quot;#a0caa0&quot;
+    size:=10
+&gt;&lt;/State&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
         
-            <x-mirroreditor name="value" mode="modulo_demo" modulo-mount-html="" state.bind=""><div class="editor-wrapper" on.click="script.updateDimensions">
+            <x-mirroreditor name="value" mode="modulo_demo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
       <div class="editor-underlay-container" style="
             width:    224px
                     ;
@@ -398,13 +455,13 @@ x {
         <div class="toolbar toolbar--small toolbar--autohide
              ">
             
-                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
-                <button on.click="script.run"><span alt="Refresh arrow in circle">⟳</span> Run</button>
-                <button on.click="script.save"><span alt="Download arrow downward">⤓</span> Save</button>
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
             
         </div>
-        <iframe></iframe>
-    </div>
+        
+    <iframe></iframe></div>
     <div class="overlay"></div></x-quickdemo>
 <h5 id="example3tagswapfortable">Example 3: Tagswap for <code>&lt;table&gt;</code></h5>
 <p>Modulo uses HTML syntax for most everything. This, unfortunately, means that
@@ -412,9 +469,26 @@ x {
 and loaded, causing content to "escape" when you are still just assembling the
 initial Template's DOM. Similarly, the closing <code>script</code> tag can have special
 meanings as well. To get around limitations like this, we can use the
-<code>|tagswap</code> to convert innocuous placeholder tags into other ones:</p><x-quickdemo mode="modulo_demo" demo="modulo" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+<code>|tagswap</code> to convert innocuous placeholder tags into other ones:</p><x-quickdemo mode="modulo_demo" demo="modulo" value="&lt;Template -filter-content=&quot;tagswap:'t=table r=tr d=td'&quot;&gt;
+    &lt;t&gt;
+        &lt;r&gt; &lt;d&gt;Col 1&lt;/d&gt; &lt;d&gt;Col 2&lt;/d&gt; &lt;d&gt;Col 3&lt;/d&gt; &lt;/r&gt;
+        &lt;r&gt; &lt;d&gt;A&lt;/d&gt; &lt;d&gt;B&lt;/d&gt; &lt;d&gt;C&lt;/d&gt; &lt;/r&gt;
+        &lt;r&gt; &lt;d&gt;1&lt;/d&gt; &lt;d&gt;2&lt;/d&gt; &lt;d&gt;3&lt;/d&gt; &lt;/r&gt;
+        &lt;r&gt; &lt;d&gt;X&lt;/d&gt; &lt;d&gt;Y&lt;/d&gt; &lt;d&gt;Z&lt;/d&gt; &lt;/r&gt;
+    &lt;/t&gt;
+&lt;/Template&gt;
+&lt;Style&gt;
+    table {
+        border: 2px solid Tomato;
+    }
+    td {
+        border: 1px dotted Tomato;
+        padding: 2px;
+    }
+&lt;/Style&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
         
-            <x-mirroreditor name="value" mode="modulo_demo" modulo-mount-html="" state.bind=""><div class="editor-wrapper" on.click="script.updateDimensions">
+            <x-mirroreditor name="value" mode="modulo_demo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
       <div class="editor-underlay-container" style="
             width:    224px
                     ;
@@ -481,13 +555,13 @@ meanings as well. To get around limitations like this, we can use the
         <div class="toolbar toolbar--small toolbar--autohide
              ">
             
-                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
-                <button on.click="script.run"><span alt="Refresh arrow in circle">⟳</span> Run</button>
-                <button on.click="script.save"><span alt="Download arrow downward">⤓</span> Save</button>
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
             
         </div>
-        <iframe></iframe>
-    </div>
+        
+    <iframe></iframe></div>
     <div class="overlay"></div></x-quickdemo>
 <blockquote>
   <p><strong>Gotcha: Applied at loading time</strong> Remember that it is applied "pre-baked"

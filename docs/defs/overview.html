@@ -1,6 +1,6 @@
 <!DOCTYPE html><html><head><meta charset="utf8"><meta name="charset" charset="utf8" id="include_xxm0qoac"><meta name="content-type" http-equiv="Content-Type" content="text/html; charset=utf-8" id="include_xxnd8o0e"><meta name="viewport" content="width=device-width, initial-scale=1" id="include_x13l7u56"><meta name="robots" content="index, follow" id="include_xxriq75n"><meta name="revisit-after" content="30 days" id="include_x1m4jm9p"><link rel="stylesheet" href="../build-xxplgqrl.css">
 
-<script defer="" src="../build-x1t9nd3g.js"></script>
+<script defer="" src="../build-xxb8nf1g.js"></script>
 </head><body><x-page rootat="https://modulohtml.org/">
         <meta charset="utf8">
         <title>Overview - Modulo Documentation</title>
@@ -147,9 +147,20 @@ opening tag in the format of <code>&lt;Component name="HelloWorld"&gt;</code>.</
 <p>What goes inside of Component Definitions? Why, <em>Component Parts</em>, of course!
 By using a <em>Template</em> and <em>Style</em> in a Component we can make a very simple
 starting component definition:</p>
-<h5 id="example1simplestyle">Example 1: SimpleStyle</h5><x-quickdemo mode="modulo" demo="modulo" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+<h5 id="example1simplestyle">Example 1: SimpleStyle</h5><x-quickdemo mode="modulo" demo="modulo" value="&lt;!-- The simplest component: Template &amp; Style only --&gt;
+&lt;Template&gt;
+    Components can use any number of &lt;strong&gt;Parts&lt;/strong&gt;.
+    Here we use only &lt;em&gt;Style&lt;/em&gt; and &lt;em&gt;Template&lt;/em&gt;.
+&lt;/Template&gt;
+&lt;Style&gt;
+    em { color: darkgreen; }
+    * { text-decoration: underline; }
+&lt;/Style&gt;
+&lt;!-- HINT: 1. Make a change and click RUN to see result
+           2. Hover over RUN button for more options --&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
         
-            <x-mirroreditor name="value" mode="modulo" modulo-mount-html="" state.bind=""><div class="editor-wrapper" on.click="script.updateDimensions">
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
       <div class="editor-underlay-container" style="
             width:    224px
                     ;
@@ -204,13 +215,13 @@ starting component definition:</p>
         <div class="toolbar toolbar--small toolbar--autohide
              ">
             
-                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
-                <button on.click="script.run"><span alt="Refresh arrow in circle">⟳</span> Run</button>
-                <button on.click="script.save"><span alt="Download arrow downward">⤓</span> Save</button>
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
             
         </div>
-        <iframe></iframe>
-    </div>
+        
+    <iframe></iframe></div>
     <div class="overlay"></div></x-quickdemo>
 <blockquote>
   <p><strong>MVC</strong> - The Model-View-Controller paradigm somewhat matches here: The <em>State</em> is
@@ -221,9 +232,28 @@ starting component definition:</p>
 <p>Template and Style are just the beginning.  Here's the classic <strong>To Do MVC
 App</strong> written using Template, State, and Script, and taking advantage of these
 Modulo features: <em>Template Variables</em> (<code>{{ item }}</code>), Template Tags
- (<code>{% for %} ... {% endfor %}</code>), and DOM directives (<code>state.bind</code>, <code>on.click</code>).</p><x-quickdemo mode="modulo" demo="modulo" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+ (<code>{% for %} ... {% endfor %}</code>), and DOM directives (<code>state.bind</code>, <code>on.click</code>).</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+&lt;ol&gt;
+    {% for item in state.list %}
+        &lt;li&gt;{{ item }}&lt;/li&gt;
+    {% endfor %}
+    &lt;li&gt;&lt;input state.bind name=&quot;text&quot;&gt;
+        &lt;button on.click=script.add&gt;Add&lt;/button&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/Template&gt;
+&lt;State
+    list:='[&quot;Milk&quot;, &quot;Bread&quot;, &quot;Candy&quot;]'
+    text=&quot;Coffee&quot;
+&gt;&lt;/State&gt;
+&lt;Script&gt;
+    function add() {
+        state.list.push(state.text); // add to list
+        state.text = &quot;&quot;; // clear input
+    }
+&lt;/Script&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
         
-            <x-mirroreditor name="value" mode="modulo" modulo-mount-html="" state.bind=""><div class="editor-wrapper" on.click="script.updateDimensions">
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
       <div class="editor-underlay-container" style="
             width:    224px
                     ;
@@ -294,13 +324,13 @@ Modulo features: <em>Template Variables</em> (<code>{{ item }}</code>), Template
         <div class="toolbar toolbar--small toolbar--autohide
              ">
             
-                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
-                <button on.click="script.run"><span alt="Refresh arrow in circle">⟳</span> Run</button>
-                <button on.click="script.save"><span alt="Download arrow downward">⤓</span> Save</button>
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
             
         </div>
-        <iframe></iframe>
-    </div>
+        
+    <iframe></iframe></div>
     <div class="overlay"></div></x-quickdemo>
 <h1 id="coredefinitions">Core Definitions</h1>
 <blockquote>
@@ -319,9 +349,37 @@ a management command system with a powerful SSG / SSR build system (see
 namespacing tols (see "Library" and <code>-src=</code> pre-processor).</p>
 <h5 id="example1loadinganddisplayingcontent">Example #1: Loading and Displaying Content</h5>
 <p>Combining the "Component Part" described above with the <em>ContentList</em> described
-here, we can create a simple Markdown file-based content management system:</p><x-quickdemo mode="modulo" demo="modulo_embed" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+here, we can create a simple Markdown file-based content management system:</p><x-quickdemo mode="modulo" demo="modulo_embed" value="&lt;ContentList -load=&quot;md&quot;&gt;
+    defs/overview.html
+    defs/importing.html
+    defs/processors.html
+&lt;/ContentList&gt;
+
+&lt;Component name=App&gt;
+    &lt;Template&gt;
+        {% for file in global.definitions.contentlist.files %}
+        &lt;article&gt;
+            &lt;h3&gt;&lt;a href=&quot;{{ file.Source }}&quot;&gt;{{ file.title }}&lt;/a&gt;&lt;/h3&gt;
+            &lt;p&gt;{{ file.description }}&lt;/p&gt;
+            &lt;div&gt;{{ file.body|truncate:200|syntax:&quot;md&quot;|safe }}&lt;/div&gt;
+        &lt;/article&gt;
+        {% endfor %}
+    &lt;/Template&gt;
+    &lt;Style&gt;
+        article,
+        article &gt; div {
+            padding: 2%;
+            margin: 2%;
+            background: #aaaaee55;
+            border:5px inset #338;
+            font-size: 90%;
+        }
+        h3 { font-size: 1.1rem; }
+    &lt;/Style&gt;
+&lt;/Component&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
         
-            <x-mirroreditor name="value" mode="modulo" modulo-mount-html="" state.bind=""><div class="editor-wrapper" on.click="script.updateDimensions">
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
       <div class="editor-underlay-container" style="
             width:    224px
                     ;
@@ -410,13 +468,13 @@ here, we can create a simple Markdown file-based content management system:</p><
         <div class="toolbar toolbar--small toolbar--autohide
              ">
             
-                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
-                <button on.click="script.run"><span alt="Refresh arrow in circle">⟳</span> Run</button>
-                <button on.click="script.save"><span alt="Download arrow downward">⤓</span> Save</button>
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
             
         </div>
-        <iframe></iframe>
-    </div>
+        
+    <iframe></iframe></div>
     <div class="overlay"></div></x-quickdemo>
 <blockquote>
   <p><strong>What's "building" or "bundling"?</strong> Building" is a feature of Modulo where
@@ -434,9 +492,37 @@ commands, or content types or formats.</p>
 ("artifacts") that only target certain operations, or modify code in a certain
 way. Since Artifacts use Modulo's templating language, we can use 
 <code>&lt;script Configuration&gt;</code> to create a custom <code>minify</code> templateFilter, and output
-a file called: <code>custom_bundle.(hash).js</code>:</p><x-quickdemo mode="modulo" demo="modulo_embed" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+a file called: <code>custom_bundle.(hash).js</code>:</p><x-quickdemo mode="modulo" demo="modulo_embed" value="&lt;Artifact -bundle=&quot;script,modscript&quot; name=js build=custom_bundle&gt;
+    {% for id in def.ids %}
+        {{ def.data|get:id|minify|safe }}
+    {% endfor %}
+    {% for name in config.modulo.build.mainmodules %}
+        modulo.registry.modules.{{ name }}.call(window, modulo);
+    {% endfor %}
+&lt;/Artifact&gt;
+
+&lt;script Configuration&gt;
+    modulo.templateFilter.minify = function (s) {
+        // Collapses whitespace and removes comments
+        return s.replace(/\/\*[^\*\!][\s\S]*?\*\/|\/\/.*$/gm, '')
+                .replace(/[\n \t]+/gm, ' ')
+    }
+&lt;/script&gt;
+
+&lt;Component name=App&gt;
+    &lt;Template&gt;
+        &lt;button on.click=script.doCmd&gt;&amp;#9658; run &quot;custom_bundle&quot;&lt;/button&gt;
+    &lt;/Template&gt;
+    &lt;Script&gt;
+        function doCmd () {
+            modulo.argv = [ 'custom_bundle' ] // (bundle file gets this name)
+            modulo.command.custom_bundle(modulo)
+        }
+    &lt;/Script&gt;
+&lt;/Component&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
         
-            <x-mirroreditor name="value" mode="modulo" modulo-mount-html="" state.bind=""><div class="editor-wrapper" on.click="script.updateDimensions">
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
       <div class="editor-underlay-container" style="
             width:    224px
                     ;
@@ -525,21 +611,48 @@ a file called: <code>custom_bundle.(hash).js</code>:</p><x-quickdemo mode="modul
         <div class="toolbar toolbar--small toolbar--autohide
              ">
             
-                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
-                <button on.click="script.run"><span alt="Refresh arrow in circle">⟳</span> Run</button>
-                <button on.click="script.save"><span alt="Download arrow downward">⤓</span> Save</button>
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
             
         </div>
-        <iframe></iframe>
-    </div>
+        
+    <iframe></iframe></div>
     <div class="overlay"></div></x-quickdemo>
 <h1 id="customtypes">Custom Types</h1>
 <p><strong>More info: <a href="custom.html">Custom Types</a></strong></p>
 <p>It's easy to make re-usable Component Parts using JavaScript (or variants).
 See below for how easy it is to make your own version of a component part, to
-integrate custom JavaScript code or third party libraries:</p><x-quickdemo mode="modulo" demo="modulo_embed" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+integrate custom JavaScript code or third party libraries:</p><x-quickdemo mode="modulo" demo="modulo_embed" value="&lt;script Configuration&gt;
+
+modulo.part.autorefresh = class AutoRefresh {
+
+    initializedCallback() { // (once)
+        this.data = { count: 0 }
+        return this.data; // expose data to template
+    }
+
+    updateCallback() { // (after every render)
+        this.data.count++
+        const { delay } = this.attrs
+        setTimeout(() =&gt; this.element.rerender(), delay);
+    }
+
+}
+
+&lt;/script&gt;
+
+&lt;Component name=App&gt;
+    &lt;Template&gt;
+        &lt;h1&gt;Refresh Count: {{ autorefresh.count }}&lt;/h1&gt;
+    &lt;/Template&gt;
+    &lt;AutoRefresh
+        delay:=1000
+    &gt;&lt;/AutoRefresh&gt;
+&lt;/Component&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
         
-            <x-mirroreditor name="value" mode="modulo" modulo-mount-html="" state.bind=""><div class="editor-wrapper" on.click="script.updateDimensions">
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
       <div class="editor-underlay-container" style="
             width:    224px
                     ;
@@ -626,13 +739,13 @@ modulo.<span class="hljs-property">part</span>.<span class="hljs-property">autor
         <div class="toolbar toolbar--small toolbar--autohide
              ">
             
-                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
-                <button on.click="script.run"><span alt="Refresh arrow in circle">⟳</span> Run</button>
-                <button on.click="script.save"><span alt="Download arrow downward">⤓</span> Save</button>
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
             
         </div>
-        <iframe></iframe>
-    </div>
+        
+    <iframe></iframe></div>
     <div class="overlay"></div></x-quickdemo>
 </div>
                 

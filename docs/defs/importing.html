@@ -1,6 +1,6 @@
 <!DOCTYPE html><html><head><meta charset="utf8"><meta name="charset" charset="utf8" id="include_xxm0qoac"><meta name="content-type" http-equiv="Content-Type" content="text/html; charset=utf-8" id="include_xxnd8o0e"><meta name="viewport" content="width=device-width, initial-scale=1" id="include_x13l7u56"><meta name="robots" content="index, follow" id="include_xxriq75n"><meta name="revisit-after" content="30 days" id="include_x1m4jm9p"><link rel="stylesheet" href="../build-xxplgqrl.css">
 
-<script defer="" src="../build-x1t9nd3g.js"></script>
+<script defer="" src="../build-xxb8nf1g.js"></script>
 </head><body><x-page rootat="https://modulohtml.org/">
         <meta charset="utf8">
         <title>Importing - Modulo Documentation</title>
@@ -215,14 +215,18 @@ simple, one-off components on a single page. Modulo recommends several options t
 <p>Much like CSS being separated and brought in using a <code>&lt;link&gt;</code> tag, it's best to
 put our <code>&lt;Component&gt;</code> definitions into a separate file, and then bring them in
 using Modulo's special <code>-src=</code> attribute, that loads from another file. For
-example, it might be called "modulo-component-library.html":</p><x-quickdemo mode="modulo" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+example, it might be called "modulo-component-library.html":</p><x-quickdemo mode="modulo" value="&lt;script Modulo
+     src=&quot;//modu.lol&quot;
+     -src=&quot;./modulo-component-library.html&quot;
+&gt;&lt;/script&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
         
-            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html="" value=""></x-syntaxhighlighter>
+            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html=""></x-syntaxhighlighter>
         
         <div class="toolbar toolbar--small toolbar--autohide
              toolbar--snippet">
             
-                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
             
         </div>
         
@@ -255,9 +259,26 @@ cause syntax-related errors (in the case of accidentally closing a <code>&lt;scr
 tag) or accidentaly "leakage" (global execution) of code. For a demonstration
 of this behavior, see the following two examples of correct and incorrect ways
 to include Modulo components in an HTML page:</p>
-<h5 id="example1incorrectcodeleakage">Example 1: Incorrect: Code "leakage"</h5><x-quickdemo mode="modulo" demo="html_demo" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+<h5 id="example1incorrectcodeleakage">Example 1: Incorrect: Code "leakage"</h5><x-quickdemo mode="modulo" demo="html_demo" value="&lt;head&gt;
+&lt;title&gt;Lorem Ipsum&lt;/title&gt;
+&lt;Modulo&gt;
+    &lt;Component mode=vanish name=App&gt;
+        &lt;Template&gt;&lt;p&gt;INSIDE APP: Should be red&lt;/p&gt;&lt;/Template&gt;
+        &lt;!-- INCORRECT: These tags &quot;leak&quot;:
+             Everything is red, and window.myVar === true --&gt;
+        &lt;Script&gt;var myVar = true&lt;/Script&gt;
+        &lt;Style&gt;* { color: red }&lt;/Style&gt;
+    &lt;/Component&gt;
+&lt;/Modulo&gt;
+&lt;script src=../static/Modulo.html&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;p&gt;Not red (outside App).&lt;/p&gt;
+&lt;x-App&gt;&lt;/x-App&gt;
+&lt;/body&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
         
-            <x-mirroreditor name="value" mode="modulo" modulo-mount-html="" state.bind=""><div class="editor-wrapper" on.click="script.updateDimensions">
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
       <div class="editor-underlay-container" style="
             width:    224px
                     ;
@@ -324,17 +345,33 @@ to include Modulo components in an HTML page:</p>
         <div class="toolbar toolbar--small toolbar--autohide
              ">
             
-                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
-                <button on.click="script.run"><span alt="Refresh arrow in circle">⟳</span> Run</button>
-                <button on.click="script.save"><span alt="Download arrow downward">⤓</span> Save</button>
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
             
         </div>
-        <iframe></iframe>
-    </div>
-    <div class="overlay"></div></x-quickdemo>
-<h5 id="example2correctembeddedtemplatemodulotag">Example 2: Correct: Embedded "template Modulo" tag</h5><x-quickdemo mode="modulo" demo="html_demo" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
         
-            <x-mirroreditor name="value" mode="modulo" modulo-mount-html="" state.bind=""><div class="editor-wrapper" on.click="script.updateDimensions">
+    <iframe></iframe></div>
+    <div class="overlay"></div></x-quickdemo>
+<h5 id="example2correctembeddedtemplatemodulotag">Example 2: Correct: Embedded "template Modulo" tag</h5><x-quickdemo mode="modulo" demo="html_demo" value="&lt;head&gt;
+&lt;title&gt;Lorem Ipsum&lt;/title&gt;
+&lt;template Modulo&gt;
+    &lt;Component mode=vanish name=App&gt;
+        &lt;Template&gt;&lt;p&gt;INSIDE APP: Should be red&lt;/p&gt;&lt;/Template&gt;
+        &lt;!-- No leakage, since &quot;template&quot; doesn't run: --&gt;
+        &lt;Script&gt;var myVar = true&lt;/Script&gt;
+        &lt;Style&gt;* { color: red }&lt;/Style&gt;
+    &lt;/Component&gt;
+&lt;/template&gt;
+&lt;script src=../static/Modulo.html&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;p&gt;Not red (outside App).&lt;/p&gt;
+&lt;x-App&gt;&lt;/x-App&gt;
+&lt;/body&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+        
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
       <div class="editor-underlay-container" style="
             width:    224px
                     ;
@@ -399,13 +436,13 @@ to include Modulo components in an HTML page:</p>
         <div class="toolbar toolbar--small toolbar--autohide
              ">
             
-                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
-                <button on.click="script.run"><span alt="Refresh arrow in circle">⟳</span> Run</button>
-                <button on.click="script.save"><span alt="Download arrow downward">⤓</span> Save</button>
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
             
         </div>
-        <iframe></iframe>
-    </div>
+        
+    <iframe></iframe></div>
     <div class="overlay"></div></x-quickdemo>
 <blockquote>
   <p><strong>Why iframes? Why not fetch / JSONP?</strong> - Modulo will use <em>fetch</em> while on
@@ -441,42 +478,45 @@ able to load them in an identical manner over any protocol.  Furthermore, since
 the HTML is contained in a comment, they remain valid CSS or JS, so they can be
 included with <code>&lt;script&gt;</code> and <code>&lt;link&gt;</code> tags as well.</p>
 <h5 id="example1modulohtml">Example 1: Modulo-HTML</h5>
-<p><code>static/index.html</code> <em>(Example)</em></p><x-quickdemo mode="html" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+<p><code>static/index.html</code> <em>(Example)</em></p><x-quickdemo mode="html" value="&lt;script src=Modulo.html&gt;&lt;/script&gt;&lt;template type=f&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
         
-            <x-syntaxhighlighter mode="html" style="font-size: 18px" modulo-mount-html="" value=""></x-syntaxhighlighter>
+            <x-syntaxhighlighter mode="html" style="font-size: 18px" modulo-mount-html=""></x-syntaxhighlighter>
         
         <div class="toolbar toolbar--small toolbar--autohide
              toolbar--snippet">
             
-                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
             
         </div>
         
     </div>
     <div class="overlay"></div></x-quickdemo>
 <h5 id="example2csshtml">Example 2: CSS-HTML</h5>
-<p><code>static/css/my-styles.css.htm</code> <em>(Example)</em></p><x-quickdemo mode="html" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+<p><code>static/css/my-styles.css.htm</code> <em>(Example)</em></p><x-quickdemo mode="html" value="/* &lt;script src=../Modulo.html&gt;&lt;/script&gt;&lt;style type=f&gt; */
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
         
-            <x-syntaxhighlighter mode="html" style="font-size: 18px" modulo-mount-html="" value=""></x-syntaxhighlighter>
+            <x-syntaxhighlighter mode="html" style="font-size: 18px" modulo-mount-html=""></x-syntaxhighlighter>
         
         <div class="toolbar toolbar--small toolbar--autohide
              toolbar--snippet">
             
-                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
             
         </div>
         
     </div>
     <div class="overlay"></div></x-quickdemo>
 <h5 id="example3javascripthtml">Example 3: JavaScript-HTML</h5>
-<p><code>static/js/main.js.htm</code> <em>(Example)</em></p><x-quickdemo mode="html" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+<p><code>static/js/main.js.htm</code> <em>(Example)</em></p><x-quickdemo mode="html" value="/* &lt;script src=../Modulo.html&gt;&lt;/script&gt;&lt;script type=f&gt; */
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
         
-            <x-syntaxhighlighter mode="html" style="font-size: 18px" modulo-mount-html="" value=""></x-syntaxhighlighter>
+            <x-syntaxhighlighter mode="html" style="font-size: 18px" modulo-mount-html=""></x-syntaxhighlighter>
         
         <div class="toolbar toolbar--small toolbar--autohide
              toolbar--snippet">
             
-                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
             
         </div>
         
@@ -494,14 +534,17 @@ included with <code>&lt;script&gt;</code> and <code>&lt;link&gt;</code> tags as 
 first file loaded is <code>static/index.html</code>.  With the default configuration,
 Modulo expects all of your project's dependencies to live in this directory.</p>
 <p>In order to simplify the top of your HTML files, you can include Modulo and
-import static in one simple tag:</p><x-quickdemo mode="modulo" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+import static in one simple tag:</p><x-quickdemo mode="modulo" value="&lt;script Modulo src=&quot;./static/Modulo.html&quot; -src=&quot;./static/&quot;&gt;&lt;/script&gt;
+
+&lt;x-Page&gt;&lt;/x-Page&gt;&lt;!-- etc --&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
         
-            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html="" value=""></x-syntaxhighlighter>
+            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html=""></x-syntaxhighlighter>
         
         <div class="toolbar toolbar--small toolbar--autohide
              toolbar--snippet">
             
-                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
             
         </div>
         
@@ -514,9 +557,17 @@ a <code>static/</code> directory ("folder"), and then not attempt define any Mod
 definitions at all in that file. Then, Modulo will automatically attempt to
 <em>implicitly</em> import <code>static/index.html</code>. This also works for a subdirectory:
 <code>static/js/Modulo.js</code> for example will still import <code>static/index.html</code>.</p>
-<p>See below for an example that imports <em>Modulo Docs</em> static directory itself:</p><x-quickdemo mode="modulo" demo="html_demo" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+<p>See below for an example that imports <em>Modulo Docs</em> static directory itself:</p><x-quickdemo mode="modulo" demo="html_demo" value="&lt;script src=../static/Modulo.html&gt;&lt;/script&gt;
+
+&lt;!-- Implicitly adds: &lt;Modulo -src=&quot;../static/index.html&quot;&gt;&lt;/Modulo&gt; --&gt;
+
+&lt;x-Page&gt;
+    &lt;h1&gt;Example page&lt;/h1&gt;
+    &lt;p&gt;Lorem ipsum.&lt;/p&gt;
+&lt;/x-Page&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
         
-            <x-mirroreditor name="value" mode="modulo" modulo-mount-html="" state.bind=""><div class="editor-wrapper" on.click="script.updateDimensions">
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
       <div class="editor-underlay-container" style="
             width:    224px
                     ;
@@ -565,25 +616,27 @@ definitions at all in that file. Then, Modulo will automatically attempt to
         <div class="toolbar toolbar--small toolbar--autohide
              ">
             
-                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
-                <button on.click="script.run"><span alt="Refresh arrow in circle">⟳</span> Run</button>
-                <button on.click="script.save"><span alt="Download arrow downward">⤓</span> Save</button>
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
             
         </div>
-        <iframe></iframe>
-    </div>
+        
+    <iframe></iframe></div>
     <div class="overlay"></div></x-quickdemo>
 <h3 id="deactivatingimplicitstaticimport">Deactivating implicit static import</h3>
 <p>If you don't want this to happen, be sure to add an explicit embedded <code>Modulo</code>
 tag as a tag name or as the first attribute of a tag. <strong>This will deactivate
-the implicit import feature.</strong></p><x-quickdemo mode="modulo" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+the implicit import feature.</strong></p><x-quickdemo mode="modulo" value="&lt;script Modulo src=../static/Modulo.html&gt;&lt;/script&gt;
+&lt;!-- No import... -&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
         
-            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html="" value=""></x-syntaxhighlighter>
+            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html=""></x-syntaxhighlighter>
         
         <div class="toolbar toolbar--small toolbar--autohide
              toolbar--snippet">
             
-                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
             
         </div>
         
@@ -612,40 +665,43 @@ Support.</p>
 <p>Are you getting many warnings with text like what's listed below?  <strong>As long as
 you are only getting them during develpoment, and they do not affect your app,
 then they are probably safe to ignore.</strong></p>
-<p>See the following warnings:</p><x-quickdemo mode="modulo" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+<p>See the following warnings:</p><x-quickdemo mode="modulo" value="Page layout may be unexpected due to Quirks Mode
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
         
-            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html="" value=""></x-syntaxhighlighter>
+            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html=""></x-syntaxhighlighter>
         
         <div class="toolbar toolbar--small toolbar--autohide
              toolbar--snippet">
             
-                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
             
         </div>
         
     </div>
     <div class="overlay"></div></x-quickdemo>
-<x-quickdemo mode="modulo" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+<x-quickdemo mode="modulo" value="This page is in Quirks Mode. Page layout may be impacted. For Standards Mode use “&lt;!DOCTYPE html&gt;”.
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
         
-            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html="" value=""></x-syntaxhighlighter>
+            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html=""></x-syntaxhighlighter>
         
         <div class="toolbar toolbar--small toolbar--autohide
              toolbar--snippet">
             
-                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
             
         </div>
         
     </div>
     <div class="overlay"></div></x-quickdemo>
-<x-quickdemo mode="modulo" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+<x-quickdemo mode="modulo" value="The character encoding of a framed document was not declared. The document may appear different if viewed without the document framing it.
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
         
-            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html="" value=""></x-syntaxhighlighter>
+            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html=""></x-syntaxhighlighter>
         
         <div class="toolbar toolbar--small toolbar--autohide
              toolbar--snippet">
             
-                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
             
         </div>
         
@@ -665,14 +721,20 @@ unicode characters by adding a meta tag (Modulo will correctly ignore this too
 when loading).</p>
 <h5 id="bug2whathavetheydonetomybeautifullogo">BUG #2: "What have they done to my beautiful logo!"</h5>
 <p>To illustrate the second bug, here is the same text being rendered in Firefox
-vs Webkit (Konquer / Epiphany / Safari):</p><x-quickdemo mode="modulo" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+vs Webkit (Konquer / Epiphany / Safari):</p><x-quickdemo mode="modulo" value="(Firefox)  (Safari)
+🔥         ðŸ”¥
+
+(Firefox)  (Safari)
+ᵐ°dᵘ⁄o     áµ�Â°dáµ˜â�„o
+
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
         
-            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html="" value=""></x-syntaxhighlighter>
+            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html=""></x-syntaxhighlighter>
         
         <div class="toolbar toolbar--small toolbar--autohide
              toolbar--snippet">
             
-                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
             
         </div>
         
@@ -688,28 +750,30 @@ launching, this should not be an issue on production, since you should always
 have your UTF8 meta set in final HTML files, and no HTML loading will be done.</p>
 <h3 id="solutions">Solutions</h3>
 <h5 id="soultion1highlycompatiblemarkdownhtml">Soultion 1: Highly Compatible Markdown-HTML</h5>
-<p><code>my-page.html</code> <em>(Example)</em></p><x-quickdemo mode="html" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+<p><code>my-page.html</code> <em>(Example)</em></p><x-quickdemo mode="html" value="&lt;!DOCTYPE html&gt;&lt;meta charset=utf8&gt;&lt;script src=static/Modulo.html&gt;&lt;/script&gt;&lt;template type=f&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
         
-            <x-syntaxhighlighter mode="html" style="font-size: 18px" modulo-mount-html="" value=""></x-syntaxhighlighter>
+            <x-syntaxhighlighter mode="html" style="font-size: 18px" modulo-mount-html=""></x-syntaxhighlighter>
         
         <div class="toolbar toolbar--small toolbar--autohide
              toolbar--snippet">
             
-                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
             
         </div>
         
     </div>
     <div class="overlay"></div></x-quickdemo>
 <h5 id="solution2highlycompatiblehtmlfragments">Solution 2: Highly Compatible HTML fragments</h5>
-<p><code>static/content-data/product_info_1.html</code> <em>(Example)</em></p><x-quickdemo mode="html" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+<p><code>static/content-data/product_info_1.html</code> <em>(Example)</em></p><x-quickdemo mode="html" value="&lt;meta charset=utf8&gt;&lt;script src=../Modulo.html&gt;&lt;/script&gt;&lt;template type=f&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
         
-            <x-syntaxhighlighter mode="html" style="font-size: 18px" modulo-mount-html="" value=""></x-syntaxhighlighter>
+            <x-syntaxhighlighter mode="html" style="font-size: 18px" modulo-mount-html=""></x-syntaxhighlighter>
         
         <div class="toolbar toolbar--small toolbar--autohide
              toolbar--snippet">
             
-                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
             
         </div>
         

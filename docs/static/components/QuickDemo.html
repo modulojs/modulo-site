@@ -8,6 +8,27 @@
     usage
     splitusage
 ></Props>
+
+<Template
+    -name="template_modulo_component"
+    -src="demos/modulo_component_demo.html"
+></Template>
+
+<Template
+    -name="template_modulo"
+    -src="demos/modulo_component_demo.html"
+></Template>
+
+<Template
+    -name="template_modulo_embed"
+    -src="demos/modulo_embed_demo.html"
+></Template>
+
+<Template
+    -name="template_html_demo"
+    -src="demos/html_demo.html"
+></Template>
+
 <Template>
     <div class="editor-layout" style="--demo-width: {{ state.demo|yesno:'250,0' }}px;">
         {% if state.menu %}
@@ -64,12 +85,17 @@
 <Script>
     //const EXAMPLE_START = '<!--%%%'
     //const EXAMPLE_END = '%%%-->'
+    /*else if (props.value.includes(EXAMPLE_START)) {
+        state.value = props.value.split(EXAMPLE_START)[0]
+        state.name = props.value.split(EXAMPLE_START)[1]
+                                .split(EXAMPLE_END)[0].trim()
+        state.usage = props.value.split(EXAMPLE_END)[1]
+    }*/
+
     const REMOTE_MODULO_SRC = 'https://modu.lol'
 
     function prepareCallback(renderObj) {
-        //}
         if (state.demo === null) { // First time, self-configure
-            // TOOD: fix preview etc
             state.value = props.value // Prepopulate state with demo
             state.demo = false
             if (props.demo) {
@@ -83,12 +109,6 @@
                 state.value = props.value.split(props.usage)[0]
                 state.usage = props.value.split(props.usage)[1]
             }
-            /*else if (props.value.includes(EXAMPLE_START)) { // TODO RM
-                state.value = props.value.split(EXAMPLE_START)[0]
-                state.name = props.value.split(EXAMPLE_START)[1]
-                                        .split(EXAMPLE_END)[0].trim()
-                state.usage = props.value.split(EXAMPLE_END)[1]
-            }*/
         }
     }
 
@@ -97,8 +117,8 @@
     }
 
     function buildCallback() {
-        element.removeAttribute('value')
-        element.removeAttribute('usage')
+        //element.removeAttribute('value')
+        //element.removeAttribute('usage')
     }
 
     function updateCallback() {
@@ -150,6 +170,7 @@
         a.remove(a)
     }
 </Script>
+
 <Style>
     :root {
         --divider-width: 45px;
@@ -188,4 +209,5 @@
     }
 
 </Style>
+
 <Style -src="./QuickDemo-toolbar.css.htm"></Style>

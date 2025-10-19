@@ -412,7 +412,6 @@ lines: s => s.split('\n'),
 lower: s => s.toLowerCase(),
 multiply: (s, arg) => (s * 1) * (arg * 1),
 number: (s) => Number(s),
-pluralize: (s, arg) => (arg.split(',')[(s === 1) * 1]) || '',
 skipfirst: (s, arg) => Array.from(s).slice(arg || 1),
 subtract: (s, arg) => s - arg,
 sorted: (s, arg) => Array.from(s).sort(arg && ((a, b) => a[arg] > b[arg] ? 1 : -1)),
@@ -2395,6 +2394,45 @@ modulo.registry.modules.TableOfContents_script = function TableOfContents_script
                 ? '310px' : state.orig;
     }
 var props,state,style,element;return{_setLocal:function(o){props=o.props;state=o.state;style=o.style;element=o.element}, "prepareCallback":typeof prepareCallback !=="undefined"?prepareCallback:undefined,"updateCallback":typeof updateCallback !=="undefined"?updateCallback:undefined}}
+modulo.registry.modules.QuickDemo_template_modulo_component = function QuickDemo_template_modulo_component (modulo) { return function (CTX, G) { var OUT=[];
+OUT.push(G.filters.escape(G.filters["safe"](CTX.doctype)));
+OUT.push("\n<template modulo=\"\">\n<component name=\"");
+OUT.push(G.filters.escape(CTX.name));
+OUT.push("\">\n");
+OUT.push(G.filters.escape(G.filters["safe"](CTX.value)));
+OUT.push("\n</component>\n</template>\n<script src=\"");
+OUT.push(G.filters.escape(CTX.moduloSrc));
+OUT.push("\"></script>\n");
+OUT.push(G.filters.escape(G.filters["safe"](CTX.usage)));
+
+return OUT.join(""); };}
+modulo.registry.modules.QuickDemo_template_modulo = function QuickDemo_template_modulo (modulo) { return function (CTX, G) { var OUT=[];
+OUT.push(G.filters.escape(G.filters["safe"](CTX.doctype)));
+OUT.push("\n<template modulo=\"\">\n<component name=\"");
+OUT.push(G.filters.escape(CTX.name));
+OUT.push("\">\n");
+OUT.push(G.filters.escape(G.filters["safe"](CTX.value)));
+OUT.push("\n</component>\n</template>\n<script src=\"");
+OUT.push(G.filters.escape(CTX.moduloSrc));
+OUT.push("\"></script>\n");
+OUT.push(G.filters.escape(G.filters["safe"](CTX.usage)));
+
+return OUT.join(""); };}
+modulo.registry.modules.QuickDemo_template_modulo_embed = function QuickDemo_template_modulo_embed (modulo) { return function (CTX, G) { var OUT=[];
+OUT.push(G.filters.escape(G.filters["safe"](CTX.doctype)));
+OUT.push("\n<template modulo=\"\">\n");
+OUT.push(G.filters.escape(G.filters["safe"](CTX.value)));
+OUT.push("\n</template>\n<script src=\"");
+OUT.push(G.filters.escape(CTX.moduloSrc));
+OUT.push("\"></script>\n<x-app></x-app>");
+
+return OUT.join(""); };}
+modulo.registry.modules.QuickDemo_template_html_demo = function QuickDemo_template_html_demo (modulo) { return function (CTX, G) { var OUT=[];
+OUT.push(G.filters.escape(G.filters["safe"](CTX.doctype)));
+OUT.push("\n");
+OUT.push(G.filters.escape(G.filters["safe"](CTX.value)));
+
+return OUT.join(""); };}
 modulo.registry.modules.QuickDemo_template = function QuickDemo_template (modulo) { return function (CTX, G) { var OUT=[];
 OUT.push("<div class=\"editor-layout\" style=\"--demo-width: ");
 OUT.push(G.filters.escape(G.filters["yesno"](CTX.state.demo,"250,0")));
@@ -2438,12 +2476,17 @@ return OUT.join(""); };}
 modulo.registry.modules.QuickDemo_script = function QuickDemo_script (modulo) { 
     //const EXAMPLE_START = '<!--%%%'
     //const EXAMPLE_END = '%%%-->'
+    /*else if (props.value.includes(EXAMPLE_START)) {
+        state.value = props.value.split(EXAMPLE_START)[0]
+        state.name = props.value.split(EXAMPLE_START)[1]
+                                .split(EXAMPLE_END)[0].trim()
+        state.usage = props.value.split(EXAMPLE_END)[1]
+    }*/
+
     const REMOTE_MODULO_SRC = 'https://modu.lol'
 
     function prepareCallback(renderObj) {
-        //}
         if (state.demo === null) { // First time, self-configure
-            // TOOD: fix preview etc
             state.value = props.value // Prepopulate state with demo
             state.demo = false
             if (props.demo) {
@@ -2457,12 +2500,6 @@ modulo.registry.modules.QuickDemo_script = function QuickDemo_script (modulo) {
                 state.value = props.value.split(props.usage)[0]
                 state.usage = props.value.split(props.usage)[1]
             }
-            /*else if (props.value.includes(EXAMPLE_START)) { // TODO RM
-                state.value = props.value.split(EXAMPLE_START)[0]
-                state.name = props.value.split(EXAMPLE_START)[1]
-                                        .split(EXAMPLE_END)[0].trim()
-                state.usage = props.value.split(EXAMPLE_END)[1]
-            }*/
         }
     }
 
@@ -2471,8 +2508,8 @@ modulo.registry.modules.QuickDemo_script = function QuickDemo_script (modulo) {
     }
 
     function buildCallback() {
-        element.removeAttribute('value')
-        element.removeAttribute('usage')
+        //element.removeAttribute('value')
+        //element.removeAttribute('usage')
     }
 
     function updateCallback() {
@@ -2624,7 +2661,7 @@ MirrorEditor: {"Type":"component","Parent":"modulo1","DefName":null,"tagAliases"
 
 TableOfContents: {"Type":"component","Parent":"modulo1","DefName":null,"tagAliases":{"html-table":"table","html-script":"script","js":"script"},"mode":"regular","rerender":"event","Contains":"part","RenderObj":"component","DefLoaders":["DefTarget","DefinedAs","Src","FilterContent","Content"],"DefBuilders":["CustomElement","alias|AliasNamespace","Code"],"DefFinalizers":["MainRequire"],"CommandBuilders":["Prebuild|BuildLifecycle","BuildLifecycle"],"Directives":["onMount","onUnmount"],"DirectivePrefix":"","name":"TableOfContents","Name":"TableOfContents","DefinitionName":"TableOfContents","Source":"file:///home/michaelb/projects/modulo-site/docs/static/components/TableOfContents.html","ChildrenNames":["TableOfContents_props","TableOfContents_template","TableOfContents_state","TableOfContents_script","TableOfContents_style"],"namespace":"x","TagName":"x-tableofcontents","className":"x_TableOfContents"},
 
-QuickDemo: {"Type":"component","Parent":"modulo1","DefName":null,"tagAliases":{"html-table":"table","html-script":"script","js":"script"},"mode":"regular","rerender":"event","Contains":"part","RenderObj":"component","DefLoaders":["DefTarget","DefinedAs","Src","FilterContent","Content"],"DefBuilders":["CustomElement","alias|AliasNamespace","Code"],"DefFinalizers":["MainRequire"],"CommandBuilders":["Prebuild|BuildLifecycle","BuildLifecycle"],"Directives":["onMount","onUnmount"],"DirectivePrefix":"","name":"QuickDemo","Name":"QuickDemo","DefinitionName":"QuickDemo","Source":"file:///home/michaelb/projects/modulo-site/docs/static/components/QuickDemo.html","ChildrenNames":["QuickDemo_props","QuickDemo_template","QuickDemo_editor_settings","QuickDemo_state","QuickDemo_script","QuickDemo_style","QuickDemo_style1"],"namespace":"x","TagName":"x-quickdemo","className":"x_QuickDemo"},
+QuickDemo: {"Type":"component","Parent":"modulo1","DefName":null,"tagAliases":{"html-table":"table","html-script":"script","js":"script"},"mode":"regular","rerender":"event","Contains":"part","RenderObj":"component","DefLoaders":["DefTarget","DefinedAs","Src","FilterContent","Content"],"DefBuilders":["CustomElement","alias|AliasNamespace","Code"],"DefFinalizers":["MainRequire"],"CommandBuilders":["Prebuild|BuildLifecycle","BuildLifecycle"],"Directives":["onMount","onUnmount"],"DirectivePrefix":"","name":"QuickDemo","Name":"QuickDemo","DefinitionName":"QuickDemo","Source":"file:///home/michaelb/projects/modulo-site/docs/static/components/QuickDemo.html","ChildrenNames":["QuickDemo_props","QuickDemo_template_modulo_component","QuickDemo_template_modulo","QuickDemo_template_modulo_embed","QuickDemo_template_html_demo","QuickDemo_template","QuickDemo_editor_settings","QuickDemo_state","QuickDemo_script","QuickDemo_style","QuickDemo_style1"],"namespace":"x","TagName":"x-quickdemo","className":"x_QuickDemo"},
 
 Page_template: {"Type":"template","Parent":"Page","DefName":null,"DefFinalizers":["Content|CompileTemplate","Code"],"unsafe":"filters.escape","modeTokens":["{% %}","{{ }}","{# #}","{-{ }-}","{-% %-}"],"opTokens":"==,>,<,>=,<=,!=,not in,is not,is,in,not,gt,lt","opAliases":{"==":"X === Y","is":"X === Y","is not":"X !== Y","!=":"X !== Y","not":"!(Y)","gt":"X > Y","gte":"X >= Y","lt":"X < Y","lte":"X <= Y","in":"(Y).includes ? (Y).includes(X) : (X in Y)","not in":"!((Y).includes ? (Y).includes(X) : (X in Y))"},"Name":"template","DefinitionName":"Page_template"},
 
@@ -2673,6 +2710,14 @@ TableOfContents_script: {"Type":"script","Parent":"TableOfContents","DefName":nu
 TableOfContents_style: {"Type":"style","Parent":"TableOfContents","DefName":null,"isolateSelector":[],"isolateClass":null,"prefix":"x-TableOfContents","corePseudo":["before","after","first-line","last-line"],"DefBuilders":["FilterContent","AutoIsolate","Content|ProcessCSS"],"Name":"style","DefinitionName":"TableOfContents_style"},
 
 QuickDemo_props: {"Type":"props","Parent":"QuickDemo","Content":"","DefName":null,"mode":"","value":"","demo":"","name":"","usage":"","splitusage":"","Name":"props","DefinitionName":"QuickDemo_props"},
+
+QuickDemo_template_modulo_component: {"Type":"template","Parent":"QuickDemo","DefName":null,"DefFinalizers":["Content|CompileTemplate","Code"],"unsafe":"filters.escape","modeTokens":["{% %}","{{ }}","{# #}","{-{ }-}","{-% %-}"],"opTokens":"==,>,<,>=,<=,!=,not in,is not,is,in,not,gt,lt","opAliases":{"==":"X === Y","is":"X === Y","is not":"X !== Y","!=":"X !== Y","not":"!(Y)","gt":"X > Y","gte":"X >= Y","lt":"X < Y","lte":"X <= Y","in":"(Y).includes ? (Y).includes(X) : (X in Y)","not in":"!((Y).includes ? (Y).includes(X) : (X in Y))"},"Name":"template_modulo_component","DefinitionName":"QuickDemo_template_modulo_component","Source":"file:///home/michaelb/projects/modulo-site/docs/static/components/demos/modulo_component_demo.html"},
+
+QuickDemo_template_modulo: {"Type":"template","Parent":"QuickDemo","DefName":null,"DefFinalizers":["Content|CompileTemplate","Code"],"unsafe":"filters.escape","modeTokens":["{% %}","{{ }}","{# #}","{-{ }-}","{-% %-}"],"opTokens":"==,>,<,>=,<=,!=,not in,is not,is,in,not,gt,lt","opAliases":{"==":"X === Y","is":"X === Y","is not":"X !== Y","!=":"X !== Y","not":"!(Y)","gt":"X > Y","gte":"X >= Y","lt":"X < Y","lte":"X <= Y","in":"(Y).includes ? (Y).includes(X) : (X in Y)","not in":"!((Y).includes ? (Y).includes(X) : (X in Y))"},"Name":"template_modulo","DefinitionName":"QuickDemo_template_modulo","Source":"file:///home/michaelb/projects/modulo-site/docs/static/components/demos/modulo_component_demo.html"},
+
+QuickDemo_template_modulo_embed: {"Type":"template","Parent":"QuickDemo","DefName":null,"DefFinalizers":["Content|CompileTemplate","Code"],"unsafe":"filters.escape","modeTokens":["{% %}","{{ }}","{# #}","{-{ }-}","{-% %-}"],"opTokens":"==,>,<,>=,<=,!=,not in,is not,is,in,not,gt,lt","opAliases":{"==":"X === Y","is":"X === Y","is not":"X !== Y","!=":"X !== Y","not":"!(Y)","gt":"X > Y","gte":"X >= Y","lt":"X < Y","lte":"X <= Y","in":"(Y).includes ? (Y).includes(X) : (X in Y)","not in":"!((Y).includes ? (Y).includes(X) : (X in Y))"},"Name":"template_modulo_embed","DefinitionName":"QuickDemo_template_modulo_embed","Source":"file:///home/michaelb/projects/modulo-site/docs/static/components/demos/modulo_embed_demo.html"},
+
+QuickDemo_template_html_demo: {"Type":"template","Parent":"QuickDemo","DefName":null,"DefFinalizers":["Content|CompileTemplate","Code"],"unsafe":"filters.escape","modeTokens":["{% %}","{{ }}","{# #}","{-{ }-}","{-% %-}"],"opTokens":"==,>,<,>=,<=,!=,not in,is not,is,in,not,gt,lt","opAliases":{"==":"X === Y","is":"X === Y","is not":"X !== Y","!=":"X !== Y","not":"!(Y)","gt":"X > Y","gte":"X >= Y","lt":"X < Y","lte":"X <= Y","in":"(Y).includes ? (Y).includes(X) : (X in Y)","not in":"!((Y).includes ? (Y).includes(X) : (X in Y))"},"Name":"template_html_demo","DefinitionName":"QuickDemo_template_html_demo","Source":"file:///home/michaelb/projects/modulo-site/docs/static/components/demos/html_demo.html"},
 
 QuickDemo_template: {"Type":"template","Parent":"QuickDemo","DefName":null,"DefFinalizers":["Content|CompileTemplate","Code"],"unsafe":"filters.escape","modeTokens":["{% %}","{{ }}","{# #}","{-{ }-}","{-% %-}"],"opTokens":"==,>,<,>=,<=,!=,not in,is not,is,in,not,gt,lt","opAliases":{"==":"X === Y","is":"X === Y","is not":"X !== Y","!=":"X !== Y","not":"!(Y)","gt":"X > Y","gte":"X >= Y","lt":"X < Y","lte":"X <= Y","in":"(Y).includes ? (Y).includes(X) : (X in Y)","not in":"!((Y).includes ? (Y).includes(X) : (X in Y))"},"Name":"template","DefinitionName":"QuickDemo_template"},
 

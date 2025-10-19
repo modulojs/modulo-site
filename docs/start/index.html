@@ -1,6 +1,6 @@
 <!DOCTYPE html><html><head><meta charset="utf8"><meta name="charset" charset="utf8" id="include_xxm0qoac"><meta name="content-type" http-equiv="Content-Type" content="text/html; charset=utf-8" id="include_xxnd8o0e"><meta name="viewport" content="width=device-width, initial-scale=1" id="include_x13l7u56"><meta name="robots" content="index, follow" id="include_xxriq75n"><meta name="revisit-after" content="30 days" id="include_x1m4jm9p"><link rel="stylesheet" href="../build-xxplgqrl.css">
 
-<script defer="" src="../build-x1t9nd3g.js"></script>
+<script defer="" src="../build-xxb8nf1g.js"></script>
 </head><body><x-page rootat="https://modulohtml.org/">
         <meta charset="utf8">
         <title>Overview - Modulo Documentation</title>
@@ -153,14 +153,21 @@ a few:</p>
 <p>Thanks to Modulo's "browser-first" philosophy, you can "drop-in" and write
 components <em>anywhere</em> with just the following few lines, ready to "ramp-up" as
 you scale in complexity. For a working example of a simple 5-line start with
-a CDN, see this  snippet:</p><x-quickdemo mode="modulo" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+a CDN, see this  snippet:</p><x-quickdemo mode="modulo" value="&lt;script Modulo src=&quot;https://modu.lol&quot;&gt;
+    &lt;Component name=&quot;Greet&quot;&gt;
+        &lt;Template&gt;&lt;h1&gt;Hello &lt;slot&gt;&lt;/slot&gt;!&lt;/h1&gt;&lt;/Template&gt;
+    &lt;/Component&gt;
+&lt;/script&gt;
+&lt;x-Greet&gt;Modulo world&lt;/x-Greet&gt;
+&lt;!-- Becomes: &lt;h1&gt;Hello Modulo world!&lt;/h1&gt;--&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
         
-            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html="" value=""></x-syntaxhighlighter>
+            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html=""></x-syntaxhighlighter>
         
         <div class="toolbar toolbar--small toolbar--autohide
              toolbar--snippet">
             
-                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
             
         </div>
         

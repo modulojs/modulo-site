@@ -1,6 +1,6 @@
 <!DOCTYPE html><html><head><meta charset="utf8"><meta name="charset" charset="utf8" id="include_xxm0qoac"><meta name="content-type" http-equiv="Content-Type" content="text/html; charset=utf-8" id="include_xxnd8o0e"><meta name="viewport" content="width=device-width, initial-scale=1" id="include_x13l7u56"><meta name="robots" content="index, follow" id="include_xxriq75n"><meta name="revisit-after" content="30 days" id="include_x1m4jm9p"><link rel="stylesheet" href="../build-xxplgqrl.css">
 
-<script defer="" src="../build-x1t9nd3g.js"></script>
+<script defer="" src="../build-xxb8nf1g.js"></script>
 </head><body><x-page rootat="https://modulohtml.org/">
         <meta charset="utf8">
         <title>Getting Started - Modulo Documentation</title>
@@ -160,40 +160,53 @@ and <em>Create Library</em> (start a new self-documenting library).</p>
 <p>Writing your first component takes only <strong>3 steps</strong>. You can follow these steps
 in your text editor by either 1) creating a new, blank HTML file or 2) opening
 an HTML file from one of your existing web apps or projects:</p>
-<h5 id="step1includemodulo">Step 1: Include Modulo</h5><x-quickdemo mode="modulo" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+<h5 id="step1includemodulo">Step 1: Include Modulo</h5><x-quickdemo mode="modulo" value="&lt;script Modulo src=https://modu.lol&quot;&gt;
+&lt;/script&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
         
-            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html="" value=""></x-syntaxhighlighter>
+            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html=""></x-syntaxhighlighter>
         
         <div class="toolbar toolbar--small toolbar--autohide
              toolbar--snippet">
             
-                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
             
         </div>
         
     </div>
     <div class="overlay"></div></x-quickdemo>
-<h5 id="step2definecomponents">Step 2: Define Components</h5><x-quickdemo mode="modulo" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+<h5 id="step2definecomponents">Step 2: Define Components</h5><x-quickdemo mode="modulo" value="&lt;script Modulo src=https://modu.lol&gt;
+    &lt;Component name=&quot;Greet&quot;&gt;
+        &lt;Template&gt;
+            &lt;h2&gt;Hey there, &lt;slot&gt;&lt;/slot&gt;!&lt;/h2&gt;
+        &lt;/Template&gt;
+    &lt;/Component&gt;
+&lt;/script&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
         
-            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html="" value=""></x-syntaxhighlighter>
+            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html=""></x-syntaxhighlighter>
         
         <div class="toolbar toolbar--small toolbar--autohide
              toolbar--snippet">
             
-                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
             
         </div>
         
     </div>
     <div class="overlay"></div></x-quickdemo>
-<h5 id="step3useelsewhere">Step 3: Use Elsewhere</h5><x-quickdemo mode="modulo" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+<h5 id="step3useelsewhere">Step 3: Use Elsewhere</h5><x-quickdemo mode="modulo" value="&lt;div&gt;
+    &lt;x-Greet&gt;Modulo&lt;/x-Greet&gt;
+    &lt;x-Greet&gt;my new &lt;tt&gt;HTML&lt;/tt&gt;web component&lt;/x-Greet&gt;
+&lt;/div&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
         
-            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html="" value=""></x-syntaxhighlighter>
+            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html=""></x-syntaxhighlighter>
         
         <div class="toolbar toolbar--small toolbar--autohide
              toolbar--snippet">
             
-                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
             
         </div>
         

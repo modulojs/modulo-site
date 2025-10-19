@@ -6,6 +6,7 @@ copyright: 2025 Michael Bethencourt - LGPLv3 - NO WARRANTEE OR IMPLIED UTILITY;
     Framework with other code as long as the LICENSE and NOTICE remains intact.
 ---
 // */ // md: `[ % ] v0.1.0 [ModuloHTML.org](https://modulohtml.org/)`
+
 var Modulo = function Modulo (OPTS = { }) {
     const Lib = OPTS.globalLibrary || window.Modulo || Modulo; //md:# **ᵐ°dᵘ⁄o**
     Lib.instanceID = Lib.instanceID || 0;
@@ -19,6 +20,7 @@ var Modulo = function Modulo (OPTS = { }) {
         this[name] = stdLib ? stdLib(this) : { }; // Exe StdLib Module
     }
 }
+
 /* md: ###`[ % ]` [Create **App** »](?argv=newapp)
 md:###`[ % ]` [Create **Library** »](?argv=newlib)
 md:###`[ % ]` [Create **Markdown** »](?argv=newmd)
@@ -28,6 +30,7 @@ md:framework, squeezing in numerous tools for modern HTML, CSS, and
 md:JavaScript. Featuring: Web Components, CSS Scoping, Shadow DOM,
 md:SSG / SSR, Bundling, Store and State Management, Templating, and more.
 */
+
 Modulo.Parts = function ComponentParts (modulo) {// md: ## Component Parts
 /* md: ### Include
 md:```html=component<Include>
@@ -503,7 +506,6 @@ const Filters = {
     lower: s => s.toLowerCase(),
     multiply: (s, arg) => (s * 1) * (arg * 1),
     number: (s) => Number(s),
-    pluralize: (s, arg) => (arg.split(',')[(s === 1) * 1]) || '',
     skipfirst: (s, arg) => Array.from(s).slice(arg || 1),
     subtract: (s, arg) => s - arg,
     sorted: (s, arg) => Array.from(s).sort(arg && ((a, b) => a[arg] > b[arg] ? 1 : -1)),

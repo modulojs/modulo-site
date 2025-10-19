@@ -1,6 +1,6 @@
 <!DOCTYPE html><html><head><meta charset="utf8"><meta name="charset" charset="utf8" id="include_xxm0qoac"><meta name="content-type" http-equiv="Content-Type" content="text/html; charset=utf-8" id="include_xxnd8o0e"><meta name="viewport" content="width=device-width, initial-scale=1" id="include_x13l7u56"><meta name="robots" content="index, follow" id="include_xxriq75n"><meta name="revisit-after" content="30 days" id="include_x1m4jm9p"><link rel="stylesheet" href="../build-xxplgqrl.css">
 
-<script defer="" src="../build-x1t9nd3g.js"></script>
+<script defer="" src="../build-xxb8nf1g.js"></script>
 </head><body><x-page rootat="https://modulohtml.org/">
         <meta charset="utf8">
         <title>Definitions - Modulo Documentation</title>
@@ -236,14 +236,17 @@ to ensure aspects of Modulo get configured before they are used.</p>
 <p>The <code>-src="..."</code> is the first most important definition processor. It lets you
 load many file types with a similar behavior to how in plain HTML you can
 easily use <code>&lt;script src="..."&gt;</code> or <code>&lt;link rel=stylesheet href="..."&gt;</code> to ensure
-the page loads with given dependencies. See below:</p><x-quickdemo mode="modulo" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+the page loads with given dependencies. See below:</p><x-quickdemo mode="modulo" value="&lt;Template -src=&quot;templates/my-template.html&quot;&gt;&lt;/Template&gt;
+&lt;Script -src=&quot;js/my-javascript.js&quot;&gt;&lt;/Script&gt;
+&lt;Style -src=&quot;css/my-style.css&quot;&gt;&lt;/Style&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
         
-            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html="" value=""></x-syntaxhighlighter>
+            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html=""></x-syntaxhighlighter>
         
         <div class="toolbar toolbar--small toolbar--autohide
              toolbar--snippet">
             
-                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
             
         </div>
         
@@ -256,14 +259,17 @@ lower-case (e.g. <code>StaticData</code> becomes <code>staticdata</code>).  If t
 they will get incrementing numbers affixed.  Generally, you do not want the
 numbered naming behavior, since it's hard to remember, and should instead be
 specify the name.  For example, the two <em>State</em> parts get the names <code>state</code> and
-<code>state1</code> below:</p><x-quickdemo mode="modulo" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
+<code>state1</code> below:</p><x-quickdemo mode="modulo" value="&lt;Template&gt;{{ state.abc }} and {{ state1.abc }}&lt;/Template&gt;
+&lt;State abc=&quot;first state data&quot;&gt;&lt;/State&gt;
+&lt;State abc=&quot;second state data&quot;&gt;&lt;/State&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
         
-            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html="" value=""></x-syntaxhighlighter>
+            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html=""></x-syntaxhighlighter>
         
         <div class="toolbar toolbar--small toolbar--autohide
              toolbar--snippet">
             
-                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
             
         </div>
         
@@ -275,9 +281,21 @@ prevents the numbering behavior. </p>
 <h5 id="example1explicitnamingstate">Example 1: Explicit Naming (State)</h5>
 <p>For example, here we can have
 two <em>State</em> Component Parts, each with the same <code>abc</code> attribute, but different
-names:</p><x-quickdemo mode="modulo" demo="modulo" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+names:</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+    &lt;p&gt;first_state.abc is {{ first_state.abc }}&lt;/p&gt;
+    &lt;p&gt;second_state.abc is {{ second_state.abc }}&lt;/p&gt;
+&lt;/Template&gt;
+&lt;State
+    -name=&quot;first_state&quot;
+    abc=&quot;first state data&quot;
+&gt;&lt;/State&gt;
+&lt;State
+    -name=&quot;second_state&quot;
+    abc=&quot;second state data&quot;
+&gt;&lt;/State&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
         
-            <x-mirroreditor name="value" mode="modulo" modulo-mount-html="" state.bind=""><div class="editor-wrapper" on.click="script.updateDimensions">
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
       <div class="editor-underlay-container" style="
             width:    224px
                     ;
@@ -334,19 +352,26 @@ names:</p><x-quickdemo mode="modulo" demo="modulo" modulo-mount-html=""><div cla
         <div class="toolbar toolbar--small toolbar--autohide
              ">
             
-                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
-                <button on.click="script.run"><span alt="Refresh arrow in circle">⟳</span> Run</button>
-                <button on.click="script.save"><span alt="Download arrow downward">⤓</span> Save</button>
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
             
         </div>
-        <iframe></iframe>
-    </div>
+        
+    <iframe></iframe></div>
     <div class="overlay"></div></x-quickdemo>
 <h5 id="example2explicitnamingtemplate">Example 2: Explicit Naming (Template)</h5>
 <p>This is also handy for breaking apart large templates. Here we name two extra
-templates <code>template_a</code> and <code>template_b</code>, which we include in a final template:</p><x-quickdemo mode="modulo" demo="modulo" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
+templates <code>template_a</code> and <code>template_b</code>, which we include in a final template:</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template -name=&quot;template_a&quot;&gt;&lt;h3&gt;First template&lt;/h3&gt;&lt;/Template&gt;
+&lt;Template -name=&quot;template_b&quot;&gt;&lt;h3&gt;Second Template&lt;/h3&gt;&lt;/Template&gt;
+&lt;Template&gt;
+    {% include template_a %}
+    &lt;hr /&gt;
+    {% include template_b %}
+&lt;/Template&gt;
+" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
         
-            <x-mirroreditor name="value" mode="modulo" modulo-mount-html="" state.bind=""><div class="editor-wrapper" on.click="script.updateDimensions">
+            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
       <div class="editor-underlay-container" style="
             width:    224px
                     ;
@@ -393,13 +418,13 @@ templates <code>template_a</code> and <code>template_b</code>, which we include 
         <div class="toolbar toolbar--small toolbar--autohide
              ">
             
-                <button on.click="script.copy"><span alt="Clipboard icon">📋</span> Copy</button>
-                <button on.click="script.run"><span alt="Refresh arrow in circle">⟳</span> Run</button>
-                <button on.click="script.save"><span alt="Download arrow downward">⤓</span> Save</button>
+                <button><span alt="Clipboard icon">📋</span> Copy</button>
+                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
+                <button><span alt="Download arrow downward">⤓</span> Save</button>
             
         </div>
-        <iframe></iframe>
-    </div>
+        
+    <iframe></iframe></div>
     <div class="overlay"></div></x-quickdemo>
 </div>
                 

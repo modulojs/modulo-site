@@ -93,7 +93,7 @@
             
                 
                     
-                        <x-tableofcontents toc="[{&quot;match&quot;:&quot;&lt;h1 id=\&quot;contentlist\&quot;&gt;ContentList&lt;/h1&gt;&quot;,&quot;level&quot;:1,&quot;attrs&quot;:&quot;id=\&quot;contentlist\&quot;&quot;,&quot;title&quot;:&quot;ContentList&quot;,&quot;id&quot;:&quot;contentlist&quot;},{&quot;match&quot;:&quot;&lt;h5 id=\&quot;example1simplelistofpages\&quot;&gt;Example 1: Simple list of pages&lt;/h5&gt;&quot;,&quot;level&quot;:5,&quot;attrs&quot;:&quot;id=\&quot;example1simplelistofpages\&quot;&quot;,&quot;title&quot;:&quot;Example 1: Simple list of pages&quot;,&quot;id&quot;:&quot;example1simplelistofpages&quot;},{&quot;match&quot;:&quot;&lt;h5 id=\&quot;example2loadingcontent\&quot;&gt;Example 2: Loading Content&lt;/h5&gt;&quot;,&quot;level&quot;:5,&quot;attrs&quot;:&quot;id=\&quot;example2loadingcontent\&quot;&quot;,&quot;title&quot;:&quot;Example 2: Loading Content&quot;,&quot;id&quot;:&quot;example2loadingcontent&quot;},{&quot;match&quot;:&quot;&lt;h5 id=\&quot;example3maintainingaseparateindexlist\&quot;&gt;Example 3: Maintaining a separate index list&lt;/h5&gt;&quot;,&quot;level&quot;:5,&quot;attrs&quot;:&quot;id=\&quot;example3maintainingaseparateindexlist\&quot;&quot;,&quot;title&quot;:&quot;Example 3: Maintaining a separate index list&quot;,&quot;id&quot;:&quot;example3maintainingaseparateindexlist&quot;},{&quot;match&quot;:&quot;&lt;h5 id=\&quot;example4ecommercemarkdownpoweredcms\&quot;&gt;Example 4: \&quot;E-Commerce\&quot; Markdown Powered CMS&lt;/h5&gt;&quot;,&quot;level&quot;:5,&quot;attrs&quot;:&quot;id=\&quot;example4ecommercemarkdownpoweredcms\&quot;&quot;,&quot;title&quot;:&quot;Example 4: \&quot;E-Commerce\&quot; Markdown Powered CMS&quot;,&quot;id&quot;:&quot;example4ecommercemarkdownpoweredcms&quot;}]" modulo-mount-html=""><nav class="regular&quot;=&quot;">
+                        <x-tableofcontents toc="[{&quot;match&quot;:&quot;&lt;h1 id=\&quot;contentlist\&quot;&gt;ContentList&lt;/h1&gt;&quot;,&quot;level&quot;:1,&quot;attrs&quot;:&quot;id=\&quot;contentlist\&quot;&quot;,&quot;title&quot;:&quot;ContentList&quot;,&quot;id&quot;:&quot;contentlist&quot;},{&quot;match&quot;:&quot;&lt;h5 id=\&quot;example1simplelistofpages\&quot;&gt;Example 1: Simple list of pages&lt;/h5&gt;&quot;,&quot;level&quot;:5,&quot;attrs&quot;:&quot;id=\&quot;example1simplelistofpages\&quot;&quot;,&quot;title&quot;:&quot;Example 1: Simple list of pages&quot;,&quot;id&quot;:&quot;example1simplelistofpages&quot;},{&quot;match&quot;:&quot;&lt;h5 id=\&quot;example2loadingcontent\&quot;&gt;Example 2: Loading Content&lt;/h5&gt;&quot;,&quot;level&quot;:5,&quot;attrs&quot;:&quot;id=\&quot;example2loadingcontent\&quot;&quot;,&quot;title&quot;:&quot;Example 2: Loading Content&quot;,&quot;id&quot;:&quot;example2loadingcontent&quot;},{&quot;match&quot;:&quot;&lt;h5 id=\&quot;example3maintainingaseparateindexlist\&quot;&gt;Example 3: Maintaining a separate index list&lt;/h5&gt;&quot;,&quot;level&quot;:5,&quot;attrs&quot;:&quot;id=\&quot;example3maintainingaseparateindexlist\&quot;&quot;,&quot;title&quot;:&quot;Example 3: Maintaining a separate index list&quot;,&quot;id&quot;:&quot;example3maintainingaseparateindexlist&quot;},{&quot;match&quot;:&quot;&lt;h5 id=\&quot;example4articlemarkdownpoweredcms\&quot;&gt;Example 4: Article Markdown Powered CMS&lt;/h5&gt;&quot;,&quot;level&quot;:5,&quot;attrs&quot;:&quot;id=\&quot;example4articlemarkdownpoweredcms\&quot;&quot;,&quot;title&quot;:&quot;Example 4: Article Markdown Powered CMS&quot;,&quot;id&quot;:&quot;example4articlemarkdownpoweredcms&quot;},{&quot;match&quot;:&quot;&lt;h5 id=\&quot;example5ecommercemarkdownpoweredcms\&quot;&gt;Example 5: \&quot;E-Commerce\&quot; Markdown Powered CMS&lt;/h5&gt;&quot;,&quot;level&quot;:5,&quot;attrs&quot;:&quot;id=\&quot;example5ecommercemarkdownpoweredcms\&quot;&quot;,&quot;title&quot;:&quot;Example 5: \&quot;E-Commerce\&quot; Markdown Powered CMS&quot;,&quot;id&quot;:&quot;example5ecommercemarkdownpoweredcms&quot;}]" modulo-mount-html=""><nav class="regular&quot;=&quot;">
         <div> </div>
         <div>
             <div>
@@ -108,6 +108,8 @@
                             <li style="--level: 1">
                                     <a href="#contentlist">ContentList</a>
                             </li>
+                        
+                    
                         
                     
                         
@@ -217,12 +219,40 @@ want to load. For example, using a shell such as <code>bash</code> or <code>zsh<
 <p>By re-running this "find" command, the CSV file will be updated. By combining
 the above with the <code>entr</code> command, this can be done automatically whenever
 changes are detected. However, that is beyond the scope of this document.</p>
-<h5 id="example4ecommercemarkdownpoweredcms">Example 4: "E-Commerce" Markdown Powered CMS</h5>
+<h5 id="example4articlemarkdownpoweredcms">Example 4: Article Markdown Powered CMS</h5><x-quickdemo mode="modulo" demo="modulo_embed" value="&lt;ContentList -load=&quot;md&quot;&gt;
+    static/exampledata/article1.md.htm
+    static/exampledata/article2.md.htm
+    static/exampledata/article3.md.htm
+&lt;/ContentList&gt;
+
+&lt;Component name=App&gt;
+    &lt;Template&gt;
+        {% for file in global.definitions.contentlist.files %}
+        &lt;article&gt;
+            &lt;h4 style=&quot;float:right&quot;&gt;{{ file.date }}&lt;/h4&gt;
+            &lt;h3&gt;&lt;a href=&quot;{{ file.Source }}&quot;&gt;{{ file.title }}&lt;/a&gt;&lt;/h3&gt;
+            &lt;p&gt;{{ file.description }}&lt;/p&gt;
+            &lt;div style=&quot;font-size: 80%;&quot;&gt;{{ file.body|truncate:200|syntax:&quot;md&quot;|safe }}&lt;/div&gt;
+        &lt;/article&gt;
+        {% endfor %}
+    &lt;/Template&gt;
+    &lt;Style&gt;
+        article {
+            padding: 2%;
+            margin: 2%;
+            background: #aaaaee55;
+            border:5px inset #338;
+        }
+        h3 { font-size: 1.1rem; }
+    &lt;/Style&gt;
+&lt;/Component&gt;
+" modulo-mount-html=""></x-quickdemo>
+<h5 id="example5ecommercemarkdownpoweredcms">Example 5: "E-Commerce" Markdown Powered CMS</h5>
 <p>It's also useful to use this for CMS files, for example for a E-Commerce store.
 See below for many simple Markdown files get loaded and formatted. Note that
 their extension are ommitted; however, they are Markdown-HTML files.</p><x-quickdemo mode="modulo" demo="modulo_embed" value="&lt;ContentList -load=md -name=product_list&gt;
-    example-data/wood-chair
-    example-data/plush-chair
+    static/exampledata/wood-chair
+    static/exampledata/plush-chair
 &lt;/ContentList&gt;
 
 &lt;Component mode=vanish name=App&gt;

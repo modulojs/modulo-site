@@ -206,31 +206,43 @@ namespacing tols (see "Library" and <code>-src=</code> pre-processor).</p>
 <h5 id="example1loadinganddisplayingcontent">Example #1: Loading and Displaying Content</h5>
 <p>Combining the "Component Part" described above with the <em>ContentList</em> described
 here, we can create a simple Markdown file-based content management system:</p><x-quickdemo mode="modulo" demo="modulo_embed" value="&lt;ContentList -load=&quot;md&quot;&gt;
-    defs/overview.html
-    defs/importing.html
-    defs/processors.html
+    static/exampledata/article1.md.htm
+    static/exampledata/article2.md.htm
+    static/exampledata/article3.md.htm
+    static/exampledata/wood-chair
+    static/exampledata/plush-chair
 &lt;/ContentList&gt;
 
 &lt;Component name=App&gt;
     &lt;Template&gt;
         {% for file in global.definitions.contentlist.files %}
         &lt;article&gt;
-            &lt;h3&gt;&lt;a href=&quot;{{ file.Source }}&quot;&gt;{{ file.title }}&lt;/a&gt;&lt;/h3&gt;
-            &lt;p&gt;{{ file.description }}&lt;/p&gt;
-            &lt;div&gt;{{ file.body|truncate:200|syntax:&quot;md&quot;|safe }}&lt;/div&gt;
+            &lt;h3&gt;{{ file.title }}&lt;/h3&gt;
+            {% if file.description %}
+                &lt;p&gt;&lt;strong&gt;{{ file.date }}&lt;/strong&gt; - {{ file.description }}&lt;/p&gt;
+            {% endif %}
         &lt;/article&gt;
         {% endfor %}
     &lt;/Template&gt;
     &lt;Style&gt;
-        article,
-        article &gt; div {
-            padding: 2%;
-            margin: 2%;
-            background: #aaaaee55;
-            border:5px inset #338;
+        * { margin: 0; padding: 0 }
+        article {
             font-size: 90%;
+            background: pink;
+            border: 8px outset tomato;
+            padding: 3px;
+            font-size: 0.9rem;
+            color: #115;
+            display: block;
         }
-        h3 { font-size: 1.1rem; }
+        h3 {
+            background: tomato;
+            border: 8px outset pink;
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            margin-bottom: 10px;
+        }
     &lt;/Style&gt;
 &lt;/Component&gt;
 " modulo-mount-html=""></x-quickdemo>

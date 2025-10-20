@@ -1,6 +1,6 @@
 <!DOCTYPE html><html><head><meta charset="utf8"><meta name="charset" charset="utf8" id="include_xxm0qoac"><meta name="content-type" http-equiv="Content-Type" content="text/html; charset=utf-8" id="include_xxnd8o0e"><meta name="viewport" content="width=device-width, initial-scale=1" id="include_x13l7u56"><meta name="robots" content="index, follow" id="include_xxriq75n"><meta name="revisit-after" content="30 days" id="include_x1m4jm9p"><link rel="stylesheet" href="../build-xxplgqrl.css">
 
-<script defer="" src="../build-xxb8nf1g.js"></script>
+<script defer="" src="../build-xxquecrj.js"></script>
 </head><body><x-page rootat="https://modulohtml.org/">
         <meta charset="utf8">
         <title>Processors - Modulo Documentation</title>
@@ -167,35 +167,11 @@ examine the <code>-store=</code> processor for <em>State</em>:</p><x-quickdemo m
     -store=&quot;userdata&quot;
     username=&quot;crash0veride&quot;
 &gt;&lt;/State&gt;
-" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
-        
-            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html=""></x-syntaxhighlighter>
-        
-        <div class="toolbar toolbar--small toolbar--autohide
-             toolbar--snippet">
-            
-                <button><span alt="Clipboard icon">📋</span> Copy</button>
-            
-        </div>
-        
-    </div>
-    <div class="overlay"></div></x-quickdemo>
+" modulo-mount-html=""></x-quickdemo>
 <p>Others are supported by all component parts. For example, examine the <code>-src=</code>
 processor for loading content from external files.</p><x-quickdemo mode="modulo" value="&lt;Template -src=&quot;my-template.html&quot;&gt;&lt;/Template&gt;
 &lt;Style -src=&quot;fancy-look.css&quot;&gt;&lt;/Style&gt;
-" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
-        
-            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html=""></x-syntaxhighlighter>
-        
-        <div class="toolbar toolbar--small toolbar--autohide
-             toolbar--snippet">
-            
-                <button><span alt="Clipboard icon">📋</span> Copy</button>
-            
-        </div>
-        
-    </div>
-    <div class="overlay"></div></x-quickdemo>
+" modulo-mount-html=""></x-quickdemo>
 <h2 id="behavior">Behavior</h2>
 <p>Definition processors have three important rules of behavior:</p>
 <ol>
@@ -237,19 +213,7 @@ good news is that after building, no one will notice, since <em>Processors</em> 
 generate with something else. This allows you to have multiple Component Parts
 of the same type without conflict.</p>
 <p>For a simple example, see below:</p><x-quickdemo mode="modulo" value="&lt;Template -name=&quot;footer_template&quot;&gt;
-" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
-        
-            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html=""></x-syntaxhighlighter>
-        
-        <div class="toolbar toolbar--small toolbar--autohide
-             toolbar--snippet">
-            
-                <button><span alt="Clipboard icon">📋</span> Copy</button>
-            
-        </div>
-        
-    </div>
-    <div class="overlay"></div></x-quickdemo>
+" modulo-mount-html=""></x-quickdemo>
 <h3 id="examplenameformultiplecomponentparts">Example: <code>-name</code> for multiple Component Parts</h3>
 <p>Note that <em>Template</em> has special behavior around <code>-name</code>. If you specify a
 name, it will <em>not</em> by default still render, since it will assume you are going
@@ -270,19 +234,7 @@ to include it somewhere else.</p><x-quickdemo mode="modulo_demo" value="&lt;Temp
 &lt;StaticData -name=&quot;dislikes_data&quot;&gt;
     [ &quot;Wet towels&quot; ]
 &lt;/StaticData&gt;
-" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
-        
-            <x-syntaxhighlighter mode="modulo_demo" style="font-size: 18px" modulo-mount-html=""></x-syntaxhighlighter>
-        
-        <div class="toolbar toolbar--small toolbar--autohide
-             toolbar--snippet">
-            
-                <button><span alt="Clipboard icon">📋</span> Copy</button>
-            
-        </div>
-        
-    </div>
-    <div class="overlay"></div></x-quickdemo>
+" modulo-mount-html=""></x-quickdemo>
 <h2 id="src">-src</h2>
 <ul>
 <li>Supported by: <strong>All Definitions</strong></li>
@@ -297,19 +249,7 @@ to include it somewhere else.</p><x-quickdemo mode="modulo_demo" value="&lt;Temp
 &lt;Style
     -src=&quot;./MyComponent/MyComponent.css&quot;
 &gt;&lt;/Style&gt;
-" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
-        
-            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html=""></x-syntaxhighlighter>
-        
-        <div class="toolbar toolbar--small toolbar--autohide
-             toolbar--snippet">
-            
-                <button><span alt="Clipboard icon">📋</span> Copy</button>
-            
-        </div>
-        
-    </div>
-    <div class="overlay"></div></x-quickdemo>
+" modulo-mount-html=""></x-quickdemo>
 <h3 id="srcforjavascriptextension">-src for JavaScript extension</h3>
 <p>Note that the -src= combines the retrieved content with whatever is embedded
 between the opening and closing tag. It <em>does not</em> replace the embedded
@@ -341,19 +281,7 @@ example, here we load content from an external document file, and then use
     -src=&quot;https://some-site.com/some-old-document.xhtml&quot;
     -filter-content=&quot;trim:'&lt;xml version=1.0&gt;&lt;html&gt;,&lt;/html&gt;'&quot;
 &gt;&lt;/Template&gt;
-" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
-        
-            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html=""></x-syntaxhighlighter>
-        
-        <div class="toolbar toolbar--small toolbar--autohide
-             toolbar--snippet">
-            
-                <button><span alt="Clipboard icon">📋</span> Copy</button>
-            
-        </div>
-        
-    </div>
-    <div class="overlay"></div></x-quickdemo>
+" modulo-mount-html=""></x-quickdemo>
 <p>In this case, the <code>trim</code> filter will remove the XML doctype and an HTML opening
 tag, along withe the HTML closing tag, if they are found at the  beginning and
 end of the document retrieved from:
@@ -384,85 +312,7 @@ x {
     bg=&quot;#a0caa0&quot;
     size:=10
 &gt;&lt;/State&gt;
-" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
-        
-            <x-mirroreditor name="value" mode="modulo_demo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
-      <div class="editor-underlay-container" style="
-            width:    224px
-                    ;
-            height:  48px
-                    ;
-          ">
-          <div class="editor-underlay-offset-wrapper" style="
-                
-                
-                
-                    width: 224px; 
-              "><x-syntaxhighlighter mode="modulo" style="
-                    font-family: monospace;
-                    text-align: start;
-                    resize: none;
-                    box-sizing: border-box;
-                    font-size: 18px;
-                    
-                        white-space: pre;
-                    " modulo-mount-html="" value="&lt;Template&gt;
-    &lt;label&gt;&lt;input state.bind name=&quot;bg&quot; type=&quot;color&quot; /&gt; Color&lt;/label&gt;
-    &lt;label&gt;&lt;input state.bind name=&quot;size&quot; type=&quot;range&quot; min=&quot;5&quot; max=&quot;20&quot; /&gt; Size&lt;/label&gt;
-    &lt;button style=&quot;{% include button_style %}&quot;&gt;Sample Button&lt;/button&gt;
-    &lt;pre&gt;button { {% include button_style %} }&lt;/pre&gt;
-&lt;/Template&gt;
-
-&lt;style Template -filter-content=&quot;trim:'x {,}'&quot; -name=&quot;button_style&quot;&gt;
-x {
-    background-color: {{ state.bg }};
-    font-size: {{ state.size }}px;
-}
-&lt;/style&gt;
-
-&lt;State
-    bg=&quot;#a0caa0&quot;
-    size:=10
-&gt;&lt;/State&gt;
-"><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">state.bind</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"bg"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"color"</span> /&gt;</span> Color<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">state.bind</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"size"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"range"</span> <span class="hljs-attr">min</span>=<span class="hljs-string">"5"</span> <span class="hljs-attr">max</span>=<span class="hljs-string">"20"</span> /&gt;</span> Size<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"</span></span></span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">include</span></span> button_style %}</span><span class="language-xml"><span class="hljs-tag"><span class="hljs-string">"</span>&gt;</span>Sample Button<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">pre</span>&gt;</span>button { </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">include</span></span> button_style %}</span><span class="language-xml"> }<span class="hljs-tag">&lt;/<span class="hljs-name">pre</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
-
-<span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-modulo-deftype-attr">Template</span> <span class="hljs-modulo-defprocessor">-filter-content</span>=<span class="hljs-string">"trim:'x {,}'"</span> <span class="hljs-modulo-defprocessor">-name</span>=<span class="hljs-string">"button_style"</span>&gt;</span><span class="language-css">
-x {
-    <span class="hljs-attribute">background-color</span>: </span></span><span class="hljs-template-variable">{{ state.bg }}</span><span class="language-xml"><span class="language-css">;
-    <span class="hljs-attribute">font-size</span>: </span></span><span class="hljs-template-variable">{{ state.size }}</span><span class="language-xml">px;
-}
-<span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
-
-<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
-    <span class="hljs-attr">bg</span>=<span class="hljs-string">"#a0caa0"</span>
-    <span class="hljs-attr">size:</span>=<span class="hljs-modulo-attr-value-lit">10</span>
-&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
-</span></x-syntaxhighlighter>
-          </div>
-      </div>
-      <textarea data-gramm="false" name="value" spellcheck="false" style="
-            font-size: 18px;
-            
-                white-space: pre;
-            " script.ref="" on.scroll="script.updateDimensions"></textarea>
-  </div></x-mirroreditor>
-        
-        <div class="toolbar toolbar--small toolbar--autohide
-             ">
-            
-                <button><span alt="Clipboard icon">📋</span> Copy</button>
-                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
-                <button><span alt="Download arrow downward">⤓</span> Save</button>
-            
-        </div>
-        
-    <iframe></iframe></div>
-    <div class="overlay"></div></x-quickdemo>
+" modulo-mount-html=""></x-quickdemo>
 <h5 id="example3tagswapfortable">Example 3: Tagswap for <code>&lt;table&gt;</code></h5>
 <p>Modulo uses HTML syntax for most everything. This, unfortunately, means that
 <code>&lt;table&gt;</code> tags can behave differently when it comes to how content is processed
@@ -486,83 +336,7 @@ meanings as well. To get around limitations like this, we can use the
         padding: 2px;
     }
 &lt;/Style&gt;
-" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
-        
-            <x-mirroreditor name="value" mode="modulo_demo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
-      <div class="editor-underlay-container" style="
-            width:    224px
-                    ;
-            height:  48px
-                    ;
-          ">
-          <div class="editor-underlay-offset-wrapper" style="
-                
-                
-                
-                    width: 224px; 
-              "><x-syntaxhighlighter mode="modulo" style="
-                    font-family: monospace;
-                    text-align: start;
-                    resize: none;
-                    box-sizing: border-box;
-                    font-size: 18px;
-                    
-                        white-space: pre;
-                    " modulo-mount-html="" value="&lt;Template -filter-content=&quot;tagswap:'t=table r=tr d=td'&quot;&gt;
-    &lt;t&gt;
-        &lt;r&gt; &lt;d&gt;Col 1&lt;/d&gt; &lt;d&gt;Col 2&lt;/d&gt; &lt;d&gt;Col 3&lt;/d&gt; &lt;/r&gt;
-        &lt;r&gt; &lt;d&gt;A&lt;/d&gt; &lt;d&gt;B&lt;/d&gt; &lt;d&gt;C&lt;/d&gt; &lt;/r&gt;
-        &lt;r&gt; &lt;d&gt;1&lt;/d&gt; &lt;d&gt;2&lt;/d&gt; &lt;d&gt;3&lt;/d&gt; &lt;/r&gt;
-        &lt;r&gt; &lt;d&gt;X&lt;/d&gt; &lt;d&gt;Y&lt;/d&gt; &lt;d&gt;Z&lt;/d&gt; &lt;/r&gt;
-    &lt;/t&gt;
-&lt;/Template&gt;
-&lt;Style&gt;
-    table {
-        border: 2px solid Tomato;
-    }
-    td {
-        border: 1px dotted Tomato;
-        padding: 2px;
-    }
-&lt;/Style&gt;
-"><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span> <span class="hljs-modulo-defprocessor">-filter-content</span>=<span class="hljs-string">"tagswap:'t=table r=tr d=td'"</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">t</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">r</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">d</span>&gt;</span>Col 1<span class="hljs-tag">&lt;/<span class="hljs-name">d</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">d</span>&gt;</span>Col 2<span class="hljs-tag">&lt;/<span class="hljs-name">d</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">d</span>&gt;</span>Col 3<span class="hljs-tag">&lt;/<span class="hljs-name">d</span>&gt;</span> <span class="hljs-tag">&lt;/<span class="hljs-name">r</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">r</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">d</span>&gt;</span>A<span class="hljs-tag">&lt;/<span class="hljs-name">d</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">d</span>&gt;</span>B<span class="hljs-tag">&lt;/<span class="hljs-name">d</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">d</span>&gt;</span>C<span class="hljs-tag">&lt;/<span class="hljs-name">d</span>&gt;</span> <span class="hljs-tag">&lt;/<span class="hljs-name">r</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">r</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">d</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-name">d</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">d</span>&gt;</span>2<span class="hljs-tag">&lt;/<span class="hljs-name">d</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">d</span>&gt;</span>3<span class="hljs-tag">&lt;/<span class="hljs-name">d</span>&gt;</span> <span class="hljs-tag">&lt;/<span class="hljs-name">r</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">r</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">d</span>&gt;</span>X<span class="hljs-tag">&lt;/<span class="hljs-name">d</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">d</span>&gt;</span>Y<span class="hljs-tag">&lt;/<span class="hljs-name">d</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">d</span>&gt;</span>Z<span class="hljs-tag">&lt;/<span class="hljs-name">d</span>&gt;</span> <span class="hljs-tag">&lt;/<span class="hljs-name">r</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">t</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Style</span>&gt;</span><span class="language-css">
-    <span class="hljs-selector-tag">table</span> {
-        <span class="hljs-attribute">border</span>: <span class="hljs-number">2px</span> solid Tomato;
-    }
-    <span class="hljs-selector-tag">td</span> {
-        <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> dotted Tomato;
-        <span class="hljs-attribute">padding</span>: <span class="hljs-number">2px</span>;
-    }
-</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Style</span>&gt;</span>
-</span></x-syntaxhighlighter>
-          </div>
-      </div>
-      <textarea data-gramm="false" name="value" spellcheck="false" style="
-            font-size: 18px;
-            
-                white-space: pre;
-            " script.ref="" on.scroll="script.updateDimensions"></textarea>
-  </div></x-mirroreditor>
-        
-        <div class="toolbar toolbar--small toolbar--autohide
-             ">
-            
-                <button><span alt="Clipboard icon">📋</span> Copy</button>
-                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
-                <button><span alt="Download arrow downward">⤓</span> Save</button>
-            
-        </div>
-        
-    <iframe></iframe></div>
-    <div class="overlay"></div></x-quickdemo>
+" modulo-mount-html=""></x-quickdemo>
 <blockquote>
   <p><strong>Gotcha: Applied at loading time</strong> Remember that it is applied "pre-baked"
   to the content itself during initial content load, and NOT at <em>Template</em> run

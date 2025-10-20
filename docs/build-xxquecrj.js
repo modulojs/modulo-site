@@ -2510,6 +2510,7 @@ modulo.registry.modules.QuickDemo_script = function QuickDemo_script (modulo) {
     function buildCallback() {
         //element.removeAttribute('value')
         //element.removeAttribute('usage')
+        element.innerHTML = '' // TODO fix
     }
 
     function updateCallback() {

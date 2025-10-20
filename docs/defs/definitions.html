@@ -1,6 +1,6 @@
 <!DOCTYPE html><html><head><meta charset="utf8"><meta name="charset" charset="utf8" id="include_xxm0qoac"><meta name="content-type" http-equiv="Content-Type" content="text/html; charset=utf-8" id="include_xxnd8o0e"><meta name="viewport" content="width=device-width, initial-scale=1" id="include_x13l7u56"><meta name="robots" content="index, follow" id="include_xxriq75n"><meta name="revisit-after" content="30 days" id="include_x1m4jm9p"><link rel="stylesheet" href="../build-xxplgqrl.css">
 
-<script defer="" src="../build-xxb8nf1g.js"></script>
+<script defer="" src="../build-xxquecrj.js"></script>
 </head><body><x-page rootat="https://modulohtml.org/">
         <meta charset="utf8">
         <title>Definitions - Modulo Documentation</title>
@@ -239,19 +239,7 @@ easily use <code>&lt;script src="..."&gt;</code> or <code>&lt;link rel=styleshee
 the page loads with given dependencies. See below:</p><x-quickdemo mode="modulo" value="&lt;Template -src=&quot;templates/my-template.html&quot;&gt;&lt;/Template&gt;
 &lt;Script -src=&quot;js/my-javascript.js&quot;&gt;&lt;/Script&gt;
 &lt;Style -src=&quot;css/my-style.css&quot;&gt;&lt;/Style&gt;
-" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
-        
-            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html=""></x-syntaxhighlighter>
-        
-        <div class="toolbar toolbar--small toolbar--autohide
-             toolbar--snippet">
-            
-                <button><span alt="Clipboard icon">📋</span> Copy</button>
-            
-        </div>
-        
-    </div>
-    <div class="overlay"></div></x-quickdemo>
+" modulo-mount-html=""></x-quickdemo>
 <h1 id="naming">Naming</h1>
 <h2 id="defaultnaming">Default naming</h2>
 <p>All definitions have a name. By default, all definitions get <em>named</em> in
@@ -262,19 +250,7 @@ specify the name.  For example, the two <em>State</em> parts get the names <code
 <code>state1</code> below:</p><x-quickdemo mode="modulo" value="&lt;Template&gt;{{ state.abc }} and {{ state1.abc }}&lt;/Template&gt;
 &lt;State abc=&quot;first state data&quot;&gt;&lt;/State&gt;
 &lt;State abc=&quot;second state data&quot;&gt;&lt;/State&gt;
-" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 0px;">
-        
-            <x-syntaxhighlighter mode="modulo" style="font-size: 18px" modulo-mount-html=""></x-syntaxhighlighter>
-        
-        <div class="toolbar toolbar--small toolbar--autohide
-             toolbar--snippet">
-            
-                <button><span alt="Clipboard icon">📋</span> Copy</button>
-            
-        </div>
-        
-    </div>
-    <div class="overlay"></div></x-quickdemo>
+" modulo-mount-html=""></x-quickdemo>
 <h2 id="namingwithname">Naming with -name=</h2>
 <p>The <code>-name</code> attribute lets us name and distinguish duplicate parts, and
 prevents the numbering behavior. </p>
@@ -293,73 +269,7 @@ names:</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
     -name=&quot;second_state&quot;
     abc=&quot;second state data&quot;
 &gt;&lt;/State&gt;
-" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
-        
-            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
-      <div class="editor-underlay-container" style="
-            width:    224px
-                    ;
-            height:  48px
-                    ;
-          ">
-          <div class="editor-underlay-offset-wrapper" style="
-                
-                
-                
-                    width: 224px; 
-              "><x-syntaxhighlighter mode="modulo" style="
-                    font-family: monospace;
-                    text-align: start;
-                    resize: none;
-                    box-sizing: border-box;
-                    font-size: 18px;
-                    
-                        white-space: pre;
-                    " modulo-mount-html="" value="&lt;Template&gt;
-    &lt;p&gt;first_state.abc is {{ first_state.abc }}&lt;/p&gt;
-    &lt;p&gt;second_state.abc is {{ second_state.abc }}&lt;/p&gt;
-&lt;/Template&gt;
-&lt;State
-    -name=&quot;first_state&quot;
-    abc=&quot;first state data&quot;
-&gt;&lt;/State&gt;
-&lt;State
-    -name=&quot;second_state&quot;
-    abc=&quot;second state data&quot;
-&gt;&lt;/State&gt;
-"><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>first_state.abc is </span><span class="hljs-template-variable">{{ first_state.abc }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>second_state.abc is </span><span class="hljs-template-variable">{{ second_state.abc }}</span><span class="language-xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
-    <span class="hljs-modulo-defprocessor">-name</span>=<span class="hljs-string">"first_state"</span>
-    <span class="hljs-attr">abc</span>=<span class="hljs-string">"first state data"</span>
-&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">State</span>
-    <span class="hljs-modulo-defprocessor">-name</span>=<span class="hljs-string">"second_state"</span>
-    <span class="hljs-attr">abc</span>=<span class="hljs-string">"second state data"</span>
-&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">State</span>&gt;</span>
-</span></x-syntaxhighlighter>
-          </div>
-      </div>
-      <textarea data-gramm="false" name="value" spellcheck="false" style="
-            font-size: 18px;
-            
-                white-space: pre;
-            " script.ref="" on.scroll="script.updateDimensions"></textarea>
-  </div></x-mirroreditor>
-        
-        <div class="toolbar toolbar--small toolbar--autohide
-             ">
-            
-                <button><span alt="Clipboard icon">📋</span> Copy</button>
-                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
-                <button><span alt="Download arrow downward">⤓</span> Save</button>
-            
-        </div>
-        
-    <iframe></iframe></div>
-    <div class="overlay"></div></x-quickdemo>
+" modulo-mount-html=""></x-quickdemo>
 <h5 id="example2explicitnamingtemplate">Example 2: Explicit Naming (Template)</h5>
 <p>This is also handy for breaking apart large templates. Here we name two extra
 templates <code>template_a</code> and <code>template_b</code>, which we include in a final template:</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template -name=&quot;template_a&quot;&gt;&lt;h3&gt;First template&lt;/h3&gt;&lt;/Template&gt;
@@ -369,63 +279,7 @@ templates <code>template_a</code> and <code>template_b</code>, which we include 
     &lt;hr /&gt;
     {% include template_b %}
 &lt;/Template&gt;
-" modulo-mount-html=""><div class="editor-layout" style="--demo-width: 250px;">
-        
-            <x-mirroreditor name="value" mode="modulo" modulo-mount-html=""><div class="editor-wrapper" on.click="script.updateDimensions">
-      <div class="editor-underlay-container" style="
-            width:    224px
-                    ;
-            height:  48px
-                    ;
-          ">
-          <div class="editor-underlay-offset-wrapper" style="
-                
-                
-                
-                    width: 224px; 
-              "><x-syntaxhighlighter mode="modulo" style="
-                    font-family: monospace;
-                    text-align: start;
-                    resize: none;
-                    box-sizing: border-box;
-                    font-size: 18px;
-                    
-                        white-space: pre;
-                    " modulo-mount-html="" value="&lt;Template -name=&quot;template_a&quot;&gt;&lt;h3&gt;First template&lt;/h3&gt;&lt;/Template&gt;
-&lt;Template -name=&quot;template_b&quot;&gt;&lt;h3&gt;Second Template&lt;/h3&gt;&lt;/Template&gt;
-&lt;Template&gt;
-    {% include template_a %}
-    &lt;hr /&gt;
-    {% include template_b %}
-&lt;/Template&gt;
-"><span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span> <span class="hljs-modulo-defprocessor">-name</span>=<span class="hljs-string">"template_a"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>First template<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span> <span class="hljs-modulo-defprocessor">-name</span>=<span class="hljs-string">"template_b"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Second Template<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-modulo-deftype">Template</span>&gt;</span>
-    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">include</span></span> template_a %}</span><span class="language-xml">
-    <span class="hljs-tag">&lt;<span class="hljs-name">hr</span> /&gt;</span>
-    </span><span class="hljs-template-tag">{% <span class="hljs-name"><span class="hljs-name">include</span></span> template_b %}</span><span class="language-xml">
-<span class="hljs-tag">&lt;/<span class="hljs-modulo-deftype">Template</span>&gt;</span>
-</span></x-syntaxhighlighter>
-          </div>
-      </div>
-      <textarea data-gramm="false" name="value" spellcheck="false" style="
-            font-size: 18px;
-            
-                white-space: pre;
-            " script.ref="" on.scroll="script.updateDimensions"></textarea>
-  </div></x-mirroreditor>
-        
-        <div class="toolbar toolbar--small toolbar--autohide
-             ">
-            
-                <button><span alt="Clipboard icon">📋</span> Copy</button>
-                <button><span alt="Refresh arrow in circle">⟳</span> Run</button>
-                <button><span alt="Download arrow downward">⤓</span> Save</button>
-            
-        </div>
-        
-    <iframe></iframe></div>
-    <div class="overlay"></div></x-quickdemo>
+" modulo-mount-html=""></x-quickdemo>
 </div>
                 
             

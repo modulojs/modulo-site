@@ -1,0 +1,582 @@
+<!DOCTYPE html><html><head><meta name="charset" charset="utf8" id="include_xxm0qoac"><meta name="content-type" http-equiv="Content-Type" content="text/html; charset=utf-8" id="include_xxnd8o0e"><meta name="viewport" content="width=device-width, initial-scale=1" id="include_x13l7u56"><meta name="robots" content="index, follow" id="include_xxriq75n"><meta name="revisit-after" content="30 days" id="include_x1m4jm9p"><link rel="stylesheet" href="../build-xxplgqrl.css">
+
+<script defer="" src="../build-xxquecrj.js"></script>
+</head><body><x-page rootat="https://modulohtml.org/">
+        <meta charset="utf8">
+        <title>State - Component Parts - Modulo Documentation</title>
+    
+    <div class="layout Page">
+        <nav class="page-nav Page">
+            
+            <a style="font-size:60px;text-align:center;display:block;font-weight:200" href="../" class="Page">ᵐ°dᵘ⁄o</a>
+            <ul style="position: sticky; top: 1px" class="Page">
+                <li class="toc--outer Page">
+                    <p><a style="font-size: 70%" title="Download Modulo Docs as a offline-friendly zip" href="https://codeberg.org/modulo/docs/archive/main.zip" class="Page">
+                            ⤓ docs-main.zip</a>
+                        <tt>v0.1.0</tt>
+                    </p>
+                </li>
+            
+                
+                    <li class="toc--outer Page"><h3 class="Page">       Modulo</h3></li>
+                    <li class="toc--"><a href="../start/index.html" class="Page">           Introduction</a></li>
+                
+                    
+                    <li class="toc--"><a href="../start/getting-started.html" class="Page"> Getting Started</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">           Definitions</h3></li>
+                    <li class="toc--"><a href="../defs/overview.html" class="Page">         Overview</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/importing.html" class="Page">        Importing</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/definitions.html" class="Page">      Definition Types</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/processors.html" class="Page">       Processors</a></li>
+                
+                    
+                    <li class="toc--"><a href="../defs/custom.html" class="Page">           Custom Types</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">  Templating</h3></li>
+                    <li class="toc--"><a href="../templating/index.html" class="Page">      Language Overview</a></li>
+                
+                    
+                    <li class="toc--"><a href="../templating/filters.html" class="Page">    Template Filters</a></li>
+                
+                    
+                    <li class="toc--"><a href="../templating/tags.html" class="Page">       Template Tags</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">              Component Parts</h3></li>
+                    <li class="toc--"><a href="../parts/props.html" class="Page">           Props</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/script.html" class="Page">          Script</a></li>
+                
+                    
+                    <li class="toc--active Page"><a href="../parts/state.html" class="Page">           State</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/staticdata.html" class="Page">      StaticData</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/style.html" class="Page">           Style</a></li>
+                
+                    
+                    <li class="toc--"><a href="../parts/template.html" class="Page">        Template</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">           Core Definitions</h3></li>
+                    <li class="toc--"><a href="../core/artifact.html" class="Page">         Artifact</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/component.html" class="Page">        Component</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/configuration.html" class="Page">    Configuration</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/contentlist.html" class="Page">      ContentList</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/include.html" class="Page">          Include</a></li>
+                
+                    
+                    <li class="toc--"><a href="../core/library.html" class="Page">          Library</a></li>
+                
+                    <li class="toc--outer Page"><h3 class="Page">  Extension</h3></li>
+                    <li class="toc--"><a href="../extension/engine.html" class="Page">      Upgrading Engines</a></li>
+                
+            </ul>
+        </nav>
+        <main class="page-container Page">
+            
+                
+                    
+                        <x-tableofcontents toc="[{&quot;match&quot;:&quot;&lt;h1 id=\&quot;state\&quot;&gt;State&lt;/h1&gt;&quot;,&quot;level&quot;:1,&quot;attrs&quot;:&quot;id=\&quot;state\&quot;&quot;,&quot;title&quot;:&quot;State&quot;,&quot;id&quot;:&quot;state&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;example\&quot;&gt;Example&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;example\&quot;&quot;,&quot;title&quot;:&quot;Example&quot;,&quot;id&quot;:&quot;example&quot;},{&quot;match&quot;:&quot;&lt;h1 id=\&quot;definition\&quot;&gt;Definition&lt;/h1&gt;&quot;,&quot;level&quot;:1,&quot;attrs&quot;:&quot;id=\&quot;definition\&quot;&quot;,&quot;title&quot;:&quot;Definition&quot;,&quot;id&quot;:&quot;definition&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;example1\&quot;&gt;Example 1&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;example1\&quot;&quot;,&quot;title&quot;:&quot;Example 1&quot;,&quot;id&quot;:&quot;example1&quot;},{&quot;match&quot;:&quot;&lt;h2 id=\&quot;example2\&quot;&gt;Example 2&lt;/h2&gt;&quot;,&quot;level&quot;:2,&quot;attrs&quot;:&quot;id=\&quot;example2\&quot;&quot;,&quot;title&quot;:&quot;Example 2&quot;,&quot;id&quot;:&quot;example2&quot;},{&quot;match&quot;:&quot;&lt;h1 id=\&quot;stores\&quot;&gt;Stores&lt;/h1&gt;&quot;,&quot;level&quot;:1,&quot;attrs&quot;:&quot;id=\&quot;stores\&quot;&quot;,&quot;title&quot;:&quot;Stores&quot;,&quot;id&quot;:&quot;stores&quot;},{&quot;match&quot;:&quot;&lt;h4 id=\&quot;limitingastorewithonly\&quot;&gt;Limiting a store with -only&lt;/h4&gt;&quot;,&quot;level&quot;:4,&quot;attrs&quot;:&quot;id=\&quot;limitingastorewithonly\&quot;&quot;,&quot;title&quot;:&quot;Limiting a store with -only&quot;,&quot;id&quot;:&quot;limitingastorewithonly&quot;},{&quot;match&quot;:&quot;&lt;h1 id=\&quot;componentpartproperties\&quot;&gt;Component Part properties&lt;/h1&gt;&quot;,&quot;level&quot;:1,&quot;attrs&quot;:&quot;id=\&quot;componentpartproperties\&quot;&quot;,&quot;title&quot;:&quot;Component Part properties&quot;,&quot;id&quot;:&quot;componentpartproperties&quot;},{&quot;match&quot;:&quot;&lt;h3 id=\&quot;renderobj\&quot;&gt;renderObj&lt;/h3&gt;&quot;,&quot;level&quot;:3,&quot;attrs&quot;:&quot;id=\&quot;renderobj\&quot;&quot;,&quot;title&quot;:&quot;renderObj&quot;,&quot;id&quot;:&quot;renderobj&quot;},{&quot;match&quot;:&quot;&lt;h3 id=\&quot;directives\&quot;&gt;Directives&lt;/h3&gt;&quot;,&quot;level&quot;:3,&quot;attrs&quot;:&quot;id=\&quot;directives\&quot;&quot;,&quot;title&quot;:&quot;Directives&quot;,&quot;id&quot;:&quot;directives&quot;},{&quot;match&quot;:&quot;&lt;h1 id=\&quot;syntaxexamples\&quot;&gt;Syntax Examples&lt;/h1&gt;&quot;,&quot;level&quot;:1,&quot;attrs&quot;:&quot;id=\&quot;syntaxexamples\&quot;&quot;,&quot;title&quot;:&quot;Syntax Examples&quot;,&quot;id&quot;:&quot;syntaxexamples&quot;},{&quot;match&quot;:&quot;&lt;h1 id=\&quot;bindingexamples\&quot;&gt;Binding Examples&lt;/h1&gt;&quot;,&quot;level&quot;:1,&quot;attrs&quot;:&quot;id=\&quot;bindingexamples\&quot;&quot;,&quot;title&quot;:&quot;Binding Examples&quot;,&quot;id&quot;:&quot;bindingexamples&quot;},{&quot;match&quot;:&quot;&lt;h3 id=\&quot;example1bindingdifferentinputtypes\&quot;&gt;Example #1: Binding different input types&lt;/h3&gt;&quot;,&quot;level&quot;:3,&quot;attrs&quot;:&quot;id=\&quot;example1bindingdifferentinputtypes\&quot;&quot;,&quot;title&quot;:&quot;Example #1: Binding different input types&quot;,&quot;id&quot;:&quot;example1bindingdifferentinputtypes&quot;},{&quot;match&quot;:&quot;&lt;h3 id=\&quot;example2combiningwithfilters\&quot;&gt;Example #2: Combining with filters&lt;/h3&gt;&quot;,&quot;level&quot;:3,&quot;attrs&quot;:&quot;id=\&quot;example2combiningwithfilters\&quot;&quot;,&quot;title&quot;:&quot;Example #2: Combining with filters&quot;,&quot;id&quot;:&quot;example2combiningwithfilters&quot;},{&quot;match&quot;:&quot;&lt;h3 id=\&quot;example3specifyingevents\&quot;&gt;Example #3: Specifying events&lt;/h3&gt;&quot;,&quot;level&quot;:3,&quot;attrs&quot;:&quot;id=\&quot;example3specifyingevents\&quot;&quot;,&quot;title&quot;:&quot;Example #3: Specifying events&quot;,&quot;id&quot;:&quot;example3specifyingevents&quot;},{&quot;match&quot;:&quot;&lt;h1 id=\&quot;storeexamples\&quot;&gt;Store Examples&lt;/h1&gt;&quot;,&quot;level&quot;:1,&quot;attrs&quot;:&quot;id=\&quot;storeexamples\&quot;&quot;,&quot;title&quot;:&quot;Store Examples&quot;,&quot;id&quot;:&quot;storeexamples&quot;},{&quot;match&quot;:&quot;&lt;h3 id=\&quot;example1storeforsimplestatesharing\&quot;&gt;Example #1: Store for simple state sharing&lt;/h3&gt;&quot;,&quot;level&quot;:3,&quot;attrs&quot;:&quot;id=\&quot;example1storeforsimplestatesharing\&quot;&quot;,&quot;title&quot;:&quot;Example #1: Store for simple state sharing&quot;,&quot;id&quot;:&quot;example1storeforsimplestatesharing&quot;},{&quot;match&quot;:&quot;&lt;h3 id=\&quot;example2multiplestatesandboundbuttons\&quot;&gt;Example #2: Multiple States and bound buttons&lt;/h3&gt;&quot;,&quot;level&quot;:3,&quot;attrs&quot;:&quot;id=\&quot;example2multiplestatesandboundbuttons\&quot;&quot;,&quot;title&quot;:&quot;Example #2: Multiple States and bound buttons&quot;,&quot;id&quot;:&quot;example2multiplestatesandboundbuttons&quot;}]" modulo-mount-html=""><nav class="regular&quot;=&quot;">
+        <div> </div>
+        <div>
+            <div>
+                <label>[ <input name="show" type="checkbox"> Table of Contents ]</label>
+                <label title="Stick to upper right">[ <span alt="upper right arrow">↗</span>
+                    <input name="sticky" type="checkbox"> ]</label>
+            </div>
+            
+                <ul>
+                    
+                        
+                            <li style="--level: 1">
+                                    <a href="#state">State</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#example">Example</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 1">
+                                    <a href="#definition">Definition</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#example1">Example 1</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 2">
+                                    <a href="#example2">Example 2</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 1">
+                                    <a href="#stores">Stores</a>
+                            </li>
+                        
+                    
+                        
+                    
+                        
+                            <li style="--level: 1">
+                                    <a href="#componentpartproperties">Component Part properties</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 3">
+                                    <a href="#renderobj">renderObj</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 3">
+                                    <a href="#directives">Directives</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 1">
+                                    <a href="#syntaxexamples">Syntax Examples</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 1">
+                                    <a href="#bindingexamples">Binding Examples</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 3">
+                                    <a href="#example1bindingdifferentinputtypes">Example #1: Binding different input types</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 3">
+                                    <a href="#example2combiningwithfilters">Example #2: Combining with filters</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 3">
+                                    <a href="#example3specifyingevents">Example #3: Specifying events</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 1">
+                                    <a href="#storeexamples">Store Examples</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 3">
+                                    <a href="#example1storeforsimplestatesharing">Example #1: Store for simple state sharing</a>
+                            </li>
+                        
+                    
+                        
+                            <li style="--level: 3">
+                                    <a href="#example2multiplestatesandboundbuttons">Example #2: Multiple States and bound buttons</a>
+                            </li>
+                        
+                    
+                </ul>
+            
+        </div>
+    </nav></x-tableofcontents>
+                    
+                    <div class="markdown-body"><h1 id="state">State</h1>
+<p>The <em>State</em> is for component instances to store changing data. This could
+include anything from text a user entered into a form, data received from an
+API, or data that represents UI flow changes, such as the visibility of a
+modal.</p>
+<p>By default (that is, with no <code>-store</code> attribute), state data is unique to every
+component instance, and components can never directly access sibling or parent
+data. It is possible to indirectly reference it, however, by passing state data
+from a "parent" component to a "child" components within the parent by passing
+it via a <em>Props</em> attribute. In this case, the data should be considered
+read-only to the child component, like any other <em>Props</em> data.</p>
+<h2 id="example">Example</h2>
+<p>See below for a quick example, showing off an example of each of the 6 types of data:</p><x-quickdemo mode="modulo" value="&lt;State
+    color=&quot;red&quot;                   (String)
+    count:=1                      (Number)
+    loading:=false                (Boolean)
+    company:=null                 (Null)
+    items:='[ &quot;abc&quot;, &quot;def&quot; ]'     (Array)
+    obj:='{ &quot;a&quot;: &quot;b&quot;, &quot;c&quot;: &quot;d&quot; }' (Object)
+&gt;&lt;/State&gt;
+" modulo-mount-html=""></x-quickdemo>
+<h1 id="definition">Definition</h1>
+<p>State is traditionally included in Component definitions below the <em>Template</em>
+tag, but above the <em>Script</em> tag. This makes sense because functions in the
+<em>Script</em> tag typically manipulate state in order to render new HTML in the
+<em>Template</em>, making <em>Script</em> a sort of mutable bridge between <em>Script</em> and
+<em>Template</em>. State is defined in a similar way to Props: Only defined with
+properties, but no contents.</p>
+<p>See below for an example of defining a <em>State</em> Component Part:</p>
+<h2 id="example1">Example 1</h2>
+<p>Two State variables specified, of type String and Number:</p><x-quickdemo mode="modulo" value="&lt;State
+    name=&quot;Luiz&quot;
+    favenum:=13
+&gt;&lt;/State&gt;
+" modulo-mount-html=""></x-quickdemo>
+<h2 id="example2">Example 2</h2>
+<p>Building up complicated JSON data with "." syntax:</p><x-quickdemo mode="modulo" value="&lt;State
+    user:={}
+    user.name=&quot;gigasquid&quot;
+    user.uid:=1313
+    user.address:={}
+    user.address.billable:=null
+    user.address.ready:=true
+&gt;&lt;/State&gt;
+" modulo-mount-html=""></x-quickdemo>
+<p>Note that all "state variables" <em>must</em> have an initial value. It's okay to make
+the initial value be <code>null</code> (as in the "billable" example above), or other some
+placeholder that will later be replaced. Undefined state variables are treated
+as errors.</p>
+<h1 id="stores">Stores</h1>
+<p>If you want to share data between components globally, such that any component
+can modify the data causing a re-render to all linked components, such as user
+log-in information or global state data, then you can use the powerful <code>-store</code>
+attribute:</p><x-quickdemo mode="modulo" value="&lt;State
+    -store=&quot;userinfo&quot;
+    username=&quot;pombo&quot;
+    tags:='[&quot;admin&quot;, &quot;printing&quot;]'
+&gt;&lt;/State&gt;
+" modulo-mount-html=""></x-quickdemo>
+<p>With this, any state with the given store <em>throughout your application</em> will
+share state and subscriptions to updates.</p>
+<h4 id="limitingastorewithonly">Limiting a store with -only</h4>
+<p>Sometimes, you'll only want to subscribe to certain attributes parts of a store:</p><x-quickdemo mode="modulo" value="&lt;State
+    -store=&quot;userinfo&quot;
+    -only:='[&quot;username&quot;]'
+    username=&quot;pombo&quot;
+&gt;&lt;/State&gt;
+" modulo-mount-html=""></x-quickdemo>
+<h1 id="componentpartproperties">Component Part properties</h1>
+<p>The actual data in a <em>State</em> Component Part is stored on it's "data" property. This
+property is a regular JavaScript Object, and thus can store any JavaScript data
+type. As an example, in a <em>Script</em> Component Part, you can directly reference this
+property with the code <code>cparts.state.data</code>.</p>
+<p>When writing the <em>State</em> Component Part definition, you must declare or pre-define each
+"state variable" or property of the "data" Object that you want to use. It is
+not permitted to create new state variables later on. In other words, if you
+only define <code>cparts.state.data</code> as having <code>.count</code> and <code>.title</code> as "state
+variables" (aka properties of the "data" Object), then an attempt like
+<code>cparts.state.data.newstuff = 10;</code> may result in an error. If you are dealing
+with a situation where you have an unknown quantity of data, such as from an
+API, the correct approach is to store it all within a nested Object <em>inside</em>
+the state data Object, e.g. such as an <code>data.apiResults</code> Object or Array.
+Unlike top-level "state variables", it's okay to add properties, modify, or
+build upon nested Objects.</p>
+<p>While it's allowed to assign any arbitrary reference as a <em>State</em> variable,
+including complex, unserializable types such as function callbacks, it's highly
+recommended to try to keep it to primitive and serializable types as much as
+possible (e.g. String, Number, Boolean, Array, Object). The reason being that
+there may be future features or third-party add-ons for <em>State</em> which will only
+support primitive types (as an example, that would be required to save state to
+localStorage). If you want to store functions, consider using a
+<code>prepareCallback</code> to generate the functions within a Script context, and only
+store the data needed to "generate" the function in the state (as opposed to
+storing a direct reference to the function itself).</p>
+<h3 id="renderobj">renderObj</h3>
+<p>State contributes it's current data values to the renderObj. Examples:</p>
+<ul>
+<li>State initialized like: <code>&lt;State&amp;nbsp;name="Luiz"&gt;</code> will be accessible on the
+renderObj like <code>renderObj.state.name</code>, and in the Script or Template Component Parts
+like <code>state.name</code>.</li>
+<li>State initialized like: <code>&lt;State stuff:='["a", "b"]'&gt;</code> will be accessible on
+the renderObj like <code>renderObj.state.info</code> (with individual items accessed
+with code that ends with "<code>.stuff[0]</code>"), and in the Script or Template Component Parts
+like <code>state.info</code>.</li>
+</ul>
+<h3 id="directives">Directives</h3>
+<p>State provides a single directive:</p>
+<ul>
+<li><code>state.bind</code> - Two-way binding with State data, with the key determined by
+the <code>name=</code> property of whatever it is attached to. You can attach a
+<code>state.bind</code> directive to any HTML <code>&lt;input&gt;</code>, and the <em>State</em> Component Part's
+two-way binding will cause the input value to be updated if the state
+variable ever changes, and if a user edits the input triggering a <code>"keyup"</code>
+or <code>"change"</code> event, the state variable will be updated (along with,
+typically, a re-render of the component).</li>
+</ul>
+<h1 id="syntaxexamples">Syntax Examples</h1>
+<p>Examine below for how two different syntaxes can be used to construct data:
+Either the JSON style all in one go, or the somewhat more verbose (but perhapse
+easier to maintain) dataProp style:</p><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+    {% if state_a|json is state_b|json %}
+        &lt;strong style=&quot;color: green&quot;&gt;MATCH&lt;/strong&gt;
+        &lt;pre&gt;{{ state_a|json:2 }}&lt;/pre&gt;
+    {% else %}
+        &lt;strong style=&quot;color: red&quot;&gt;NOT MATCH&lt;/strong&gt;
+        &lt;pre&gt;{{ state_a|json }}&lt;/pre&gt;
+        &lt;pre style=&quot;color: red&quot;&gt;{{ state_b|json }}&lt;/pre&gt;
+    {% endif %}
+&lt;/Template&gt;
+
+&lt;State
+    -name=&quot;state_a&quot;
+    count:=42
+    stuff:=null
+    articles:=[]
+    articles.0:={}
+    articles.1:={}
+    articles.2:={}
+    articles.0.headline=&quot;Modulo released!&quot;
+    articles.1.headline=&quot;Can JS be fun again?&quot;
+    articles.2.headline=&quot;MTL considered harmful&quot;
+    articles.0.tease=&quot;The most exciting news of the century.&quot;
+    articles.2.tease=&quot;Why constructing JS is risky business.&quot;
+&gt;&lt;/State&gt;
+
+&lt;State
+    -name=&quot;state_b&quot;
+    count:=42
+    stuff:=null
+    articles:='[
+      {&quot;headline&quot;: &quot;Modulo released!&quot;,
+       &quot;tease&quot;: &quot;The most exciting news of the century.&quot;},
+      {&quot;headline&quot;: &quot;Can JS be fun again?&quot;},
+      {&quot;headline&quot;: &quot;MTL considered harmful&quot;,
+       &quot;tease&quot;: &quot;Why constructing JS is risky business.&quot;}
+    ]'
+&gt;&lt;/State&gt;
+
+" modulo-mount-html=""></x-quickdemo>
+<h1 id="bindingexamples">Binding Examples</h1>
+<ul>
+<li><em>Useful resource:</em> Read this for a full list of input types. With the
+exception of some of the ones listed below, they will all be "String" in
+terms of the State Component Part. <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input">MDN input Element
+documentation</a></li>
+</ul>
+<h3 id="example1bindingdifferentinputtypes">Example #1: Binding different input types</h3><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+    &lt;h3&gt;Customize&lt;/h3&gt;
+
+    &lt;!-- text (default) --&gt;
+    &lt;input state.bind name=&quot;subject&quot; /&gt;
+
+    &lt;!-- textarea --&gt;
+    &lt;textarea state.bind name=&quot;body&quot;&gt;&lt;/textarea&gt;
+
+    &lt;!-- checkbox --&gt;
+    &lt;label&gt;Underlined: &lt;input state.bind name=&quot;underlined&quot;
+            type=&quot;checkbox&quot; min=&quot;50&quot; max=&quot;500&quot; step=&quot;10&quot; /&gt;&lt;/label&gt;
+
+    &lt;!-- select --&gt;
+    &lt;label&gt;Font
+        &lt;select state.bind name=&quot;font&quot;&gt;
+            &lt;option value=&quot;serif&quot;&gt;Serif&lt;/option&gt;
+            &lt;option value=&quot;sans-serif&quot;&gt;Sans-Serif&lt;/option&gt;
+            &lt;option value=&quot;monospace&quot;&gt;Monospace&lt;/option&gt;
+        &lt;/select&gt;
+    &lt;/label&gt;
+
+    &lt;!-- button element --&gt;
+    &lt;!-- (Note that the event has to be specified) --&gt;
+    &lt;label&gt;RESET
+        &lt;button state.bind.click name=&quot;subject&quot; value=&quot;XXXXXXX&quot;&gt;
+            SUBJ (XXXXXXX)
+        &lt;/button&gt;
+        &lt;button state.bind.click name=&quot;body&quot; value=&quot;XXXXXXX&quot;&gt;
+            BODY (XXXXXXX)
+        &lt;/button&gt;
+    &lt;/label&gt;
+
+    &lt;!-- number --&gt;
+    &lt;label&gt;Padding: &lt;input state.bind name=&quot;paddingSize&quot;
+            type=&quot;number&quot; min=&quot;1&quot; max=&quot;10&quot; step=&quot;1&quot; /&gt;&lt;/label&gt;
+
+    &lt;!-- range --&gt;
+    &lt;label&gt;Width: &lt;input state.bind name=&quot;contentWidth&quot;
+            type=&quot;range&quot; min=&quot;50&quot; max=&quot;500&quot; step=&quot;10&quot; /&gt;&lt;/label&gt;
+
+    &lt;!-- color --&gt;
+    &lt;label&gt;BG: &lt;input state.bind name=&quot;accentColor&quot;
+            type=&quot;color&quot; /&gt;&lt;/label&gt;
+
+    &lt;h5 style=&quot;
+        {% if state.underlined %}
+            text-decoration: underline;
+        {% endif %}
+        font-family: {{ state.font }};
+        background: {{ state.accentColor }};
+        padding: {{ state.padding-size }}px;
+        width: {{ state.content-width }}px;
+        top: 0;
+        right: 0;
+        position: fixed;
+    &quot;&gt;{{ state.subject }} - {{ state.body }}&lt;/h5&gt;
+&lt;/Template&gt;
+&lt;State
+    subject=&quot;Testing message...&quot;
+    body=&quot;Welcome to my blog&quot;
+    underlined:=false
+    font=&quot;monospace&quot;
+    padding-size:=5
+    content-width:=70
+    accent-color=&quot;#ffeeee&quot;
+&gt;&lt;/State&gt;
+
+&lt;Style&gt;
+    label {
+        display: block;
+        border: 1px solid black;
+        padding: 5px;
+    }
+&lt;/Style&gt;
+" modulo-mount-html=""></x-quickdemo>
+<h3 id="example2combiningwithfilters">Example #2: Combining with filters</h3><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+&lt;div&gt;
+    &lt;label&gt;Username:
+        &lt;input state.bind name=&quot;username&quot; /&gt;&lt;/label&gt;
+    &lt;label&gt;Color (&quot;green&quot; or &quot;blue&quot;):
+        &lt;input state.bind name=&quot;color&quot; /&gt;&lt;/label&gt;
+    &lt;label&gt;Opacity: &lt;input state.bind
+        name=&quot;opacity&quot;
+        type=&quot;number&quot; min=&quot;0&quot; max=&quot;10&quot; step=&quot;1&quot; /&gt;&lt;/label&gt;
+
+    &lt;h5 style=&quot;
+            opacity: {{ state.opacity|multiply:'0.1' }};
+            color: {{ state.color|allow:'green,blue'|default:'red' }};
+        &quot;&gt;
+        {{ state.username|lower }}
+    &lt;/h5&gt;
+&lt;/div&gt;
+
+&lt;/Template&gt;
+
+&lt;State
+    opacity:=5
+    color=&quot;blue&quot;
+    username=&quot;Testing_Username&quot;
+&gt;&lt;/State&gt;
+" modulo-mount-html=""></x-quickdemo>
+<h3 id="example3specifyingevents">Example #3: Specifying events</h3><x-quickdemo mode="modulo" demo="modulo" value="&lt;Template&gt;
+    &lt;p&gt;Default (.change):&lt;/p&gt;
+    &lt;input state.bind
+        name=&quot;c&quot; type=&quot;range&quot;
+        min=&quot;1&quot; max=&quot;10&quot; step=&quot;1&quot; /&gt;
+    &lt;p&gt;Smooth (.input):&lt;/p&gt;
+    &lt;input state.bind.input
+        name=&quot;c&quot; type=&quot;range&quot;
+        min=&quot;1&quot; max=&quot;10&quot; step=&quot;1&quot; /&gt;
+    &lt;tt style=&quot;{% if state.c gt 7 %}color: green{% endif %}&quot;&gt;
+        {{ state.c }}
+    &lt;/tt&gt;
+&lt;/Template&gt;
+&lt;State
+    c:=5
+&gt;&lt;/State&gt;
+&lt;Style&gt;
+    :host {
+        display: grid;
+        grid-template-columns: 90px 90px;
+    }
+&lt;/Style&gt;
+" modulo-mount-html=""></x-quickdemo>
+<h1 id="storeexamples">Store Examples</h1>
+<h3 id="example1storeforsimplestatesharing">Example #1: Store for simple state sharing</h3><x-quickdemo mode="modulo" demo="modulo_component" name="SharedState" usage="USAGE:" value="&lt;Template&gt;
+    &lt;input state.bind name=&quot;a&quot; /&gt;
+    &lt;input state.bind name=&quot;b&quot; /&gt;
+    &lt;input state.bind name=&quot;c&quot; type=&quot;range&quot;
+                        min=&quot;1&quot; max=&quot;10&quot; step=&quot;1&quot; /&gt;
+    &lt;tt style=&quot;{% if state.c gt 7 %}color: green{% endif %}&quot;&gt;
+        {{ state.c }}
+    &lt;/tt&gt;
+&lt;/Template&gt;
+&lt;State
+    -store=&quot;my_global_info&quot;
+    a=&quot;A b c&quot;
+    b=&quot;do re me&quot;
+    c:=5
+&gt;&lt;/State&gt;
+&lt;Style&gt;
+    :host {
+        display: grid;
+        grid-template-columns: 60px 60px 60px 20px;
+    }
+&lt;/Style&gt;
+
+USAGE:
+&lt;x-SharedState&gt;&lt;/x-SharedState&gt;
+&lt;hr /&gt;
+&lt;x-SharedState&gt;&lt;/x-SharedState&gt;
+&lt;hr /&gt;
+&lt;x-SharedState&gt;&lt;/x-SharedState&gt;
+" modulo-mount-html=""></x-quickdemo>
+<h3 id="example2multiplestatesandboundbuttons">Example #2: Multiple States and bound buttons</h3>
+<p>Here we have an incomplete "chat" component with two State Component Parts. This one
+shares state between instances of it. Note that "msg" is not shared (neither is
+<em>Props</em>), but "messages" is shared.</p><x-quickdemo mode="modulo" demo="modulo_component" name="StoreChat" usage="USAGE:" value="&lt;Props
+    username
+&gt;&lt;/Props&gt;
+&lt;Template&gt;
+    {% for m in chat.messages %}
+        &lt;em&gt;{{ m.name }}&lt;/em&gt;&lt;strong&gt;{{ m.text }}&lt;/strong&gt;
+    {% endfor %}
+    &lt;input state.bind name=&quot;msg&quot; /&gt;
+    &lt;button
+        on.click=chat.messages.push
+        chat.bind.click=&quot;messages&quot;
+        payload:='{
+            &quot;text&quot;: &quot;{{ state.msg|escapejs }}&quot;,
+            &quot;name&quot;: &quot;{{ props.username|escapejs }}&quot;
+        }'
+    &gt;SEND&lt;/button&gt;
+&lt;/Template&gt;
+&lt;State
+    msg=&quot;&quot;
+&gt;&lt;/State&gt;
+&lt;State
+    -name=&quot;chat&quot;
+    -store=&quot;chat&quot;
+    messages:=[]
+&gt;&lt;/State&gt;
+&lt;Style&gt;
+    :host {
+        display: grid;
+        grid-template-columns: 100px 100px;
+    }
+&lt;/Style&gt;
+
+USAGE:
+&lt;x-StoreChat username=&quot;ALICE&quot;&gt;&lt;/x-StoreChat&gt;
+&lt;hr /&gt;
+&lt;x-StoreChat username=&quot;BOB&quot;&gt;&lt;/x-StoreChat&gt;
+
+" modulo-mount-html=""></x-quickdemo>
+</div>
+                
+            
+        </main>
+    </div></x-page></body></html>

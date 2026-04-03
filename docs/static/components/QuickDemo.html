@@ -226,27 +226,4 @@
 
 <Style -src="./QuickDemo-toolbar.css.htm"></Style>
 
-<script ComponentTest>
-    const CHARACTER_MINIMUM = 20
-
-    async function test_render() {
-        const text = script.render()
-        const frame = await modulo.util.newFrame(text, { paramString: props.demoparams })
-        const body = frame.contentWindow.document.body
-        if (state.snapshot) {
-            const [ result, message ] = modulo.util.assertSnapshot(body, state.snapshot)
-            if (!result && message) {
-                console.log(message)
-            }
-            return result
-        } else { // Default check: Ensure something rendered > 20 chars
-            const text = body.innerHTML
-            if (body.innerHTML.length < CHARACTER_MINIMUM) {
-                console.log(CHARACTER_MINIMUM, 'Character Minimum Failed', state)
-                console.log(body.innerHTML)
-                return false
-            }
-        }
-        return true
-    }
-</script>
+<ComponentTest -src="QuickDemo.tests.js.htm"></ComponentTest>

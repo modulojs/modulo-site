@@ -1,11 +1,12 @@
 /*<script src=Modulo.html></script><meta charset=utf8><script type=mdocs>---
-version: v0.1.0
-copyright: 2025 Michael Bethencourt - LGPLv3 - NO WARRANTEE OR IMPLIED UTILITY;
+version: v0.1.2
+copyright: 2026 Michael Bethencourt - LGPLv3 - NO WARRANTEE OR IMPLIED UTILITY;
     ANY MODIFICATIONS OR DERIVATIVES OF THE MODULO FRAMEWORK MUST BE LGPLv3+
     LGPL Notice: It is acceptable to link ("bundle") and distribute the Modulo
     Framework with other code as long as the LICENSE and NOTICE remains intact.
 ---
-// */ // md: `[ % ] v0.1.0 [ModuloHTML.org](https://modulohtml.org/)`
+// */ // md: `[ % ] v0.1.2 [ModuloHTML.org](https://modulohtml.org/)` /
+
 var Modulo = function Modulo (OPTS = { }) {
     const Lib = OPTS.globalLibrary || window.Modulo || Modulo; //md:# **ᵐ°dᵘ⁄o**
     Lib.instanceID = Lib.instanceID || 0;
@@ -19,6 +20,7 @@ var Modulo = function Modulo (OPTS = { }) {
         this[name] = stdLib ? stdLib(this) : { }; // Exe StdLib Module
     }
 }
+
 /* md: ###`[ % ]` [Create **App** »](?argv=newapp)
 md:###`[ % ]` [Create **Library** »](?argv=newlib)
 md:###`[ % ]` [Create **Markdown** »](?argv=newmd)
@@ -28,15 +30,11 @@ md:framework, squeezing in numerous tools for modern HTML, CSS, and
 md:JavaScript. Featuring: Web Components, CSS Scoping, Shadow DOM,
 md:SSG / SSR, Bundling, Store and State Management, Templating, and more.
 */
+
 Modulo.Parts = function ComponentParts (modulo) {// md: ## Component Parts
-/* md: ### Include
-md:```html=component<Include>
-md:<script>document.body.innerHTML += '<h1>ᵐ°dᵘ⁄o</h1>'<-script>
-md:<style>:root { --c1: #B90183; }  body { background: var(--c1); }</style>
-md:</Include>``` _Include_ is for global styles, links, and scripts.
-*/
+
 class Include {
-    static LoadMode(modulo, def, value) {
+    static LoadMode(modulo, def, value) { // md: Add scripts and styles to head.
         const { bundleHead, newNode, urlReplace, getParentDefPath } = modulo.util;
         const text = urlReplace(def.Content,  getParentDefPath(modulo, def));
         for (const elem of newNode(text).children) { // md: Include loops
@@ -49,17 +47,17 @@ class Include {
     }
     intitializedCallback(renderObj) {
         Include.LoadMode(this.modulo, this.conf, 'lazy');
-    }
-}
+    } //md:```html=component<Include>
+} //md:<script>document.body.innerHTML += '<h1>ᵐ°dᵘ⁄o</h1>'<-script>
+//md:<style>:root { --c1: #B90183; }  body { background: var(--c1); }</style>
+//md:</Include>```
 
-class Props { // md: ### Props
+class Props {
     static factoryCallback({ elementClass }, def, modulo) {
         const isLower = key => key[0].toLowerCase() === key[0]; // skip "-prefixed"
         const keys = Array.from(Object.keys(def)).filter(isLower);
         elementClass.observedAttributes.push(...keys); // (modify elementClass)
     }
-    // md:```html=component<Props quote name="Unknown"></Props>
-    // md:<Template>{{ props.name }} says "{{ props.quote }}"</Template>```
     initializedCallback() { // md: Props loads attributes from the element
         this.data = { }; // md: when the component is initialized (mounted):
         Object.keys(this.attrs).forEach(attrName => this.updateProp(attrName));
@@ -75,11 +73,9 @@ class Props { // md: ### Props
             this.element.rerender();
         }
     }
-}
+} // md:```html=component<Props quote name="Unknown"></Props>
+// md:<Template>{{ props.name }} says "{{ props.quote }}"</Template>```
 
-//md:### Style
-//md:```html=component<Template><em class="big">Stylish</em> TEXT</Template>
-//md:<Style>.big { font-size: 4rem } :host { background: #82d4a4 }</Style>```
 class Style {
     static AutoIsolate(modulo, def, value) { // md: _Style_ "auto-isolates" CSS.
         const { AutoIsolate } = modulo.part.Style; // (for recursion)
@@ -152,22 +148,16 @@ class Style {
         } else { // md: During `build`, all non-shadow _Style_ parts get bundled.
             bundleHead(modulo, newNode(value, 'STYLE'), modulo.bundles.modstyle);
         }
-    }
-}
+    } //md:```html=component<Template><em class="big">Stylish</em> TEXT</Template>
+} //md:<Style>.big { font-size: 4rem } :host { background: #82d4a4 }</Style>```
 
-//md:### StaticData
-//md:```html=component<Template><pre>{{ staticdata|json:2 }}</pre></Template>
-//md:<StaticData -data-type=md -src=Modulo.html></StaticData>```
-class StaticData {// md: Use for bundling unchanging data (e.g. API, files,
-    prepareCallback() { // md: config, etc) in with a component.
-        return this.conf.data;
-    }
-}
+class StaticData {
+    prepareCallback() {// md: Use for bundling unchanging data (e.g. API, files,
+        return this.conf.data; // md: config, etc) in with a component.
+    } //md:```html=component<Template><pre>{{ staticdata|json:2 }}</pre></Template>
+} //md:<StaticData -data-type=md -src=Modulo.html></StaticData>```
 
-class Script { // md:### Script
-    // md:```html=component<Script>function hi(){ alert(ref.h1.outerHTML) }<-Script>
-    // md:<Template><h1 on.click=script.hi script.ref>Click me</h1></Template>```
-    // md: Scripts let you embed JavaScript code "inside" your component.
+class Script {
     static AutoExport (modulo, def, value) {
         const nameRE = /(function|class)\s+(\w+)/; // gather exports
         const matches = def.Content.match(new RegExp(nameRE, 'g')) || [];
@@ -182,7 +172,7 @@ class Script { // md:### Script
         const setLoc = locals.map(name => `${ name }=o.${ name }`).join(';')
         def.Content += locals.length ? ('var ' + locals.join(',')) : '';
         def.Content += `;return{_setLocal:function(o){${ setLoc }}, ${ expStr }}`;
-    }
+    } // md: Scripts let you embed JavaScript code "inside" your component.
     initializedCallback(renderObj) { // md: Upon Component initialization, it
         const func = modulo.registry.modules[this.conf.DefinitionName];//md:will
         this.exports = func.call(window, modulo);// md: run your code, gathering
@@ -212,15 +202,12 @@ class Script { // md:### Script
     } // md: references. E.g. `<img script.ref>` is called `ref.img` in script.
     refUnmount({ el, nameSuffix }) { // md: When unmounted, the reference is
         delete this.ref[nameSuffix || el.tagName.toLowerCase()]; // md: deleted.
-    }
-}
+    } // md:```html=component<Script>function hi(){ alert(ref.h1.outerHTML) }<-Script>
+} // md:<Template><h1 on.click=script.hi script.ref>Click me</h1></Template>```
 
-// md:### State
-// md:```html=component<State msg="Lorem" a:=123></State>
-// md:<Template>{{ state.msg }}: <input state.bind name=msg></Template>```
-class State { // _State_ declares _state variables_ to bind to forms.
-    static factoryCallback(renderObj, def, modulo) {
-        if (def.Store) { // md: If a -store= is specified, it's global.
+class State {
+    static factoryCallback(renderObj, def, modulo) { // md: Declare variables.
+        if (def.Store) { // md: If a -store= is specified, _State_ is global.
             const store = modulo.util.makeStore(modulo, def);
             if (!(def.Store in modulo.stores)) { // md: The first one
                 modulo.stores[def.Store] = store; // md: encountered
@@ -297,17 +284,16 @@ class State { // _State_ declares _state variables_ to bind to forms.
             }
         }
         this._oldData = null;
-    }
-}
+    } // md:```html=component<State msg="Lorem" a:=123></State>
+} // md:<Template>{{ state.msg }}: <input state.bind name=msg></Template>```
 
-class Template { // md: ### Template
-    // md: Templates run _Modulo Template Language_ to generate HTML.
-    static CompileTemplate (modulo, def, value) {
-        const compiled = modulo.util.instance(def, { }).compile(value);
-        def.Code = `return function (CTX, G) { ${ compiled } };`;
-    }
-    constructedCallback() { // Flatten filters, tags, and modes
-        this.stack = []; // cause err on unclosed
+class Template {
+    static CompileTemplate (modulo, def, value) { // md: Compiles templates
+        const compiled = modulo.util.instance(def, { }).compile(value);//md: to
+        def.Code = `return function (CTX, G) { ${ compiled } };`;//md: generate
+    } //md: HTML during _Component_ render.
+    constructedCallback() {
+        this.stack = [];
         const { filters, tags, modes } = this.conf;
         const { templateFilter, templateTag, templateMode } = this.modulo;
         Object.assign(this, this.modulo.config.template, this.conf);
@@ -317,7 +303,7 @@ class Template { // md: ### Template
         this.modes = Object.assign({ }, templateMode, modes);
     }
     initializedCallback() {
-        return { render: this.render.bind(this) }; // Export "render" method
+        return { render: this.render.bind(this) };
     }
     constructor(text, options = null) { // md:In JavaScript, it's available as:
         if (typeof text === 'string') { // md: `new Template('Hi {{ a }}')`
@@ -385,7 +371,8 @@ class Template { // md: ### Template
             const mod = this.modulo.registry.modules[this.conf.DefinitionName];
             this.renderFunc = mod.call(window, this.modulo);
         }
-        return this.renderFunc(Object.assign({ local, global: this.modulo }, local), this);
+        const ctx = { local, global: this.modulo, file: this.modulo.file };
+        return this.renderFunc(Object.assign(ctx, local), this);
     }
 } // md: ---
 const cparts = { State, Props, Script, Style, Template, StaticData, Include };
@@ -419,6 +406,7 @@ Modulo.TemplateTags = modulo => ({//md:```html=component<Template>{% if state.a 
     'debugger': () => 'debugger;', // md:{% endif %}</Template>
     'else': () => '} else {', //md:<State a:=true></State>```
     'elif': (s, tmplt) => '} else ' + tmplt.tags['if'](s, tmplt).start,
+    'elseif': (s, tmplt) => tmplt.tags.elif(s, tmplt),
     'empty': (text, {stack}) => { // Empty only runs if loop doesn't run
         const varName = 'G.FORLOOP_NOT_EMPTY' + stack.length;
         const oldEndCode = stack.pop().end; // get rid of dangling for
@@ -492,6 +480,7 @@ const Filters = {
     divisibleby: (s, arg) => ((s * 1) % (arg * 1)) === 0,
     dividedinto: (s, arg) => Math.ceil((s * 1) / (arg * 1)),
     escapejs: s => JSON.stringify(String(s)).replace(/(^"|"$)/g, ''),
+    escaperoute: s => escapere(s).replace(/:([a-z]+)/gi, '(?<$1>[^/]+)'),
     escape: (s, arg) => s && s.safe ? s : syntax(s + '', arg || 'text'),
     first: s => Array.from(s)[0],
     join: (s, arg) => (s || []).join(typeof arg === "undefined" ? ", " : arg),
@@ -503,7 +492,6 @@ const Filters = {
     lower: s => s.toLowerCase(),
     multiply: (s, arg) => (s * 1) * (arg * 1),
     number: (s) => Number(s),
-    pluralize: (s, arg) => (arg.split(',')[(s === 1) * 1]) || '',
     skipfirst: (s, arg) => Array.from(s).slice(arg || 1),
     subtract: (s, arg) => s - arg,
     sorted: (s, arg) => Array.from(s).sort(arg && ((a, b) => a[arg] > b[arg] ? 1 : -1)),
@@ -542,18 +530,18 @@ const CONFIG = { /*#UNLESS#*/
         FilterContent: 'trimfile|trim|tagswap:config.artifact.tagAliases',
     },
     component: {
-        tagAliases: { 'html-table': 'table', 'html-script': 'script', 'js': 'script' },
         mode: 'regular',
+        namespace: 'x',
         rerender: 'event',
         Contains: 'part',
         CustomElement: 'window.HTMLElement', // Used to change base class
         DefinedAs: 'name',
         BuildLifecycle: 'build',
         RenderObj: 'component',
-        DefLoaders: [ 'DefTarget', 'DefinedAs', 'Src', 'FilterContent', 'Content' ],
-        DefBuilders: [ 'CustomElement', 'alias|AliasNamespace', 'Code' ],
-        FilterContent: 'trimfile|trim',
+        DefLoaders: [ 'DefTarget', 'DefinedAs', 'Src', 'FilterContent', 'Content|LoadDefs' ],
+        DefBuilders: [ 'CustomElement', 'Code' ],
         DefFinalizers: [ 'MainRequire' ],
+        FilterContent: 'trimfile|trim',
         CommandBuilders: [ 'Prebuild|BuildLifecycle', 'BuildLifecycle' ],
         Directives: [ 'onMount', 'onUnmount' ],
         DirectivePrefix: '', // "component.on.click" -> "on.click"
@@ -561,7 +549,13 @@ const CONFIG = { /*#UNLESS#*/
     configuration: {
         DefTarget: 'config',
         DefLoaders: [ 'DefTarget', 'DefinedAs', 'Src|SrcSync', 'Content|Code',
-                       'DefinitionName|MainRequire' ],
+                      'DefinitionName|MainRequire' ],
+    },
+    contentfile: {
+        FilterContent: 'trimfile|trim',
+        Name: '_file',
+        htmlBody: '<meta charset=utf8><modulo-Page>',
+        DefFinalizers: [ 'type|DataType', 'ContentType', 'Load' ],
     },
     contentlist: {
         DataType: 'CSV',
@@ -571,7 +565,7 @@ const CONFIG = { /*#UNLESS#*/
         command: '', // (default: def.commands = [])
     },
     domloader: {
-        topLevelTags: [ 'modulo', 'file' ],
+        topLevelTags: [ 'modulo', 'contentfile' ],
         genericDefTags: { def: 1, script: 1, template: 1, style: 1 },
     },
     include: {
@@ -582,23 +576,20 @@ const CONFIG = { /*#UNLESS#*/
     },
     library:  {
         Contains: 'core',
-        DefinedAs: 'namespace',
-        DefTarget: 'config.component',
-        DefLoaders: [ 'DefTarget', 'DefinedAs', 'Src', 'Content' ],
+        DefinedAs: 'name',
+        DefLoaders: [ 'DefTarget', 'DefinedAs', 'Src', 'Content|LoadDefs' ],
+        Override: { library: true },
+        tagAliases: { 'html-table': 'table', 'js': 'script' },
     },
     modulo: {
         build: { mainModules: [ ] },
-        defaultContent: '<meta charset=utf8><modulo-Page>',
-        fileSelector: "script[type='mdocs'],template[type='mdocs']," +
-            "style[type='mdocs'],script[type='md'],template[type='md']," +
-            "script[type='f'],template[type='f'],style[type='f']",
         scriptSelector: "script[src$='mdu.js'],script[src$='Modulo.js']," +
                         "script[src='?'],script[src$='Modulo.html']",
-        version: '0.1.0',
+        version: '0.1.2',
         timeout: 5000,
         ChildPrefix: '',
         Contains: 'core',
-        DefLoaders: [ 'DefTarget', 'DefinedAs', 'Src', 'Content' ],
+        DefLoaders: [ 'DefTarget', 'DefinedAs', 'Src', 'Content|LoadDefs' ],
         defaultDef: { DefTarget: null, DefinedAs: null, DefName: null },
         defaultDefLoaders: [ 'DefTarget', 'DefinedAs', 'DataType', 'Src' ],
         defaultDefBuilders: [ 'FilterContent', 'ContentType', 'Load' ],
@@ -613,20 +604,20 @@ const CONFIG = { /*#UNLESS#*/
         Store: null,
     },
     style: {
-        AutoIsolate: true, // true is "default behavior" (autodetect)
-        isolateSelector: null, // Later has list of selectors
-        isolateClass: null, // By default, it does not use class isolation
-        prefix: null, // Used to specify prefix-based isolation (most common)
+        AutoIsolate: true,
+        isolateSelector: null, // later has array of selectors
+        isolateClass: null,
+        prefix: null,
         corePseudo: ['before', 'after', 'first-line', 'last-line' ],
         DefBuilders: [ 'FilterContent', 'AutoIsolate', 'Content|ProcessCSS' ],
     },
     staticdata: { DataType: '?' }, // (? = use ext)
     template: {
         DefFinalizers: [ 'Content|CompileTemplate', 'Code' ],
-        FilterContent: 'trimfile|trim|tagswap:config.component.tagAliases',
+        FilterContent: 'trimfile|trim|tagswap:config.library.tagAliases',
         unsafe: 'filters.escape',
         modeTokens: [ '{% %}', '{{ }}', '{# #}', '{-{ }-}', '{-% %-}' ],
-        opTokens: '==,>,<,>=,<=,!=,not in,is not,is,in,not,gt,lt',
+        opTokens: '==,>,<,>=,<=,!=,not in,is not,is,in,not,gte,lte,gt,lt',
         opAliases: {
             '==': 'X === Y', 'is': 'X === Y',
             'is not': 'X !== Y', '!=': 'X !== Y',
@@ -652,13 +643,13 @@ artifact: `
         modulo.registry.modules.{{ name }}.call(window, modulo);
     {% endif %}{% endfor %}
 </Artifact>
-<Artifact name=html path-template="{{ file-path|default:'index.html' }}"
+<Artifact name=html path-template="{{ file.path|default:'index.html' }}"
     -remove="head iframe,modulo,script[modulo],template[modulo]"
     prefix="<!DOCTYPE html>" build=build,buildvanish>
     <ht><he>{{ doc.head.innerHTML|safe }}<link rel="stylesheet"
-    href="{{ root-path }}{{ definitions._artifact_css.path }}"></link>
+    href="{{ file.root-path }}{{ definitions._artifact_css.path }}"></link>
     {% if "vanish" not in argv|get:0 %}
-    <js defer src="{{ root-path }}{{ definitions._artifact_js.path }}"></js>
+    <js defer src="{{ file.root-path }}{{ definitions._artifact_js.path }}"></js>
     {% endif %}</he><bo>{{ doc.body.innerHTML|safe }}</bo></ht>
 </Artifact>
 <Artifact name=edit -collect=? -save-reqs build=edit></Artifact>
@@ -730,7 +721,7 @@ component: `
     {{ state.view|yesno:'50%,1fr' }} 53px {{ state.view|yesno:'1fr,auto' }}"><div>
     {% if props.full %}<h1><a href="?argv={{ global.argv|join:'&argv='|safe }}">
     &#x27F3; {{ global.argv|join:' ' }} &nbsp;</a></h1> {% if proc.log|length %}
-    <div>{% for row in proc.log %}<iframe src="{{ global.root-path }}{{ row|get:0 }}"
+    <div>{% for row in proc.log %}<iframe src="{{ file.root-path }}{{ row|get:0 }}"
     ></iframe>{% endfor %}</div>{% endif %}<pre>{% for row in proc.log %}
     {{ row|reversed|join:" \t" }}<br />{% endfor %}</pre><pre>
     {% for path, text in build.fdata %}<a download="{{ path }}"
@@ -758,13 +749,11 @@ component: `
     } }</def><Style>select{width:100%} modulo-grid{width: 100%;
     display: grid}@media (max-width:992px){modulo-grid{display:block}}
 </Style></Component>
-<Component mode=vanish namespace=modulo name=Page><Template>
-    {% with global.stores.CACHE.data.fdata|values|first as body %}{% if body %}
-    {% with body|guessmode as mode %}{% if mode in global.config.syntax %}
-    {{ body|MD:mode|get:'body'|safe }}{% endif %}{% endwith %}{% endif %}
-{% endwith %}</Template><Style>p{line-height:1.6;font-size:18px}
+<Component mode=vanish namespace=modulo name=Page>
+<Template>{{ file.data.body|default:file.data|safe }}</Template>
+<Style>p{line-height:1.6;font-size:18px}
 h2[h]{margin:60px 0 0 0;font-family:sans-serif;font-weight:500;}
-h2[h='#']{font-size:64px} h2[h='##']{font-size:46px;}h2[h='###']{font-size:30px}
+h2[h='#']{font-size:64px}h2[h='##']{font-size:46px;}h2[h='###']{font-size:30px}
 h2[h='#'],h2[h='##']{text-align:center}code{background:#88888855}
 hr{border:0.5vw solid #88888855;margin:5vw 30% 5vw 30%}</Style></Component>`
 } /*#ENDUNLESS#*/ }
@@ -781,6 +770,7 @@ CONFIG.syntax = { // Simple RegExp mini langs for |syntax: filter
         'let': 1, 'void': 1, 'while': 1, 'with': 1, 'await': 1, 'async': 1,
         'true': 1, 'false': 1,
     },
+    f: [ [ null, 'syntax', 'txt' ] ], // (txt alias)
     html: [ //  html syntax highlights some common html / templating
         [ null, 'syntax', 'txt' ],
         [ /(\{%[^<>]+?%}|\{\{[^<>]+?\}\})/gm,
@@ -807,6 +797,7 @@ CONFIG.syntax = { // Simple RegExp mini langs for |syntax: filter
         [ /(\n|>)\r?\n[\n\r]*/g, '$1<p>' ],
     ],
     mdocs: [ // mdocs formats Markdown comments (marked with md\:)
+        [ /\n(class|function) +([A-Za-z]+)/g, 'md\:### $2\n\nmd\:`-` _$1_\n\n/' ],
         [ /^((?!.*md\:).*)$/gm, '\n' ], [ /^.*?md\:\s*/gm, '' ],
         [ null, 'syntax', 'md' ], // Delete non "md", then do markdown
     ],
@@ -831,12 +822,11 @@ CONFIG.syntax.js.push([ new RegExp(`(\\b${ Object.keys(
 return CONFIG
 };
 
-
-Modulo.ContentTypes = modulo => ({ // md: **ContentTypes**: CSV (limited),
+Modulo.ContentTypes = modulo => ({ // md: **Content Types** include: CSV (limited),
     CSV: s => (s || '').trim().split('\n').map(r => r.trim().split(',')),
     JS: s => Function('return (' + s + ');')(), // md: JS (expression syntax),
     JSON: s => JSON.parse(s || '{ }'), // md: JSON (default),
-    MD: (s, arg) => { //**MD** - Parses "Markdown Meta" (e.g. in `---` at top)
+    MD: (s, arg='md') => { //**MD** - Parses "Markdown Meta" (e.g. in `---` at top)
         const headerRE = /^([^\n]*---+\n.+?\n---\n)/s;
         const obj = { body: s.replace(headerRE, '') };
         if (obj.body !== s) { // Meta was specified
@@ -856,10 +846,12 @@ Modulo.ContentTypes = modulo => ({ // md: **ContentTypes**: CSV (limited),
     TXT: s => s, // md: TXT (plain text),
     BIN: (s, arg = 'application/octet-stream') => //md: BIN (binary types).
         `data:${ arg };charset=utf-8,${ window.encodeURIComponent(s) }`,
+    MDOCS: s => modulo.contentType.MD(s, 'mdocs'),
+    F: s => s, // (used for contentfile)
 });
 
 
-/* Utility Functions that setup Modulo */
+// md: ## Utility Functions
 Modulo.Utils = function UtilityFunctions (modulo) {
 
 const Utilities = {
@@ -967,13 +959,13 @@ Object.assign(Utilities, { initComponentClass, instance, instanceParts,
     newNode, makeStore, keyFilter, urlReplace })
 
 /*#UNLESS#*/
-function loadString (text, pName) { // Loads string, possibly removing preamble
+function loadString (text, pName, allowedTypes = null) {
     text = text.replace(/^([^\n]+?script[^\n]+?[ \n]type=[^\n>]+?>)(.*)$/is, '$2');
-    return loadFromDOM(newNode(text), pName);
+    return loadFromDOM(newNode(text), pName, false, allowedTypes);
 }
-function loadFromDOM(elem, parentName = null, quietErrors = false) {
+function loadFromDOM(elem, parentName = null, quietErrors = false, allowedTypes = null) {
     const loader = new modulo.engine.DOMLoader(modulo);
-    return loader.loadFromDOM(elem, parentName, quietErrors);
+    return loader.loadFromDOM(elem, parentName, quietErrors, allowedTypes);
 }
 function repeatProcessors(defs, field, cb) {
     const { WAIT, WAITALL } = modulo.consts;
@@ -1017,37 +1009,20 @@ function applyNextProcessor (def, processorNameArray) {
     }
     return false; // No processors were applied, return false
 }
-function configureStatic (modulo) { // Setup default content
-    const { staticDir, rootDir, scriptSelector, fileSelector } = modulo.config.modulo;
-    const [ cmdName, src ] = modulo.argv;
+function configureStatic (modulo) { // Load default static dir
+    const { staticDir, rootDir, scriptSelector } = modulo.config.modulo;
+    const file = modulo.definitions._file || { }; // file singleton
     const dir = staticDir || 'static/';
     const mdu = window.document.querySelector(scriptSelector);
     const root = rootDir || ((mdu || {}).src || '').split(dir)[0];
-    modulo.filePath = (window.location + '').replace(root, '').split('?')[0];
-    const file = window.document.querySelector(fileSelector);
-    if (file) { // Content file exists, extract data then remove
-        const preamble = /^([^\n]+?script[^\n]+?[ \n]type=[^\n>]+?>).*$/is;
-        const elem = document[document.body.children.length ? 'body' : 'head'];
-        const s = elem.innerHTML.replace(preamble, '$1').replace(/=""/g, '');
-        const text = s.replace(/="([\w_\?\.\:\/-]+)"/g, '=$1') + file.innerHTML;
-        if (window.parent && parent !== window && cmdName === '_load') {
-            modulo.assert(s.length < 200, `Header Too Long: ${ src }`);
-            parent.postMessage(JSON.stringify({ _FL: [ text, src ] }), '*');
-            modulo.util.repeatProcessors = () => {} // stop future loading
-            return;
-        } else if (!modulo.definitions.modulo) {
-            modulo.fetchQueue.enqueue(() => { // loads default viewer
-                document.body.innerHTML += modulo.config.modulo.defaultContent;
-            }, true);
-        }
-        modulo.stores.CACHE.setItem(modulo.filePath, text)
-        file.remove();
-    }
-    const rPath = modulo.filePath.split('/').slice(1).map(s => '..').join('/');
-    modulo.rootPath = rPath ? (rPath + '/') : '';
-    if (!modulo.definitions.modulo && mdu && root !== mdu.src && // (No Modulo)
-            !modulo.filePath.startsWith(dir)) { // (Not static)
-        modulo.util.loadString(`<Modulo -src="${ root + dir }">`); // Load default
+    const path = (window.location + '').replace(root, '').split('?')[0];
+    const rPath = path.split('/').slice(1).map(s => '..').join('/');
+    const rootPath = rPath ? (rPath + '/') : '';
+    modulo.file = Object.assign(file, { path, rootPath, Load: null });
+    if (modulo.definitions.modulo) {
+        delete file.Load; // ensure does not load
+    } else if (mdu && root !== mdu.src && !path.startsWith(dir)) {
+        modulo.util.loadString(`<Modulo -src="${ root + dir }">`); // auto
     }
 }
 function hash (str) { //  Returns base32 hash
@@ -1114,7 +1089,8 @@ function setupDevLib(modulo, subFS = null) {
         const str = config._dev[type].replace(/\n[ \n\r]+/gm, '\n'); // norm ws
         util.loadString(str.replace(/\t/g, '    '), `_${ type }`); // indent
     }
-    modulo._loadTimeout = timeout && setTimeout(() => assert(!fetchQueue.queue.length,
+    modulo._loadTimeout = timeout && setTimeout(() => assert(
+            Object.keys(fetchQueue.queue).length < 1,
             timeout, '[TIMEOUT]', ...Object.keys(fetchQueue.queue)), timeout);
     modulo.DEV = true;
 }
@@ -1127,13 +1103,13 @@ Object.assign(Utilities, { applyNextProcessor, configureStatic, hash,
     setupDevLib, getCommand, repeatProcessors }) /*#ENDUNLESS#*/
 
 return Utilities;
-}; /* End of UtilityFunctions */
+};
 
 
+// md: ## Content Processors
 Modulo.Processors = function DefProcessors (modulo) { /*#UNLESS#*/
-// md: ### Content Processors
-function src (modulo, def, value) { // md: `-src="path..."` - Loads content
-    const { getParentDefPath } = modulo.util;
+function src (modulo, def, value) {
+    const { getParentDefPath } = modulo.util; // md: Loads content
     try { def.Source = (new window.URL(value, getParentDefPath(modulo, def))).href;
     } catch { }
     modulo.fetchQueue.fetch(def.Source || value).then(text => {
@@ -1142,20 +1118,20 @@ function src (modulo, def, value) { // md: `-src="path..."` - Loads content
     });
 }
 
-function srcSync (modulo, def, value) { // md: `-src-sync="path..."` - Like
-    modulo.processor.src(modulo, def, value); // md: src, except it waits.
-    return modulo.consts.WAIT;
+function srcSync (modulo, def, value) {
+    modulo.processor.src(modulo, def, value);
+    return modulo.consts.WAIT; // md: Like _src_, except blocking
 }
 
-function filterContent (modulo, def, value) { //md: `-filter-content=` allows
-    if (def.Content && value) { // md: for a mini-template of just filters
+function filterContent (modulo, def, value) {
+    if (def.Content && value) { // md: A mini-template of just filters
         const miniTemplate = `{{ def.Content|${ value }|safe }}`; //md: to
         const tmplt = new modulo.part.Template(miniTemplate); //md: apply
         def.Content = tmplt.render({ def, config: modulo.config }); //md:to
     } //md: the definition's content _before_ loading it.
 }
 
-function defTarget (modulo, def, value) { // saves def
+function defTarget (modulo, def, value) {
     const resolverName = def.DefResolver || 'ValueResolver';
     const resolver = new modulo.engine[resolverName](modulo);
     const target = value === null ? def : resolver.get(value); // Target object
@@ -1188,8 +1164,12 @@ function command (modulo, def, value) {
     }
 }
 
-function content (modulo, conf, value) {
-    modulo.util.loadString(value, conf.DefinitionName);
+function loadDefs (modulo, conf, value) {
+    const tags = Object.keys(modulo[conf.Contains]).map(s => s.toLowerCase());
+    const defs = modulo.util.loadString(value, conf.DefinitionName, tags);
+    if (conf.Override) {
+        defs.forEach(def => Object.assign(def, conf.Override));
+    }
 }
 
 function mainRequire (modulo, conf, value) {
@@ -1219,9 +1199,9 @@ function definedAs (modulo, def, value) {
 }
 
 function dataType (modulo, def, value) {
-    if (value === '?') { // '?' means determine based on extension
+    if (value === '?') { // md: '?' means determine based on extension
         const ext = def.Src && def.Src.match(/\.([a-z]+)$/i);
-        value = ext ? ext[1] : 'json'; // If extension, use; else use "json"
+        value = ext ? ext[1] : 'json'; // md: If extension, use; else use "json"
     }
     def.ContentType = [ value.toUpperCase(), def.Hint ];
 }
@@ -1244,20 +1224,20 @@ function contentType (modulo, def, value) {
     delete def.Content;
 }
 
-return modulo.util.insObject({ src, srcSync, defTarget, command, content,
-    mainRequire, definedAs, dataType, filterContent, code, contentType })
+return modulo.util.insObject({ src, srcSync, defTarget, command, code,
+    loadDefs, mainRequire, definedAs, dataType, filterContent, contentType })
 /*#ENDUNLESS#*/
-} /* End of Modulo.DefProcessors */
+}
 
 
-Modulo.Engines = function Engines (modulo) {
+Modulo.Engines = function Engines (modulo) { // md: ## Engines
 
 class DOMLoader {/*#UNLESS#*/
-    getAllowedChildTags(parentName) {
+    getAllowedChildTags(parentName) { // TODO refactor this away?
         let tagsLower = modulo.config.domloader.topLevelTags; // "Modulo"
         if (/^_[a-z][a-zA-Z]+$/.test(parentName)) { // _likethis, e.g. _artifact
             tagsLower = [ parentName.toLowerCase().replace('_', '') ]; // Dead code?
-        } else if (parentName) { // Normal parent, e.g. Library, Component etc
+        } else if (parentName) { // Normal parent
             const parentDef = modulo.definitions[parentName];
             const msg = `Invalid parent: ${ parentName } (${ parentDef })`;
             modulo.assert(parentDef && parentDef.Contains, msg);
@@ -1266,10 +1246,10 @@ class DOMLoader {/*#UNLESS#*/
         }
         return tagsLower;
     }
-    loadFromDOM(elem, Parent = null, quietErrors = false) {
+    loadFromDOM(elem, Parent = null, quietErrors = false, allowedTypes = null) {
         const { defaultDef } = modulo.config.modulo;
         const toCamel = s => s.replace(/-([a-z])/g, g => g[1].toUpperCase());
-        const tagsLower = this.getAllowedChildTags(Parent);
+        const tagsLower = allowedTypes || this.getAllowedChildTags(Parent);
         const array = [];
         for (const node of elem.children || []) {
             const Type = this.getDefType(node, tagsLower, quietErrors);
@@ -1277,7 +1257,8 @@ class DOMLoader {/*#UNLESS#*/
                 continue; // Already loaded, or an ignorable or silenced error
             } // Valid definition, now create the "def" object
             node._moduloLoadedBy = modulo.id; // Mark as having loaded this
-            const Content = node.tagName === 'SCRIPT' ? node.textContent : node.innerHTML;
+            const Content = 'moduloContent' in node ? node.moduloContent :
+                (node.tagName === 'SCRIPT' ? node.textContent : node.innerHTML);
             const def = Object.assign({ Type, Parent, Content }, defaultDef);
             array.push(Object.assign(def, modulo.config[Type]));
             for (let name of node.getAttributeNames()) { // Loop through attrs
@@ -1291,6 +1272,22 @@ class DOMLoader {/*#UNLESS#*/
         modulo.util.repeatProcessors(array, 'DefLoaders');
         return array;
     }
+    loadContentFile(node) { // Handle loading DOM Node of contentfile
+        const [ cmdName, src ] = modulo.argv; // is this a _load?
+        const preamble = /^([^\n]+?([a-z]+)[^\n]+?[ \n]type=[^\n>]+?>).*$/is;
+        const elem = document[document.body.children.length ? 'body' : 'head'];
+        const s = elem.innerHTML.replace(preamble, '$1').replace(/=""/g, '');
+        const text = s.replace(/="([\w_\?\.\:\/-]+)"/g, '=$1') + node.innerHTML;
+        if (window.parent && parent !== window && cmdName === '_load') {
+            modulo.assert(s.length < 200, `Header Too Long: ${ src }`);
+            parent.postMessage(JSON.stringify({ _FL: [ text, src ] }), '*');
+            modulo.util.repeatProcessors = () => {} // stop all loading
+            return null;
+        }
+        node.moduloContent = text; // stash for .Content
+        node.remove();
+        return 'contentfile';
+    }
     getDefType(node, tagsLower, quiet = false) {
         const { tagName, nodeType, textContent } = node;
         if (nodeType !== 1) { // Text nodes, comment nodes, etc
@@ -1301,21 +1298,24 @@ class DOMLoader {/*#UNLESS#*/
         }
         let defType = tagName.toLowerCase();
         if (defType in modulo.config.domloader.genericDefTags) {
-            for (const attrUnknownCase of node.getAttributeNames()) {
-                const attr = attrUnknownCase.toLowerCase();
-                if (!node.getAttribute(attr) && tagsLower.includes(attr)) {
+            for (const attrName of node.getAttributeNames()) {
+                const attr = attrName.toLowerCase();
+                const val = node.getAttribute(attr);
+                if (!val && tagsLower.includes(attr)) {
                     defType = attr; // Has an empty string value, is a def
+                } else if (attr === 'type' && val.toUpperCase() in modulo.contentType) {
+                    defType = this.loadContentFile(node); // script type=md syntax
                 }
-                break; // Always break: We will only look at first attribute
+                break; // Only look at first attribute
             }
         }
-        if (!(tagsLower.includes(defType))) { // Were any discovered?
+        if (!(tagsLower.includes(defType))) {
             if (!quiet) { // Invalid def / cPart: This type is not allowed here
                 console.error(`"${ defType }" is not one of: ${ tagsLower }`);
             }
-            return null // Return null to signify not a definition
+            return null // not a definition
         }
-        return defType; // Valid, expected definition: Return lowercase type
+        return defType; // Valid
     }/*#ENDUNLESS#*/
 }
 
@@ -1613,7 +1613,7 @@ class DOMReconciler {
 }
 
 return { FetchQueue, DOMLoader, ValueResolver, DOMReconciler, DOMCursor }
-} /* End of Modulo.Engines */
+}
 
 
 Modulo.FetchQueues = function FetchQueues (modulo) {
@@ -1642,7 +1642,7 @@ Modulo.FetchQueues = function FetchQueues (modulo) {
             }, true); // The "true" causes it to wait for all
         },
         assert: (value, ...info) => {
-            if (!value) {  // md:---
+            if (!value) {
                 console.error('%cᵐ°dᵘ⁄o', 'background:red', modulo.id, ...info);
                 throw new Error(`Assert : "${ Array.from(info).join(' ') }"`);
             }
@@ -1658,41 +1658,33 @@ Modulo.FetchQueues = function FetchQueues (modulo) {
     return new modulo.engine.FetchQueue();
 }
 
-Modulo.Cores = function CoreDefinitions (modulo) { //md: ### Core Definitions
-const core = { };
+Modulo.Cores = function CoreDefinitions (modulo) { //md: ## Core Definitions
 
-core.Component = class Component { //md: **Component** - Register a component _(Most used)_
-    static CustomElement (modulo, def, value) {
-        if (!def.ChildrenNames || def.ChildrenNames.length === 0) {
-            console.warn('MODULO: Empty ChildrenNames:', def.DefinitionName);
-            return;
-        } else if (def.namespace === null || def.alias) { // Auto-gen
-            def.namespace = def.namespace || def.DefinitionName;
-        } else if (!def.namespace) { // Otherwise default to the Modulo def conf
-            def.namespace = modulo.config.namespace || 'x'; // or simply 'x-'
-        }
+class Component {
+    static CustomElement (modulo, def, value) { //md: Register a component
         def.name = def.name || def.DefName || def.Name;
         def.TagName = `${ def.namespace }-${ def.name }`.toLowerCase();
+        if (def.library) {
+            const libraryName = `${ def.Parent }-${ def.name }`.toLowerCase();
+            modulo.config.library.tagAliases[def.TagName] = libraryName;
+            def.TagName = libraryName;
+        }
         def.MainRequire = def.DefinitionName;
-        def.className =  def.className || `${ def.namespace }_${ def.name }`;
+        const className =  def.TagName.replace('-', '_');
         def.Code = `const def = modulo.definitions['${ def.DefinitionName }'];
-            class ${ def.className } extends window.HTMLElement {
+            class ${ className } extends window.HTMLElement {
                 constructor(){ super(); this.init(); }
                 static observedAttributes = [];
             }
-            modulo.util.initComponentClass(modulo, def, ${ def.className });
-            window.customElements.define(def.TagName, ${ def.className });
-            return ${ def.className };`.replace(/\n\s+/g, '\n');
+            modulo.util.initComponentClass(modulo, def, ${ className });
+            window.customElements.define("${ def.TagName }", ${ className });
+            return ${ className };`.replace(/\n\s+/g, '\n');
     }
     static BuildLifecycle (modulo, def, value) {
         for (const elem of document.querySelectorAll(def.TagName)) {
             elem.cparts.component._lifecycle([ value ]); // Run the lifecycle
         }
         return true;
-    }
-    static AliasNamespace (modulo, def, value) {
-        const fullAlias = `${ value }-${ def.name }`; // Combine new NS and name
-        modulo.config.component.tagAliases[fullAlias] = def.TagName;
     }
     rerender(original = null) {
         if (original) {
@@ -1848,14 +1840,15 @@ core.Component = class Component { //md: **Component** - Register a component _(
         return val
     }
 }
+const core = { Component };
 
 /*#UNLESS#*/
-class Artifact { // md: **Artifact** - Registers build and scaffolding commands
+class Artifact {
     static Remove (modulo, def, value) { // Delete given excess elements
         for (const elem of window.document.querySelectorAll(value)) {
             elem.remove();
         }
-    }
+    } // md: Registers build and scaffolding commands
     static Collect (modulo, def, value) { // Gathers any extra elements
         value = value === '?' ? modulo.config.modulo.scriptSelector : value;
         def.LoadElems = def.LoadElems || []; // initialize for next processor
@@ -1908,20 +1901,25 @@ class Artifact { // md: **Artifact** - Registers build and scaffolding commands
     }
 }
 
+class Configuration { }
 
-class Configuration { } //md:**Configuration** - Set global `modulo.config`
-
-class ContentList { // md: **ContentList** - CMS system for pages and content.
+class ContentList {
     static Load (modulo, def, value) { // md: Specify `-load=md` to gather
+        const { file, templateFilter, contentType, fetchQueue } = modulo;
         value = value.toUpperCase() || 'TXT'; // md: file list as markdown.
-        const cache = { }
+        const re = s => file.path.match(RegExp(templateFilter[def.router](s)));
+        const c = { }; // Gathers files into file cache "c"
         for (const row of def.data) {
-            modulo.fetchQueue.fetch(modulo.rootPath + row[0]).then(data => {
-                const body = modulo.contentType[value](data, def.LoadHint);
-                cache[row[0]] = typeof body !== 'object' ? { body } : body;
-                cache[row[0]].Source = row[0];
-                if (Object.keys(cache).length === def.data.length) {
-                    def.files = def.data.map(row => cache[row[0]]);
+            const url = file[def.pathOrigin || 'rootPath'] + row[0];
+            fetchQueue.fetch(url).then(data => {
+                const body = contentType[value](data, def.LoadHint);
+                c[row[0]] = typeof body !== 'object' ? { body } : body;
+                c[row[0]].Source = row[0];
+                if (def.router && re(row[1])) {
+                    Object.assign(file, c[row[0]], { route: re(row[1]).groups });
+                }
+                if (Object.keys(c).length >= def.data.length) {
+                    def.files = def.data.map(row => c[row[0]]);
                 }
             })
         }
@@ -1934,16 +1932,22 @@ class ContentList { // md: **ContentList** - CMS system for pages and content.
     }
 }
 
-const Include = modulo.part.Include;//md: **Include** - Add global CSS or JS
+class ContentFile {
+    static Load (modulo, def, value) {
+        document.body.innerHTML += modulo.config.contentfile.htmlBody
+    }
+}
 
-class Library { } //md:**Library** - Like `<Modulo>`, but prefices definitions
+const Include = modulo.part.Include;
 
-class Modulo { } //md:**Modulo** - The outermost definition to "launch" Modulo
+class Library { }
 
-Object.assign(core, { Artifact, Configuration, ContentList, File, Include, Library, Modulo });
+class Modulo { }
+
+Object.assign(core, { Artifact, Configuration, ContentList, ContentFile, Include, Library, Modulo });
 
 /*#ENDUNLESS#*/ return modulo.util.insObject(core);
-} /* End of CoreDefinitions */
+}
 
 var modulo = new Modulo(); // Global Instance
 
@@ -1956,12 +1960,14 @@ window.modulo.command._load = () => {
     parent.postMessage(JSON.stringify({ _FL: [ null, modulo.argv[1] ] }), '*');
 }
 window.modulo.command._default = function _default (modulo) { // [modu/o] menu
+    if (window.parent !== window) {
+        return modulo.cmdCallback(0, false); // default behavior, no editor or menu
+    }
     const font = 'font-size: 28px; padding:0 8px 0 8px; border:2px solid #000;';
     const names = Object.keys(modulo.command).filter(s => !s.startsWith('_'));
     const gets = names.map(s => `get ${ s }(){location.href+="?argv=${ s }"}`);
     const aStr = JSON.stringify([ '%cᵐ°dᵘ⁄o', font, names.join(', ') ]);
-    const suffix = window.parent !== window ? '"[CHILD THREAD] [NO OP]"'
-        : `"[MAIN THREAD]",new (class {${ gets.join('\n') }})`;
+    const suffix = `"[MAIN THREAD]",new (class {${ gets.join('\n') }})`;
     Function(`console.log(...${ aStr },${ suffix })`)();
     modulo.cmdCallback(0, false); // default behavior, do not show Editor
 }

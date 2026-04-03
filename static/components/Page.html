@@ -3,11 +3,11 @@
 <Props slotclass rootat></Props>
 
 <Template>
-    {% if global.page %}
+    {% if file.data %}
         <meta charset=utf8>
-        <title>{{ global.page.page_title }}</title>
-        {% if global.page.extra_style %}
-            <style>{{ global.page.extra_style }}</style>
+        <title>{{ file.data.page_title }}</title>
+        {% if file.data.extra_style %}
+            <style>{{ file.data.extra_style }}</style>
         {% endif %}
     {% endif %}
     <nav class="page-nav">
@@ -37,28 +37,28 @@
 
     <a class="a-hamburger" href="#">&#x2630;</a>
 
-    {% if global.page %} {% if global.page.show_splash %}
+    {% if file.data %} {% if file.data.show_splash %}
         <div class="page-splash">{{ page_splash|trimfile|safe }}</div>
     {% endif %} {% endif %}
 
-    {% if not global.page %}
+    {% if not file.data %}
         {# Default to "slot" #}
         <slot class="{{ props.slotclass }}"></slot>
     {% else %}
-    <div class="page-container page--{% if global.page %}{{ global.page.theme|default:'normal' }}{% endif %}">
+    <div class="page-container page--{% if file.data %}{{ file.data.theme|default:'normal' }}{% endif %}">
         {# Show page meta info #}
-        <h1>{{ global.page.page_title|default:'' }}</h1>
-        <h4>{{ global.page.page_author|default:'' }}</h4>
+        <h1>{{ file.data.page_title|default:'' }}</h1>
+        <h4>{{ file.data.page_author|default:'' }}</h4>
 
         {# Show body #}
-        {% if global.page.body|trim %}
+        {% if file.data.body %}
         <div class="markdown-page">
-            {{ global.page.body|syntax:"md"|safe }}
+            {{ file.data.body|safe }}
         </div>
         {% endif %}
 
         {# Show all articles #}
-        {% if global.page.bottomlist is "articles" %}
+        {% if file.data.bottomlist is "articles" %}
         {% for article in global.definitions.articlelist.files %}
         <article class="page-article">
             <a class="page-article-title u--blocklink"

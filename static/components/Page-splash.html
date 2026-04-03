@@ -141,10 +141,6 @@ Management, and Templating.</p>
         <li><h4>Fast Web Components</h4> Modulo's web components use a DOM reconciler to
         compute minimum number of DOM changes for fast operations.</li>
 
-        <li><h4>Compiled Templates</h4> Modulo's Template Language pre-compiles
-        into JavaScript functions for maximum speed, discarding the source so
-        it requires no further parsing or "eval" in production.</li>
-
         <li><h4>Deep UI Optimization</h4> Modulo is
         no a keeper of secrets.  Instead, every DOM patch gets exposed before
         being applied, enabling levels of per-component DOM control
@@ -227,9 +223,13 @@ corner of this box, and examine **Line #1**
 <div style="margin: 30px; padding:30px;background:var(--bg)">
     <ul>
         <li><h4>Building and Bundling</h4> Modulo comes with a built-in
-        build-tool that bundles, trims, and optimizes your JavaScript, CSS, and HTML
-        for near-instant load times without sacrificing capability or
+        build-tool that bundles your JavaScript, CSS, and HTML
+        for fast load times without sacrificing capability or
         interactivity.</li>
+
+        <li><h4>Compiled Templates</h4> Modulo's Template Language pre-compiles
+        into JavaScript functions for maximum speed, discarding the source so
+        it requires no further parsing or "eval" in production.</li>
 
         <li><h4>Static Sites with Vanishing Components</h4> Modulo's "vanish" component mode
         enables entirely JavaScript-free static sites. By combining that with

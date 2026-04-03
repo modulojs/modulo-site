@@ -1,11 +1,11 @@
 /*<script src=Modulo.html></script><meta charset=utf8><script type=mdocs>---
-version: v0.1.0
+version: v0.1.1
 copyright: 2025 Michael Bethencourt - LGPLv3 - NO WARRANTEE OR IMPLIED UTILITY;
     ANY MODIFICATIONS OR DERIVATIVES OF THE MODULO FRAMEWORK MUST BE LGPLv3+
     LGPL Notice: It is acceptable to link ("bundle") and distribute the Modulo
     Framework with other code as long as the LICENSE and NOTICE remains intact.
 ---
-// */ // md: `[ % ] v0.1.0 [ModuloHTML.org](https://modulohtml.org/)`
+// */ // md: `[ % ] v0.1.1 [ModuloHTML.org](https://modulohtml.org/)` /
 
 var Modulo = function Modulo (OPTS = { }) {
     const Lib = OPTS.globalLibrary || window.Modulo || Modulo; //md:# **ᵐ°dᵘ⁄o**
@@ -422,6 +422,7 @@ Modulo.TemplateTags = modulo => ({//md:```html=component<Template>{% if state.a 
     'debugger': () => 'debugger;', // md:{% endif %}</Template>
     'else': () => '} else {', //md:<State a:=true></State>```
     'elif': (s, tmplt) => '} else ' + tmplt.tags['if'](s, tmplt).start,
+    'elseif': (s, tmplt) => tmplt.tags.elif(s, tmplt),
     'empty': (text, {stack}) => { // Empty only runs if loop doesn't run
         const varName = 'G.FORLOOP_NOT_EMPTY' + stack.length;
         const oldEndCode = stack.pop().end; // get rid of dangling for
@@ -596,7 +597,7 @@ const CONFIG = { /*#UNLESS#*/
             "script[type='f'],template[type='f'],style[type='f']",
         scriptSelector: "script[src$='mdu.js'],script[src$='Modulo.js']," +
                         "script[src='?'],script[src$='Modulo.html']",
-        version: '0.1.0',
+        version: '0.1.1',
         timeout: 5000,
         ChildPrefix: '',
         Contains: 'core',
@@ -628,7 +629,7 @@ const CONFIG = { /*#UNLESS#*/
         FilterContent: 'trimfile|trim|tagswap:config.component.tagAliases',
         unsafe: 'filters.escape',
         modeTokens: [ '{% %}', '{{ }}', '{# #}', '{-{ }-}', '{-% %-}' ],
-        opTokens: '==,>,<,>=,<=,!=,not in,is not,is,in,not,gt,lt',
+        opTokens: '==,>,<,>=,<=,!=,not in,is not,is,in,not,gte,lte,gt,lt',
         opAliases: {
             '==': 'X === Y', 'is': 'X === Y',
             'is not': 'X !== Y', '!=': 'X !== Y',

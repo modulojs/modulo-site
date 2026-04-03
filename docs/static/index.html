@@ -2,7 +2,7 @@
 
 <!-- All content files must be listed here, in a comma-separated format:
 (File path),                (Title),            (New section title)      -->
-<ContentList -name="sidebar">
+<ContentList -name="sidebar" -test-content:=true>
 start/index.html,           Introduction,       Modulo
 start/getting-started.html, Getting Started
 defs/overview.html,         Overview,           Definitions
@@ -24,8 +24,9 @@ core/component.html,        Component
 core/configuration.html,    Configuration
 core/contentlist.html,      ContentList
 core/include.html,          Include
-core/library.html,          Library
 extension/engine.html,      Upgrading Engines,  Extension
+extension/compatibility.html,      Compatibility
+tests/core30.html,      Tests
 </ContentList>
 
 <!-- until i can make builds more dependable, broke down into sections: -->
@@ -98,6 +99,7 @@ eg/tutorial_7.html,         Part 7
     <script src="js/showdown_2.1.0.min.htm"></script>
     <script src="js/ModuloDocs-markdown.htm"></script>
     <script src="js/ModuloDocs-toc-helpers.htm"></script>
+    <script src="js/ModuloDocTests.js.htm"></script>
 </Include>
 
 
@@ -118,7 +120,10 @@ eg/tutorial_7.html,         Part 7
         modulo.util.showdownConvert = function showdownConvert (text) {
             return (new showdown.Converter()).makeHtml(text)
         }
-        const content = modulo.stores.CACHE.getItem(modulo.filePath)
+        let content = modulo.stores.CACHE.getItem(modulo.filePath)
+        if (!content) {
+            content = modulo.definitions.contentfile.data
+        }
         if (content) { // Viewing a content file, mount Page
             delete modulo.stores.CACHE.data.fdata[modulo.filePath]
             modulo.docsContent = modulo.contentType.MD(content)

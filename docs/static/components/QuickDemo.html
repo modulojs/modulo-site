@@ -6,7 +6,9 @@
     demo
     name
     usage
+    snapshot
     splitusage
+    demoparams=""
 ></Props>
 
 <Template
@@ -27,6 +29,16 @@
 <Template
     -name="template_html_demo"
     -src="demos/html_demo.html"
+></Template>
+
+<Template
+    -name="template_html_test"
+    -src="demos/html_demo.html"
+></Template>
+
+<Template
+    -name="template_test_environ"
+    -src="demos/test_environ.html"
 ></Template>
 
 <Template>
@@ -78,20 +90,12 @@
     last-run:=0
     doctype="<!DOCTYPE HTML>"
     usage="<x-App></x-App>"
+    snapshot=""
     name="App"
     inputs:='["name","usage","doctype"]'
 ></State>
 
 <Script>
-    //const EXAMPLE_START = '<!--%%%'
-    //const EXAMPLE_END = '%%%-->'
-    /*else if (props.value.includes(EXAMPLE_START)) {
-        state.value = props.value.split(EXAMPLE_START)[0]
-        state.name = props.value.split(EXAMPLE_START)[1]
-                                .split(EXAMPLE_END)[0].trim()
-        state.usage = props.value.split(EXAMPLE_END)[1]
-    }*/
-
     const REMOTE_MODULO_SRC = 'https://modu.lol'
 
     function prepareCallback(renderObj) {
@@ -100,15 +104,22 @@
             state.demo = false
             if (props.demo) {
                 state.demo = 'template_' + props.demo
-                run() // ensure demo starts as run
+                if (!modulo.argv || modulo.argv.length < 1) { // no cmd
+                    run() // ensure demo starts as run
+                }
             }
             if (props.name) {
                 state.name = props.name
             }
-            if (props.usage) {
-                state.value = props.value.split(props.usage)[0]
-                state.usage = props.value.split(props.usage)[1]
-            }
+            _splitValue('snapshot')
+            _splitValue('usage')
+        }
+    }
+
+    function _splitValue(prop) {
+        if (props[prop]) {
+            state[prop] = state.value.split(props[prop])[1]
+            state.value = state.value.split(props[prop])[0]
         }
     }
 
@@ -150,9 +161,11 @@
         oldIframe.remove()
         const iframe = document.createElement('iframe')
         parentNode.append(iframe) // add new one back
+        iframe.contentWindow.history.replaceState({}, 'Modulo Demo', 'demo')
         iframe.contentWindow.document.open()
         iframe.contentWindow.document.write(text)
         iframe.contentWindow.document.close()
+        return iframe
     }
 
     function toggle() {
@@ -212,3 +225,28 @@
 </Style>
 
 <Style -src="./QuickDemo-toolbar.css.htm"></Style>
+
+<script ComponentTest>
+    const CHARACTER_MINIMUM = 20
+
+    async function test_render() {
+        const text = script.render()
+        const frame = await modulo.util.newFrame(text, { paramString: props.demoparams })
+        const body = frame.contentWindow.document.body
+        if (state.snapshot) {
+            const [ result, message ] = modulo.util.assertSnapshot(body, state.snapshot)
+            if (!result && message) {
+                console.log(message)
+            }
+            return result
+        } else { // Default check: Ensure something rendered > 20 chars
+            const text = body.innerHTML
+            if (body.innerHTML.length < CHARACTER_MINIMUM) {
+                console.log(CHARACTER_MINIMUM, 'Character Minimum Failed', state)
+                console.log(body.innerHTML)
+                return false
+            }
+        }
+        return true
+    }
+</script>

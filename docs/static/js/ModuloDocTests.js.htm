@@ -1,0 +1,312 @@
+/* <script src=../Modulo.html></script><style type=f> */
+/*
+ * "ModuloDocTests.js.htm" - Provides DocTest definition
+ * */
+
+/* Create global unit test array */
+modulo.tests = [ ];
+
+/* Mounted instances of this component will cause "test" */
+modulo.config.componenttest = {
+    DefFinalizers: [ 'AutoExport', 'Content|Code' ],
+    AutoExport: '',
+};
+
+modulo.part.componenttest = class ComponentTest extends modulo.part.Script {
+    // TODO: Add a "static" test at intitializedCallback
+    prepareCallback () {
+        const fNames = Array.from(Object.keys(this.exports))
+        const tests = this.exports.setup ? [ 'setup' ] : [ ]
+        tests.push(...fNames.filter(s => s.startsWith('test')))
+        if (this.exports.teardown) {
+            tests.push('teardown')
+        }
+        this.data = { tests }
+        this.data.exports = this.exports
+        this.data.tagName = this.element.tagName
+        modulo.tests.push(this.data)
+    }
+}
+
+modulo.util.getTestSuiteName = async function getTestSuiteName (componentPart) {
+}
+
+modulo.util.runTestSuite = async function runTestSuite (info) {
+    let total = 0
+    let fail = 0
+    for (const testName of info.tests) {
+        console.group('[%]', '         ? TEST', testName);
+        let testTotal = 0;
+        let testFailed = 0;
+        let result;
+        const func = info.exports[testName]
+        result = await func()
+        /*try { } catch { }*/
+        // TODO: Add back in for multi-step test:
+        //for (const partialConf of stepArray) { }
+        if (result !== null) {
+            testTotal++;
+            total++;
+        }
+        if (result === false) {
+            testFailed++;
+            fail++;
+        }
+        const isOk = testFailed ? 'FAILURE' : 'OK     ';
+        console.groupEnd();
+        console.log(`[%]  ${isOk} - ${testName} (${testTotal - testFailed}/${testTotal})`);
+    }
+    return [ total - fail, fail ] 
+}
+
+modulo.util.assertSnapshot = function (element, snapshotContent, opts = { }) {
+    const { newNode, normalize } = modulo.util;
+    const _process = 'testWhitespace' in opts ? s => s : normalize;
+    const text1 = _process(snapshotContent);
+
+    if ('testValues' in opts) {
+        for (const input of element.querySelectorAll('input')) {
+            if (input.type === 'checkbox') {
+                const methodName = input.checked ? 'setAttribute' : 'removeAttribute';
+                input[methodName]('checked', 'checked');
+            } else {
+                input.setAttribute('value', input.value);
+            }
+        }
+    }
+
+    if (!opts.preserveDownloads) {
+        for (const a of element.querySelectorAll('a[download]')) {
+            // truncate to first 20 chars + last 20
+            const href = a.getAttribute('href')
+            a.setAttribute('href', href.substr(0, 30) + href.substr(href.length - 30))
+        }
+    }
+
+    const text2 = _process(element.innerHTML);
+    console.log(text1.replace(/\s+/g, '') === text2.replace(/\s+/g, ''))
+    let verb = '---(IS NOT)---';
+    let result = true;
+    if ('stringCount' in opts) {
+        const count = Number(opts.stringCount);
+        // Splitting is a fast way to check count
+        const realCount = text2.split(text1).length - 1;
+        if (count !== realCount) {
+            verb = `=== FOUND BELOW ${realCount} ` +
+                    `TIMES (${count} expected) ===`;
+            result = false;
+        }
+    } else if (!opts.testWhitespace && text1.replace(/\s+/g, '') === text2.replace(/\s+/g, '')) {
+        result = true
+    } else {
+        result = newNode(text1).isEqualNode(newNode(text2));
+    }
+    return [ result, `${text1}\n${verb}\n${text2}\n` ];
+}
+
+modulo.util.runTestArray = async function runTestArray (testArray) {
+    const msg = '%c[%] ' + testArray.length + ' test suites found';
+    console.log(msg, 'border: 3px solid #B90183; padding: 10px;');
+    const { runTestSuite } = modulo.util
+    let success = 0;
+    let failure = 0;
+    let omission = 0;
+    //const failedTestInfo = [];
+    if (testArray.length === 0) {
+        console.warn('OMISSION: No test suites discovered')
+        omission++;
+    }
+    for (const info of testArray) {
+        //const label = '%cTest: ' + testconf.Name + (' ' + (info.tagName || ''))
+        const label = '%cTest: ' + (' ' + (info.tagName || ''))
+        console.group(label, 'border-top: 3px dotted #aaa; margin-top: 5px;')
+        const [ successes, failures ] = await runTestSuite(info)
+
+        /*if (failures) {
+            failedTestInfo.push(info);
+        }*/
+        success += successes;
+        failure += failures;
+        if (!successes && !failures) {
+            console.log('[%]', 'Test omission: no assertions');
+            omission++; // no assertions = 1 omission failure
+        }
+        console.groupEnd();
+        const total = failures + successes;
+        const isOk = failures || !successes ? '!      ' : 'OK     ';
+        console.log(`[%]  ${isOk} -             [${successes}/${total}]`);
+        if (failures) {
+            const msg = `%c[%]  FAILURE -             ${failures} assertion(s) failed`;
+            console.log(msg, 'border-top: 2px red dashed;');
+        }
+    }
+
+    /*
+    if (skippedCount > 0) {
+        console.log('%c SKIPPED ', 'background-color: yellow');
+        console.log(`${skippedCount} TestSuite(s) skipped`);
+    }
+    */
+
+    // TODO: Add file output
+    if (!failure && !omission && success) {
+        console.log('%c     OK    ', 'background-color: green');
+        console.log(`${success} assertions passed`);
+        return true;
+    } else {
+        console.log('SUCCESSES:', success, 'assertions passed');
+        if (omission) {
+            console.log('OMISSIONS:', omission, 'empty test suites or ' +
+                        'expected assertions');
+        }
+        console.log('%c FAILURE ', 'background-color: red');
+        console.log(`${failure} assertions failed.`)
+        //const compNames = failedComponents.map(({ Name }) => Name);
+        //console.log(`${failure} assertions failed. Failing components:`, compNames);
+        const getParams = String(window.location ?
+                                 window.location.search : '').substr(1);
+        if (!getParams.includes('stacktrace=y')) {
+            console.log(new (class RERUN_TESTS_WITH_EXTRA_OPTIONS {
+                get enable_stack_trace() { window.location.href += '&stacktrace=y' }
+            }));
+        }
+        return false;
+    }
+}
+
+modulo.config.logoFont = `
+	margin-left: 10px;
+	font-size: 50px;
+	font-family: sans-serif;
+	font-weight: 200;
+	text-shadow: 2px 2px 2px black ,0px 0px 0 black ,0px 0px 5px #00000022
+,-1.5px -1.5px 0 black ,1px 1px 5px #00000022 ,-3px -3px 0 #b90183 ,2px 2px 5px
+#00000022 ,-4.5px -4.5px 0 #b90183 ,3px 3px 5px #00000022 ,-6px -6px 0 black
+,4px 4px 5px #00000022 ,-7.5px -7.5px 0 #b90183 ,5px 5px 5px #00000022; 
+`
+
+modulo.command.testpage = function (modulo) {
+    if (!window.parent) { // don't do if child
+        console.log('%cᵐ°dᵘ⁄o', modulo.config.logoFont)
+    }
+    modulo._drainQueue(); // wait for mounts
+    modulo.fetchQueue.enqueue(async () => {
+        if (window.parent) {
+            await window.parent.modulo.testCallback(modulo.tests)
+            modulo.cmdCallback(0)
+        } else {
+            const success = await modulo.util.runTestArray(modulo.tests)
+            modulo.cmdCallback(success ? 0 : 1)
+        }
+    }, true);
+}
+
+
+/* Main entry point: Test all, or only test given content file
+ */
+modulo.command.test = function (modulo) {
+    if (!window.parent) { // don't do if child
+        console.log('%cᵐ°dᵘ⁄o', modulo.config.logoFont)
+    }
+    modulo._drainQueue(); // wait for mounts
+    let count = 0
+    modulo.testCallback = async tests => {
+        console.log('pushing tests!', tests.length)
+        modulo.tests.push(...tests) // collect tests
+        count--
+        if (count <= 0) { // once done, run all at once
+            await modulo.util.runTestArray(modulo.tests)
+        }
+    }
+    modulo.fetchQueue.enqueue(() => {
+        let filenames = []
+        //window._moduloFS = { fs: [ modulo.fetchQueue.data ] }; // pass "fs stack"
+        if (modulo.argv.length > 1) {
+            count += (modulo.argv.length - 1)
+            filenames.push(...modulo.argv.slice(1))
+        } else {
+            for (const def of Object.values(modulo.definitions)) {
+                if (def.TestContent) {
+                    count += def.data.length
+                    for (const row of def.data) {
+                        filenames.push(row[0])
+                    }
+                }
+            }
+        }
+        for (const fn of filenames) {
+            modulo.stores.PROC.setItem(fn + '?argv=testpage', '');
+        }
+        modulo.cmdCallback(0) // always succeed & show editor
+    }, true)
+}
+
+
+/*
+ * waitFor - Tiny utility function to transform ("promisify") HTMLElement's
+ * "addEventListener" method, so it can be awaited like a async function.
+ * - element - Target DOM HTMLElement
+ * - name - Event name (e.g. "click" or "load")
+ * - timeout - Adjust exception timeout, or specify 0 to ignore. Default: 10s
+ */
+modulo.util.waitFor = function waitFor(element, name, timeout=10) {
+    return new Promise((resolve, reject) => {
+        let timer = null
+        const resolver = () => {
+            clearTimeout(timer)
+            timer = null
+            resolve()
+        }
+        if (name === 'fetchQueue') {
+            element.fetchQueue.enqueue(resolver, true);
+        } else {
+            element.addEventListener(name, resolver)
+        }
+        if (timeout > 0) {
+            timer = setTimeout(timer === null ? null : reject(), timeout)
+        }
+    })
+}
+
+
+/*
+ * newFrame - Utility function to run given code in an iframe. Specify an
+ * element that contains an iframe to have it replace given iframe.
+ */
+modulo.util.newFrame = async function newFrame(text, opts) {
+    let { element, type, timeout, mountRetries, showMenu } = Object.assign({
+        type: 'iframe', timeout: 10, mountRetries: 3,
+    }, opts);
+    const mockPath = window.location.pathname + (opts.paramString ? 
+                                            ('?' + opts.paramString) : '');
+    if (!element) {
+        element = modulo.util.newNode('<iframe>')
+        document.head.append(element) // needs to be in document
+    }
+    const frame = document.createElement(type)
+    const oldIframe = element.querySelector(type)
+    const parentNode = oldIframe.parentNode
+    oldIframe.remove() // Delete existing
+    parentNode.append(frame) // add new one back
+    frame.contentWindow.document.open()
+    frame.contentWindow.document.write(text)
+    frame.contentWindow.document.close()
+    frame.contentWindow.history.replaceState({}, '-', mockPath)
+    if (timeout) {
+        await modulo.util.waitFor(frame, 'load', timeout)
+        const childModulo = frame.contentWindow.modulo
+        if (childModulo) {
+            if (showMenu !== true) { // replace _default / menu cmd
+                childModulo.command._default = showMenu || (() => {})
+            }
+            let tries = mountRetries
+            while (tries-- > 0) { // wait for component mounts, then fetches, repeat x3
+                childModulo._drainQueue()
+                await modulo.util.waitFor(childModulo, 'fetchQueue', timeout)
+            }
+            frame.modulo = childModulo // attach
+        }
+    }
+    return frame
+}
+

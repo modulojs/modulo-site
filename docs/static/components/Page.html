@@ -124,3 +124,35 @@
     prefix=".markdown-body"
     -src="./Page-markdown.css.htm"
 ></Style>
+
+
+<!--
+modulo.doctest = { }; // Add doctest functoins here
+modulo.doctest.links = async function (pass, fail) { // check broken links
+    const MIN_LENGTH = 10;
+    const aTags = document.querySelector('a');
+    if (!aTag.href) {
+        if (fail([ 'Missing href:', aTag.outerHTML ])) {
+            return;
+        }
+    }
+    // now, try fetching
+    let data = null;
+    try {
+        const response = await fetch(aTag.href)
+        data = await response.text()
+    } catch (e) {
+        if (fail([ 'Cannot fetch', aTag.href, '!Exception:', e ])) {
+            return;
+        }
+    }
+    if (!data || !data.trim() || !data.length < MIN_LENGTH) {
+        if (fail([ 'Link target empty or too short:', aTag.href, '!Data:', data ])) {
+            return;
+        }
+    }
+    pass()
+}
+-->
+
+

@@ -1,0 +1,133 @@
+<!DOCTYPE html><meta charset=utf8><script src=../static/Modulo.html></script><script type=md>---
+title: Overview
+skiptoc: y
+---
+
+
+> **Where to begin?**
+> * [**Modulo.html** -  View the framework itself](../static/Modulo.html)
+> * [**Getting Started** - Learn more ways to start](./getting-started.html)
+> * [**Overview** - Try out Modulo's main features](../defs/overview.html)
+
+<h1 style="padding:0;font-size: 100px;border:1px solid black;width:150px;height:150px;">ᵐ°dᵘ⁄o</h1>
+
+**The Declarative HTML Framework**
+
+
+
+
+_Modulo_ (or ᵐ°dᵘ⁄o) is a single-file frontend framework, squeezing in numerous
+tools for modern HTML, CSS, and JavaScript develpment. Modulo includes many
+familiar and handy tools for modern web development, including Web Components,
+CSS Scoping, Shadow DOM, Jamstack / SSG / SSR, CMS, Bundling, Store and State
+Management, Templating, and more.
+
+## All you need is _Modulo.html_
+
+Local, serverless, offline development is now
+possible, thanks to the single, self-documenting, self-bundling _Modulo.html_
+file:
+
+
+
+##### Now serving... _actually serverless_
+
+
+> **Offline coding; offline living:**  Modulo was designed for **extended-life
+> support**... _Your_ life, that is! Here are some tips for reducing the mental
+> load of code: 1) Consider working in a public park, at the seaside, or in the
+> middle of an enchanting forest. 2) Use a simpler text editor, or uninstall
+> a plugin each day to reduce your mental dependencies and simplify your
+> digital habits. 3) Disconnect from the Internet fewer distractions, which in
+> this day-and-age may means fewer so-called "doomscrolling" or "prompt" addictions.
+> 4) Spend less time coding and more time with loved ones.  **Always remember:
+> Make the time you spend coding as pleasant and enriching as the apps you
+> develop!** 
+
+
+**Modulo runs _everywhere_:** Modulo doesn't even require a local development
+server, but instead can operate entirely over the _file:_ scheme, avoiding the
+need for web servers altogether. Modulo can form the foundation for rapidly prototyping
+HTML apps that work the same on desktop, mobile, and World Wide Web.  This
+includes the documentation you are reading now: If you are connected to the Internet
+right now, consider [downloading Modulo Docs right
+now](https://codeberg.org/modulo/docs/archive/main.zip) and double click on
+_start/index.html_ to continue browsing this
+website locally. It's really that easy: No further steps are needed after
+unzipping a tiny zip file!
+
+
+##### The one file you'll need on a deserted island
+
+
+**Modulo is _self-documenting_:** When the Modulo.html file is viewed locally
+in the browser, it provides an interactive help website with a rudimentary
+editor and even several starter projects. In other words, the framework itself
+also doubles as a sort-of "interactive cheat-sheet" and ultra-minimal IDE.  Try
+it online here: [Modulo.html](https://modu.lol/Modulo.html)
+
+
+
+## Why Modulo?
+
+There are many reasons to use Modulo for your next web project. Here are
+a few:
+
+1. **Drop-in, Ramp Up** - A “no fuss” drop-in for existing web apps or Jamstack static sites
+2. **Similar, But Simpler** - Beginner-friendly features inspired by React, Svelte, and Vue.js
+3. **Small, But Mighty** - Only 2000 lines of dependency-free, self-building JavaScript
+
+
+### 1. _Drop-In, Ramp-Up_
+
+Thanks to Modulo's "browser-first" philosophy, you can "drop-in" and write
+components _anywhere_ with just the following few lines, ready to "ramp-up" as
+you scale in complexity. For a working example of a simple 5-line start with
+a CDN, see this  snippet:
+
+```modulo
+<script Modulo src="https://modu.lol">
+    <Component name="Greet">
+        <Template><h1>Hello <slot></slot>!</h1></Template>
+    </Component>
+<-script>
+<x-Greet>Modulo world</x-Greet>
+<!-- Becomes: <h1>Hello Modulo world!</h1>-->
+```
+
+### 2. _Similar, But Simpler_
+
+Modulo is packed with features that simplify tooling at every level of the
+modern web stack:
+
+* &#x1F5F9; **Component Framework** - Modulo provides a familiar
+  lifecycle around vanilla web components, as in _React_, _Vue.js_, and _Svelte_
+* &#x1F5F9; **Templating** - Modulo provides templating with syntax familiar to Liquid, Jinja, Django, Hugo, or Twig developers
+* &#x1F5F9; **State Management** - Modulo lets you subscribe to store changes
+  for reactive components, similar to _React Context_ or _Vuex_
+
+> **Does it fully replace Next.js / React / [Other Framework]?** No, Modulo
+> doesn't fully replace any framework, especially ones with such large
+> ecosystems and feature-sets. However, it provides a set of tools comparable
+> to all of these other frameworks for specific tasks, while cramming it in
+> a much lighter package, meaning 2000 lines _might_ replace gigabytes of
+> dependencies for certain web projects!
+
+
+### 3. _Small, But Mighty_
+
+As a single-file framework, Modulo provides the foundational tooling and
+workflows for all of these features:
+
+* &#x1F5F9; **Building and Bundling** - Modulo can combine and pre-process CSS, JS,
+  and JSON data like _webpack_, _gulp_, _esbuild_, or _roll-up_
+* &#x1F5F9; **Static Site Generation** - Modulo provides SSG-building tools for
+  powerful templating, similar to _Hugo_, _Jekyll_ and others
+* &#x1F5F9; **Server Side Rendering** - Modulo provides SSR-tools for 
+  rehydrating components for Jamstack sites, like _Next.js_ or _Vite_
+* &#x1F5F9; **Serverless Development** - Say goodbye to "localhost", Modulo
+  supports fully file-based workflows with only only an offline web browser
+* &#x1F5F9; **Project Dependencies** - Modulo even provides handy helpers to more
+  easily track dependencies loaded from NPM servers
+
+

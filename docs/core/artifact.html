@@ -1,0 +1,130 @@
+<!DOCTYPE html><script src=../static/Modulo.html></script><script type=md>---
+title: Artifact
+---
+
+# Artifact
+
+> **How Slim Can Modulo.html get?** Modulo's runtime itself is only about 40kb
+> after being trimmed for a build.  Modulo's built-in artifacts will
+> automatically "trim" (minify) it's own source code, but make no attempts to
+> trim other sources.
+
+The *Artifact* definition is how you can specify custom build
+artifacts. When the build command is run, Modulo loops through all defined
+Artifacts and outputs the files they generate. This is how the JS, CSS, and
+HTML files get generated whenever you run build by default. For most users,
+this is enough--this website uses the default Artifacts, for example. However,
+if you want to create custom build outputs for advanced usage in building a
+SSG-powered site, then you can use this feature to create as many extra files
+per HTML file you SSG as you'd like. For example, you could loop through
+images, generating a "thumbnail" page for each one. It's very versatile, and
+gives you the full power of the Modulo templating language for JS, CSS, and
+prerendered / SSR'ed HTML.
+
+It manages to be this versatile by functioning as a mini-scripting system
+for specifying and configuring builds, allowing for easy addition of
+minification, split bundles, or other file types. This gives very fine-grained
+control over output in a declarative way.
+
+## Overview
+
+- Simply by registering an Artifact (`<Artifact name="css">`, for example), you can begin
+  to customize or add CSS output
+- By adding a `remove=` to your Artifact, you can scrub your HTML before saving
+  the built version, e.g. `remove="div.delete-me"` to remove all divs with
+  `delete-me` class.
+- By adding a `bundle=` to your Artifact, you can specify which elements get
+  bundled, or disable it with `bundle:=false`
+- Now you can register things like JavaScript, CSS, or HTML minifiers as
+  Template filters, and then include them into your build configurations
+- Using the Modulo Template syntax allows for extremely precise control over
+  the exact JavaScript and CSS output.
+
+
+##### Example #1: Viewing and running built-in commands
+
+
+1. Step 1: Bring up Dev tools (Right click, inspect, console)
+
+2. Step 2: Do you see **`[ᵐ°dᵘ⁄o]`** logo and a list of management commands? If
+   there are too many warnings, consider hiding them. Look for a little arrow
+between `[MAIN THREAD]` and `Object { }`. Click on that arrow (and possibly a
+`<prototype>` arrow), to expand the full command menu.
+
+3. Step 3: Click the little arrow next to a command to run it, such as `build`
+   or `edit`
+
+##### Example #2: Custom Build + Bundle
+
+Note that in the HTML example, `ht`, `he`, `bo`, and `js` tags get swapped with `html`,
+`head`, `body` and `script` tags respectively. This prevents various mistakes
+in some cases with unsuual syntax and HTML DOM behavior around these special
+tags (e.g. closing script tags).
+
+```modulo
+edit: demo=modulo_embed
+<Artifact name=html prefix="<!DOCTYPE html>" build=mybundle>
+    <ht lang="en">
+        <he>
+            <title>Test Title</title>
+            <meta charset="utf8" />
+            <link rel="stylesheet" href="{{ definitions._artifact_css.path }}"></link>
+            <js defer src="{{ definitions._artifact_js.path }}"></js>
+        </he>
+        <bo>
+            {{ doc.body.innerHTML|minifyhtml|safe }}
+        </bo>
+    </ht>
+</Artifact>
+
+<Artifact name=css -bundle="modstyle" build=mybundle>
+    {% for id in def.ids %}
+        {# Include each Modulo-generated style, with minify filter applied #}
+        {{ def.data|get:id|minify|safe }}
+    {% endfor %}
+</Artifact>
+
+<Artifact name=js -bundle="modscript" build=mybundle>
+    {% for id in def.ids %}
+        {# Include each Modulo-generated script, with minify filter applied #}
+        {{ def.data|get:id|minify|safe }}
+    {% endfor %}
+    {% for name in config.modulo.build.mainmodules %}
+        {# Call all "main" modules, running Configuration + Component reg #}
+        modulo.registry.modules.{{ name }}.call(window, modulo);
+    {% endfor %}
+</Artifact>
+
+<script Configuration>
+    // Very simple minifying functions to scrub whitespace and remove comments
+    modulo.templateFilter.minify = function (s) {
+        return s.replace(/\/\*[^\*\!][\s\S]*?\*\/|\/\/.*$/gm, '')
+                .replace(/[\n \t]+/gm, ' ')
+    }
+
+    modulo.templateFilter.minifyhtml = function (s) {
+        return s.replace(/<!--.*?-->/gm, ' ')
+                .replace(/[\n \t]+/gm, ' ')
+    }
+<-script>
+
+<Component name=App>
+    <Template>
+        <!-- These comments... they should be REMOVED! -->
+        <button on.click=script.runBuild>
+            <!-- remove me -->
+            RUN "mybundle"
+        </button>
+        <!-- These comments... they should be REMOVED! -->
+    </Template>
+    <Script>
+        /* COMMENTS should be removed from scripts! */
+        function runBuild () {
+            modulo.argv = [ 'mybundle' ] // (set directly)
+            modulo.command.mybundle(modulo) // (run directly)
+        }
+    <-Script>
+</Component>
+```
+
+

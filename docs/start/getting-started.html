@@ -1,0 +1,149 @@
+<!DOCTYPE html><meta charset=utf8><script src=../static/Modulo.html></script><script type=md>---
+title: Getting Started
+description: Learn ways to start a new Modulo project.
+---
+
+
+
+> **NPM? Terminal? Vite? Yarn?** None of that is needed here! Modulo's
+> build system is entirely browser-based, and Modulo is a single-file
+> framework.  If you have a browser, you're good to go!
+
+
+
+
+
+# Download
+
+
+<p style="margin-top:30px;font-size:20px;text-align:center;width:300px"><a href="../static/Modulo.html" download="Modulo.html">
+    <span style="font-size: 400%; background: #aaa" alt="file emoji">&#x1F4C4;
+</span><br />
+    <span style="font-size: 15px; color: black"><tt>Modulo.html (99kb)</tt></span><br />
+</a></p>
+
+
+
+
+
+_Tip 1:_ This one file is all you need. Once downloaded, open it in your
+browser (ie double click) and choose from the built-in _Create Markdown_
+(start a new content page), _Create App_ (start a new single-page app),
+and _Create Library_ (start a new self-documenting library).
+
+_Tip 2:_ If it doesn't automatically download, try right clicking and selecting
+"Save As...".
+
+
+
+# Starting in 3 Steps
+
+Writing your first component takes only **3 steps**. You can follow these steps
+in your text editor by either 1) creating a new, blank HTML file or 2) opening
+an HTML file from one of your existing web apps or projects:
+
+##### Step 1: Include Modulo
+
+```modulo
+<script Modulo src=https://modu.lol">
+<-script>
+```
+
+
+##### Step 2: Define Components
+
+```modulo
+<script Modulo src=https://modu.lol>
+    <Component name="Greet">
+        <Template>
+            <h2>Hey there, <slot></slot>!</h2>
+        </Template>
+    </Component>
+<-script>
+```
+
+##### Step 3: Use Elsewhere
+
+```modulo
+<div>
+    <x-Greet>Modulo</x-Greet>
+    <x-Greet>my new <tt>HTML</tt>web component</x-Greet>
+</div>
+```
+
+
+> **Modulo Starter Tips** -  The goal is to help out starting _any_ type of
+> project,  The starter project is all about showing with simple examples
+> how to do things. For example, use `index.html` as a very simple starting
+> point of how to to use the _x-Page_ component. Then, look at
+> `static/index.html`, `static/components/index.html` and finally
+> `static/components/Page/Page.html` for how this Page is imported and customized.
+> Secondly, use the `articles/*.html` article files as examples of
+> Markdown content with Modulo, especially handy since _x-Page_ is configured
+> to render cleanly in "vanish mode" (e.g. leave no JavaScript), thus making
+> these pages an example of a pure "server-side only" usage. Finally files like
+> `app-example.html` and `static/components/App.html` for examples of
+> building single-page apps with Modulo. Edit `static/index.html` and
+> `static/components/index.html` for _Component_ examples.
+
+
+# Project Starter Templates
+
+**Get a head start with ready-to-deploy website demonstrating standard usage.**
+
+1. Download the zip file
+2. Unzip
+3. Examine and edit to fit your web project needs
+
+
+
+
+
+
+## Modulo Starter
+
+The _Modulo Starter Project_ has never been more lightweight, now clocking in
+at less than 60kb compressed, dependencies included. It helps with all
+different types of web projects, with examples of a single page app marketing
+pages, Markdown articles, and a "package.json" already configured for automatic
+server-side headless building using Node.js and Playwright with  just one
+command (`npm run build`). This means you can push it to most modern hosting
+services and they will build it automatically on their servers.
+
+<p style="margin-top:30px;font-size:20px;text-align:center;width:300px"><a href="https://codeberg.org/modulo/modulo-starter/archive/main.zip">
+    <span style="font-size: 400%; background: #aaa" alt="archive emoji">&#x1f4e6;</span><br />
+    <span style="font-size: 15px; color: black"><tt>modulo-starter-main.zip (55kb)</tt></span></a></p>
+
+
+<!--
+##### Preview: Modulo Starter
+
+<a onclick="document.getElementById('preview').style.height = '640px'" href="#preview"
+    style="font-size: 20px; margin-bottom:30px;display:inline-block" >Expand Preview &darr;</a>
+<iframe id="preview" style="height:0;width:90%" src="http://modulo.codeberg.page/modulo-starter/"></iframe>
+
+
+[_Preview_ 👀](http://modulo.codeberg.page/modulo-starter/) - 
+#### [⬇️  Docs Starter (modulo-docs-starter-main.zip)](https://codeberg.org/modulo/modulo-docs-starter/archive/main.zip)
+
+[_Preview_ 👀](http://modulo.codeberg.page/modulo-docs-starter/) - Create
+a offline-friendly documentation just like the one you are looking at right
+now, powered by Markdown, and complete with interactive demos, full-text
+search, and examples of demoing multiple languages, all in less than 100kb.
+Also is included is examples of extending to more languages: With additional
+downloads, in-browser versions of ReactJS or Python can be used.
+-->
+
+<!--
+##### Modulo Starter Preview 👀
+
+<iframe src="http://modulo.codeberg.page/modulo-starter/"></iframe>
+-->
+
+
+<!--
+##### Docs Starter Preview 👀
+<iframe src="http://modulo.codeberg.page/modulo-docs-starter/"></iframe>
+-->
+
+

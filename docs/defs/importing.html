@@ -1,0 +1,367 @@
+<!DOCTYPE html><meta charset=utf8><script src=../static/Modulo.html></script><script type=md>---
+title: Importing
+description:
+     Learn how to embed and import Modulo definitions, the pros and cons of
+     each approach, and how to use the Modulo file headers.
+---
+
+
+
+> **Ramping Up vs Greenfielding** - Consider for a moment: Are you
+> "greenfielding" a project (for example, starting a new site from scratch), as
+> opposed to integrating or embedding Modulo into an
+existing web application (e.g. "brownfielding")? If you are "greenfielding", then it's
+probably easiest to start with a starter. For example, the Modulo Starter and
+Docs Starter ZIP files both have the `static/index.html` and
+`static/components/index.html` correctly set-up.  However, if you are "Ramping
+Up" an integration into an existing project, then consider these options.
+
+
+# Ramping Up
+
+You'll soon "outgrow" an embedded script tag as you develop components beyond
+simple, one-off components on a single page. Modulo recommends several options to
+"ramp up" in complexity.
+
+##### Option 1: Load a File
+
+Much like CSS being separated and brought in using a `<link>` tag, it's best to
+put our `<Component>` definitions into a separate file, and then bring them in
+using Modulo's special `-src=` attribute, that loads from another file. For
+example, it might be called "modulo-component-library.html":
+
+```modulo
+<script Modulo
+     src="//modu.lol"
+     -src="./modulo-component-library.html"
+><-script>
+```
+
+Keep in mind that the the standard name for your library should be
+`static/index.html`, if possible (see [Explicit static
+import](#explicitstaticimport) for more info).
+
+##### Option 2: Static
+
+The recommended usage is creating a directory called `static/`, and storing
+your components in a file called `index.html`.  or [implicitly (automatically)
+imported](#implicitstaticimport).
+
+
+Keep in mind that the the standard name for your library should be
+`static/index.html`, if possible (see [Explicit static
+import](#explicitstaticimport) for more info).
+
+
+
+> **Boot-Up Logic** - Modulo will search in 4 steps for top-level definitions:
+> _(Step 1)_ First, `<head>...` - Modulo searches children of the head element,
+> and execute definitions synchronously, blocking, and before the page is done
+> loading, with the document still open for writing. _(Step 2)_ Load own dev
+> library and default tools. _(Step 3)_ Wait for `DOMContentReady`, then
+> implicit static import happens along with default content viewer setup.
+> _(Step 4)_  Finally, `<body>` - load children of the body element,
+> asynchronously.
+
+
+## HTML tags: Script and template
+
+Understanding the special HTML behavior of `<script>` and `<template>` tags is
+important, since HTML treats these tags differently. Using the wrong tag can
+cause syntax-related errors (in the case of accidentally closing a `<script>`
+tag) or accidentaly "leakage" (global execution) of code. For a demonstration
+of this behavior, see the following two examples of correct and incorrect ways
+to include Modulo components in an HTML page:
+
+##### Example 1: Incorrect: Code "leakage"
+
+```modulo
+edit: demo=html_demo
+<head>
+<title>Lorem Ipsum</title>
+<Modulo>
+    <Component mode=vanish name=App>
+        <Template><p>INSIDE APP: Should be red</p></Template>
+        <!-- INCORRECT: These tags "leak":
+             Everything is red, and window.myVar === true -->
+        <Script>var myVar = true<-Script>
+        <Style>* { color: red }</Style>
+    </Component>
+</Modulo>
+<script src=../static/Modulo.html><-script>
+</head>
+<body>
+<p>Not red (outside App).</p>
+<x-App></x-App>
+</body>
+```
+
+
+
+
+##### Example 2: Correct: Embedded "template Modulo" tag
+
+
+```modulo
+edit: demo=html_demo
+<head>
+<title>Lorem Ipsum</title>
+<template Modulo>
+    <Component mode=vanish name=App>
+        <Template><p>INSIDE APP: Should be red</p></Template>
+        <!-- No leakage, since "template" doesn't run: -->
+        <Script>var myVar = true<-Script>
+        <Style>* { color: red }</Style>
+    </Component>
+</template>
+<script src=../static/Modulo.html><-script>
+</head>
+<body>
+<p>Not red (outside App).</p>
+<x-App></x-App>
+</body>
+```
+
+> **Why iframes? Why not fetch / JSONP?** - Modulo will use _fetch_ while on
+> HTTP(S), but for it to work seemlessly over the restricted `file:///` scheme,
+> it uses a "hack" where files of any type can be treated as a HTML file and
+> loaded using an iframe. While far from ideal, the only other "hack" is JSONP,
+> which is even more difficult to edit by hand, and offers few advantages over
+> iframe, and thus was cut as an option.
+
+
+# Importing a file
+
+
+Components can either go directly embedded into a `<Modulo>` definitions for
+quick, one-off JavaScript (what we've mostly seen so far), or in the form of
+`<Modulo -src="lib.html">...` to load separate HTML file(s) containing your
+components.  You can do this as many times as you want.
+
+
+## Modulo File Header
+
+
+> **Using the file header "hack"** - While it is cumbersome to rename files to
+> `.htm` and add these comments at top, at last there is no need for a closing
+> tag so only the top of the file needs this special comment, and that Modulo
+> uses this relative path for importing as well (see _Implicit static import_
+> below).  Finally, stylistic purposes, consider using `.css.htm` or `.js.htm`
+> as a convention, while actual HTML files can still just use `.html`.
+
+When using `http(s)`, Modulo loads files using `fetch` (like other frameworks),
+but if you are working locally over `file`, Modulo uses an iframe technique
+that requires you to follow two rules: 1) Add a header (below) and `.htm`
+extension to every file you bundle with `-src=` or `<Include>`, and
+2) Avoid using a closing `<-script>` tag if you have an openeing one at top,
+   since that will terminate the "loading" mechanism (this is usually only an
+issue if you happen to be writing documentation for something HTML related).
+
+As long as you follow this convention for file type headers, Modulo will be
+able to load them in an identical manner over any protocol.  Furthermore, since
+the HTML is contained in a comment, they remain valid CSS or JS, so they can be
+included with `<script>` and `<link>` tags as well.
+
+##### Example 1: Modulo-HTML
+
+`static/index.html` _(Example)_
+
+```html
+<script src=Modulo.html><-script><template type=f>
+```
+
+##### Example 2: CSS-HTML 
+
+`static/css/my-styles.css.htm` _(Example)_
+
+```html
+/* <script src=../Modulo.html><-script><style type=f> */
+```
+
+
+##### Example 3: JavaScript-HTML
+
+`static/js/main.js.htm` _(Example)_
+
+```html
+/* <script src=../Modulo.html><-script><script type=f> */
+```
+
+
+> **What goes in static?**  In other frameworks, this is sometimes called
+> `public/` or `assets/`. Regardless, it consists of all of the static assets
+> that are required to build your site. _Components_, _Core Definitions_, as
+> well as CSS, JS, and image assets should go in a `static/` directory.  HTML
+> routes live outside.
+
+
+
+## Explicit static import
+
+Modulo expects a directory at the root of your project called `static/`.  The
+first file loaded is `static/index.html`.  With the default configuration,
+Modulo expects all of your project's dependencies to live in this directory.
+
+In order to simplify the top of your HTML files, you can include Modulo and
+import static in one simple tag:
+
+```modulo
+<script Modulo src="./static/Modulo.html" -src="./static/"><-script>
+
+<docs-Page></docs-Page><!-- etc -->
+```
+
+
+
+## Implicit static import
+
+**All you need is Modulo.html:** In order to make the top of your HTML files as
+simple and elegant as possible, all you need to do is place `Modulo.html` in
+a `static/` directory ("folder"), and then not attempt define any Modulo
+definitions at all in that file. Then, Modulo will automatically attempt to
+_implicitly_ import `static/index.html`. This also works for a subdirectory:
+`static/js/Modulo.js` for example will still import `static/index.html`.
+
+See below for an example that imports _Modulo Docs_ static directory itself:
+
+```modulo
+edit: demo=html_demo
+<script src=../static/Modulo.html><-script>
+
+<!-- Implicitly adds: <Modulo -src="../static/index.html"></Modulo> -->
+
+<!-- Now we can use docs-Page, x-QuickDemo, etc -->
+<div style="border: blue 10px dotted;">
+    <x-QuickDemo
+        value="<Template>Hello</Template>"
+        demo="modulo"
+    ></x-QuickDemo>
+</div>
+
+<docs-Page>
+    <h1>Example page</h1>
+</docs-Page>
+```
+
+
+### Deactivating implicit static import
+
+If you don't want this to happen, be sure to add an explicit embedded `Modulo`
+tag as a tag name or as the first attribute of a tag (note that it must be the
+_first_ attribute, or else it will be ignored). **This will deactivate the
+implicit import feature.**
+
+
+```modulo
+<script Modulo src=../static/Modulo.html><-script>
+<!-- No import... ->
+```
+
+# Troubleshooting
+
+Browsers with `file:` protocol will _only_ load frames if they have the `.htm`
+or `.html` extension. This means that to keep identical file and http support,
+you will need to follow several guideliness to keep things loading the same on
+`file` as with `http`.
+
+## Extensions, "nosniff", and mime-types
+
+**Aka, what's in a name? Modulo.html vs Modulo.js**
+
+Modulo is one file, but it can be re-named to several extensions: `.html`
+(becomes the help page when viewed), `.js` (a valid JS file that sets up
+Modulo), and `.md` (version info in a particular Markdown meta syntax). In
+general, `.html` is preferred: It is able to load its own source code when you
+run _build_, even if it's being viewed locally over `file`.  However, some
+`http` dev servers are configured to send `.html` and `.js` with "nosniff"
+headers and guessed mime-types. This means that only `Modulo.js` will work, if
+you cannot reconfigure your dev server. Ultimately, which extension you use
+depends on your target dev setup.
+
+
+## File headers: Unicode and Quirks Mode
+
+This section contains troubleshooting tips for Quirks Mode and Webkit Unicode
+Support.
+
+
+##### BUG #1: "Warnings Galore!"
+
+
+Are you getting many warnings with text like what's listed below?  **As long as
+you are only getting them during develpoment, and they do not affect your app,
+then they are probably safe to ignore.**
+
+See the following warnings:
+
+```
+Page layout may be unexpected due to Quirks Mode
+```
+
+```
+This page is in Quirks Mode. Page layout may be impacted. For Standards Mode use “<!DOCTYPE html>”.
+```
+
+```
+The character encoding of a framed document was not declared. The document may appear different if viewed without the document framing it.
+```
+
+**Quirks Mode:** In this guide, little is discussed around _QuirksMode_. In most
+cases, this shouldn't make a difference: Websites will display almost
+identically. However, without a doctype, your content files may prview
+differently than the final files you produce when building. In this case,
+simply add a doctype to your header (Modulo will correctly ignore this too when
+loading). Note that unlike unicode, this only affects pages you directly view
+during development, although it can generate annoying warnings on other pages.
+
+**Developing Using Webkit (_Apple Safari_, _GNOME Web_):** In some cases, you
+can get unicode loading issues in Webkit-based browsers such as Safari or GNOME
+Web. To fix this, ensure "utf8" is set on all HTML documents that contain
+unicode characters by adding a meta tag (Modulo will correctly ignore this too
+when loading).
+
+##### BUG #2: "What have they done to my beautiful logo!"
+
+To illustrate the second bug, here is the same text being rendered in Firefox
+vs Webkit (Konquer / Epiphany / Safari):
+
+```
+(Firefox)  (Safari)
+🔥         ðŸ”¥
+
+(Firefox)  (Safari)
+ᵐ°dᵘ⁄o     áµ�Â°dáµ˜â�„o
+
+```
+
+See how the "modulo" logo is completely destroyed? The only remaining
+characters are "°" (degree sign), "d", and "o", since those are in the
+plain-text base range. However, the other symbols are all extended unicode, and
+thus get misread as separate code points.
+
+**If you are having unicode issues while developing with Webkit, then keep on
+reading!** However, note that if you are correctly building your site before
+launching, this should not be an issue on production, since you should always
+have your UTF8 meta set in final HTML files, and no HTML loading will be done.
+
+### Solutions
+
+##### Soultion 1: Highly Compatible Markdown-HTML
+
+`my-page.html` _(Example)_
+
+```html
+<!DOCTYPE html><meta charset=utf8><script src=static/Modulo.html><-script><template type=f>
+```
+
+
+##### Solution 2: Highly Compatible HTML fragments
+
+`static/content-data/product_info_1.html` _(Example)_
+
+```html
+<meta charset=utf8><script src=../Modulo.html><-script><template type=f>
+```
+
+
+

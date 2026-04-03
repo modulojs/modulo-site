@@ -1,0 +1,37 @@
+<!DOCTYPE html><meta charset=utf8><script src=../static/Modulo.html></script><script type=md>---
+title: Compatiblity
+description: Troubleshooting tips
+---
+
+## Tauri
+
+By default, tauri will inject an auto-rerun script into every HTML file,
+causing the DOM to be constructed too earlier, and ultimately "corrupting" the
+files that Modulo attempts to serve.
+
+
+
+#### Solution 1: Disable autorun.js Tauri CLI injection
+
+The simplest solution is disabling the HTML / JS injections:
+
+```
+npm run tauri dev -- --no-watch --no-dev-server
+```
+
+#### Solution 2: Prebuild using Modulo
+
+If you have CLI building set-up with Modulo (e.g. using the Modulo Starter
+template that includes relevant scripts), then use Modulo to prebuild, and then
+only serve that:
+
+```
+(In package.json)
+"build": {
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "_build"
+}
+```
+
+
+

@@ -1,0 +1,112 @@
+<!DOCTYPE html><meta charset=utf8><script src=../static/Modulo.html></script><script type=md>---
+title: Edge Engine
+---
+
+# Custom Graph-Edge-Inline-Vanish Component Mode
+
+```modulo
+<script Configuration>
+
+
+modulo.part.InlineEvents = class InlineEvents {
+
+    initializedCallback() {
+        this.states = { }
+        this.scripts = { }
+    }
+
+    prepareCallback({ component }) {
+        this.lastHash = this.stateHash || modulo.util.hash('')
+        this.edges[this.lastHash] = this.edges[this.lastHash] || { }
+    }
+
+    renderCallback({ component }) {
+        this.stateHash = modulo.util.hash(component.innerHTML)
+    }
+
+    _getPath(node) {
+        const i = Array.from(node.parentNode.children).indexOf(node)
+        const end = !node.parentNode || node.parentNode === this.element
+        return `${ end ? '' : this._getPath(node.parentNode) }.children[${ i }]`
+    }
+
+    updateCallback() {
+        // Step 1: Collect elements
+        let count = 0
+        let s = 'let N = [];\n'
+        const nodes = Array.from(this.element.querySelectorAll('*'))
+        for (const [ node ] of patches) {
+            if (typeof node._inlineIndex === 'number') { // already seen
+                continue
+            }
+            node._inlineIndex = count
+            s += `N[${ count }] = P${ this._getPath(node) };\n`
+            count++
+        }
+
+        // Step 2: Inline patches
+        const { patches } = this.element.parts.component
+        for (const [ node, method, arg1, arg2 ] of patches) {
+            if (arg1 && arg1.rawName) { // ignore directives
+                continue;
+            } 
+            // Assume is DOM event, compute args
+            let a = typeof arg2 !== "undefined" ? [ arg1, arg2 ] + arg1;
+            a = (typeof arg2 !== "undefined" ? '...' : '') + JSON.stringify(a);
+            s += `N[${ node._inlineIndex }].${ method }(${ a });\n`
+        }
+        // Step 3: Attach generated script as DOM-patch-edge-script
+        this.stateScript = s
+        this.stateHash = modulo.util.hash(this.stateScript)
+        this.scripts[this.stateHash] = this.stateScript
+        this.states[this.stateHash] = this.states[this.stateHash] || { }
+        this.states[this.stateHash] = this.states[this.stateHash] || { }
+    }
+
+    buildCallback() { // TODO: make another command that does simulated build + non
+        const nodes = Array.from(this.element.querySelectorAll('*'))
+        for (const node of nodes) {
+            if (!node.moduloEvents) {
+                continue;
+            }
+            const count = nodes.filter(e => e.contains(node)).length
+            for (const [ evName, listener ] of node.moduloEvents) {
+                //listener() // simulate event
+                let script = `let P=this${ '.parentNode'.repeat(count) };`
+                script += this.lastEdge
+                node.setAttribute('on' + evName
+            }
+        }
+    }
+}
+
+
+<-script>
+```
+
+
+"GEIV = N2K" - turning your N problems into K problem!
+
+
+## Motivation: Optimizing mostly static sites
+
+The goal of this set of component parts is to create 100% vanishing websites
+that, when built, have inlined DOM patch javascript in the form of onclick and
+data-x type attributes.  The main focus is sites with limited UI states (e.g.
+20 total that can transition between each other, like one for each combo of
+   menus, dialogs, etc).  It can be mixed and matched with other types, or
+combined with 100% vanishing compnents for one of the fastest conceivable
+compiled websites: All patches are pre-computed and inlined!
+
+## Auto UI graph exploration
+
+One of the ways it does this is by wandering down the imaginary "graph" of
+potential UI states, generating every possible "edge" .
+
+
+> **What's a Graph? Edge?:**
+> Imagining a street map: Each intersection might be a "node", and each street
+> connecting them might be an "edge". This add-on to Modulo has to "precompute"
+> the entire map by wandering around the streets, looking for what turns into
+> what.
+

@@ -1,0 +1,229 @@
+<!DOCTYPE html><script src=../static/Modulo.html></script><script type=md>---
+title: ContentList
+---
+
+
+# ContentList
+
+> **Markdown?** Markdown is a useful format: It's easily edited by GUI editors,
+> and popular in many different contexts for content management. It can also
+> store meta data, such as date or product information like price or ISBN.
+
+
+Use a _ContentList_ definition to mix in a list of files for a sidebar or data
+collection. It's super powerful when combined with Markdown files, allowing for
+meta information and content. It supports use as both a site-map or list of
+links, a list type for managing CMS content, or as an easy way to collect many
+files of _StaticData_.  When used as a site-map, it can provide a management
+command that builds all pages at once, for a complete SSG-style build.
+
+
+##### Example 1: Simple list of pages
+
+The most common usage is a single, global _ContentList_ used as a "site map",
+that has links to all your pages in it. This can also be the list used for
+building -- just adding a `build=build_all` will register a new command.
+
+See below for an example:
+
+```modulo
+edit: demo=modulo_embed
+<ContentList build=build_all>
+    start/getting-started.html, Getting Started
+    start/development.html,     Development
+    core/artifact.html,         Artifact
+    core/component.html,        Component
+</ContentList>
+
+<Component name=App>
+    <Template>
+        <ol><h3>Site Map</h3>
+        {% for row in global.definitions.contentlist.data %}
+            <li><a href="{{ row|get:0 }}">{{ row|get:1 }}</a></li>
+        {% endfor %}
+        </ol>
+    </Template>
+</Component>
+```
+
+Note that by default _ContentList_ is in `CSV` format (hence the comma
+separated data), but that can be changed with `-data-type=JSON` etc.
+
+> **Paths?** - ContentList expects paths to be relative to the root path (e.g.
+> project root). The root path is expected to be relative to the `static/`
+> directory, wherever that is set.
+
+> **Manually setting static** - If ContentList can't find your files, try
+> setting `modulo.rootPath = "../"` (or something equivalent), to indicate the
+> path from the currently viewed file to the root of your project.
+
+
+
+##### Example 2: Loading Content
+
+_ContentList_ is also intended to _collect_ the files it has listed. That is,
+it will loop through and load all those files as content files, processing them
+with the given content type (e.g. `-load="json"`, `-load="md"`). Once collected,
+it will expose them in a `.files` array, making it wasy to generate article
+lists and other content-management tasks. See below:
+
+```modulo
+edit: demo=modulo_embed
+<ContentList -load="md">
+    core/configuration.html
+    core/include.html
+    core/library.html
+</ContentList>
+
+<Component name=App>
+    <Template>
+        {% for file in global.definitions.contentlist.files %}
+        <article>
+            <p><strong>TITLE:</strong> {{ file.title }}
+            <p><strong>CONTENT:</strong> {{ file.body|truncate:80 }}
+            <p><a href="{{ file.Source }}">{{ file.Source }}</a>
+        </article>
+        {% endfor %}
+    </Template>
+    <Style>
+        article {
+            padding: 2%;
+            margin: 2%;
+            background: #aaaaee55;
+            border:5px inset #338;
+            font-size: 90%;
+        }
+    </Style>
+</Component>
+```
+
+
+##### Example 3: Maintaining a separate index list
+
+Consider the case of including 30 survey data JSON files:
+
+```modulo
+<ContentList -load=json>
+./survey-data/001.json
+./survey-data/002.json
+...
+./survey-data/030.json
+</ContentList>
+```
+
+Clearly maintaining a long list like this is difficult. Thus, it's best to
+split it into a separate file.  For example, the above can be rewritten into
+a separate file as such:
+
+```modulo
+<ContentList -load=json -src="./survey_file_list.csv"></ContentList>
+```
+
+Then, using tools external to Modulo, we can maintain this
+`survey_file_list.csv` file to make sure it has all the names of the files we
+want to load. For example, using a shell such as `bash` or `zsh`, we can write:
+
+```
+find ./survey-data/ -name '*.json' > ./survey_file_list.csv
+```
+
+By re-running this "find" command, the CSV file will be updated. By combining
+the above with the `entr` command, this can be done automatically whenever
+changes are detected. However, that is beyond the scope of this document.
+
+##### Example 4: Article Markdown Powered CMS
+
+
+```modulo
+edit: demo=modulo_embed
+<ContentList -load="md">
+    static/exampledata/article1.md.htm
+    static/exampledata/article2.md.htm
+    static/exampledata/article3.md.htm
+</ContentList>
+
+<Component name=App>
+    <Template>
+        {% for file in global.definitions.contentlist.files %}
+        <article>
+            <h4 style="float:right">{{ file.date }}</h4>
+            <h3><a href="{{ file.Source }}">{{ file.title }}</a></h3>
+            <p>{{ file.description }}</p>
+            <div style="font-size: 80%;">{{ file.body|truncate:200|syntax:"md"|safe }}</div>
+        </article>
+        {% endfor %}
+    </Template>
+    <Style>
+        article {
+            padding: 2%;
+            margin: 2%;
+            background: #aaaaee55;
+            border:5px inset #338;
+        }
+        h3 { font-size: 1.1rem; }
+    </Style>
+</Component>
+```
+
+
+
+
+##### Example 5: "E-Commerce" Markdown Powered CMS
+
+It's also useful to use this for CMS files, for example for a E-Commerce store.
+See below for many simple Markdown files get loaded and formatted. Note that
+their extension are ommitted; however, they are Markdown-HTML files.
+
+```modulo
+edit: demo=modulo_embed
+<ContentList -load=md -name=product_list>
+    static/exampledata/wood-chair
+    static/exampledata/plush-chair
+</ContentList>
+
+<Component mode=vanish name=App>
+    <Template>
+        {% for product in global.definitions.product_list.files %}
+            <article>
+                <h4>{{ product.title }}</h4>
+                {{ product.body|syntax:"md"|safe }}
+                <a href="#purchase.html?product_id={{ product.product_id }}">
+                    <strong>${{ product.cost }}</strong> BUY
+                </a>
+            </article>
+        {% endfor %}
+    </Template>
+    <Style>
+        * { margin: 0; padding: 0 }
+        article {
+            background: pink;
+            border: 8px outset pink;
+            padding: 3px;
+            font-size: 0.9rem;
+            color: #115;
+            display: block;
+        }
+        a {
+            background: salmon;
+            border: 8px outset salmon;
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            margin-bottom: 10px;
+        }
+    </Style>
+</Component>
+```
+
+
+
+<!--
+ Example: Custom 404.html router:
+        for (const [ path, replacement ] of modulo.definitions.routes.data) {
+            const re = path.replace(/:([a-z]+)/, '.+?') // check for "/path/:var/"
+            if (re.test(modulo.filePath)) { // Match, internally rewrite
+                modulo.filePath = modulo.filePath.replace(re, replacement)
+                break;
+            }
+        }
+-->

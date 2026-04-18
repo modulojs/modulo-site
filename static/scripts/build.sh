@@ -9,11 +9,11 @@ fi
 npm run build
 
 # run docs build
-cd docs
-bash build.sh
-rm -fr ../_build/docs
-mv _build ../_build/docs
-cd ..
+#cd docs
+#bash build.sh
+#rm -fr ../_build/docs
+#mv _build ../_build/docs
+#cd ..
 
 # Do release
 bash static/scripts/release.sh $1

@@ -1677,8 +1677,6 @@ modulo.definitions = {
 
 
 
-
-
 modulo: {"Type":"modulo","Parent":null,"DefName":null,"build":{"mainModules":["configuration","configuration1","_component_Frame","_component_TextEdit","_component_Editor","_component_Page","x_WordArt3D","x_Downloads","x_AbstractArt3D","x_Demo","x_PageControls","x_Page"]},"scriptSelector":"script[src$='mdu.js'],script[src$='Modulo.js'],script[src='?'],script[src$='Modulo.html']","version":"0.1.2","timeout":5000,"ChildPrefix":"","Contains":"core","DefLoaders":["DefTarget","DefinedAs","Src","Content|LoadDefs"],"defaultDef":{"DefTarget":null,"DefinedAs":null,"DefName":null},"defaultDefLoaders":["DefTarget","DefinedAs","DataType","Src"],"defaultDefBuilders":["FilterContent","ContentType","Load"],"Name":"modulo","DefinitionName":"modulo","Source":"file:///home/michaelb/projects/modulo-site/static/","ChildrenNames":["contentlist","buildlist","navlinks","nestedpaths","include","include1","x","configuration","configuration1"]},
 
 contentlist: {"Type":"contentlist","Parent":"modulo","DefName":null,"DefFinalizers":["command|Command"],"build":"build","Name":"contentlist","DefinitionName":"contentlist","data":[["index.html"," Modulo"," ᵐ°dᵘ⁄o"],["docs/index.html"," Docs"],["playground.html"," Playground"],["about.html"," About"]],"commands":[" "]},
@@ -1727,7 +1725,7 @@ x_Downloads_props: {"Type":"props","Parent":"x_Downloads","Content":"","DefName"
 
 x_Downloads_template: {"Type":"template","Parent":"x_Downloads","DefName":null,"DefFinalizers":["Content|CompileTemplate","Code"],"unsafe":"filters.escape","modeTokens":["{% %}","{{ }}","{# #}","{-{ }-}","{-% %-}"],"opTokens":"==,>,<,>=,<=,!=,not in,is not,is,in,not,gte,lte,gt,lt","opAliases":{"==":"X === Y","is":"X === Y","is not":"X !== Y","!=":"X !== Y","not":"!(Y)","gt":"X > Y","gte":"X >= Y","lt":"X < Y","lte":"X <= Y","in":"(Y).includes ? (Y).includes(X) : (X in Y)","not in":"!((Y).includes ? (Y).includes(X) : (X in Y))"},"Name":"template","DefinitionName":"x_Downloads_template"},
 
-x_Downloads_state: {"Type":"state","Parent":"x_Downloads","Content":"","DefName":null,"Directives":["bindMount","bindUnmount"],"Store":null,"createModuloVersion":"1.1.2","Name":"state","DefinitionName":"x_Downloads_state"},
+x_Downloads_state: {"Type":"state","Parent":"x_Downloads","Content":"","DefName":null,"Directives":["bindMount","bindUnmount"],"Store":null,"createModuloVersion":"1.1.3","Name":"state","DefinitionName":"x_Downloads_state"},
 
 x_Downloads_staticdata: {"Type":"staticdata","Parent":"x_Downloads","DefName":null,"Name":"staticdata","DefinitionName":"x_Downloads_staticdata","data":[{"file":"modulo-starter.zip","size":"~60kb","path":"build/modulo-starter.zip","icon":"📦","alt":"archive icon"},{"file":"modulo-docs.zip","size":"~300kb","url":"https://codeberg.org/modulo/docs/archive/main.zip","icon":"📦","alt":"archive icon"},{"file":"Modulo.html","size":"~99kb","path":"build/starter/static/Modulo.html","icon":"📄","alt":"file icon"}]},
 

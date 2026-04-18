@@ -1,4 +1,7 @@
 /* <script src=../Modulo.html></script><style type=f> */
+/*
+ * "ModuloDocTests.js.htm" - Provides DocTest definition
+ * */
 
 /* Create global unit test array */
 modulo.tests = [ ];
@@ -72,20 +75,11 @@ modulo.util.assertSnapshot = function (element, snapshotContent, opts = { }) {
         }
     }
 
-    const stripHash = s => s.replace(/(-x)[a-z0-9]+(.[a-z]+)$/i, '$1$2')
     if (!opts.preserveDownloads) {
-        for (const a of element.querySelectorAll('a[download],option[value]')) {
-            // truncate to first 10 chars, and generic filenames
-            if (a.hasAttribute('href')) {
-                a.setAttribute('href', a.getAttribute('href').substr(0, 9))
-            }
-            if (a.hasAttribute('download')) {
-                a.setAttribute('download', stripHash(a.getAttribute('download')))
-            }
-            if (a.hasAttribute('value')) {
-                a.setAttribute('value', stripHash(a.getAttribute('value')))
-            }
-            a.textContent = stripHash(a.textContent)
+        for (const a of element.querySelectorAll('a[download]')) {
+            // truncate to first 20 chars + last 20
+            const href = a.getAttribute('href')
+            a.setAttribute('href', href.substr(0, 30) + href.substr(href.length - 30))
         }
     }
 
@@ -217,7 +211,7 @@ modulo.command.test = function (modulo) {
     modulo._drainQueue(); // wait for mounts
     let count = 0
     modulo.testCallback = async tests => {
-        //console.log('pushing tests!', tests.length)
+        console.log('pushing tests!', tests.length)
         modulo.tests.push(...tests) // collect tests
         count--
         if (count <= 0) { // once done, run all at once

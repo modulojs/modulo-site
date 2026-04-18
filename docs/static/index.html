@@ -1,6 +1,5 @@
 <script src=Modulo.html></script><template type=f>
 
-
 <!-- All content files must be listed here, in a comma-separated format:
 (File path),                (Title),            (New section title)      -->
 <ContentList -name="sidebar" -test-content:=true>
@@ -24,13 +23,11 @@ core/artifact.html,         Artifact,           Core Definitions
 core/component.html,        Component
 core/configuration.html,    Configuration
 core/contentlist.html,      ContentList
-core/library.html,          Library
 core/include.html,          Include
 extension/engine.html,      Upgrading Engines,  Extension
 extension/compatibility.html,      Compatibility
-tests/core10.html,      Tests
+tests/core30.html,      Tests
 </ContentList>
-<!--core/contentfile.html,      ContentFile-->
 
 <!-- until i can make builds more dependable, broke down into sections: -->
 <ContentList -name=partial command="build1">
@@ -117,20 +114,20 @@ eg/tutorial_7.html,         Part 7
 <!-- Uncomment to get ModuloHTML.org website wrapper: -->
 <!--<Modulo namespace=x -src="https://modulohtml.org/static/index.html"></Modulo>-->
 
-<Configuration
-    contentfile.html-body='
-        <meta charset="utf8">
-        <x-Page rootat="https://modulohtml.org/">
-            <docs-Page></docs-Page>
-        </x-Page>
-    '
-></Configuration>
-
 <script Configuration>
-    modulo.util.showdownConvert = function showdownConvert (text) {
-        return (new showdown.Converter()).makeHtml(text)
+    // Configuration script to register showdown and configure markdown 
+    if (modulo.DEV) {
+        modulo.util.showdownConvert = function showdownConvert (text) {
+            return (new showdown.Converter()).makeHtml(text)
+        }
+        let content = modulo.stores.CACHE.getItem(modulo.filePath)
+        if (!content) {
+            content = modulo.definitions.contentfile.data
+        }
+        if (content) { // Viewing a content file, mount Page
+            delete modulo.stores.CACHE.data.fdata[modulo.filePath]
+            modulo.docsContent = modulo.contentType.MD(content)
+            document.body.innerHTML = '<x-Page rootat="https://modulohtml.org/"><docs-Page></docs-Page></x-Page>'
+        }
     }
-    modulo.config.syntax.md = [ // Configure "md" syntax to use markdown filter
-        [ null, 'markdown', null ],
-    ]
 </script>

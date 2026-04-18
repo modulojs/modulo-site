@@ -1,0 +1,32 @@
+
+<!DOCTYPE html><script src=../static/Modulo.html></script><script type=md>---
+title: Markdown Reference
+---
+
+This document lists and shows examples for each of the the built-in Markdown
+tags that are already registered with Modulo Markdown.
+
+
+## Parser extension
+
+For more advanced enhancements, Modulo's Markdown parser can be extended to
+handle different tokens and modes. This enables precise control over how the
+content of a particular "mode" might be parsed, such as p
+
+## Example: Adding inline HTML fragments
+
+```modulo
+edit: demo=modulo_embed
+<script Configuration>
+    // Markdown language extension: Inline HTML Fragment Syntax
+    modulo.parser.markdown.modeTokens.push('<> </>');
+    modulo.parser.markdown.modes['<>'] = (text, parser) => text;
+<-script>
+
+<script type=md>
+# Example
+
+Here is <><strong style=color:orange>some *embedded* <tt>HTML</tt></strong></> in
+the Markdown code. Note how *this is italic*, but the word embedded is not.
+</script>
+```

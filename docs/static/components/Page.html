@@ -1,14 +1,16 @@
 <script src=../Modulo.html></script><template type=f>
 
 <Template>
-    {% if global.docs-content %}
+    {% if file.data %}
         <meta charset=utf8>
-        <title>{{ global.docs-content.title }} - Modulo Documentation</title>
+        <title>{{ global.file.data.title }} - Modulo Documentation</title>
     {% endif %}
     <div class="layout">
+        {% if not file.data.skipnavigation %}
         <nav class="page-nav">
             {% if not global.definitions.contentlist %}
-            <a style="font-size:60px;text-align:center;display:block;font-weight:200" href="{{ global.root-path }}">ᵐ°dᵘ⁄o</a>
+            <a style="font-size:60px;text-align:center;display:block;font-weight:200" href="{{
+file.root-path }}">ᵐ°dᵘ⁄o</a>
             <ul style="position: sticky; top: 1px">
                 <li class="toc--outer">
                     <p><a style="font-size: 70%"
@@ -23,18 +25,17 @@
             {% endif %}
                 {% for row in global.definitions.sidebar.data %}
                     {% if row|get:2 %}<li class="toc--outer"><h3>{{ row|get:2 }}</h3></li>{% endif %}
-                    <li class="toc--{{ row|ifactive }}"><a href="{{ global.root-path }}{{ row|get:0 }}">{{ row|get:1 }}</a></li>
+                    <li class="toc--{{ row|ifactive }}"><a href="{{ file.root-path }}{{ row|get:0 }}">{{ row|get:1 }}</a></li>
                 {% endfor %}
             </ul>
         </nav>
+        {% endif %}
         <main class="page-container">
-            {% if global.docs-content %}
-                {% with global.docs-content.body|markdown as html %}
-                    {% if not global.docs-content.skiptoc %}
-                        <x-TableOfContents toc='{{ html|html2toc|json }}'></x-TableOfContents>
-                    {% endif %}
-                    <div class="markdown-body">{{ html|safe }}</div>
-                {% endwith %}
+            {% if file.data %}
+                {% if not file.data.skiptoc %}
+                    <x-TableOfContents toc='{{ file.data.body|html2toc|json }}'></x-TableOfContents>
+                {% endif %}
+                <div class="markdown-body">{{ file.data.body|safe }}</div>
             {% else %}
                 <slot></slot> {# Default to "slot" behavior #}
             {% endif %}

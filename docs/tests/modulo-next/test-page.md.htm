@@ -1,0 +1,119 @@
+<script type=md>---
+page_title:Example
+---
+
+# Testing
+
+---
+
+>>>html
+
+---
+
+## Testing
+
+### Testing
+
+
+Testing _testing 123_ what **oh yeah**.
+
+</script>
+<template Modulo>
+    <!-- IDEA:   command=buildall is now <modulo-Editor command="build *">(or
+all the files individual listed) -- this tries to toggle "build" on for files
+that match "*", thus showing "build" pane (which is an iframe with arg=build)
+        the "buildall" command (or maybe "make"!?) thus will be something like
+ "build *; save *" (for auto-save) -->
+    <ContentList command=buildall>
+        test-page.md.htm
+    </ContentList>
+
+    <script Configuration>
+        modulo.parser.markdown.modes['>>>'] = (text, tmpl) =>
+            `<m-Editor mode="${ text }" demo="html" value="<h1>test</h1>"></m-Editor>`
+        modulo.parser.markdown.modeTokens.push('>>> \n'); // TODO: change to [ ]
+        if (modulo.DEV) {
+            document.body.innerHTML += modulo.config.contentfile.htmlBody;
+        }
+    </script>
+    <Component mode=shadow namespace=m name=IDE>
+        <Props mode=html path=App.html font=16 view edit demo value full></Props>
+    </Component>
+    <Component namespace=m name=Editor>
+        <Props mode=html path=App.html font=16 file_pane edit_pane=y view_pane=y
+            export_pane view edit demo value full ui></Props>
+        <State 
+testfiles:=["App.html","static/Modulo.html","test-page.md.htm"]
+panes:='["file_pane","edit_pane","view_pane","export_pane"]' -init=props></State>
+<Template -name=file_pane>
+<select multiple state.bind=path><optgroup label=FILE>{% for k in testfiles %}
+<option value="{{k}}">{{k}}</option>{% endfor %}</optgroup></select>
+<ul>{% for cmd in global.command|keys %}
+{% if cmd|first is not "_" %}<li><a target=blank
+href="{{ path }}?argv={{ cmd }}">{{ cmd }}</a>
+{% endif %}{% endfor %}<ul></Template>
+<Template -name=export_pane><div>todo: loop thru all files, provide links,
+if selected, instead use value<a download="{{ path }}"
+href="data:text/plain;charset=utf-8,{{ value|urlencode:true }}"
+>{{ path }}</a> ({{ value|length }})</div></Template>
+<Template -name=view_pane><iframe loading=lazy
+style="width:100%;" srcdoc="{{value}}"></iframe></Template>
+<Template -name=edit_pane>
+{% with value|lines|length|multiply:font|multiply:'1.5' as hg %}
+<label style="margin-right:53px"><pre style="font-size:{{font}}px"
+><modulo-line></modulo-line>{{value|syntax:mode|safe}}</pre>
+<textarea state.bind=value style="border:none;top:-2px;left:50px;
+position:absolute;height:{{hg}}px;font-size:{{font}}px"
+spellcheck=false></textarea>
+</label>{% endwith %}</Template>
+<Template><modulo-uic>{% if state.ui %}{% for pane in state.panes %}<label>
+{{ pane|capfirst|trim:',_pane' }}<input state.bind={{pane}} type=checkbox></label>
+{% endfor %}{% endif %}</modulo-uic><modulo-uic>{% for pane in state.panes %}
+{% if state|get:pane %}{% with local|get:pane as tmplt %}{{state|renderas:tmplt}}
+{% endwith %}{% endif %}{% endfor %}</modulo-uic></Template>
+<Style>
+    modulo-uic { display: flex;}
+    modulo-uic > * {background:#fff;min-height:1.5rem;
+    min-width:100px;display:block;border:1px dotted #111;}
+    modulo-line:before{counter-increment:line;content:counter(line);
+    position:absolute;left:0;color:#888;padding:0 0 0 3px}pre{padding:0 0 0 53px;}
+    pre,textarea{counter-reset:line;display:block;color:black;background:transparent;
+    white-space:pre;text-align:start;line-height:1.5;overflow-wrap:break-word;
+    margin:0;box-sizing:content-box;
+    font-family: monospace}label{display:block;position:relative;width:100%}
+    textarea{resize:none;color:#00000000;caret-color:#000;width:100%;}
+    /*.u--hovehide {opacity:0}
+    :host:hover .u--hovehide{opacity:1}*/
+</Style></Component>
+<!--
+{% comment %}
+modulo-toolbar{}
+    button{text-align:center}button>i{font-size:200%;display:block}
+{% for v in staticdata %}<button on.click=script.menu payload={{v}}>
+{{ v|upper }}</button><br>{% endfor %}{{ state.menu }}
+{% endcomment %}
+<Component namespace=old name=Editor>
+<Props mode=html view edit demo value full></Props>
+<State -dot=| -name=proc -store=PROC></State>
+<State -dot=| -name=build -store=BUILD></State>
+<State -dot=| -name=cache -store=CACHE></State>
+<State fields:='{"edit":"TextEdit","view":"Frame"}' -init=props></State>
+<Template -name="demo_embed">{{ props.value|safe }}</Template>
+<def Template -name="demo_component"><js src=Modulo.html></js><template Modulo>
+<Component name=App>
+{{ props.value|safe }}
+</Component>
+</template>
+<x-App></x-App>
+</def>
+<Template>
+hi
+</Template>
+</Component>
+
+<div style="width:116px;position:relative;z-index:2">
+{% for btn in staticdata %}{{btn|renderas:btn_tmplt}}{% endfor %}</div>
+-->
+
+</template>
+<script src=static/Modulo.html></script>

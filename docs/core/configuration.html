@@ -1,0 +1,164 @@
+<!DOCTYPE html><script src=../static/Modulo.html></script><script type=md>---
+title: Configuration
+---
+
+
+# Configuration
+
+
+Use a Configuration definition to configure Modulo at the global level, or
+extend Modulo's functionality with JavaScript.
+
+
+## Registering filters
+
+A common use of _Configuration_ is registering custom types, such as filters or
+component parts. Here is an example of registering a filter:
+
+```modulo
+edit: demo=modulo_embed
+<script Configuration>
+    // This example shows, as an arbitrary example, a filter which reverses the
+    // words in a sentence, while trying to fix punctuation and capitalization.
+    modulo.templateFilter.reversewords = function (s, punc = '.') {
+        if (!s) {
+            return ''
+        }
+        // split the words
+        const split = s.toLowerCase().replace(punc, '').split(' ')
+        split.reverse() // reverse the words
+        split[0] = split[0][0].toUpperCase() + split[0].slice(1) // upper first
+        return split.join(' ') + punc
+    }
+<-script>
+
+
+<Component name=App>
+    <Template>
+        <input state.bind name="msg">
+        <div>{{ state.msg|reversewords }}</div>
+    </Template>
+    <State msg="The red fox ran quick."></State>
+    <Style>
+        input, div {
+            border: 1px solid blue;
+            padding: 5px;
+            margin: 5px;
+        }
+    </Style>
+</Component>
+```
+
+## Registering default components for CMS behavior
+
+**NOTE:** The exact interface of the FS stores is likely to change in future
+betas of Modulo HTML.
+
+```modulo
+edit: demo=modulo_embed
+<!-- Load the <x-Page> component, but only if it's a "type=f" page -->
+<script Configuration>
+    if (modulo.DEV) {
+        const content = modulo.stores.CACHE.getItem(modulo.filePath)
+        if (content) { // Viewing a content file: Parse content as "global.page"
+            modulo.page = modulo.contentType.MD(content)
+            document.body.innerHTML = '<x-Page>'
+        }
+    }
+<-script>
+
+<Component name=Page>
+    <Template>
+        <h1>Default page template</h1>
+        <p>Markdown loaded: {{ global.page|json }}</p>
+    </Template>
+</Component>
+```
+
+
+## Integrating analytics
+
+If you have some custom analytics script to integrate, it can be done this way.
+Examine the following snippet that was taken from the Fathom Lite
+mini-analytics software:
+
+
+```
+<script Configuration>
+     function setupFathom(code) {
+        if (modulo.DEV) {
+            return; // Ignore during dev mode
+        }
+        (function(f, a, t, h, o, m){
+            a[h]=a[h]||function(){
+                (a[h].q=a[h].q||[]).push(arguments)
+            };
+            o=f.createElement('script'),
+            m=f.getElementsByTagName('script')[0];
+            o.async=1; o.src=t; o.id='fathom-script';
+            m.parentNode.insertBefore(o,m)
+        })(document, window, '//XXXXXXXX.YYY/api/tracker.js', 'fathom');
+        fathom('set', 'siteId', code);
+        fathom('trackPageview');
+    }
+    setupFathom('XXXXX');
+<-script>
+```
+
+This is intended as a generic template: Other analytic integrations will
+probably follow a similar pattern. Note that `ZZ.XXXXXXXX.YYY` would be
+replaced with a real domain, and `XXXXX` with an analytic tracking code.
+
+
+<!--
+For example, suppose you wanted to configure Modulo to allow Components and
+Libraries to be defined "loose" within the head of an HTML document, along with
+the Modulo definition.  Here is an example of setting the
+`modulo.config.domloader.topLevelTags` configuration attribute to do so:
+
+```
+<Configuration
+    domloader.top-level-tags:=&apos;["component", "library", "modulo"]&apos;
+></Configuration>
+```
+
+
+Configuration can also be used as a script tag for more fine-grained
+control. This will only be run once, within an isolated context, so temporary
+variables are discarded.
+
+
+```
+<script Configuration>
+    modulo.config.domloader.topLevelTags.push("library");
+    modulo.config.domloader.topLevelTags.push("component");
+    var myVar = "stuff"; // Note: not global
+/script>
+```
+
+
+Configuration's use as a Script tag becomes useful for integrating third
+party libraries, as a sort of simple module and adapter system. Examine the
+following for a complete example of registering the "snarkdown" module from NPM
+as a templateFilter, allowing it to be used by components as a filter in the
+HTML Templates:
+
+```
+<script Configuration -src="https://unpkg.com/snarkdown">
+    modulo.templateFilter.snarkdown = snarkdown
+/script>
+<Component name="HelloWorld">
+    <Template>
+        <textarea [state.bind] name="text"></textarea>
+        <div>{{ state.text|snarkdown|safe }}</div>
+    </Template>
+    <State
+        text="Hello *markdown* _world_"
+    ></State>
+    <Style>:host { display: flex; }</Style>
+</Component>
+```
+-->
+
+
+

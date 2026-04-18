@@ -1,0 +1,185 @@
+<!DOCTYPE html><script src=../static/Modulo.html></script><script type=md>---
+title: Props - Component Parts
+---
+
+
+# Props
+
+> **Read-only** Props are read-only within a component, and only be set by the
+> parent component. If the values change, the component re-renders with the new
+> values. They are only supposed to be information being _passed to_ the
+> component, which means they can't be changed internally. For internal,
+> mutable data, use [State](#state) instead.
+
+Props allow components to receive data. You can think of Props as being like
+"function parameters": They allow you to pass down "arguments" (attributes) to
+component which can then modify it's appearance, behavior, or content based on
+the values of these parameters.
+
+Props are set ("passed down") by the HTML page or parent component using that
+component.  Examples: `<x-Btn design="round">` or `<x-Chart data:='[1, 2, 3]'>`
+
+### renderObj
+
+Props contributes it's received values to the renderObj. Examples:
+
+1.  Prop set like: `<x-Btn design="round">` will be accessible on the renderObj
+like `renderObj.props.design`, and in the Script or Template Component Parts like
+`props.design`.
+2.  Prop set like: `<x-Chart data:='["a", "b"]'>` will be accessible on the
+renderObj like `renderObj.props.data` (with individual items accessed with code
+that ends with "`.data[0]`"), and in the Script or Template Component Parts like
+`props.data`.
+
+## Examples
+
+
+
+### Example #1: Defining Props
+
+*Props must always be defined first:*
+
+```modulo
+edit: demo=modulo_component name="SimplePropsComponent" usage="USAGE:" snapshot="SNAPSHOT:"
+<Props
+    thing1
+    thing2
+></Props>
+
+<Template>
+    <p>
+        <strong>{{ props.thing1 }}</strong>:
+        <em>{{ props.thing2 }}</em>
+    </p>
+</Template>
+
+USAGE:
+<x-SimplePropsComponent
+    thing1="Foobar"
+    thing2="Lorem Ipsum"
+></x-SimplePropsComponent>
+
+SNAPSHOT:
+<x-SimplePropsComponent thing1="Foobar" thing2="Lorem Ipsum">
+    <p><strong>Foobar</strong>: <em>Lorem Ipsum</em></p>
+</x-SimplePropsComponent>
+```
+
+
+### Example #2: Setting Props
+
+*Props are set using attributes:*
+
+
+
+```modulo
+edit: demo=modulo_component name="SimplePropsComponent" usage="USAGE:" snapshot="SNAPSHOT:"
+<Props
+    thing1
+    thing2
+></Props>
+
+<Template>
+    <p>
+        <strong>{{ props.thing1 }}</strong>:
+        <em>{{ props.thing2 }}</em>
+    </p>
+</Template>
+
+USAGE:
+<p>Example 1:</p>
+<x-SimplePropsComponent
+    thing1="Foobar"
+    thing2="Lorem Ipsum"
+></x-SimplePropsComponent>
+<p>Example 2:</p>
+<x-SimplePropsComponent
+    thing1="quux++"
+    thing2="Dolor Sit Amet"
+></x-SimplePropsComponent>
+
+SNAPSHOT:
+<p>Example 1:</p>
+<x-SimplePropsComponent thing1="Foobar" thing2="Lorem Ipsum">
+    <p><strong>Foobar</strong>: <em>Lorem Ipsum</em></p>
+</x-SimplePropsComponent>
+<p>Example 2:</p>
+<x-SimplePropsComponent thing1="quux++" thing2="Dolor Sit Amet">
+    <p><strong>quux++</strong>: <em>Dolor Sit Amet</em></p>
+</x-SimplePropsComponent>
+```
+
+
+
+
+### Example #3: Flash card with HTML props
+
+Here we use "top", "content", and "info" as three props. Note how
+`props.content` uses `|safe` filter to allow HTML.
+
+```modulo
+edit: demo=modulo_component name="InfoCard" usage="USAGE:" snapshot="SNAPSHOT:"
+<Props
+    top
+    content
+    info
+></Props>
+
+<Template>
+    {% if props.top %}
+        <h1>{{ props.top }}</h1>
+    {% endif %}
+    {{ props.content|safe }}
+    {% if state.show %}
+        <p>
+            <strong>ANSWER:</strong><br />
+            {{ props.info }}
+        </p>
+    {% else %}
+        <label>
+            ✨ REVEAL ANSWER ✨
+            <input state.bind name="show" type="checkbox">
+        </label>
+    {% endif %}
+</Template>
+
+<State
+    show:=false
+></State>
+
+<Style>
+    :host {
+        display: block;
+        height: 200px;
+    }
+    :host > * {
+        box-shadow: 10px 10px 10px #00000033;
+        background: salmon;
+        padding: 5px;
+        margin: 0;
+        font-size: 0.9rem;
+        border: 2px outset salmon;
+    }
+    :host p {
+        background: white;
+    }
+    label {
+        height: 50px;
+    }
+    input[name=show] {
+        display: none;
+    }
+</Style>
+
+USAGE:
+<x-InfoCard
+    top="True or false?"
+    content="<p>The most ferocious type of capybara is known as the <em>brave barker</em>.</p>"
+    info="False (this was totally made up)"
+></x-InfoCard>
+
+
+SNAPSHOT:
+<x-InfoCard top="True or false?" content="&lt;p&gt;The most ferocious type of capybara is known as the &lt;em&gt;brave barker&lt;/em&gt;.&lt;/p&gt;" info="False (this was totally made up)"><h1>True or false?</h1><p>The most ferocious type of capybara is known as the <em>brave barker</em>.</p><label> ✨ REVEAL ANSWER ✨ <input state.bind="" name="show" type="checkbox"></label></x-InfoCard>
+```
+

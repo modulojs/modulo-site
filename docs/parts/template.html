@@ -1,0 +1,241 @@
+<!DOCTYPE html><script src=../static/Modulo.html></script><script type=md>---
+title: Template - Component Parts
+---
+
+# Template
+
+The _Template_ Component Part allow components to render their HTML content using a
+tiny domain-specific language, called the _Modulo Templating Language_.
+
+Without a _Template_ Component Part (or equivalent custom code), the default behavior of
+the _Component_ Component Part is to make no attempt to alter their contents. However,
+most components require complicated HTML structures within them. This is where
+Templates come into play: They generate the `innerHTML` of a component.
+
+Templates are not DOM-based, but instead render synchronously to a String
+during the `render` [lifecycle phase](/docs/lifecycle.html), and
+store the results in `renderObj.component.innerHTML`. The _Component_ Component Part
+will read this HTML code during the `reconcile` phase and then "reconcile",
+modify it's contents to resemble the target innerHTML. (More on this is in [the
+Component Component Part documentation above](/docs/core/component.html).)
+
+Every time a Component renders, the Template will render using the _renderObj_
+as a "template context", or, in other words, using the various Component Part's
+contributions to the _renderObj_ as Template variables that can be inserted
+into the HTML.
+
+## Templating reference
+
+[See the Templating documentation for further information on the functionality
+of the Templating Component Part.](/docs/templating/index.html)
+
+
+# Example Usage
+
+## Example #1: Simple template
+
+```modulo
+edit:demo=modulo
+<Template>
+    {# Code in this format is a comment #}
+
+    {# Use state variables such as "state.count" as such #}
+    <p>The count is: <em>{{ state.count }}</em></p>
+
+    {# Using a |filter we can modfiy data on the fly #}
+    <p>The next count is: <em>{{ state.count|add:1 }}</em></p>
+
+    {# Using a "template tag" we check value #}
+    {% if state.count gt 9 %}
+        <p>The count has reached 10!</p>
+    {% endif %}
+</Template>
+
+<State
+    count:=42
+></State>
+```
+
+
+
+## Example #2: Complex template
+
+```modulo
+edit:demo=modulo
+<Template>
+<p>There are <em>{{ state.count }} articles</em></p>
+
+{# Show the articles #}
+{% for article in state.articles %}
+    <h4 style="color: blue">{{ article.headline|upper }}</h4>
+    {% if article.tease %}
+      <p>{{ article.tease|truncate:30 }}</p>
+    {% endif %}
+{% endfor %}
+</Template>
+
+<!-- The data below was used to render the template above -->
+<State
+    count:=42
+    articles:='[
+      {"headline": "Modulo released!",
+       "tease": "The most exciting news of the century."},
+      {"headline": "Can JS be fun again?"},
+      {"headline": "MTL considered harmful",
+       "tease": "Why constructing JS is risky business."}
+    ]'
+></State>
+```
+
+
+## Example #3: Multiple templates with include
+
+Note that in a full example, you might consider loading all or some Templates
+using a `-src=` attribute, so you can edit the HTML files separately.
+
+Also note that in mutli-template components, one should have no name (or have `active:=true`).
+
+```modulo
+edit:demo=modulo
+<Template -name="header">
+    <p><strong>{{ state.title }}</strong></p>
+</Template>
+
+<Template -name="body">
+    {% for para in state.paras %}
+        <p>{{ para }}</p>
+    {% endfor %}
+</Template>
+
+<Template>
+  <div class="container">
+    <section>
+      <article>
+        <div>
+            {% include header %}
+        </div>
+        <main>
+            {% include body %}
+        </main>
+      <article>
+    </section>
+  </div>
+</Template>
+
+<State
+    title="Multi-Template World"
+    paras:='[ "A b c", "1 2 3", "Do re mi", "Togeprrrrri" ]'
+></State>
+
+<Style>
+  .container {
+    border: 1px solid gray;
+    margin: 5%;
+    padding: 5%;
+    background: white;
+    box-shadow: 5px 5px 5px #00000033;
+  }
+  section, article, main, div, p {
+    margin: 1%;
+    padding: 1%;
+    box-shadow: 0 0 2px #ff000033;
+  }
+</Style>
+```
+
+
+## Example #4: Multiple templates, chosen with slider
+
+```modulo
+edit:demo=modulo
+<Template -name="template_a">
+    <h1>First template</h1>
+    <p>AAA</p>
+</Template>
+
+<Template -name="template_b">
+    <h1>The second include</h1>
+    <p>BBB</p>
+</Template>
+
+<Template -name="template_c">
+    <h1>Final Include</h1>
+    <p>CCC</p>
+</Template>
+
+<Template>
+  <input state.bind name="val"
+      type="range" min="1" max="3" step="1" />
+  {% if state.val is 1 %}
+    {% include template_a %}
+  {% elif state.val is 2 %}
+    {% include template_b %}
+  {% else %}
+    {% include template_c %}
+  {% endif %}
+</Template>
+
+<State
+    val:=1
+></State>
+```
+
+## Example #4: Style templates
+
+By defining a `<style Template>`, can use the Modulo templating language to
+apply "templating" to CSS:
+
+
+```modulo
+edit:demo=modulo
+<Template>
+    <section style="display: grid; grid-template-columns: 1fr 2fr">
+      <label>Color</label>
+      <input state.bind name="bg" type="color" /> 
+      {% for key, value in state.shape %}
+          <label>{{ key|capfirst }}</label>
+          <input state.bind name="shape.{{ key }}" type="range" min="1" max="50" />
+      {% endfor %}
+    </section>
+    <div style="{% include div_style %}">LOREM IPSUM</div>
+    <pre>div { {% include div_style %} }</pre>
+</Template>
+
+<style Template -filter-content="trim:'x {,}'" -name="div_style">
+x {
+
+    color: white;
+    background-color: {{ state.bg }};
+{% for key, value in state.shape %}    {{ key }}: {{ value }}px;
+{% endfor %}
+
+}
+</style>
+
+<State
+    bg="#308330"
+    shape:={}
+    shape.width:=50
+    shape.height:=30
+    shape.padding:=5
+    shape.margin:=2
+></State>
+```
+
+
+Note the following two unusual aspects of this example. Both of these are
+optional, but only intended to make the Component Part easier to read, and for editors
+to automatically apply syntax highlighting as expected.
+
+- Observe how in the example below we use `-filter-content=` in order to "trim"
+  away our placeholder CSS (`x { ... }`). This makes editing this _Template_
+  Component Part easier to read, since it will follow standard `<style>` syntax rule,
+  thus the `x` just functioning as a purely cosmetic placeholder element.
+
+- Observe how we use this dual tag format (`<style Template>`). To Modulo, this
+  is the same as doing `<Template>`. However, using a `style` tag makes it
+  easier to read, and syntax highlighting will work automatically. Thus, in
+  this case we can use the Modulo feature that lets the first attribute instead
+  determine the Component Part name instead of the actual tag name.
+
+

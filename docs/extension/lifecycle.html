@@ -1,0 +1,639 @@
+<!DOCTYPE html><meta charset=utf8><script src=../static/Modulo.html></script><script type=md>---
+title: Lifecycle
+---
+
+
+Every Modulo Component goes through a certain "lifecycle". Here's an analogy:
+If CParts are the stage-hands and actors who put on a play, then the
+"lifecycle" is the pre-described arrangement of each "act", intermission, and
+so on, such that every CPart stage-hand "jumps in" at the right moment to do
+it's job and set up for the next act.
+
+# Lifecycle Callbacks
+
+The purpose of _lifecycle phases_ is the _lifecycle methods_ or callback
+functions that "hook into" each phase and run during them.
+
+You can get the name for a _lifecycle method_ by simply suffixing the name of
+the phase with the word `Callback`. For example, `prepare` thus becomes
+`function prepareCallback() {`. Every CPart has the ability to hook into
+lifecycle methods by defining a method with an expected name. This is useful
+for CPart developers to implement the actual behavior and functionality of a
+CPart. In fact, most of CPart code is just hooking into these different
+methods!
+
+The _Script_ CPart also exposes this interface to component developers. This is
+so that you can write custom code in each component to execute during any one
+of the phases. Note that you cannot hook into the global phases (e.g.,
+prebuild, define, factory) this way, since those need to happen before your
+script tag is even ready.
+
+
+
+### renderObj
+
+> **renderObj is like "req"** \- `renderObj` is comparable to the "request" or "response" objects in many backend MVC frameworks, such as in Express.js or Django. In these, middleware works behind the scenes to modify or construct the "request" object. They prepare it for the controller functions that accept it as an argument, by attaching data and injecting dependencies. For a concrete example, enabling Express's JSON parsing middleware adds the `req.json` attribute to request objects, for parsing of JSON data.
+> 
+> This is what inspired the `renderObj`, which is a plain object that gets passed along throughout the lifecycle phases. The Component Parts act just like middleware in other web frameworks: Work together to construct the `renderObj` for users of the framework.
+
+So far in this document, we covered how lifecycle methods are central to CParts, and that CParts are central to Modulo components in general. Now, we will learn how `renderObj` is central to lifecycle methods. It's how lifecycle methods pass data and communicate, as a component passes through the different phases.
+
+### renderObj and lifecycle
+
+The renderObj goes through 3 phases. The first is during set-up, the second during component factory initialization, and the third happens every time a component rerenders.
+
+1.  `initRenderObj` \- This is the version created during the `initialized`
+phase
+2.  `renderObj` \- This is the one that component developers are more likely to
+encounter. During first render, and every time a `.rerender()` method is
+called, `renderObj` is duplicated from the `initRenderObj`, and then gets
+passed around through the `prepare` / `render` /  etc phases.
+
+Typically, unless developing new CParts, you will have little need to directly
+interact with the `renderObj`, but instead will use implicitly just about
+everywhere.  For example, whenever you access variables in the _Script_ CPart,
+the `state` variable is in fact shorthand for `element.renderObj.state`, or
+whenever you access [variables in the
+template](/docs/templating/index.html#variables) _CPart_ (e.g., `props.text` is
+shorthand for `element.renderObj.props.text`). So, if you are a component
+developer and not a CPart developer, and you find yourself thinking that it
+doesn't make a lot of sense why you'd need to access or modify the `renderObj`
+explicitly... You probably don't!
+
+Nevertheless, use the following example to examine the output of the following
+example to see what information is available or modified at each step:
+
+
+```modulo_demo
+<Template>
+<label>
+<input [state.bind] name="enabled" type="checkbox" />
+Show messages in console</label>
+</Template>
+
+<State
+    enabled:=false
+></State>
+
+<Script>
+    function _logInfo(message, renderObj) {
+        // Little helper function to do messages in console
+        if (state.enabled) {
+            const formattedOutput = JSON.stringify(renderObj, null, 2);
+            console.log(message, formattedOutput);
+        }
+    }
+
+    function prepareCallback(renderObj) {
+        _logInfo("prepareCallback:",  renderObj);
+    }
+
+    function renderCallback(renderObj) {
+        _logInfo("renderCallback:", renderObj);
+    }
+
+    function reconcileCallback(renderObj) {
+        _logInfo("reconcileCallback:", renderObj);
+    }
+
+    function updateCallback(renderObj) {
+        _logInfo("updateCallback:", renderObj);
+    }
+/Script>
+```
+
+
+
+
+# Component lifecycle
+
+Every _Component_ that you define triggers a certain set of lifecycle phases.
+The lifecycle phases that a Modulo _Component_ progresses through can be
+categorized into a few groups. One way to think of these phases is that
+typically, the "output" of a previous lifecycle phase in a group is the "input"
+of the next phase. As an example, `prepare` figures out the template variables,
+`render` causes the template to actually perform the render based on the
+variables in the previous phase, and `update` updates the HTML of the element
+based on the rendered output of the previous phase.
+
+
+
+## Mount Lifecycle
+
+Several methods are triggered when a component is mounted on the page. Note
+that for most components, you'll want to only use *initializedCallback*, unless
+you want to customize any aspects of how the component hydrates from a built
+version of the page. 
+
+
+* _constructor()_ \- While technically not a lifecycle method, the
+  constructor() method will be invoked when creating an instance of the CPart
+  class. This happens _before_ the Component's HTML Element is guaranteed to be
+  fully loaded on the DOM, and _before_ injected properties (e.g. ".conf",
+  ".modulo", ".element") properties are set on the CPart instance.
+* `constructed` \- Also technically not a lifecycle method, but this will be
+  called _before_ the Component's HTML Element is fully parsed, but _after_
+  injected properties (e.g. ".conf", ".modulo", ".element") properties are set
+  on the CPart instance.
+* `mount` \- The first "regular" lifecycle method. The *Component* class will
+  use this phase for hydrating content from a SSR'ed version of the page. This
+  is useful to hook in code to activate before any further DOM modifications
+  happen, but after the HTML Element and it's contents are fully parsed.
+* `mountRender` \- The *Component* will use this callback to "take . Useful if
+  you want to hook in code right before the _prepare_ of the first rerender
+  (described below), and maybe adding code to cancel the first rerender.
+* `initialized` \- Happens once per instance, every time a component is fully
+  mounted (i.e. used) on a page, but before the first render. Useful for
+  fetching or setting up initial data on a component, as all the component will
+  be fully ready for use at this point.
+
+## Render Lifecycle
+
+All of 5 these lifecycle phases trigger in the following sequence every time a
+component renders. This including the first time, every manual rerender (e.g.
+invoking `element.rerender()`), and ever automatic rerender (e.g. after events
+or state manipulation). These will phases even trigger if you don't have a
+_Template_ CPart defined (although without a _Template_ there will be nothing
+to render, _per se_).
+
+* `prepare` \- Gather data needed before rendering (e.g. gather variables for
+  template). Return values from here to have "computed variables" within the
+  Template and Script code.
+* `render` \- The Template CPart will use this phase to to render HTML code
+  from the template specified (by setting `renderObj.component.innerHTML`
+* `dom` \- A DOM fragment is constructed for comparison during the reconcile
+  phase. Usefuly for doing direct DOM modification, but before directives are
+  activated (e.g. to do a `setAttribute('data:=', '{"a": 3}')` and expect the
+  `dataProp` to be in effect).
+* `reconcile` \- The Component CPart will compare the new rendered DOM fragment
+  to the document's actual DOM, and generates a "patch-set" or array of
+  operations necessary to reconcile the DOM to the new HTML (by setting
+  `renderObj.component.patches`)
+* `update` \- Finally, the Component will apply the patch-set generated in the
+  previous step, actually modifying the DOM and invoking any directive
+  callbacks specified
+
+---
+
+
+## Directives
+
+_Directives_ are one of the core features of Modulo. It allows for callbacks to be triggered when a particular DOM element is "mounted" or first appears in the DOM. It allows for your custom code to access references to DOM nodes created after rendering.
+
+Every directive has a name. Every directive is specified as an attribute on the
+DOM element that you wish to gain access to, by enclosing the name in square
+brackets. For example, the _State_ CPart has the directive named `bind`, making
+the full attribute be `[state.bind]`. Some directives have shortcut names. For
+example, `[component.event]` can be shortened to only a single at-sign, `@`.
+
+Directives also have callback functions. Just like lifecycle callbacks, a
+directive callback name is created by suffixing a string to the end of the name
+of the directive. Unlike lifecycle callback functions, directive callback
+functions end with `Mount` and `Unmount`.
+
+### Built-in directives vs custom directives
+
+Modulo ships with a total of 3 built-in directives, defined by the built-in
+_CParts_ (1 from _State_ and 2 from _Component_). Typically, the built-in
+directives are all you need. However, just like with lifecycle functions, the
+_Script_ CPart also exposes the directive interface to component developers.
+This is so that you can create custom directives in a component to access the
+DOM after rendering.
+
+## Built-in directives
+
+* `[component.dataProp]` (_shortcut:_ suffix `:`) \- Attach data to a DOM element's `.dataProp` object, which can be used to directly pass `renderObj` values as _Props_ or events
+    * Symbols: `ev:=script.gotClicked`, `data:=state.dataArray`,
+      `blogs:=props.blogArray` etc - Data-props can attach any values that are
+      exposed in the `renderObj` by any CPart in your component. Use JavaScript
+      reference notation, e.g. `state.objdata.prop1` would access something
+      like `<State objdata:='{"prop1": "my data"}'>`
+    * Primitives: `arr:=[]`, `obj:={}` `boo:=true`, `num:=3`, etc - The
+      data-prop can also be used to attach any data in JSON format (whatever
+      "JSON.parse" can parse).
+* `[component.event]` (_shortcut:_ prefix `@`) \- Attach event listeners to DOM
+  elements, and remove them when the DOM elements are removed. (For jQuery
+  users, this is used for similar purposes as "live" (delegated) events, but is
+  faster.)
+    * `payload=...` \- By assigning to the "payload" property, either with a
+      regular HTML attribute or a `:=` data-prop, you can provide extra
+      arguments to events.
+    * `click.payload=...`, `mouseover.payload=...`, etc - If you have multiple
+      events attached, you can attach separate payloads by prefixing the
+      "payload" attribute with the name of the event followed by a dot.
+* `[state.bind]` \- Two-way binding with _State_ data, with the key determined
+  by the `name=` property of whatever it is attached to.
+
+Important directive facts: Directives are discovered during the `reconcile` lifecycle phase when DOM reconciliation is occurring, and invoked during the `update` phase. Note that they are independent of the _Template_ CPart: You can have a component that has no _Template_ but still may employ directives, e.g. if it generates HTML contents some other way.
+
+## Custom directives
+
+> **Custom directives are like "refs"** \- Directives have the same uses as Refs in [React](https://reactjs.org/docs/refs-and-the-dom.html): “Managing focus, text selection, or media playback, triggering imperative animations, or integrating with third-party DOM libraries.”
+
+Custom directives are used for direct access to the DOM. They are invoked when a particular element is first rendered on the screen (`Mount`), invoked when that attribute has any changes (e.g. the value gets changed, also `Mount`), and also invoked when about to be removed from the document (`Unmount`). This allows you to do custom set-up or tear-down code for particular elements, such as to attach third-party JavaScript frameworks in a convenient manner.
+
+### Registering Mount callback
+
+Custom directives can be easily registered in _Script_ CParts simply by
+defining a function with a certain name. For example, for a directive called
+`myinput` directive, you can create a function like such:
+
+```javascript
+function myinputMount(opts) {
+  // ...
+}
+```
+
+Similarly, If you want to register custom code when an element leaves the
+screen, such as to clean up references, you can register an Unmount callback:
+
+```javascript
+function myinputUnmount(opts) {
+  // ...
+}
+```
+
+##### Example 1: Mount variables
+
+For a simple example that shows the variables avaialble:
+
+```modulo_demo
+<Template>
+    <div [script.myinput]myattr="my value"></div>
+</Template>
+
+<Script>
+    function myinputMount(opts) {
+        const { el, attrName, value } = opts;
+        // Uncomment below to see console logs:
+        /*
+        console.log("element mounted:", el);
+        console.log("with attribute:", attrName);
+        console.log("and value:", value);
+        */
+    }
+/Script>
+```
+
+
+##### Example 2: Storing Ref
+
+A full, working example is below, which uses a custom directive to focus on an
+input when a button is clicked:
+
+**Example custom directives:**
+
+
+```modulo_demo
+<Template>
+{# [script.myinput] is a custom directive, defined below #}
+<input [script.myinput] />
+
+{# [component.event] is a built-in directive (shortcut is @) #}
+<button [component.event]click:=script.showInfo>
+    Click me
+</button>
+</Template>
+
+<Script>
+    function myinputMount(mountOptions) {
+        element.inputRef = mountOptions.el;
+        // Try uncommenting the following to see data:
+        //console.log("myinputMount:", mountOptions);
+    }
+
+    function showInfo(el) {
+        alert("Focusing on:" + String(element.inputRef));
+        element.inputRef.focus();
+    }
+/Script>
+```
+
+
+
+### Notes on custom directives
+
+- Note that the functions *must* be named exactly like this, including
+  capitalization. The attributes, however, are technically not case-sensitive,
+  but the JavaScript portion is.
+- DOM manipulation is what Templates, and many other features of Modulo, are
+  supposed to "save you from". In other words, it gets messy.  This is why the
+  it is recommended to try to use the "Modulo" way of State, Templating, and
+  re-rendering, to keep things from getting messy.
+- Only do direct DOM manipulation as a last resort, such as when you are
+  following a tutorial that gives instructions this way, or are combining
+  Modulo with another framework that operates with direct DOM references
+
+
+### Multiple directives
+
+Multiple directives can be attached to the same attribute. For example,
+`@click:` has both a `component.event` directive (`@`) and a
+`component.dataProp` (`:`) directive. Similarly, multiple custom directives can
+be applied to the same attribute. For example:
+`[script.hook][script.setup]text="Hello"` would be a valid way to register two
+directives(the imaginary `script.hook` and `script.setup` directives, in that
+order).
+
+### Mount and Unmount parameters
+
+#### Frequently used
+
+* `el` will contain a reference to the HTML element
+* `value` will contain the value you are assigning to the attribute, with any
+  previous directives resolved (e.g. if you combine your directive with a `:=`
+  dataProp directive, you will already have the "true value" be passed in.)
+* `attrName` will contain the bare attribute name, e.g. the portion of the
+  attribute name (on the left side of the assignment) without the directive
+  syntax
+
+#### Infrequently used
+
+* `name` contains contain the entirety of the attribute name, directive syntax
+  included
+* `rawName` will typically be the same as `name`. However, if shortcuts were
+  applied, `rawName` will show the previous, "unexpanded" verison of the name
+  (e.g. without the regular expression substitution applied).
+* `directiveName` will contain the name of the current directive being applied
+  — typically not useful since we already know that, it's the function's name!
+
+#### Mount and Unmount and multiple directive demonstration
+
+The following demonstration shows both Mount and Unmount callbacks in a script
+tag. Note that in this demonstration, the "Mount count" and "Unmount count"
+values visually displayed in the `<p>` tags appear to "lag" behind the actual
+value — the number of times a Mount or Unmount callback was actually called.
+This is because the Mount and Unmount happen _after_ the rendering is complete,
+and thus the rendering can only "report" on the previous value.
+
+Uncommenting the "console.log" statements will reveal what arguments and
+information are sent along with the callback.
+
+
+```modulo_demo
+<Template>
+{% if state.visible %}
+    <h1 [script.thing][script.example]attr-name="value example">
+        Example H1
+    </h1>
+    <button @click:=script.hide>(Hide)</button>
+{% else %}
+    <button @click:=script.show>Show</button>
+{% endif %}
+<p>Mount count: {{ state.mcount }}</p>
+<p>Unmount count: {{ state.ucount }}</p>
+</Template>
+
+<State
+    visible:=false
+    mcount:=0
+    ucount:=0
+></State>
+
+<Script>
+    function show() {
+        state.visible = true;
+    }
+
+    function hide() {
+        state.visible = false;
+    }
+
+    function thingMount({ el, value, name, attrName, directiveName, rawName }) {
+        //console.log("Element is mounting (thing)");
+        //console.log({ el, value, name, attrName, directiveName, rawName });
+        state.mcount++;
+    }
+
+    function thingUnmount({ el, value, name, attrName, directiveName, rawName }) {
+        console.log("Element is unmounting (thing)");
+        console.log({ el, value, name, attrName, directiveName, rawName });
+        state.ucount++;
+    }
+
+    function exampleMount({ el, value, name, attrName, directiveName, rawName }) {
+        console.log("Element is mounting (example)");
+        console.log({ el, value, name, attrName, directiveName, rawName });
+        state.mcount++;
+    }
+
+    function exampleUnmount({ el, value, name, attrName, directiveName, rawName }) {
+        console.log("Element is unmounting (example)");
+        console.log({ el, value, name, attrName, directiveName, rawName });
+        state.ucount++;
+    }
+/Script>
+```
+
+## Directive pitfalls
+
+A quick word of caution on custom directives: If you find yourself using custom
+directives in _Script_ CParts to do vanilla JS DOM manipulation often, you are
+probably doing something wrong!  They are meant as an "emergency escape hatch"
+to gain access to the DOM underneath, and typically you only use them while
+writing a CPart library, or when you are doing something unusual such as a
+situational or unique performacne enhancement in mind that requires direct DOM
+manipulation.
+
+### Directives vs. Templates for manipulating DOM
+
+Not sure which to use to manipulate the DOM and generate HTML? Short answer:
+Templates! Long answer: Directives deal with direct DOM references, and thus
+are almost always messier to use. Modulo's [templating system is
+designed](/docs/templating/index.html) to generate a string of HTML code as a
+purposeful limitation during the `render` phase, and thus prevents this
+messiness with a stricter structure.
+
+So, when you can, try to make the DOM the "source of truth", and attach data to
+DOM elements via regular HTML properties or `:=`-style dataProp properties. In
+other words, avoid using direct DOM manipulation as your first approach,
+instead only using this "escape hatch" to vanilla JS as a last resort.
+
+### Directives and template variables
+
+Don't get confused when attempting to mix _Template_ CPart variables with directives. Directives cannot access template variables, since directives are only are applied after the template is fully rendered and all template variables are already forgotten. As an example, consider the following code:
+
+```
+<Template>
+    {% for athlete in state.team %}
+        {# (HTML Attributes) #}
+        {# Broken, will not work: #}
+        <a href:=athlete.url>{{ athlete.name }}</a>
+
+        {# Correct, will work: #}
+        <a href="{{ athlete.url }}">{{ athlete.name }}</a>
+
+        {# (Events) #}
+        {# Also broken, will not work: #}
+        <button @click:=athlete.myClickCallback>
+            {{ athlete.name }}</button>
+
+        {# Correct, will work: #}
+        <button @click:=script.selectOne payload="{{ athlete.id }}">
+            {{ athlete.name }}</button>
+    {% endfor %}
+</Template>
+```
+
+
+> **Why "payload"?** Why does Modulo take this approach, vs something like
+> React, that allows direct attachment of anonymous JavaScript functions? As
+> any React developer knows by now, there are a lot of "footguns" (common
+> mistakes) with attaching events like this, specifically because complexities
+> with "this" context, anonymous functions, and bound functions with arguments
+> can make introspection (e.g. interactive debugging) hard.
+> 
+> The Modulo approach is always "DOM determines behavior". Just by using
+> "Inspect" in your browser's Developer Tools, you can examine or even modify
+> the "payload" attribute while debugging event behavior. In other words,
+> Modulo _tends to treat the DOM as the "source of truth"_, and thus derives
+> it's behavior from properties on DOM elements.
+
+The first attempt (HTML Attributes) uses a directive (`[component.dataProp]`,
+in this case using the colon `:` shortcut), in an attempt to "directly" attach
+the URL to href. The second attempt correctly uses the template variable with
+double curly braces to embed it as an actual HTML property. The first attempt
+will fail because it fails to take into account that the directives will happen
+_after_ rendering the template. That is, the resulting HTML will literally
+resemble something like this: “`<a href:=athlete.url>Steph Curry </a> <a
+href:=athlete.url>Megan Rapinoe</a> <a href:=athlete.url>Devante Adams</a>`”.
+
+In other words, the "athlete" variable _is a temporary Template variable in the
+for loop_ (that is to say, not a variable in the _renderObj_), and will only be
+used at the templating step, and forgotten immediately after. Since directives
+are only invoked once templating is fully completed, there is no way to resolve
+the variable from the for loop.
+
+What is the proper use of the `[component.dataProp]` directive, you might ask?
+The proper use is for direct assignment or attachment of values that are not
+strings or numbers _at the top level of the renderObj_. Basically, anything
+that can't be conveniently serialized into a string attribute. The common usage
+is passing down complex nested data types as `Props` (i.e. without having to
+clutter the DOM and waste memory with a massive JSON object serialized as an
+attribute), or for attaching callbacks from the renderObj.
+
+We see such correct usage in the second (Events) "correct" example: It
+references `script.selectAthlete` which is at the global level. We can tell
+that it's at the global renderObj level since it starts with `script.`,
+referencing the contribution to the renderObj that was provided by the Script
+CPart. The issue with this, however, is that we won't know _which_ button was
+clicked, since it references one universal `selectAthlete` function. This is
+solved by attaching some sort of ID reference to the DOM element as a "payload"
+so that the callback function knows which athlete was selected. This is the
+correct approach: It uses the DOM as a "source of truth" and is predictable in
+behavior, with no "hidden" functions getting attached.
+
+
+
+## Rewriting direct DOM manipulation
+
+In this section, the goal is to show how direct DOM manipulation might be more
+cumbersome than using Template and other built-in Modulo features. If you are
+familiar with vanilla JavaScript, observer how these two approaches differ in
+the next section.
+
+### Using direct DOM manipulation
+
+Examine this odd little example of directly attaching click events using the
+`onclick` property, without using the Modulo helper "@click", and then directly
+using the "textContent" property to modify content.
+
+```modulo_demo
+<Template>
+    {% for num in state.numbers %}
+        <tt [script.explode]>{{ num }}</tt>
+    {% endfor %}
+</Template>
+<State
+    numbers:='[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ]'
+></State>
+<Script>
+    function explodeMount({ el }) {
+        // console.log('Explode component Mounting:', value);
+        let numberToLookFor = Number(el.textContent);
+        el.onclick = () => {
+            el.textContent = '-(  ( Popped! )  )-';
+            setTimeout(() => {
+                state.numbers = state.numbers
+                    .filter(num => num !== numberToLookFor);
+                element.rerender();
+            }, 1000); // 1 second!
+        }
+    }
+
+    function explodeUnmount({ el }) {
+        // console.log('Explode component Unmounting:', value);
+    }
+/Script>
+<Style>
+    tt {
+        background: #aaa;
+        display: block;
+        border: 1px solid #777;
+        padding: 3px;
+    }
+    :host {
+        overflow: auto;
+        height: 150px;
+        display: block;
+    }
+</Style>
+```
+
+
+## Rewritten
+
+Here is the previous code rewritten to be a normal click event. Using Modulo's
+built-in functionality the code becomes cleaner.
+
+
+```modulo_demo
+<Template>
+    {% for num in state.numbers %}
+        <tt @click:=script.explode payload="{{ num }}">{{ num }}</tt>
+    {% endfor %}
+</Template>
+<State
+    numbers:='[ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ]'
+></State>
+<Script>
+    function explode(value) {
+        let numberToLookFor = Number(value);
+        let index = state.numbers.indexOf(numberToLookFor);
+        state.numbers[index] = '-(  ( Popped! )  )-';
+        setTimeout(() => {
+            state.numbers.splice(index, 1); // cut away 1 item at index
+            element.rerender();
+        }, 1000); // 1 second!
+    }
+/Script>
+<Style>
+    tt {
+        background: #aaa;
+        display: block;
+        border: 1px solid #777;
+        padding: 3px;
+    }
+    :host {
+        overflow: auto;
+        height: 150px;
+        display: block;
+    }
+</Style>
+```
+
+### Directive Lifecycles
+
+Directives can can cause lifecycle phases as well. With the built-in CParts,
+there is only one directive that will trigger any lifecycle phases: The `event`
+directive (e.g. `on.click`).
+
+**Note:** These are ONLY available for full-fledged Component Parts written in
+JavaScript. They cannot be used in an embedded script tag, since the *Script*
+CPart does not support it.
+
+* `event` \- Triggers when an event is about to happen.
+* `eventCleanup` \- Triggers after an event happened. A common pattern is to
+  use this and the previous to figure out what has "changed" due to the event,
+  and respond accordingly.
+

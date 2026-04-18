@@ -1,0 +1,102 @@
+
+<!DOCTYPE html><script src=../static/Modulo.html></script><script type=md>---
+title: Markdown Reference
+---
+
+This document lists and shows examples for each of the the built-in Markdown
+tags that are already registered with Modulo Markdown.
+
+
+## Syntax extension
+
+### Inline elements
+
+The easiest type of element to add is an inline element, with simple RegExp
+syntax and HTML substitutions.
+
+#### Example: Video tag and custom element
+
+In this example, two new syntaxes will be added:
+
+An example of a "video" tag using a variant of the image syntax: `!![]()`
+
+- `/!!\[([^\]]+)\]\(([^\)]+)\)/g`
+
+- `<video controls><source src="$2" type="$1"></video>`
+
+
+
+Here's an example of using a special syntax to insert a custom element. In this
+case, we'll add a `x-Example`: `--$ | $--`
+
+- `/--$([^\|]+)\|([^\$]+)$--/g`
+
+- `<x-Example left="$1" right="$2"></x-Example>`
+
+
+
+```modulo
+edit: demo=modulo_embed
+<script Configuration>
+    modulo.config.syntax.markdown.splice(2, 0, [
+        [ /!!\[([^\]]+)\]\(([^\)]+)\)/g, '<video controls><source src="$2" type="$1"></video>' ],
+        [ /--$([^\|]+)\|([^\$]+)$--/g, '<x-Example left="$1" right="$2"></x-Example>' ],
+    ])
+
+    // (ensure the markdown gets rendered)
+    document.body.innerHTML = '<modulo-Page>'
+<-script>
+
+<Component name=Example>
+    <Props left right></Props>
+    <Template>
+        <button on.click=script.inc>
+            COUNT - {{state.num}} <br />
+            <strong>{{ props.left }}</strong> - <em>{{ props.right }}</em>
+        </button>
+    </Template>
+    <State num:=0></State>
+    <Script> function inc() { state.num++ } <-Script>
+</Component>
+
+<script type=md>
+### Embedded component example
+
+Here is a custom embedded component syntax: --$ Testing | Abc $--
+
+
+### Video example
+
+!![../static/exampledata/example-video.mp4](video/mp4)
+<-script>
+```
+
+Note: The example is inserting inside the array using `.splice(2, ...)` so that
+it's before most formatting, but after headers.
+
+## Parser extension
+
+For more advanced enhancements, Modulo's Markdown parser can be extended to
+handle different tokens and modes. This enables precise control over how the
+content of a particular "mode" might be parsed, such as p
+
+### Example: Adding inline HTML fragments
+
+```modulo
+edit: demo=modulo_embed
+<script Configuration>
+    // Markdown language extension: Inline HTML Fragment Syntax
+    modulo.parser.markdown.modeTokens.push('<> </>');
+    modulo.parser.markdown.modes['<>'] = (text, parser) => text;
+
+    // (ensure the markdown gets rendered)
+    document.body.innerHTML = '<modulo-Page>'
+<-script>
+
+<script type=md>
+# Example
+
+Here is <><strong style=color:orange>some *embedded* <tt>HTML</tt></strong></> in
+the Markdown code. Note how *this is italic*, but the word embedded is not.
+<-script>
+```

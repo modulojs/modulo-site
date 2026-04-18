@@ -1,0 +1,114 @@
+<!DOCTYPE html><script src=../static/Modulo.html></script><meta charset=ut8><script type=md>---
+title: Component Parts
+---
+
+# Component Parts
+
+
+> **Custom Component Parts?** Here we describe core Component Parts used by component developers,
+> which are sufficient for most common use-cases. However, if you are instead
+> looking to extend this core functionality with custom Component Parts written in
+> JavaScript, refer to the [Custom Component Part examples on the demos
+> page](/static/demos/editor.html?file=/static/demos/advanced/custom_cpart_for_api.html),
+> at least until more thorough Component Part API
+> documentation is developed.
+
+The central concept to Modulo Components is that of _Component Parts_. In this
+code and sometimes documentation, it might be shortened to _cparts_. Every
+component definition consists of configuring one or more Component Part
+definitions. Modulo comes "batteries-included" with about 6 Component Parts,
+which provide the core functionality of building Modulo Components, and are
+documented here.
+
+
+
+### Ordering
+
+Component Parts can be ordered in any order. Note that ordering can make
+a difference: They will be processed and configured in the order given. 
+
+Conventionally, to keep things consistent, you may want to follow this order
+convention within a given _Component_ definition:
+
+1.  [Props](props.html)
+2.  [Template](template.html)
+3.  _(Any other Component Parts)_
+4.  [State](state.html)
+5.  [StaticData](staticdata.html)
+6.  [Script](script.html)
+7.  [Style](style.html) _(Optionaly)_
+
+The rationale for this ordering is to put _Props_ and _Template_ first since
+they are often the first Component Parts that are important to read when trying to
+understand or debug the behavior of a _Component_, while putting _Style_ last
+as it's typically the least important to read, and has no chance of dependency
+requirements.
+
+
+### Example 1: Default Naming
+
+By default, all Component Parts are "named" what they are called, in
+lower-case. For example, `Template` becomes `template` and `StaticData` becomes
+`staticdata`. If there are multiples, they will get incrementing numbers
+affixed. For example, a second `State` encountered in the same component
+will get the name `state1`:
+
+```modulo_demo
+<Template>
+    <p>state.abc is {{ state.abc }}</p>
+    <p>state1.abc is {{ state1.abc }}</p>
+</Template>
+<State
+    abc="first state data"
+></State>
+<State
+    abc="second state data"
+></State>
+```
+
+
+Generally, you do not want this behavior, since it's hard to remember. Instead,
+see the next section: "Explicit Naming".
+
+
+### Example 2: Explicit Naming (State)
+
+When you have multiple Component Parts, you can distinguish them with the
+`-name` attribute.  For example, here we can have two _State_ Component Parts,
+each with the same `abc` attribute, but different names:
+
+
+```modulo
+edit: demo=modulo
+<Template>
+    <p>first_state.abc is {{ first_state.abc }}</p>
+    <p>second_state.abc is {{ second_state.abc }}</p>
+</Template>
+<State
+    -name="first_state"
+    abc="first state data"
+></State>
+<State
+    -name="second_state"
+    abc="second state data"
+></State>
+```
+
+### Example 3: Explicit Naming (Template)
+
+For example, here we name two extra templates `template_a` and `template_b`,
+which we include in a final template:
+
+```modulo
+edit: demo=modulo
+<Template -name="template_a"><h1>First template</h1></Template>
+<Template -name="template_b"><h1>Second Template</h1></Template>
+<Template>
+    {% include template_a %}
+    <hr />
+    {% include template_b %}
+</Template>
+```
+
+
+

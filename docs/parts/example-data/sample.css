@@ -1,0 +1,17 @@
+!DOCTYPE_MODULO(`
+
+/* Example CSS here */
+strong {
+    color: blue;
+}
+.neat {
+    font-variant: small-caps;
+}
+:host { /* styles the entire component */
+    display: inline-block;
+    background: url('./example_image.jpg');
+    padding: 5px;
+    box-shadow: 10px 10px 0 0 turquoise;
+}
+
+`)

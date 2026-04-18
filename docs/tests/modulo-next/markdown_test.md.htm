@@ -1,0 +1,45 @@
+<script src=static/Modulo.html></script><script type=md>---
+page_title: Lorem Ipsum 2
+desc:
+     A more advanced example page,
+     with a longer description.
+---
+
+## Notes
+
+**How to edit:** Edit Markdown by opening up any of these HTML files in a text
+editor. Note that after `build`, this source file is replaced by pure HTML.
+
+**GUI editing:** If you use a graphical Markdown editor, be sure to configure
+the starting "meta" format as the entire first line of this file (i.e.
+including the "script" tags AND the "---").
+
+**Limitations:** The Modulo framework's built-in Markdown parser is extremely
+simple and geared toward quick docs. If you need more features (e.g. lists),
+it's recommended to swap in a new library.
+
+---
+
+### Code Fence Examples
+
+```html
+<h1>HTML snippet</h1>
+```
+
+```js
+const jsSnippet = async function demo () { }
+```
+
+---
+
+*Live editing, and example of closing script-tag:*
+
+```js=embed
+<h1>HTML</h1>
+<script>
+    const h1 = document.querySelector('h1')
+    h1.textContent += ' & JS Demo'
+<-script>
+```
+
+

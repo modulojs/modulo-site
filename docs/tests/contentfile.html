@@ -1,0 +1,93 @@
+<!DOCTYPE html><script src=../static/Modulo.html></script><script type=md>---
+title: Tests - ContentFile
+---
+
+**This page contains Modulo.html's core feature unit tests.**
+
+* [Run tests in browser &rarr;](../index.html?argv=test&argv=tests/contentfile.html)
+
+NOTE: Be sure to add a copy of Modulo.html to test to `modulo-next/static/`
+
+From CLI: `npm run firefox -- test tests/contentfile.html`
+
+### Test 1 - F
+
+```modulo
+edit: demo=test_environ snapshot="SNAPSHOT:"
+<script src="modulo-next/static/Modulo.html"><-script><script type=f>
+<div>Test <em>HTML</em></div>
+SNAPSHOT:
+<meta charset="utf8"><div>Test <em>HTML</em></div>
+```
+
+
+### Test 2 - Markdown
+
+```modulo
+edit: demo=test_environ snapshot="SNAPSHOT:"
+<script src="modulo-next/static/Modulo.html"><-script><script type=md>
+# This is a test page.
+
+Testing *one* two *three*
+
+SNAPSHOT:
+<meta charset="utf8"><h2 h="#" class="_component_Page">This is a test page.</h2><p class="_component_Page">Testing <em>one</em> two <em>three</em></p>
+```
+
+
+
+### Test 3 - JSON
+
+```modulo
+edit: demo=test_environ snapshot="SNAPSHOT:"
+<script src="modulo-next/static/Modulo.html"><-script><script type=json>{
+    "JSON data": 123, "abc": "xyz", "body": "Inlined <em>embedded</em> body"
+}<-script>
+
+SNAPSHOT:
+<meta charset="utf8">Inlined <em>embedded</em> body
+```
+
+
+### Test 4 - F - Before Script
+
+```modulo
+edit: demo=test_environ snapshot="SNAPSHOT:"
+<script type=F>Inlined <em>embedded</em> body<-script>
+<script src="modulo-next/static/Modulo.html"><-script>
+SNAPSHOT:
+<meta charset="utf8">Inlined <em>embedded</em> body
+```
+
+
+### Test 5 - Markdown - Before Script
+
+```modulo
+edit: demo=test_environ snapshot="SNAPSHOT:"
+<script type=md>
+# This is a test page.
+
+Testing *one* two *three*
+<-script>
+
+<script src="modulo-next/static/Modulo.html"><-script>
+
+SNAPSHOT:
+<meta charset="utf8"><h2 h="#" class="_component_Page">This is a test page.</h2><p class="_component_Page">Testing <em>one</em> two <em>three</em></p>
+```
+
+
+
+### Test 6 - JSON - Before Script
+
+```modulo
+edit: demo=test_environ snapshot="SNAPSHOT:"
+<script type=json>{
+    "JSON data": 123, "abc": "xyz", "body": "Inlined <em>embedded</em> body"
+}<-script>
+<script src="modulo-next/static/Modulo.html"><-script>
+SNAPSHOT:
+<meta charset="utf8">Inlined <em>embedded</em> body
+```
+
+

@@ -1,0 +1,371 @@
+<!DOCTYPE html><script src=../static/Modulo.html></script><script type=md>---
+title: Tests - Core 10
+---
+
+**This page contains Modulo.html's core feature unit tests.**
+
+Use this page to check Modulo.html compatibliity in your current browser. Check
+the source for examples of testing many features, or click below to run tests.
+Note that the output will be visible in the browser's console.
+
+* [Run tests in browser &rarr;](../index.html?argv=test&argv=tests/core10.html)
+
+NOTE: Be sure to add a copy of Modulo.html to test to `modulo-next/static/`
+
+From CLI: `npm run firefox -- test tests/core10.html`
+
+
+
+### Test 1 - Basic Components
+
+```modulo
+edit: demo=test_environ snapshot="SNAPSHOT:"
+<script src="modulo-next/static/Modulo.html"><-script>
+<template Modulo>
+    <Component name=App>
+        <Template>Hello World Test</Template>
+    </Component>
+    <Component name=TemplateProps namespace=templatepropsns>
+        <Props abc def hij="jkl"></Props>
+        <Template>{{ props.abc }} {{ props.def }} {{ props.hij }}</Template>
+    </Component>
+    <Component name=TemplateData>
+        <Template>
+            {% for item in staticdata %}
+                <p>{{ item.a }}-{{ item.b }}</p>
+            {% endfor %}
+        </Template>
+        <StaticData>
+            [
+                { "a": "1", "b": "2" },
+                { "a": "3", "b": "4" },
+                { "a": "5", "b": "6" }
+            ]
+        </StaticData>
+    </Component>
+</template>
+<x-App></x-App>
+<hr>
+<templatepropsns-TemplateProps abc="XYZ"></templatepropsns-TemplateProps>
+<hr>
+<x-TemplateData></x-TemplateData>
+
+SNAPSHOT:
+<x-App>Hello World Test</x-App>
+<hr>
+<templatepropsns-TemplateProps abc="XYZ">XYZ jkl</templatepropsns-TemplateProps>
+<hr>
+<x-TemplateData>
+    <p>1-2</p>
+    <p>3-4</p>
+    <p>5-6</p>
+</x-TemplateData>
+```
+
+
+### Test 2 - Component Slots
+
+```modulo
+edit: demo=test_environ snapshot="SNAPSHOT:"
+<script src="modulo-next/static/Modulo.html"><-script>
+<template Modulo>
+    <Component name=App>
+        <Template>
+            <main><slot name="abc">the<em>Default</em>Value</slot></main>
+        </Template>
+    </Component>
+</template>
+<x-App><p slot="abc">123</p></x-App>
+<x-App><p>123</p></x-App>
+<x-App></x-App>
+
+SNAPSHOT:
+<x-App><main><slot name="abc"><p slot="abc">123</p></main></x-App>
+<x-App><main><slot name="abc">the<em>Default</em>Value</main></x-App>
+<x-App><main><slot name="abc">the<em>Default</em>Value</main></x-App>
+```
+
+### Test 3 - Component Mode
+
+```modulo
+edit: demo=test_environ snapshot="SNAPSHOT:"
+<script src="modulo-next/static/Modulo.html"><-script>
+<template Modulo>
+    <Component name=App mode=vanish>
+        <Template>App Vanish Test</Template>
+    </Component>
+    <Component name=App2>
+        <Template><div></div><div>XYZ<slot></slot>ZYX</div><div></div></Template>
+    </Component>
+    <Component name=App3 mode=shadow>
+        <Template>App Shadow Test</Template>
+    </Component>
+</template>
+<x-App><p>xyz</p></x-App>
+<x-App2><p>abc</p></x-App2>
+<x-App3><p>def</p></x-App3>
+
+SNAPSHOT:
+App Vanish Test
+<x-App2><div></div><div>XYZ<slot><p>abc</p></slot>ZYX</div><div></div></x-App2>
+<x-App3><p>def</p></x-App3>
+```
+
+
+
+
+### Test 4 - Script 
+
+```modulo
+edit: demo=test_environ snapshot="SNAPSHOT:"
+<script src="modulo-next/static/Modulo.html"><-script>
+<template Modulo>
+    <Component name=App>
+        <Template>Script Lifecycle Test</Template>
+        <def Script>
+            function initializedCallback() { element.setAttribute("i", "a") }
+            function prepareCallback() { element.setAttribute("p", "b") }
+            function domCallback() { element.setAttribute("d", "c") }
+            function reconcileCallback() { element.setAttribute("rec", "d") }
+            function renderCallback() { element.setAttribute("ren", "e") }
+            function updateCallback() { element.setAttribute("u", "f") }
+        </def>
+    </Component>
+    <Component name=App2>
+        <Template>{{ state.a }}/{{ state.b }}/{{ global.test-var }}</Template>
+        <State
+            a='XXX'
+            b:=20
+        ></State>
+        <def Script>
+            modulo.testVar = 123
+            function initializedCallback() { state.a = 30 }
+        </def>
+    </Component>
+    <Component name=App3>
+        <Template>
+            <p script.ref>ABC</p>
+        </Template>
+        <def Script>
+            function updateCallback() { ref.p.textContent = 'xyz' }
+        </def>
+    </Component>
+</template>
+<x-App></x-App>
+<x-App2></x-App2>
+<x-App3></x-App3>
+
+SNAPSHOT:
+<x-App i="a" p="b" d="c" rec="d" ren="e" u="f">Script Lifecycle Test</x-App>
+<x-App2>30/20/123</x-App2>
+<x-App3><p script.ref>xyz</p></x-App3>
+```
+
+
+
+
+
+
+### Test 5 - Template
+
+```modulo
+edit: demo=test_environ snapshot="SNAPSHOT:"
+<script src="modulo-next/static/Modulo.html"><-script>
+<template Modulo>
+    <Component name=App>
+        <Template>
+        <p> {# Filters (combine) #}
+            str:{{strA|combine:strB}}
+            arr:{{ arrA|combine:arrB|json|safe }}
+            obj:{{ objA|combine:objB|json|safe }}
+        </p>
+        <p> {# If with all operators #}
+            {% if test == "tester" %}0{% endif %}
+            {% if test != "tester" %}a{% endif %}
+            {% if test is "tester" %}1{% endif %}
+            {% if test is not "tester" %}b{% endif %}
+            {% if test in "tester" %}2{% endif %}
+            {% if test not in "tester" %}c{% endif %}
+            {% if "e" in "tester" %}3{% endif %}
+            {% if "b" in lst %}4{% endif %}
+            {% if "c" in lst %}d{% endif %}
+            {% if "three" in dict %}5{% endif %}
+            {% if 3 == dict.three %}6{% endif %}
+            {% if 3 gt dict.three %}e{% endif %}
+            {% if 3 lt dict.three %}f{% endif %}
+            {% if 3 != dict.three %}g{% endif %}
+            {% if 3 lte dict.three %}7{% endif %}
+            {% if 3 gte dict.three %}8{% endif %}
+            {% if 4 gt dict.three %}9{% endif %}
+            {% if 4 gte dict.three %}0{% endif %}
+            {% if 4 lte dict.three %}h{% endif %}
+            {% if 4 lt dict.three %}i{% endif %}
+            {% if 4 lt dict.five %}1{% endif %}
+        </p>
+        <p> {# In operator #}
+            {% if "a" in arr %}A{% endif %}
+            {% if varA in arr %}B{% endif %}
+            {% if var1 in arr2 %}C{% endif %}
+            {% if "c" in arr %}D{% endif %}
+            {% if var1 in arr %}(err1){% endif %}
+            {% if var1 in obj %}(err2){% endif %}
+            {% if varA in arr2 %}(err3){% endif %}
+            {% if 'a' in arr2 %}(err4){% endif %}
+            {% if 'd' in arr %}(err5){% endif %}
+
+            {% if "c" in obj %}E{% endif %}
+            {% if varA in obj %}F{% endif %}
+            {% if "b" in obj %}(err6){% endif %}
+            {% if var1 in obj %}(err7){% endif %}
+            {% if "d" in obj %}(err8){% endif %}
+
+            {% if "c" in str %}H{% endif %}
+            {% if varA in str %}I{% endif %}
+            {% if var1 in str %}(err9){% endif %}
+            {% if var1 in str2 %}J{% endif %}
+        </p>
+        <p> {# Reserved words in quotes #}
+            {% if "is not" != "not in" %}0{% endif %}
+            {% if "==" == "==" %}3{% endif %}
+        </p>
+        <p>
+            {% for lv in lst %}{{ lv }}{% endfor %}
+        </p>
+        <p>
+            {% for lv1 in lst %}{% for lv2 in lst %}{{ lv1 }}{{ lv2 }}-{% endfor %}{% endfor %}
+        </p>
+        </Template>
+        <def Script>
+            function prepareCallback(renderObj) {
+                const context1 = {
+                    'test': 'tester',
+                    'lst': ['a', 'b'],
+                    'dict': {'three': 3, 'five': 5}
+                };
+                const context2 = {
+                    varA: 'a',
+                    var1: 1,
+                    arr: ['a', 'b', 'c'],
+                    arr2: [1], // try numeric types in arrays
+                    obj: { 'a': 'b', 'c': 'd' },
+                    str: 'abc',
+                    str2: '1',
+                    strA: 'ab',
+                    strB: 'cd',
+                    arrA: [1, 2], 
+                    arrB: [3, 4],
+                    objA: { a: 1 },
+                    objB: { b: 2 },
+                };
+                Object.assign(renderObj, context1)
+                Object.assign(renderObj, context2)
+            }
+        </def>
+    </Component>
+</template>
+<x-App></x-App>
+
+SNAPSHOT:
+<x-App>
+    <p> str:abcd arr:[1,2,3,4] obj:{"a":1,"b":2} </p>
+    <p> 0 1 2 3 4 5 6 7 8 9 0 1 </p>
+    <p> A B C D E F H I J </p>
+    <p> 0 3 </p>
+    <p> ab </p>
+    <p> aa-ab-ba-bb- </p>
+</x-App>
+```
+
+
+### Test 6 - Components: Library, Alias, and Composition
+
+```modulo
+edit: demo=test_environ snapshot="SNAPSHOT:"
+<script src="modulo-next/static/Modulo.html"><-script>
+<template Modulo>
+    <Library name=test1>
+        <Component name=App><Template>App1 inner text</Template></Component>
+        <Component name=AppWrap><Template>ABC<x-App></x-App>XYZ</Template></Component>
+    </Library>
+    <Library name=test2>
+        <Component name=App><Template>App2</Template></Component>
+        <Component name=AppWrap><Template>Outside<p><x-App></x-App></p>After</Template></Component>
+    </Library>
+</template>
+<test1-App></test1-App>
+<test2-App></test2-App>
+<test2-AppWrap></test2-AppWrap>
+<test1-AppWrap></test1-AppWrap>
+
+SNAPSHOT:
+<test1-App>App1 inner text</test1-App>
+<test2-App>App2</test2-App>
+<test2-AppWrap>Outside<p><test2-App>App2</test2-App></p>After</test2-AppWrap>
+<test1-AppWrap>ABC<test1-App>App1 inner text</test1-App>XYZ</test1-AppWrap>
+```
+
+
+### Test 7 - ContentList
+
+
+```modulo
+edit: demo=test_environ snapshot="SNAPSHOT:"
+<script src="modulo-next/static/Modulo.html"><-script>
+<template Modulo>
+    <ContentList>
+        modulo-next/test-page.md.htm,Test Page
+    </ContentList>
+    <Component name=ContentTester>
+        <Template>{% for row in global.definitions.contentlist.data %}
+            <div>{{ row|get:0 }} <p>{{ row|get:1 }}</p></div>
+        {% endfor %}</Template>
+    </Component>
+</template>
+<x-ContentTester></x-ContentTester>
+
+SNAPSHOT:
+<x-ContentTester>
+<div>modulo-next/test-page.md.htm <p>Test Page</p> </div>
+</x-ContentTester>
+```
+
+
+
+### Test 8 - Embedded File
+
+```modulo
+edit: demo=test_environ snapshot="SNAPSHOT:"
+<script src="modulo-next/static/Modulo.html"><-script><script type=f>
+<div>Test <em>HTML</em></div>
+SNAPSHOT:
+<meta charset="utf8"><div>Test <em>HTML</em></div>
+```
+
+
+
+### Test 9 - Embedded Markdown
+
+```modulo
+edit: demo=test_environ snapshot="SNAPSHOT:"
+<script src="modulo-next/static/Modulo.html"><-script><script type=md>
+# This is a test page.
+
+Testing *one* two *three*
+
+SNAPSHOT:
+<meta charset="utf8"><h2 h="#" class="_component_Page">This is a test page.</h2><p class="_component_Page">Testing <em>one</em> two <em>three</em></p>
+```
+
+### Test 10 - Build
+
+```modulo
+edit: demo=test_environ snapshot="SNAPSHOT:" demoparams="argv=build"
+<script src="modulo-next/static/Modulo.html"><-script>
+<template Modulo>
+    <Configuration>window.scriptWasRun=true</Configuration>
+</template>
+<div><x-App></x-App></div>
+
+SNAPSHOT:
+<modulo-editor ui="full"><modulo-uic style="display:flex"><div><h1><a href="?argv=build"> ⟳ build &nbsp;</a></h1><pre><a download="build-x.css" href="data:text">build-x.css</a> (1192)<br><a download="build-x.js" href="data:text">build-x.js</a> (40822)<br><a download="file:///home/michaelb/projects/docs/tests/core10.html" href="data:text">file:///home/michaelb/projects/docs/tests/core10.html</a> (234)<br></pre><select script.ref="" style="height:80vh;position:sticky;top:0" multiple="" state.bind="pane"><optgroup style="font-size:120%;font-style:normal" label="🗎 &nbsp; build-xx210ahh.css"><option style="text-align:right" value="build-x.cssEdit">Edit</option><option style="text-align:right" value="build-x.cssView">View</option></optgroup><optgroup style="font-size:120%;font-style:normal" label="🗎 &nbsp; build-xxdphskk.js"><option style="text-align:right" value="build-x.jsEdit">Edit</option><option style="text-align:right" value="build-x.jsView">View</option></optgroup><optgroup style="font-size:120%;font-style:normal" label="🗎 &nbsp; file:///home/michaelb/projects/docs/tests/core10.html"><option style="text-align:right" value="file:///home/michaelb/projects/docs/tests/core10.htmlEdit">Edit</option><option style="text-align:right" value="file:///home/michaelb/projects/docs/tests/core10.htmlView">View</option></optgroup></select></div><modulo-fileedit style="width:100%" path="build-xx210ahh.css" font="16" height="288px" mode="txt"><label style="margin-right:53px"><pre style="font-size:16px"><modulo-line></modulo-line>._component_Page:is(p) {line-height:1.6;font-size:18px}<br><modulo-line></modulo-line>._component_Page:is(h2[h]) {margin:60px 0 0 0;font-family:sans-serif;font-weight:500;}<br><modulo-line></modulo-line>._component_Page:is(h2[h='#']) {font-size:64px}._component_Page:is(h2[h='##']) {font-size:46px;}._component_Page:is(h2[h='###']) {font-size:30px}<br><modulo-line></modulo-line>._component_Page:is(h2[h='#']), ._component_Page:is(h2[h='##']) {text-align:center}._component_Page:is(code) {background:#88888855}<br><modulo-line></modulo-line>._component_Page:is(hr) {border:0.5vw solid #88888855;margin:5vw 30% 5vw 30%}modulo-FileEdit modulo-line:before{counter-increment:line;content:counter(line);<br><modulo-line></modulo-line>position:absolute;left:0;color:#888;padding:0 0 0 3px}modulo-FileEdit pre{padding:0 0 0 53px;}<br><modulo-line></modulo-line>modulo-FileEdit pre,modulo-FileEdit textarea{counter-reset:line;display:block;color:black;background:transparent;<br><modulo-line></modulo-line>white-space:pre;text-align:start;line-height:1.5;overflow-wrap:break-word;<br><modulo-line></modulo-line>margin:0;box-sizing:content-box;font-family: monospace}<br><modulo-line></modulo-line>modulo-FileEdit textarea{resize:none;color:#00000000;caret-color:#000;width:100%;}<br><modulo-line></modulo-line>modulo-FileEdit label{display:block;position:relative;width:100%}modulo-Editor modulo-uic &gt; *,modulo-Editor .mui--pane {background:#fff;<br><modulo-line></modulo-line>min-width:12vw;display:block;border:1px dotted #111;}</pre><textarea build.bind="build-xx210ahh.css" style="border:none;top:-2px;left:50px; position:absolute;height:288px;font-size:16px" spellcheck="false"></textarea></label></modulo-fileedit><modulo-fileview style="width:100%" path="build-xx210ahh.css" font="16" height="288px" mode="txt"><iframe src="build-xx210ahh.css" style="width:100%;height:100%;border:none" srcdoc="._component_Page:is(p) {line-height:1.6;font-size:18px} ._component_Page:is(h2[h]) {margin:60px 0 0 0;font-family:sans-serif;font-weight:500;} ._component_Page:is(h2[h='#']) {font-size:64px}._component_Page:is(h2[h='##']) {font-size:46px;}._component_Page:is(h2[h='###']) {font-size:30px} ._component_Page:is(h2[h='#']), ._component_Page:is(h2[h='##']) {text-align:center}._component_Page:is(code) {background:#88888855} ._component_Page:is(hr) {border:0.5vw solid #88888855;margin:5vw 30% 5vw 30%}modulo-FileEdit modulo-line:before{counter-increment:line;content:counter(line); position:absolute;left:0;color:#888;padding:0 0 0 3px}modulo-FileEdit pre{padding:0 0 0 53px;} modulo-FileEdit pre,modulo-FileEdit textarea{counter-reset:line;display:block;color:black;background:transparent; white-space:pre;text-align:start;line-height:1.5;overflow-wrap:break-word; margin:0;box-sizing:content-box;font-family: monospace} modulo-FileEdit textarea{resize:none;color:#00000000;caret-color:#000;width:100%;} modulo-FileEdit label{display:block;position:relative;width:100%}modulo-Editor modulo-uic &gt; *,modulo-Editor .mui--pane {background:#fff; min-width:12vw;display:block;border:1px dotted #111;}"></iframe></modulo-fileview></modulo-uic></modulo-editor>
+```

@@ -1,0 +1,80 @@
+<!DOCTYPE html><meta charset=utf8><script src=../static/Modulo.html></script><script type=md>---
+title: Custom Types
+description:
+     Learn how to create custom Component Parts for extending Modulo behavior.
+---
+
+# Custom Component Parts
+
+The principal method of JavaScript extension of Modulo is that of creating
+custom _Component Parts_. See below for a basic structure:
+
+```javascript
+modulo.part.mycustomcpart = class MyCustomCPart {
+    initializedCallback(renderObj) {
+        console.log('My Custom CPart Mounted!')
+        console.log('Foo:', this.conf.foo)
+        console.log('Am I ready?', this.conf.isReady)
+    }
+}
+```
+
+This then  can be used like:
+
+```modulo
+<Component name="MyComponent">
+    <MyCustomCPart
+         foo="foobar"
+         is-ready:=true
+    ></MyCustomCpart>
+</Component>
+```
+
+
+##### Example #1: Custom Component Part Type
+
+This enables any custom JavaScript logic to hook
+itself into any stage of the Component's lifecycle:
+
+
+```modulo
+edit: demo=modulo_embed
+<script Configuration>
+modulo.part.customcounter = class CustomCounter {
+    initializedCallback(renderObj) { // Runs: Once, when mounted on page
+        if (this.conf.showLogs) {
+            console.log('My Custom CPart Mounted', this.conf);
+        }
+    }
+    prepareCallback(renderObj) { // Runs: Before each render (e.g. get data)
+        if (this.conf.showLogs) {
+            console.log({ part: this, renderObj })
+        }
+    }
+    renderCallback(renderObj) { // Runs: During each render (e.g. replace Template)
+        // Note: If you want to activate the Component reconciler, do this:
+        // renderObj.component.innerHTML = '...'
+    }
+    domCallback(renderObj) {
+        // Runs: After virtual DOM is constructed
+    }
+    reconcileCallback(renderObj) {
+        // Runs: During each render (e.g. replace Reconciler)
+        this.element.innerHTML = `<button>COUNT: <tt>${ this.conf.count }</tt></button>`;
+    }
+    updateCallback(renderObj) {
+        // Runs: After every render (e.g. final DOM changes)
+        this.element.querySelector('button').onclick = () => {
+            this.conf.count++ // change data
+            this.element.rerender() // Trigger a new render
+        }
+    }
+}
+<-script>
+<Component name=App>
+    <CustomCounter
+        count:=1
+        show-logs:=false
+    ></CustomCounter>
+</Component>
+```

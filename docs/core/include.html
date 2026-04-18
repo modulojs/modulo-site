@@ -1,0 +1,97 @@
+<!DOCTYPE html><script src=../static/Modulo.html></script><script type=md>---
+title: Include
+---
+
+
+# Include
+
+
+Use a _Include_ definition to add in _script_, _link_, _meta_, or _head_
+dependencies.
+
+## Options
+
+### Global usage
+
+"Include" can be global. It will be loaded on page load:
+
+```
+<Include>
+    <script src="https://mycdn.com/mypackage/v1.0/myfile.js"><-script>
+    <link rel="stylesheet" src="https://mycdn.com/mypackage/v1.0/my-styles.css">
+</Include>
+```
+
+> **Include vs Script, Style** - It's important to note that even when you put
+> a _Include_ inside of a _Component_, the file will be included without any
+> modification and added to the global scope, meaning the CSS will be
+> unprefixed and the JavaScript will be loose. This is why the  _Style_ and
+> _Script_ component parts exist: They are for "silo-ing stuff within
+> a Component", while _Include_ is for "including optional, global dependencies
+> when a component mounts"
+
+
+
+### Component usage
+
+"Include" can be inside a component. It will only load if that _Component_
+loads, although it will still load the tags globally, in head:
+
+
+```
+<Component name="App">
+    <Include>
+        <script src="https://mycdn.com/mypackage/v1.0/myfile.js"><-script>
+        <link rel="stylesheet" src="https://mycdn.com/mypackage/v1.0/my-styles.css">
+    </Include>
+    <Template>...(reference the CSS here etc)...</Template>
+    <Script>...(reference the JS here etc)...<-Script>
+</Component>
+```
+
+### Allowing for bundling over `file:`
+
+If "Include" is being used over `file:/`, make sure you use the `.js.htm` and
+`.css.htm` formats, so that it can load it both during dev mode (using normal
+script tags and links), but also be able to fetch and bundle it (since `.htm`
+is required for `modulo.fetch` to work).
+
+
+```modulo
+<Include>
+    <script src="myfile.js.htm"><-script>
+    <script src="myfile.css.htm"><-script>
+</Include>
+```
+
+## Use Case 1: Dependencies
+
+The simplest way to use `Include` is as a global definition. It will "include"
+it's contents in the head of the document  as soon as Modulo loads. Note that
+it will NEVER include the same thing twice (it uses hashes to identify
+resources).  This mode is great for following tutorials for integrating JS
+projects. 
+
+For example, to include Quill JS, it's as easy as just pasting in the head
+content they give you:
+
+```
+<Include>
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"><-script>
+</Include>
+```
+
+
+## Use Case 2: Meta Info
+
+_Include_ can be used for adding meta tags to your page as well:
+
+```
+<Include>
+    <meta name="description" content="A great Modulo website" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="charset" charset="utf8" />
+</Include>
+```
+

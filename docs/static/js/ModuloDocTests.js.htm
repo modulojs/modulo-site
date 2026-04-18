@@ -1,7 +1,4 @@
-/* <script src=../Modulo.html></script><style type=f> */
-/*
- * "ModuloDocTests.js.htm" - Provides DocTest definition
- * */
+/* <script src=../Modulo.html></script><script type=f> */
 
 /* Create global unit test array */
 modulo.tests = [ ];
@@ -75,11 +72,20 @@ modulo.util.assertSnapshot = function (element, snapshotContent, opts = { }) {
         }
     }
 
+    const stripHash = s => s.replace(/(-x)[a-z0-9]+(.[a-z]+)$/i, '$1$2')
     if (!opts.preserveDownloads) {
-        for (const a of element.querySelectorAll('a[download]')) {
-            // truncate to first 20 chars + last 20
-            const href = a.getAttribute('href')
-            a.setAttribute('href', href.substr(0, 30) + href.substr(href.length - 30))
+        for (const a of element.querySelectorAll('a[download],option[value]')) {
+            // truncate to first 10 chars, and generic filenames
+            if (a.hasAttribute('href')) {
+                a.setAttribute('href', a.getAttribute('href').substr(0, 9))
+            }
+            if (a.hasAttribute('download')) {
+                a.setAttribute('download', stripHash(a.getAttribute('download')))
+            }
+            if (a.hasAttribute('value')) {
+                a.setAttribute('value', stripHash(a.getAttribute('value')))
+            }
+            a.textContent = stripHash(a.textContent)
         }
     }
 
@@ -190,7 +196,9 @@ modulo.command.testpage = function (modulo) {
         console.log('%cᵐ°dᵘ⁄o', modulo.config.logoFont)
     }
     modulo._drainQueue(); // wait for mounts
-    modulo.fetchQueue.enqueue(async () => {
+    //        v0.1.2            || v0.1.3
+    const q = modulo.fetchQueue || modulo.queue;
+    q.enqueue(async () => {
         if (window.parent) {
             await window.parent.modulo.testCallback(modulo.tests)
             modulo.cmdCallback(0)
@@ -211,16 +219,18 @@ modulo.command.test = function (modulo) {
     modulo._drainQueue(); // wait for mounts
     let count = 0
     modulo.testCallback = async tests => {
-        console.log('pushing tests!', tests.length)
+        //console.log('pushing tests!', tests.length)
         modulo.tests.push(...tests) // collect tests
         count--
         if (count <= 0) { // once done, run all at once
             await modulo.util.runTestArray(modulo.tests)
         }
     }
-    modulo.fetchQueue.enqueue(() => {
+    //        v0.1.2            || v0.1.3
+    const q = modulo.fetchQueue || modulo.queue;
+    q.enqueue(() => {
         let filenames = []
-        //window._moduloFS = { fs: [ modulo.fetchQueue.data ] }; // pass "fs stack"
+        //window._moduloFS = { fs: [ q.data ] }; // pass "fs stack"
         if (modulo.argv.length > 1) {
             count += (modulo.argv.length - 1)
             filenames.push(...modulo.argv.slice(1))
@@ -257,8 +267,10 @@ modulo.util.waitFor = function waitFor(element, name, timeout=10) {
             timer = null
             resolve()
         }
-        if (name === 'fetchQueue') {
-            element.fetchQueue.enqueue(resolver, true);
+        //        v0.1.2            || v0.1.3
+        if (name === 'fetchQueue' || name === 'queue') {
+            const q = element.fetchQueue || element.queue;
+            q.enqueue(resolver, true);
         } else {
             element.addEventListener(name, resolver)
         }

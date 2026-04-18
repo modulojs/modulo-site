@@ -1,0 +1,184 @@
+<!DOCTYPE html><script src=../static/Modulo.html></script><script type=md>---
+title: Markdown Reference
+---
+
+This document lists and shows examples for each of the the built-in Markdown
+tags that are already registered with Modulo Markdown.
+
+
+
+# Markdown
+
+## Block-level
+
+### Paragraph
+
+**HTML equivalent:** `<p>`
+
+The default behavior of Markdown paragraphs:
+
+```markdown
+edit:demo=markdown
+It's as easy
+
+as
+
+1
+
+2
+
+
+
+3
+```
+
+
+Note that with the default Modulo markdown syntax, multiple spaces do not
+create empty paragraphs, but instead are collapsed.
+
+
+
+### Header
+
+**HTML equivalent:** `<h1>` through `<h6>`
+
+Using `#` through `######` we can create headers:
+
+```markdown
+edit:demo=markdown
+
+# Level 1
+
+Lorem ipsum modulum
+
+## Level 2
+
+Lorem ipsum modulum
+
+### Level 3
+
+Lorem ipsum modulum
+
+#### Level 4
+
+Lorem ipsum modulum
+
+##### Level 5
+
+Lorem ipsum modulum
+
+###### Level 6
+
+Lorem ipsum modulum
+```
+
+
+
+Note that with the default Modulo markdown syntax and theme, ALL Markdown
+headers become `<h2>` headers, with a property designating how many `#` symbols
+were used. See the following for an example of how to style Modulo Markdown headers:
+
+```css
+h2[h] {
+    margin:60px 0 0 0;
+    font-family: sans-serif;
+    font-weight:500;
+}
+h2[h='#']      { font-size: 64px; }
+h2[h='##']     { font-size: 46px; }
+h2[h='###']    { font-size: 30px; }
+h2[h='####']   { font-size: 24px; }
+h2[h='#####']  { font-size: 18px; }
+h2[h='######'] { font-size: 14px; }
+```
+
+### Horizontal rule
+
+**HTML equivalents:** `<hr>`
+
+Three dashes become a horizontal dividing line:
+
+```markdown
+edit:demo=markdown
+
+Useful for separating sections.
+
+---
+
+From another.
+
+```
+
+## Inline
+
+### Formatting
+
+**HTML equivalents:** `<em>`, `<strong>` and `<code>`
+
+Basic text formatting, including bold (strong), italic (emphasis) and code
+snippets (monotyped or literal text):
+
+
+```markdown
+edit:demo=markdown
+Italic: An *example* text
+
+Italic (alt): An _example_ text
+
+Bold: An **example** text
+
+Code: An `example` text
+```
+
+
+### Links and images
+
+**HTML equivalents:** `<a>`, `<img>`
+
+Links (anchor tags) and images are also available:
+
+```markdown
+edit:demo=markdown
+
+### Image
+
+![Example image](../parts/example-data/example_image.jpg)
+
+
+### Link
+
+Click [here](https://modulohtml.org) for the Modulo website.
+
+```
+
+
+## Parser-level
+
+These tags are implemented at the parser level, and thus (intentionally) cannot
+be composed (e.g. a parser-level tag can't use the above tags). By default,
+only one parser-level Markdown tag is implemented ("code fence" -- needed to
+preserve code snippets from getting Markdown syntax applied to them). However,
+additional ones can be registered (see [Markdown Extension](./extension.html)).
+
+### Code fence
+
+The "code fence" is how code snippets are inserted. Since this very document
+(as with the rest of Modulo docs) is written in Markdown, it's best to
+demonstrate simply with the code of this document! Assuming the docs are being
+browser locally (i.e. download and extract [the zip file](../index.html)), then
+you can just do "View Source", or just use [Modulo's own code viewer](?argv=edit).
+
+
+## Extra details
+
+### Parsers and tag availability
+
+For standard Modulo Markdown pages, all of these tags will be available (e.g.
+`{{ text|parse:"markdown" }}`). For limited Markdown
+(e.g.  `{{ text|syntax:"md" }}`), then the parser-level syntax (e.g. fenced
+code blocks) will _not_ be available, as well as any extra block-level parser
+syntax that might be user-customized.
+
+In all cases both block and inline elements will be available, although
+embedded HTML will typically not be available without the full parser.
+

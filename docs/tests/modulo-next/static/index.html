@@ -1,0 +1,15 @@
+<script src=Modulo.html></script><template type=f>
+
+
+<Include>
+    <script src="test-include.js.htm"></script>
+</Include>
+
+<script Configuration>
+    console.log('Static was included')
+    //modulo.config.contentfile.htmlBody = 'Rm'
+    modulo.moduloNextTest = 'MNT' // mark this file was run (for test)
+    modulo.wasTestIncluded = window.testInclude
+</script>
+
+

@@ -1,0 +1,109 @@
+<!DOCTYPE html><script src=../static/Modulo.html></script><script type=md>---
+title: Library
+---
+
+# Library
+
+The _Library_ definition is for managing conflicting component names, or for
+simply keeping projects with large number of components more neatly organized.
+
+All components within a _Library_ can refer to each other using a local alias
+which will get substituted with their actual namespace (as set by the outer
+_Library_) only when compiling their internal templates. This means that the
+"alias" has no performance penalties, but instead is a simple string
+substitution of a short local name (which is forgotten by the time everything
+is built) for a long external name when the _Component_ is first being loaded.
+
+## Typical usage
+
+Libraries are useful for importing third-party or otherwise self-contained
+component libraries, while giving them a consistent "namespace".
+
+For example, for a third-party library called "Editor Tool" that is at
+"libraries/editortool/index.html", code like the following might be
+used:
+
+```modulo
+<Library
+    -src="./librararies/editortool/"
+    name=editortool
+></Library>
+```
+
+Then, to use components defined by "editortool" (in this case, one called
+"FullEditor"), we might do sometihng like:
+
+```
+<editortool-FullEditor file="myfile.html" timeout=3000></editortool-FullEditor>
+```
+
+
+## Code Examples
+
+
+### Example 1: One Library
+
+
+All components within a _Library_ can refer to each other using a local name
+(in this example, `x-Btn`) while externally it can have a much loner name  (in
+this example, `componentlib-Btn`):
+
+```modulo
+edit: demo=modulo_embed
+<Library name=libexample>
+    <Component name=Btn>
+        <Template><button><slot></slot></button></Template>
+    </Component>
+    <Component name=Toolbar>
+        <Template>
+            <x-Btn>Button1 (local, in toolbar)</x-Btn>
+            <x-Btn>Button2 (local, in toolbar)</x-Btn>
+        </Template>
+    </Component>
+</Library>
+
+<Component name=App>
+    <Template>
+        <libexample-Btn>Button (external, in App)</libexample-Btn>
+        <libexample-Toolbar></libexample-Toolbar>
+    </Template>
+</Component>
+```
+
+
+
+### Example 2: Two Libraries
+
+
+When two libraries are defined (in this case, "onelib" and "twolib"), they can
+refer to their components internally with the local name (in this case
+"x-InnerComponent"), while externally they are kept separate:
+
+```modulo
+edit: demo=modulo_embed
+<Library name=onelib>
+    <Component name=InnerComponent>
+        <Template><div style=color:red>One Lib Component</div></Template>
+    </Component>
+    <Component name=OuterComponent>
+        <Template><x-InnerComponent></x-InnerComponent></Template>
+    </Component>
+</Library>
+<Library name=twolib>
+    <Component name=InnerComponent>
+        <Template><div style=color:blue>Two Lib Component</div></Template>
+    </Component>
+    <Component name=OuterComponent>
+        <Template><x-InnerComponent></x-InnerComponent></Template>
+    </Component>
+</Library>
+
+<Component name=App>
+    <Template>
+        onelib-OuterComponent: <onelib-OuterComponent></onelib-OuterComponent>
+        twolib-OuterComponent: <twolib-OuterComponent></twolib-OuterComponent>
+    </Template>
+</Component>
+```
+
+
